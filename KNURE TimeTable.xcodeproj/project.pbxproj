@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
+		847776271C63945C000776B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776261C63945C000776B9 /* ViewController.swift */; };
+		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
+		8477762C1C63945C000776B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8477762B1C63945C000776B9 /* Assets.xcassets */; };
+		8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8477762D1C63945C000776B9 /* LaunchScreen.storyboard */; };
+		8477763A1C63945D000776B9 /* KNURE_TimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776391C63945D000776B9 /* KNURE_TimeTableTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		847776361C63945D000776B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 847776191C63945C000776B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 847776201C63945C000776B9;
+			remoteInfo = "KNURE TimeTable";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		847776211C63945C000776B9 /* KNURE TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KNURE TimeTable.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		847776261C63945C000776B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8477762B1C63945C000776B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8477762E1C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		847776301C63945C000776B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KNURE TimeTableTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		847776391C63945D000776B9 /* KNURE_TimeTableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNURE_TimeTableTests.swift; sourceTree = "<group>"; };
+		8477763B1C63945D000776B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8477761E1C63945C000776B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		847776321C63945D000776B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		847776181C63945C000776B9 = {
+			isa = PBXGroup;
+			children = (
+				847776231C63945C000776B9 /* KNURE TimeTable */,
+				847776381C63945D000776B9 /* KNURE TimeTableTests */,
+				847776221C63945C000776B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		847776221C63945C000776B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				847776211C63945C000776B9 /* KNURE TimeTable.app */,
+				847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		847776231C63945C000776B9 /* KNURE TimeTable */ = {
+			isa = PBXGroup;
+			children = (
+				847776241C63945C000776B9 /* AppDelegate.swift */,
+				847776261C63945C000776B9 /* ViewController.swift */,
+				847776281C63945C000776B9 /* Main.storyboard */,
+				8477762B1C63945C000776B9 /* Assets.xcassets */,
+				8477762D1C63945C000776B9 /* LaunchScreen.storyboard */,
+				847776301C63945C000776B9 /* Info.plist */,
+			);
+			path = "KNURE TimeTable";
+			sourceTree = "<group>";
+		};
+		847776381C63945D000776B9 /* KNURE TimeTableTests */ = {
+			isa = PBXGroup;
+			children = (
+				847776391C63945D000776B9 /* KNURE_TimeTableTests.swift */,
+				8477763B1C63945D000776B9 /* Info.plist */,
+			);
+			path = "KNURE TimeTableTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		847776201C63945C000776B9 /* KNURE TimeTable */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8477763E1C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTable" */;
+			buildPhases = (
+				8477761D1C63945C000776B9 /* Sources */,
+				8477761E1C63945C000776B9 /* Frameworks */,
+				8477761F1C63945C000776B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "KNURE TimeTable";
+			productName = "KNURE TimeTable";
+			productReference = 847776211C63945C000776B9 /* KNURE TimeTable.app */;
+			productType = "com.apple.product-type.application";
+		};
+		847776341C63945D000776B9 /* KNURE TimeTableTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 847776411C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTableTests" */;
+			buildPhases = (
+				847776311C63945D000776B9 /* Sources */,
+				847776321C63945D000776B9 /* Frameworks */,
+				847776331C63945D000776B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				847776371C63945D000776B9 /* PBXTargetDependency */,
+			);
+			name = "KNURE TimeTableTests";
+			productName = "KNURE TimeTableTests";
+			productReference = 847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		847776191C63945C000776B9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Shkil Artur";
+				TargetAttributes = {
+					847776201C63945C000776B9 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 34L9FK5K5X;
+					};
+					847776341C63945D000776B9 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 34L9FK5K5X;
+						TestTargetID = 847776201C63945C000776B9;
+					};
+				};
+			};
+			buildConfigurationList = 8477761C1C63945C000776B9 /* Build configuration list for PBXProject "KNURE TimeTable" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 847776181C63945C000776B9;
+			productRefGroup = 847776221C63945C000776B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				847776201C63945C000776B9 /* KNURE TimeTable */,
+				847776341C63945D000776B9 /* KNURE TimeTableTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8477761F1C63945C000776B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */,
+				8477762C1C63945C000776B9 /* Assets.xcassets in Resources */,
+				8477762A1C63945C000776B9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		847776331C63945D000776B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8477761D1C63945C000776B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				847776271C63945C000776B9 /* ViewController.swift in Sources */,
+				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		847776311C63945D000776B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8477763A1C63945D000776B9 /* KNURE_TimeTableTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		847776371C63945D000776B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 847776201C63945C000776B9 /* KNURE TimeTable */;
+			targetProxy = 847776361C63945D000776B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		847776281C63945C000776B9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847776291C63945C000776B9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8477762D1C63945C000776B9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8477762E1C63945C000776B9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8477763C1C63945D000776B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8477763D1C63945D000776B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8477763F1C63945D000776B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		847776401C63945D000776B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		847776421C63945D000776B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "KNURE TimeTableTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTableTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KNURE TimeTable.app/KNURE TimeTable";
+			};
+			name = Debug;
+		};
+		847776431C63945D000776B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "KNURE TimeTableTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTableTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KNURE TimeTable.app/KNURE TimeTable";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8477761C1C63945C000776B9 /* Build configuration list for PBXProject "KNURE TimeTable" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8477763C1C63945D000776B9 /* Debug */,
+				8477763D1C63945D000776B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8477763E1C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTable" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8477763F1C63945D000776B9 /* Debug */,
+				847776401C63945D000776B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		847776411C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTableTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				847776421C63945D000776B9 /* Debug */,
+				847776431C63945D000776B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 847776191C63945C000776B9 /* Project object */;
+}
