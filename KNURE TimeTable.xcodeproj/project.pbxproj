@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
-		847776271C63945C000776B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776261C63945C000776B9 /* ViewController.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
 		8477762C1C63945C000776B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8477762B1C63945C000776B9 /* Assets.xcassets */; };
 		8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8477762D1C63945C000776B9 /* LaunchScreen.storyboard */; };
 		8477763A1C63945D000776B9 /* KNURE_TimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776391C63945D000776B9 /* KNURE_TimeTableTests.swift */; };
+		847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776441C639FB5000776B9 /* MainSplitViewController.swift */; };
+		847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776481C63C4C2000776B9 /* TableSheduleController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +29,6 @@
 /* Begin PBXFileReference section */
 		847776211C63945C000776B9 /* KNURE TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KNURE TimeTable.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		847776261C63945C000776B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8477762B1C63945C000776B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8477762E1C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +36,8 @@
 		847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KNURE TimeTableTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776391C63945D000776B9 /* KNURE_TimeTableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNURE_TimeTableTests.swift; sourceTree = "<group>"; };
 		8477763B1C63945D000776B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		847776441C639FB5000776B9 /* MainSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSplitViewController.swift; sourceTree = "<group>"; };
+		847776481C63C4C2000776B9 /* TableSheduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				847776241C63945C000776B9 /* AppDelegate.swift */,
-				847776261C63945C000776B9 /* ViewController.swift */,
-				847776281C63945C000776B9 /* Main.storyboard */,
-				8477762B1C63945C000776B9 /* Assets.xcassets */,
-				8477762D1C63945C000776B9 /* LaunchScreen.storyboard */,
+				847776461C639FDD000776B9 /* View */,
+				847776471C639FF3000776B9 /* Controllers */,
 				847776301C63945C000776B9 /* Info.plist */,
 			);
 			path = "KNURE TimeTable";
@@ -94,6 +94,25 @@
 				8477763B1C63945D000776B9 /* Info.plist */,
 			);
 			path = "KNURE TimeTableTests";
+			sourceTree = "<group>";
+		};
+		847776461C639FDD000776B9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				847776281C63945C000776B9 /* Main.storyboard */,
+				8477762D1C63945C000776B9 /* LaunchScreen.storyboard */,
+				8477762B1C63945C000776B9 /* Assets.xcassets */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		847776471C639FF3000776B9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				847776441C639FB5000776B9 /* MainSplitViewController.swift */,
+				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +218,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				847776271C63945C000776B9 /* ViewController.swift in Sources */,
+				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
+				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,6 +349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
@@ -340,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
