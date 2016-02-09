@@ -17,7 +17,6 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         preferredPrimaryColumnWidthFraction = 0.4
         preferredDisplayMode = .AllVisible
     }
-    
-    
+
     
 }

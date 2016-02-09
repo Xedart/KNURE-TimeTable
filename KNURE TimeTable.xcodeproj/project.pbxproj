@@ -14,6 +14,8 @@
 		8477763A1C63945D000776B9 /* KNURE_TimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776391C63945D000776B9 /* KNURE_TimeTableTests.swift */; };
 		847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776441C639FB5000776B9 /* MainSplitViewController.swift */; };
 		847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776481C63C4C2000776B9 /* TableSheduleController.swift */; };
+		847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477764F1C6A6279000776B9 /* TableSheduleCell.swift */; };
+		847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776511C6A98D4000776B9 /* TableSheduleHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		8477763B1C63945D000776B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		847776441C639FB5000776B9 /* MainSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSplitViewController.swift; sourceTree = "<group>"; };
 		847776481C63C4C2000776B9 /* TableSheduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleController.swift; sourceTree = "<group>"; };
+		8477764F1C6A6279000776B9 /* TableSheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleCell.swift; sourceTree = "<group>"; };
+		847776511C6A98D4000776B9 /* TableSheduleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 		847776231C63945C000776B9 /* KNURE TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				8477764A1C6A47C7000776B9 /* Resources */,
+				8477764B1C6A4813000776B9 /* Data */,
 				847776241C63945C000776B9 /* AppDelegate.swift */,
 				847776461C639FDD000776B9 /* View */,
 				847776471C639FF3000776B9 /* Controllers */,
@@ -101,7 +107,8 @@
 			children = (
 				847776281C63945C000776B9 /* Main.storyboard */,
 				8477762D1C63945C000776B9 /* LaunchScreen.storyboard */,
-				8477762B1C63945C000776B9 /* Assets.xcassets */,
+				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
+				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -113,6 +120,21 @@
 				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8477764A1C6A47C7000776B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8477762B1C63945C000776B9 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		8477764B1C6A4813000776B9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +243,8 @@
 				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
+				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
+				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +436,7 @@
 				847776401C63945D000776B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		847776411C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTableTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +445,7 @@
 				847776431C63945D000776B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
