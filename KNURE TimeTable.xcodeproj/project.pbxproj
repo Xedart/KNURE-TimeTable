@@ -16,6 +16,7 @@
 		847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776481C63C4C2000776B9 /* TableSheduleController.swift */; };
 		847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477764F1C6A6279000776B9 /* TableSheduleCell.swift */; };
 		847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776511C6A98D4000776B9 /* TableSheduleHeader.swift */; };
+		847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776561C6BA1E2000776B9 /* SheduleDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		847776481C63C4C2000776B9 /* TableSheduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleController.swift; sourceTree = "<group>"; };
 		8477764F1C6A6279000776B9 /* TableSheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleCell.swift; sourceTree = "<group>"; };
 		847776511C6A98D4000776B9 /* TableSheduleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSheduleHeader.swift; sourceTree = "<group>"; };
+		847776561C6BA1E2000776B9 /* SheduleDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 		8477764B1C6A4813000776B9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				847776561C6BA1E2000776B9 /* SheduleDataModel.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
+				847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
