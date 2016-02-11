@@ -30,8 +30,12 @@ class TableSheduleCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure() {
-        // TODO: - congigure the cell with content
+    func configure(shedule: Shedule, event: Event) {
+        subjectTitle.text = shedule.subjects[event.subject_id].fullTitle
+        startTime.text = AppData.pairsStartTime[event.numberOf_pair]
+        endTime.text = AppData.pairsEndTime[event.numberOf_pair]
+        subjectType.text = shedule.types[event.type].full_name
+        auditory.text = String(event.auditory)
     }
 
 }

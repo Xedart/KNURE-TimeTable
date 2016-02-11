@@ -85,14 +85,14 @@ struct Type {
 }
 //
 class Types {
-    var types = [String: Type]()
-    init(types: [String: Type]) {
+    var types = [Int: Type]()
+    init(types: [Int: Type]) {
         self.types = types
     }
     convenience init() {
         self.init(types: [:])
     }
-    subscript(key: String) -> Type {
+    subscript(key: Int) -> Type {
         return types[key]!
     }
 }
@@ -165,6 +165,23 @@ struct Key {
     static let types = "types"
 }
 
+
+    // MARK: - Methods:
+
+extension Shedule {
+// this function return events object composed with today's events:
+    func eventsInTime(date: NSDate) -> Events {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        var resultEvents = [Event]()
+        for event in events.events {
+            if (formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(event.start_time))) == formatter.stringFromDate(date)) {
+                resultEvents.append(event)
+            }
+        }
+        return Events(events: resultEvents)
+    }
+}
 
 
 
