@@ -19,6 +19,7 @@
 		847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776561C6BA1E2000776B9 /* SheduleDataModel.swift */; };
 		8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
+		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		847776561C6BA1E2000776B9 /* SheduleDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleDataModel.swift; sourceTree = "<group>"; };
 		8477765A1C6D2043000776B9 /* AppDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataModel.swift; sourceTree = "<group>"; };
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,9 +124,9 @@
 		847776471C639FF3000776B9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */,
-				847776441C639FB5000776B9 /* MainSplitViewController.swift */,
-				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
+				847776601C6E5477000776B9 /* Core */,
+				847776611C6E5496000776B9 /* SheduleControllers */,
+				84F0AAF61C6FD4A3006E2F40 /* MenuControllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -144,6 +146,31 @@
 				8477765A1C6D2043000776B9 /* AppDataModel.swift */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		847776601C6E5477000776B9 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */,
+				847776441C639FB5000776B9 /* MainSplitViewController.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		847776611C6E5496000776B9 /* SheduleControllers */ = {
+			isa = PBXGroup;
+			children = (
+				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
+			);
+			name = SheduleControllers;
+			sourceTree = "<group>";
+		};
+		84F0AAF61C6FD4A3006E2F40 /* MenuControllers */ = {
+			isa = PBXGroup;
+			children = (
+				84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */,
+			);
+			name = MenuControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
+				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,

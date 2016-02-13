@@ -33,13 +33,14 @@ class TableSheduleHeader: UILabel {
     }
     
     func getDayOfWeek(today: String) -> String {
-        let weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+        let weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн"]
         let formatter  = NSDateFormatter()
         formatter.dateFormat = "dd.mm"
         let todayDate = formatter.dateFromString(today)!
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
         let weekDay = myComponents.weekday
+        print(weekDay)
         return weekDays[weekDay]
     }
 }
