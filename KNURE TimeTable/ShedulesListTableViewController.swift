@@ -10,8 +10,18 @@ import UIKit
 
 class ShedulesListTableViewController: UITableViewController {
     
+    // MARK: - DataSource
+    
+    var groupsData = [String]()
+    var teachersData = [String]()
+    var auditoryiesData = [String]()
+    
+    // delegate:
+    var delegate: SheduleControllersInitializer!
+    
     init() {
-        super.init(style: UITableViewStyle.Grouped)
+        super.init(style: UITableViewStyle.Plain)
+        tableView.registerClass(SheduleLIstCell.self, forCellReuseIdentifier: "ShedulesListCell")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,7 +30,19 @@ class ShedulesListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.hidden = true
+        tableView.emptyDataSetSource = self
+        // load the data from defaults
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let groups = defaults.objectForKey(AppData.savedGroupsShedulesKey) as? [String] {
+            groupsData = groups
+        }
+        if let teachers = defaults.objectForKey(AppData.savedTeachersShedulesKey) as? [String] {
+            teachersData = teachers
+        }
+        if let auditoryies = defaults.objectForKey(AppData.savedAuditoriesShedulesKey) as? [String] {
+            auditoryiesData = auditoryies
+        }
+        groupsData.append("VD")
     }
 
     
@@ -28,57 +50,101 @@ class ShedulesListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if groupsData.count == 0 && teachersData.count == 0 && auditoryiesData.count == 0 {
+            return 0
+        }
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if groupsData.count == 0 && teachersData.count == 0 && auditoryiesData.count == 0 {
+            return 0
+        }
+        if section == 0 {
+            return groupsData.count > 0 ? groupsData.count : 1
+        }
+        if section == 1 {
+            return teachersData.count > 0 ? teachersData.count : 1
+        } else {
+            return auditoryiesData.count > 0 ? auditoryiesData.count : 1
+        }
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-       // let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-        let cell = UITableViewCell()
-
+        // get the cell from queue:
+        let cell = tableView.dequeueReusableCellWithIdentifier("ShedulesListCell", forIndexPath: indexPath) as! SheduleLIstCell
+        // configure the cell:
+        if indexPath.section == 0 {
+            if groupsData.isEmpty {
+                cell.configureAsEmpty()
+            } else {
+                cell.configure(groupsData[indexPath.row], row: indexPath.row)
+            }
+        }
+        if indexPath.section == 1 {
+            if teachersData.isEmpty {
+                cell.configureAsEmpty()
+            } else {
+                cell.configure(teachersData[indexPath.row], row: indexPath.row)
+            }
+        }
+        if indexPath.section == 2 {
+            if auditoryiesData.isEmpty {
+                cell.configureAsEmpty()
+            } else {
+                cell.configure(auditoryiesData[indexPath.row], row: indexPath.row)
+            }
+        }
         return cell
     }
     
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    // MARK: - TableView Delegate:
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UILabel(frame: tableView.rectForHeaderInSection(section))
+        headerView.font = UIFont.systemFontOfSize(18)
+        headerView.textColor = FlatGrayDark()
+        headerView.textAlignment = .Center
+        headerView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
+        if section == 0 {
+            headerView.text = "Группы"
+        }
+        if section == 1 {
+            headerView.text = "Преподаватели"
+        }
+        if section == 2 {
+            headerView.text = "Аудитории"
+        }
+        return headerView
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // get default schedule:
+        var newScheduleId = ""
+        if indexPath.section == 0 {
+           newScheduleId = groupsData[indexPath.row]
+        }
+        if indexPath.section == 1 {
+            newScheduleId = teachersData[indexPath.row]
+        }
+        if indexPath.section == 2 {
+            newScheduleId = auditoryiesData[indexPath.row]
+        }
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(newScheduleId, forKey: AppData.defaultScheduleKey)
+        // cgange default schedule
+        delegate.initializeWithNewShedule()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    */
 
     /*
     // MARK: - Navigation
@@ -91,3 +157,28 @@ class ShedulesListTableViewController: UITableViewController {
     */
 
 }
+
+    // MARK: - DZNEmptyDataSetSource 
+
+extension ShedulesListTableViewController: DZNEmptyDataSetSource {
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        tableView.tableFooterView = UIView()
+        return NSAttributedString(string: "Нет добавленных расписаний", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

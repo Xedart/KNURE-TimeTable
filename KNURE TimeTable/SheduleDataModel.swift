@@ -8,7 +8,7 @@
 
 import UIKit
 
-    // MARK: - Basic data - structures:
+    // MARK: - Basic data-classes:
 
 //"subject_id":2045902,"start_time":1454910300,"end_time":1454916000,"type":0,"number_pair":1,"auditory":"259","teachers":[4554758],"groups":[4801980 ,4802018 ,4801950 ]}
 
@@ -220,7 +220,6 @@ class Shedule: NSObject, NSCoding {
         static let types = "SHtypes"
     }
 }
-
 
     // MARK: - Methods:
 

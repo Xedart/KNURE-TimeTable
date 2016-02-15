@@ -26,6 +26,7 @@ class TableSheduleHeader: UILabel {
         backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         textAlignment = .Center
         font = UIFont.systemFontOfSize(20)
+        textColor = FlatGrayDark()
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -19,7 +19,23 @@
 		847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776561C6BA1E2000776B9 /* SheduleDataModel.swift */; };
 		8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
+		849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
+		84F0ABC11C70CDCC006E2F40 /* ChameleonShorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */; };
+		84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */; };
+		84F0ABC31C70CDCC006E2F40 /* ChameleonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABAA1C70CDCC006E2F40 /* ChameleonConstants.m */; };
+		84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABAE1C70CDCC006E2F40 /* NSArray+Chameleon.m */; };
+		84F0ABC51C70CDCC006E2F40 /* UIButton+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB01C70CDCC006E2F40 /* UIButton+Chameleon.m */; };
+		84F0ABC61C70CDCC006E2F40 /* UIColor+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB21C70CDCC006E2F40 /* UIColor+Chameleon.m */; };
+		84F0ABC71C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB41C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m */; };
+		84F0ABC81C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB61C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m */; };
+		84F0ABC91C70CDCC006E2F40 /* UILabel+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB81C70CDCC006E2F40 /* UILabel+Chameleon.m */; };
+		84F0ABCA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABBA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m */; };
+		84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABBC1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m */; };
+		84F0ABCC1C70CDCC006E2F40 /* UIViewController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABBE1C70CDCC006E2F40 /* UIViewController+Chameleon.m */; };
+		84F0ABCD1C70CDCC006E2F40 /* UIAppearance+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABC01C70CDCC006E2F40 /* UIAppearance+Swift.m */; };
+		84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */; };
+		84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +65,40 @@
 		847776561C6BA1E2000776B9 /* SheduleDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleDataModel.swift; sourceTree = "<group>"; };
 		8477765A1C6D2043000776B9 /* AppDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataModel.swift; sourceTree = "<group>"; };
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		849832611C7110DC00727E74 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
+		84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KNURE TimeTable-Bridging-Header.h"; sourceTree = "<group>"; };
+		84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChameleonShorthand.swift; sourceTree = "<group>"; };
+		84F0ABA61C70CDCC006E2F40 /* Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chameleon.h; sourceTree = "<group>"; };
+		84F0ABA71C70CDCC006E2F40 /* Chameleon_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chameleon_.h; sourceTree = "<group>"; };
+		84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chameleon_.m; sourceTree = "<group>"; };
+		84F0ABA91C70CDCC006E2F40 /* ChameleonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonConstants.h; sourceTree = "<group>"; };
+		84F0ABAA1C70CDCC006E2F40 /* ChameleonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChameleonConstants.m; sourceTree = "<group>"; };
+		84F0ABAB1C70CDCC006E2F40 /* ChameleonEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonEnums.h; sourceTree = "<group>"; };
+		84F0ABAC1C70CDCC006E2F40 /* ChameleonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonMacros.h; sourceTree = "<group>"; };
+		84F0ABAD1C70CDCC006E2F40 /* NSArray+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chameleon.h"; sourceTree = "<group>"; };
+		84F0ABAE1C70CDCC006E2F40 /* NSArray+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chameleon.m"; sourceTree = "<group>"; };
+		84F0ABAF1C70CDCC006E2F40 /* UIButton+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Chameleon.h"; sourceTree = "<group>"; };
+		84F0ABB01C70CDCC006E2F40 /* UIButton+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Chameleon.m"; sourceTree = "<group>"; };
+		84F0ABB11C70CDCC006E2F40 /* UIColor+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Chameleon.h"; sourceTree = "<group>"; };
+		84F0ABB21C70CDCC006E2F40 /* UIColor+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Chameleon.m"; sourceTree = "<group>"; };
+		84F0ABB31C70CDCC006E2F40 /* UIColor+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ChameleonPrivate.h"; sourceTree = "<group>"; };
+		84F0ABB41C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ChameleonPrivate.m"; sourceTree = "<group>"; };
+		84F0ABB51C70CDCC006E2F40 /* UIImage+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ChameleonPrivate.h"; sourceTree = "<group>"; };
+		84F0ABB61C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ChameleonPrivate.m"; sourceTree = "<group>"; };
+		84F0ABB71C70CDCC006E2F40 /* UILabel+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Chameleon.h"; sourceTree = "<group>"; };
+		84F0ABB81C70CDCC006E2F40 /* UILabel+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Chameleon.m"; sourceTree = "<group>"; };
+		84F0ABB91C70CDCC006E2F40 /* UINavigationController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Chameleon.h"; sourceTree = "<group>"; };
+		84F0ABBA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Chameleon.m"; sourceTree = "<group>"; };
+		84F0ABBB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ChameleonPrivate.h"; sourceTree = "<group>"; };
+		84F0ABBC1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ChameleonPrivate.m"; sourceTree = "<group>"; };
+		84F0ABBD1C70CDCC006E2F40 /* UIViewController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Chameleon.h"; sourceTree = "<group>"; };
+		84F0ABBE1C70CDCC006E2F40 /* UIViewController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Chameleon.m"; sourceTree = "<group>"; };
+		84F0ABBF1C70CDCC006E2F40 /* UIAppearance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAppearance+Swift.h"; sourceTree = "<group>"; };
+		84F0ABC01C70CDCC006E2F40 /* UIAppearance+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAppearance+Swift.m"; sourceTree = "<group>"; };
+		84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewButton.swift; sourceTree = "<group>"; };
+		84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleLIstCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +140,7 @@
 		847776231C63945C000776B9 /* KNURE TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				84F0ABA31C70CDAE006E2F40 /* Libraries */,
 				8477764A1C6A47C7000776B9 /* Resources */,
 				8477764B1C6A4813000776B9 /* Data */,
 				847776241C63945C000776B9 /* AppDelegate.swift */,
@@ -113,10 +163,10 @@
 		847776461C639FDD000776B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84F0ABD11C70D9CC006E2F40 /* CustomCellsView */,
 				847776281C63945C000776B9 /* Main.storyboard */,
 				8477762D1C63945C000776B9 /* LaunchScreen.storyboard */,
-				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
-				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
+				84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -126,7 +176,7 @@
 			children = (
 				847776601C6E5477000776B9 /* Core */,
 				847776611C6E5496000776B9 /* SheduleControllers */,
-				84F0AAF61C6FD4A3006E2F40 /* MenuControllers */,
+				84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -165,12 +215,76 @@
 			name = SheduleControllers;
 			sourceTree = "<group>";
 		};
-		84F0AAF61C6FD4A3006E2F40 /* MenuControllers */ = {
+		849832601C71109F00727E74 /* DZNEmptyDataSet */ = {
+			isa = PBXGroup;
+			children = (
+				849832611C7110DC00727E74 /* UIScrollView+EmptyDataSet.h */,
+				849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */,
+			);
+			name = DZNEmptyDataSet;
+			sourceTree = "<group>";
+		};
+		84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */ = {
 			isa = PBXGroup;
 			children = (
 				84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */,
 			);
-			name = MenuControllers;
+			name = ShedulesMenuControllers;
+			sourceTree = "<group>";
+		};
+		84F0ABA31C70CDAE006E2F40 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */,
+				849832601C71109F00727E74 /* DZNEmptyDataSet */,
+				84F0ABD01C70D192006E2F40 /* Chameleon */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		84F0ABD01C70D192006E2F40 /* Chameleon */ = {
+			isa = PBXGroup;
+			children = (
+				84F0ABA61C70CDCC006E2F40 /* Chameleon.h */,
+				84F0ABA71C70CDCC006E2F40 /* Chameleon_.h */,
+				84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */,
+				84F0ABA91C70CDCC006E2F40 /* ChameleonConstants.h */,
+				84F0ABAA1C70CDCC006E2F40 /* ChameleonConstants.m */,
+				84F0ABAB1C70CDCC006E2F40 /* ChameleonEnums.h */,
+				84F0ABAC1C70CDCC006E2F40 /* ChameleonMacros.h */,
+				84F0ABAD1C70CDCC006E2F40 /* NSArray+Chameleon.h */,
+				84F0ABAE1C70CDCC006E2F40 /* NSArray+Chameleon.m */,
+				84F0ABAF1C70CDCC006E2F40 /* UIButton+Chameleon.h */,
+				84F0ABB01C70CDCC006E2F40 /* UIButton+Chameleon.m */,
+				84F0ABB11C70CDCC006E2F40 /* UIColor+Chameleon.h */,
+				84F0ABB21C70CDCC006E2F40 /* UIColor+Chameleon.m */,
+				84F0ABB31C70CDCC006E2F40 /* UIColor+ChameleonPrivate.h */,
+				84F0ABB41C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m */,
+				84F0ABB51C70CDCC006E2F40 /* UIImage+ChameleonPrivate.h */,
+				84F0ABB61C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m */,
+				84F0ABB71C70CDCC006E2F40 /* UILabel+Chameleon.h */,
+				84F0ABB81C70CDCC006E2F40 /* UILabel+Chameleon.m */,
+				84F0ABB91C70CDCC006E2F40 /* UINavigationController+Chameleon.h */,
+				84F0ABBA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m */,
+				84F0ABBB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.h */,
+				84F0ABBC1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m */,
+				84F0ABBD1C70CDCC006E2F40 /* UIViewController+Chameleon.h */,
+				84F0ABBE1C70CDCC006E2F40 /* UIViewController+Chameleon.m */,
+				84F0ABBF1C70CDCC006E2F40 /* UIAppearance+Swift.h */,
+				84F0ABC01C70CDCC006E2F40 /* UIAppearance+Swift.m */,
+				84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */,
+			);
+			name = Chameleon;
+			sourceTree = "<group>";
+		};
+		84F0ABD11C70D9CC006E2F40 /* CustomCellsView */ = {
+			isa = PBXGroup;
+			children = (
+				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
+				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
+				84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */,
+			);
+			name = CustomCellsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,7 +331,7 @@
 		847776191C63945C000776B9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Shkil Artur";
 				TargetAttributes = {
@@ -276,15 +390,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F0ABC31C70CDCC006E2F40 /* ChameleonConstants.m in Sources */,
 				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
+				84F0ABC81C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m in Sources */,
+				849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
+				84F0ABC71C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m in Sources */,
+				84F0ABCC1C70CDCC006E2F40 /* UIViewController+Chameleon.m in Sources */,
+				84F0ABC51C70CDCC006E2F40 /* UIButton+Chameleon.m in Sources */,
+				84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */,
+				84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
+				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
+				84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */,
+				84F0ABCD1C70CDCC006E2F40 /* UIAppearance+Swift.m in Sources */,
+				84F0ABC61C70CDCC006E2F40 /* UIColor+Chameleon.m in Sources */,
+				84F0ABCA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
 				847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */,
+				84F0ABC11C70CDCC006E2F40 /* ChameleonShorthand.swift in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
+				84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */,
+				84F0ABC91C70CDCC006E2F40 /* UILabel+Chameleon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,11 +543,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KNURE TimeTable/KNURE TimeTable-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -425,11 +558,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KNURE TimeTable/KNURE TimeTable-Bridging-Header.h";
 			};
 			name = Release;
 		};

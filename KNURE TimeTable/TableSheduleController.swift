@@ -10,27 +10,32 @@ import UIKit
 
 class TableSheduleController: UITableViewController {
     
-    var shedule: Shedule!
+    //MARK: - DataSource:
+    
+    var shedule: Shedule! {
+        didSet {
+            if !shedule.shedule_id.isEmpty {
+                button.setTitle(shedule.shedule_id, forState: .Normal)
+            }
+        }
+    }
+    
+    // MARK: - Properties:
+    
     let shedulesListController = ShedulesListTableViewController()
-    let button = UIButton()
+    let button = TitleViewButton()
 
+    //MARK: - LifeCycle:
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        button.setTitle("EXAMPLE", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.greenColor(), forState: UIControlState.Highlighted)
         button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
-        
         navigationItem.titleView = button
     }
     
     func showMenu(sender: UIButton) {
+        shedulesListController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(shedulesListController, animated: true)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.tabBarController?.tabBar.hidden = false
     }
    
     // MARK: - Table view data source

@@ -8,18 +8,23 @@
 
 import UIKit
 
+protocol SheduleControllersInitializer {
+    func initializeWithNewShedule()
+}
+
 class MainSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
     
-    // MARK: - Data-source
+    // MARK: - Properties:
     
-    var shedule: Shedule!
-    let infoNavigationController = UINavigationController(rootViewController: ShedulesListTableViewController())
-    let button = UIButton()
+    var sheduleNavigationController = UINavigationController()
+    let button = TitleViewButton()
+    var scheduleTableController: TableSheduleController!
     
     // MARK: - ViewController lifecycle:
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        scheduleTableController = viewControllers[0] as! TableSheduleController
         /*
         let event = Event(subject_id: "id", start_time: 1455318795, end_time: 1455268500, type: "1", numberOfPair: 1, auditory: 231, teachers: [11], groups: [112])
         let event2 = Event(subject_id: "id", start_time: 1455318795, end_time: 1455268500, type: "1", numberOfPair: 2, auditory: 231, teachers: [11], groups: [112])
@@ -39,35 +44,27 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         shedule = Shedule(shedule_id: "KN-14-2", events: events, groups: groups, teachers: teachers, subjects: subjects, types: types)
         */
        
-        infoNavigationController.modalPresentationStyle = .Popover
-        infoNavigationController.preferredContentSize = CGSize(width: 350, height: 500)
-        
-        
-        button.setTitle("EXAMPLE", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.greenColor(), forState: UIControlState.Highlighted)
-        button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
+        let sheduleListController = ShedulesListTableViewController()
+        sheduleListController.delegate = self
+        sheduleNavigationController = UINavigationController(rootViewController: sheduleListController)
+        sheduleNavigationController.modalPresentationStyle = .Popover
+        sheduleNavigationController.preferredContentSize = CGSize(width: 350, height: 500)
         
         navigationItem.titleView = button
-        
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
-            shedule = loadShedule(defaultKey)
-        } else {
-            shedule = Shedule()
-        }
-        let tableShedule = viewControllers[0] as! TableSheduleController
-        tableShedule.shedule = self.shedule
-        
+        button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
+
+// loading and transfering shedule:
+        initializeWithNewShedule()
 // displaying:
         maximumPrimaryColumnWidth = CGFloat.max
         preferredPrimaryColumnWidthFraction = 0.4
         preferredDisplayMode = .AllVisible
     }
     
+    // MARK: - Methods:
+    
     func showMenu(sender: UIButton) {
-        let popoverMenuViewController = infoNavigationController.popoverPresentationController
+        let popoverMenuViewController = sheduleNavigationController.popoverPresentationController
         popoverMenuViewController?.permittedArrowDirections = .Up
         popoverMenuViewController?.sourceView = navigationItem.titleView
         popoverMenuViewController?.backgroundColor = UIColor.whiteColor()
@@ -76,9 +73,9 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             y: 10,
             width: button.bounds.width,
             height: button.bounds.height)
-            presentViewController(infoNavigationController, animated: true, completion: nil)
+            presentViewController(sheduleNavigationController, animated: true, completion: nil)
     }
-    
+    /*
     func saveShedule() {
         print("\(Shedule().urlPath.path!)/ex")
         let save = NSKeyedArchiver.archiveRootObject(shedule, toFile: "\(Shedule().urlPath.path!)/ex")
@@ -86,10 +83,36 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             print("Error when saving")
         }
     }
-    
+    */
     func loadShedule(sheduleId: String) -> Shedule {
         return NSKeyedUnarchiver.unarchiveObjectWithFile("\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
     }
-
-    
 }
+
+    // MARK: - SheduleControllersInitializer conformance:
+
+extension MainSplitViewController: SheduleControllersInitializer {
+    func initializeWithNewShedule() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        //defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+        if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+            scheduleTableController.shedule = loadShedule(defaultKey)
+            // TODO: add collection controller init here
+            button.setTitle(defaultKey, forState: UIControlState.Normal)
+        } else {
+            scheduleTableController.shedule = Shedule()
+            // TODO: add collection controller init here
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
