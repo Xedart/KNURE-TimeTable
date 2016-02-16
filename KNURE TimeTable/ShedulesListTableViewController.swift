@@ -15,6 +15,7 @@ class ShedulesListTableViewController: UITableViewController {
     var groupsData = [String]()
     var teachersData = [String]()
     var auditoryiesData = [String]()
+    var addButton: UIBarButtonItem!
     
     // delegate:
     var delegate: SheduleControllersInitializer!
@@ -22,7 +23,19 @@ class ShedulesListTableViewController: UITableViewController {
     init() {
         super.init(style: UITableViewStyle.Plain)
         tableView.registerClass(SheduleLIstCell.self, forCellReuseIdentifier: "ShedulesListCell")
+        addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addButtonPressed:")
+        navigationItem.rightBarButtonItem = addButton
     }
+    /*
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController!.navigationBar.topItem!.title = "sd"
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        
+    }*/
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,7 +44,9 @@ class ShedulesListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.emptyDataSetSource = self
-        // load the data from defaults
+        title = "назад"// back button title
+        navigationItem.titleView = TitleViewLabel()
+        // load the saved shedules identifiers from defaults
         let defaults = NSUserDefaults.standardUserDefaults()
         if let groups = defaults.objectForKey(AppData.savedGroupsShedulesKey) as? [String] {
             groupsData = groups
@@ -42,10 +57,11 @@ class ShedulesListTableViewController: UITableViewController {
         if let auditoryies = defaults.objectForKey(AppData.savedAuditoriesShedulesKey) as? [String] {
             auditoryiesData = auditoryies
         }
-        groupsData.append("VD")
     }
-
     
+    override func viewDidDisappear(animated: Bool) {
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -131,34 +147,44 @@ class ShedulesListTableViewController: UITableViewController {
         // get default schedule:
         var newScheduleId = ""
         if indexPath.section == 0 {
+            guard !groupsData.isEmpty else {
+                return
+            }
            newScheduleId = groupsData[indexPath.row]
         }
         if indexPath.section == 1 {
+            guard !teachersData.isEmpty else {
+                return
+            }
             newScheduleId = teachersData[indexPath.row]
         }
         if indexPath.section == 2 {
+            guard !auditoryiesData.isEmpty else {
+                return
+            }
             newScheduleId = auditoryiesData[indexPath.row]
         }
+        // set the new default schedule:
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(newScheduleId, forKey: AppData.defaultScheduleKey)
         // cgange default schedule
-        delegate.initializeWithNewShedule()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.delegate.initializeWithNewShedule()
+        dismissViewControllerAnimated(true, completion: nil)
+        if let navigationController = self.navigationController {
+            navigationController.popViewControllerAnimated(true)
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: - Methods:
+    
+    func addButtonPressed(sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewControllerWithIdentifier("ScheduletypesTableViewControler") as! DirectingTableViewController
+        navigationController?.pushViewController(controller, animated: true)
     }
-    */
-
 }
 
-    // MARK: - DZNEmptyDataSetSource 
+    // MARK: - DZNEmptyDataSetSource
 
 extension ShedulesListTableViewController: DZNEmptyDataSetSource {
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {

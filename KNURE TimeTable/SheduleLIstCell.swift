@@ -35,6 +35,7 @@ class SheduleLIstCell: UITableViewCell {
     }
     
     func configureAsEmpty() {
+        selectionStyle = .None
         titleLbl.textColor = FlatTeal()
         titleLbl.font = UIFont.systemFontOfSize(18, weight: 0.2)
         titleLbl.text = "Нет расписаний"

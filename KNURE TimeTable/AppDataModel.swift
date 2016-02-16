@@ -16,4 +16,6 @@ struct AppData {
     static let savedGroupsShedulesKey = "savedGroupsShedulesKey"
     static let savedTeachersShedulesKey = "savedTeachersShedulesKey"
     static let savedAuditoriesShedulesKey = "savedAuditoriesShedulesKey"
+    //
+    static let appleButtonDefault = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1)
 }

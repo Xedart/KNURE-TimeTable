@@ -26,6 +26,6 @@ class TableSheduleCell: UITableViewCell {
         startTime.text = AppData.pairsStartTime[event.numberOf_pair]
         endTime.text = AppData.pairsEndTime[event.numberOf_pair]
         subjectType.text = shedule.types[event.type]!.full_name
-        auditory.text = String(event.auditory)
+        auditory.text = event.auditory
     }
 }

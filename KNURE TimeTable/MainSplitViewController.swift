@@ -53,7 +53,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         navigationItem.titleView = button
         button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
 
-// loading and transfering shedule:
+// loading and transfering shedule provided by default:
         initializeWithNewShedule()
 // displaying:
         maximumPrimaryColumnWidth = CGFloat.max
@@ -65,6 +65,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     
     func showMenu(sender: UIButton) {
         let popoverMenuViewController = sheduleNavigationController.popoverPresentationController
+        popoverMenuViewController?.delegate = self
         popoverMenuViewController?.permittedArrowDirections = .Up
         popoverMenuViewController?.sourceView = navigationItem.titleView
         popoverMenuViewController?.backgroundColor = UIColor.whiteColor()
@@ -94,15 +95,25 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
 extension MainSplitViewController: SheduleControllersInitializer {
     func initializeWithNewShedule() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        //defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
         if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
             scheduleTableController.shedule = loadShedule(defaultKey)
+            scheduleTableController.tableView.reloadData()
             // TODO: add collection controller init here
             button.setTitle(defaultKey, forState: UIControlState.Normal)
         } else {
             scheduleTableController.shedule = Shedule()
+            scheduleTableController.tableView.reloadData()
             // TODO: add collection controller init here
         }
+    }
+}
+
+
+    // MARK: - pop all vieewCOntroller to root when dissmissing popOver:
+
+extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
+    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+        sheduleNavigationController.popToRootViewControllerAnimated(false)
     }
 }
 

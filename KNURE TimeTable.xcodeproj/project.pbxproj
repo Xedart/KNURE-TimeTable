@@ -20,6 +20,14 @@
 		8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
 		849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */; };
+		849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832641C72169300727E74 /* DirectiongTableViewController.swift */; };
+		849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832661C72186C00727E74 /* SchedulesTypesCell.swift */; };
+		8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */; };
+		8498326D1C72862F00727E74 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498326C1C72862F00727E74 /* Server.swift */; };
+		849832711C7349D600727E74 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832701C7349D600727E74 /* AlertView.swift */; };
+		849832731C734D9200727E74 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832721C734D9200727E74 /* SwiftyJSON.swift */; };
+		849832761C736C9600727E74 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832751C736C9500727E74 /* Parser.swift */; };
+		849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832771C737B0C00727E74 /* NewScheduleCell.swift */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
 		84F0ABC11C70CDCC006E2F40 /* ChameleonShorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */; };
 		84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */; };
@@ -67,6 +75,14 @@
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		849832611C7110DC00727E74 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
+		849832641C72169300727E74 /* DirectiongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectiongTableViewController.swift; sourceTree = "<group>"; };
+		849832661C72186C00727E74 /* SchedulesTypesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesTypesCell.swift; sourceTree = "<group>"; };
+		8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesDownoalTableView.swift; sourceTree = "<group>"; };
+		8498326C1C72862F00727E74 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		849832701C7349D600727E74 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		849832721C734D9200727E74 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		849832751C736C9500727E74 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		849832771C737B0C00727E74 /* NewScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScheduleCell.swift; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
 		84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KNURE TimeTable-Bridging-Header.h"; sourceTree = "<group>"; };
 		84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChameleonShorthand.swift; sourceTree = "<group>"; };
@@ -163,10 +179,10 @@
 		847776461C639FDD000776B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8498326F1C7349B400727E74 /* CustomView */,
 				84F0ABD11C70D9CC006E2F40 /* CustomCellsView */,
 				847776281C63945C000776B9 /* Main.storyboard */,
 				8477762D1C63945C000776B9 /* LaunchScreen.storyboard */,
-				84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -192,8 +208,8 @@
 		8477764B1C6A4813000776B9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				847776561C6BA1E2000776B9 /* SheduleDataModel.swift */,
-				8477765A1C6D2043000776B9 /* AppDataModel.swift */,
+				849832741C736C1600727E74 /* Model */,
+				8498326E1C72863500727E74 /* Bridge */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -224,10 +240,39 @@
 			name = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
+		8498326E1C72863500727E74 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				8498326C1C72862F00727E74 /* Server.swift */,
+				849832751C736C9500727E74 /* Parser.swift */,
+			);
+			name = Bridge;
+			sourceTree = "<group>";
+		};
+		8498326F1C7349B400727E74 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */,
+				849832701C7349D600727E74 /* AlertView.swift */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
+		849832741C736C1600727E74 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				847776561C6BA1E2000776B9 /* SheduleDataModel.swift */,
+				8477765A1C6D2043000776B9 /* AppDataModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */ = {
 			isa = PBXGroup;
 			children = (
 				84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */,
+				849832641C72169300727E74 /* DirectiongTableViewController.swift */,
+				8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */,
 			);
 			name = ShedulesMenuControllers;
 			sourceTree = "<group>";
@@ -236,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */,
+				849832721C734D9200727E74 /* SwiftyJSON.swift */,
 				849832601C71109F00727E74 /* DZNEmptyDataSet */,
 				84F0ABD01C70D192006E2F40 /* Chameleon */,
 			);
@@ -283,6 +329,8 @@
 				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
 				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
 				84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */,
+				849832661C72186C00727E74 /* SchedulesTypesCell.swift */,
+				849832771C737B0C00727E74 /* NewScheduleCell.swift */,
 			);
 			name = CustomCellsView;
 			sourceTree = "<group>";
@@ -395,15 +443,23 @@
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
 				84F0ABC81C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m in Sources */,
 				849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */,
+				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				84F0ABC71C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m in Sources */,
 				84F0ABCC1C70CDCC006E2F40 /* UIViewController+Chameleon.m in Sources */,
 				84F0ABC51C70CDCC006E2F40 /* UIButton+Chameleon.m in Sources */,
+				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
+				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
+				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
+				8498326D1C72862F00727E74 /* Server.swift in Sources */,
 				84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */,
 				84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */,
+				8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
+				849832731C734D9200727E74 /* SwiftyJSON.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
+				849832761C736C9600727E74 /* Parser.swift in Sources */,
 				84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */,
 				84F0ABCD1C70CDCC006E2F40 /* UIAppearance+Swift.m in Sources */,
 				84F0ABC61C70CDCC006E2F40 /* UIColor+Chameleon.m in Sources */,

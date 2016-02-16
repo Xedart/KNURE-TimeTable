@@ -48,8 +48,6 @@
     return objc_getAssociatedObject(self, @selector(gradientImage));
 }
 
-#pragma mark - Chameleon - Light Shades
-
 + (UIColor *)flatBlackColor {
     return hsb(0, 0, 17);
 }

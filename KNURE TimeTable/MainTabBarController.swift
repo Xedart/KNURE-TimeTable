@@ -12,31 +12,32 @@ class MainTabBarController: UITabBarController {
     
     // MARK: - Data-source
     
-    var shedule: Shedule!
+    var scheduleTableController: TableSheduleController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        shedule = Shedule()
-        let nav = viewControllers![0] as! UINavigationController
-        let contr = nav.viewControllers[0] as! TableSheduleController
-        contr.shedule = shedule
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        let firsNavigationController = viewControllers![0] as! UINavigationController
+        scheduleTableController = firsNavigationController.viewControllers[0] as! TableSheduleController
+        // loading and transfering shedule provided by default:
+        initializeWithNewShedule()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Methods:
+    func loadShedule(sheduleId: String) -> Shedule {
+        return NSKeyedUnarchiver.unarchiveObjectWithFile("\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
     }
-    */
+}
 
+extension MainTabBarController: SheduleControllersInitializer {
+    func initializeWithNewShedule() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+        if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+            scheduleTableController.shedule = loadShedule(defaultKey)
+            // TODO: add collection controller init here
+        } else {
+            scheduleTableController.shedule = Shedule()
+            // TODO: add collection controller init here
+        }
+    }
 }

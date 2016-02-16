@@ -29,12 +29,16 @@ class TableSheduleController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "назад"// title for back item
         button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
     }
     
     func showMenu(sender: UIButton) {
         shedulesListController.hidesBottomBarWhenPushed = true
+        if let parent = tabBarController as? MainTabBarController {
+            shedulesListController.delegate = parent
+        }
         navigationController?.pushViewController(shedulesListController, animated: true)
     }
    
@@ -46,11 +50,7 @@ class TableSheduleController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfRows = shedule.eventsInTime((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))).count
-        if numberOfRows > 0 {
-            return numberOfRows
-        } else {
-            return 1
-        }
+        return numberOfRows > 0 ? numberOfRows : 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

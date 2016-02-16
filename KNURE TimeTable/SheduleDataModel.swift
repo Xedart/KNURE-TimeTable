@@ -18,11 +18,11 @@ class Event: NSObject, NSCoding  {
     var end_time: Int
     var type: String
     var numberOf_pair: Int
-    var auditory: Int
+    var auditory: String
     var teachers: [Int]
     var groups: [Int]
 //initialiation:
-    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: Int, teachers: [Int], groups: [Int]) {
+    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int]) {
         self.subject_id = subject_id
         self.start_time = start_time
         self.end_time = end_time
@@ -33,7 +33,7 @@ class Event: NSObject, NSCoding  {
         self.groups = groups
     }
     convenience override init() {
-        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: Int(), teachers: [Int](), groups: [Int]())
+        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int]())
     }
 // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
@@ -42,7 +42,7 @@ class Event: NSObject, NSCoding  {
         let end_time = aDecoder.decodeObjectForKey(Key.end_time) as! Int
         let type = aDecoder.decodeObjectForKey(Key.type) as! String
         let numberOfPair = aDecoder.decodeObjectForKey(Key.numberOFPair) as! Int
-        let auditory = aDecoder.decodeObjectForKey(Key.auditory) as! Int
+        let auditory = aDecoder.decodeObjectForKey(Key.auditory) as! String
         let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [Int]
         let groups = aDecoder.decodeObjectForKey(Key.groups) as! [Int]
         self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups)
@@ -128,7 +128,7 @@ class Subject: NSObject, NSCoding {
 
 // {"id":0,"short_name":"Лк","full_name":"Лекція", "id_base":0, "type":"lecture"}
 
-class Type: NSObject, NSCoding {
+class NureType: NSObject, NSCoding {
     var short_name: String
     var full_name: String
     init(short_name: String, full_name: String) {
@@ -172,11 +172,11 @@ class Shedule: NSObject, NSCoding {
     var groups = [String: String]()
     var teachers = [String: Teacher]()
     var subjects = [String: Subject]()
-    var types = [String: Type]()
+    var types = [String: NureType]()
     
     
 // Initialization:
-    init(shedule_id: String, events: [Event], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: Type]) {
+    init(shedule_id: String, events: [Event], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType]) {
         self.shedule_id = shedule_id
         self.events = events
         self.groups = groups
@@ -198,7 +198,7 @@ class Shedule: NSObject, NSCoding {
         let groups = aDecoder.decodeObjectForKey(Key.groups) as! [String: String]
         let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [String: Teacher]
         let subjects = aDecoder.decodeObjectForKey(Key.subjects) as! [String: Subject]
-        let types = aDecoder.decodeObjectForKey(Key.types) as! [String: Type]
+        let types = aDecoder.decodeObjectForKey(Key.types) as! [String: NureType]
         self.init(shedule_id: shedule_id, events: events, groups: groups, teachers: teachers, subjects: subjects, types: types)
     }
     
