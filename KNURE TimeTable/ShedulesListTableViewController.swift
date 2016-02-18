@@ -26,16 +26,6 @@ class ShedulesListTableViewController: UITableViewController {
         addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addButtonPressed:")
         navigationItem.rightBarButtonItem = addButton
     }
-    /*
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController!.navigationBar.topItem!.title = "sd"
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(true)
-        
-    }*/
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -44,8 +34,13 @@ class ShedulesListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         title = "назад"// back button title
         navigationItem.titleView = TitleViewLabel()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         // load the saved shedules identifiers from defaults
         let defaults = NSUserDefaults.standardUserDefaults()
         if let groups = defaults.objectForKey(AppData.savedGroupsShedulesKey) as? [String] {
@@ -57,6 +52,7 @@ class ShedulesListTableViewController: UITableViewController {
         if let auditoryies = defaults.objectForKey(AppData.savedAuditoriesShedulesKey) as? [String] {
             auditoryiesData = auditoryies
         }
+        tableView.reloadData()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -124,13 +120,13 @@ class ShedulesListTableViewController: UITableViewController {
         headerView.textAlignment = .Center
         headerView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         if section == 0 {
-            headerView.text = "Группы"
+            headerView.text = "Групи"
         }
         if section == 1 {
-            headerView.text = "Преподаватели"
+            headerView.text = "Викладачі"
         }
         if section == 2 {
-            headerView.text = "Аудитории"
+            headerView.text = "Аудиторії"
         }
         return headerView
     }
@@ -177,19 +173,28 @@ class ShedulesListTableViewController: UITableViewController {
     
     // MARK: - Methods:
     
-    func addButtonPressed(sender: UIBarButtonItem) {
+    func addButtonPressed(sender: UIBarButtonItem?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewControllerWithIdentifier("ScheduletypesTableViewControler") as! DirectingTableViewController
         navigationController?.pushViewController(controller, animated: true)
     }
 }
 
-    // MARK: - DZNEmptyDataSetSource
+    // MARK: - DZNEmptyDataSetSource and delegate
 
-extension ShedulesListTableViewController: DZNEmptyDataSetSource {
+extension ShedulesListTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "Додані розклади відсутні", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+    }
+    
+    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
         tableView.tableFooterView = UIView()
-        return NSAttributedString(string: "Нет добавленных расписаний", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
+        return NSAttributedString(string: "Додати", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17, weight: 1), NSForegroundColorAttributeName: AppData.appleButtonDefault.colorWithAlphaComponent(0.9)])
+    }
+    
+    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
+        self.addButtonPressed(nil)
     }
 }
 

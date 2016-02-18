@@ -16,14 +16,11 @@ class SheduleLIstCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         titleLbl.frame = CGRect(x: 15, y: 0, width: self.frame.width, height: self.frame.height)
         titleLbl.textColor = FlatTeal()
-        titleLbl.font = UIFont.systemFontOfSize(16, weight: 0.3)
+        titleLbl.font = UIFont.systemFontOfSize(17, weight: 0.3)
         self.addSubview(titleLbl)
     }
     
     func configure(title: String, row: Int) {
-        if row % 2 == 1 {
-            self.backgroundColor = FlatWhite().colorWithAlphaComponent(0.6)
-        }
         titleLbl.text = title
         // append a mark to already choosen cell:
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -37,8 +34,8 @@ class SheduleLIstCell: UITableViewCell {
     func configureAsEmpty() {
         selectionStyle = .None
         titleLbl.textColor = FlatTeal()
-        titleLbl.font = UIFont.systemFontOfSize(18, weight: 0.2)
-        titleLbl.text = "Нет расписаний"
+        titleLbl.font = UIFont.systemFontOfSize(17, weight: 0.2)
+        titleLbl.text = "Немає розкладів"
 
     }
     

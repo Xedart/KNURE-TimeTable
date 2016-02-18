@@ -16,7 +16,7 @@ class TitleViewButton: UIButton {
         setTitleColor(AppData.appleButtonDefault, forState: .Normal)
         setTitleColor(FlatSkyBlue().colorWithAlphaComponent(0.5), forState: .Highlighted)
         titleLabel?.font = UIFont.systemFontOfSize(20)
-        setTitle("Выбрать расписание", forState: .Normal)
+        setTitle("Обрати розклад", forState: .Normal)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +31,7 @@ class TitleViewLabel: UILabel {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         font = UIFont.systemFontOfSize(20)
         textColor = UIColor.grayColor()
-        text = "Расписания"
+        text = "Розклади"
     }
     
     convenience init(title: String) {

@@ -13,7 +13,7 @@ class SchedulesTypesCell: UITableViewCell {
     @IBOutlet weak var typeImageView: UIImageView!
     @IBOutlet weak var typeLabel: UILabel!
     
-    let cellTitle = ["Группы", "Преподаватели", "Аудитории"]
+    let cellTitle = ["Групи", "Викладачі", "Аудиторії"]
     let cellImages = ["GroupsImage", "TeachersImage", "AuditoryImage"]
     
     func configure(indexPath: NSIndexPath) {

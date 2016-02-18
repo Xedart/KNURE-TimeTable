@@ -12,15 +12,19 @@ class TableSheduleHeader: UILabel {
     
 // properties:
     
-    let daysTitles = ["Сегодня", "Завтра"]
+    let daysTitles = [0: "Сьогодні",1: "Завтра"]
     
     init(section: Int) {
         let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "ru_RU")
+        formatter.locale = NSLocale(localeIdentifier: "ua_UA")
         formatter.dateFormat = "dd.MM"
         super.init(frame: CGRect())
 // header content:
-            text = "\(daysTitles[section]) \(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section))))"
+        var textDay = ""
+        if daysTitles[section] != nil {
+            textDay = daysTitles[section]!
+        }
+            text = "\(textDay) \(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section))))"
             text?.appendContentsOf(", \(getDayOfWeek(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))))")
 // style:
         backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
@@ -34,7 +38,7 @@ class TableSheduleHeader: UILabel {
     }
     
     func getDayOfWeek(today: String) -> String {
-        let weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн"]
+        let weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд", "Пн"]
         let formatter  = NSDateFormatter()
         formatter.dateFormat = "dd.mm"
         let todayDate = formatter.dateFromString(today)!

@@ -18,4 +18,7 @@ struct AppData {
     static let savedAuditoriesShedulesKey = "savedAuditoriesShedulesKey"
     //
     static let appleButtonDefault = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1)
+    static let initNotification = "initNotification"
 }
+
+

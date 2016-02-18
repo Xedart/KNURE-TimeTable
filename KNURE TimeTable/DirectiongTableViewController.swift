@@ -14,7 +14,7 @@ class DirectingTableViewController: UITableViewController {
         super.viewDidLoad()
         let title = TitleViewLabel()
         navigationItem.titleView = title
-        title.text = "Добавить"
+        title.text = "Додати"
     }
     
     // MARK: - Table view data source

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */; };
+		8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 846798451C76806000E350CE /* SVProgressHUD.bundle */; };
+		8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798471C76806000E350CE /* SVProgressHUD.m */; };
+		8467984D1C76806000E350CE /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798491C76806000E350CE /* SVRadialGradientLayer.m */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
 		8477762C1C63945C000776B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8477762B1C63945C000776B9 /* Assets.xcassets */; };
@@ -57,6 +61,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		846798451C76806000E350CE /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		846798461C76806000E350CE /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		846798471C76806000E350CE /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		846798481C76806000E350CE /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		846798491C76806000E350CE /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		847776211C63945C000776B9 /* KNURE TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KNURE TimeTable.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -267,6 +279,21 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		84AA34301C7669B7009F0A9E /* SV */ = {
+			isa = PBXGroup;
+			children = (
+				846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */,
+				846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */,
+				846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */,
+				846798451C76806000E350CE /* SVProgressHUD.bundle */,
+				846798461C76806000E350CE /* SVProgressHUD.h */,
+				846798471C76806000E350CE /* SVProgressHUD.m */,
+				846798481C76806000E350CE /* SVRadialGradientLayer.h */,
+				846798491C76806000E350CE /* SVRadialGradientLayer.m */,
+			);
+			name = SV;
+			sourceTree = "<group>";
+		};
 		84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +307,7 @@
 		84F0ABA31C70CDAE006E2F40 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				84AA34301C7669B7009F0A9E /* SV */,
 				84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */,
 				849832721C734D9200727E74 /* SwiftyJSON.swift */,
 				849832601C71109F00727E74 /* DZNEmptyDataSet */,
@@ -421,6 +449,7 @@
 				8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */,
 				8477762C1C63945C000776B9 /* Assets.xcassets in Resources */,
 				8477762A1C63945C000776B9 /* Main.storyboard in Resources */,
+				8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,12 +484,15 @@
 				84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */,
 				84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */,
 				8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */,
+				8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
+				8467984D1C76806000E350CE /* SVRadialGradientLayer.m in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
 				849832731C734D9200727E74 /* SwiftyJSON.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
 				84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */,
+				8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */,
 				84F0ABCD1C70CDCC006E2F40 /* UIAppearance+Swift.m in Sources */,
 				84F0ABC61C70CDCC006E2F40 /* UIColor+Chameleon.m in Sources */,
 				84F0ABCA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m in Sources */,

@@ -32,6 +32,7 @@ class TableSheduleController: UITableViewController {
         title = "назад"// title for back item
         button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
+        tableView.emptyDataSetSource = self
     }
     
     func showMenu(sender: UIButton) {
@@ -45,10 +46,16 @@ class TableSheduleController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        if shedule.shedule_id.isEmpty {
+            return 0
+        }
+        return 7
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if shedule.shedule_id.isEmpty {
+            return 0
+        }
         let numberOfRows = shedule.eventsInTime((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))).count
         return numberOfRows > 0 ? numberOfRows : 1
     }
@@ -71,5 +78,14 @@ class TableSheduleController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+}
+
+// MARK: - DZNEmptyDataSetSource
+
+extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        tableView.tableFooterView = UIView()
+        return NSAttributedString(string: "Розклад не обрано", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
     }
 }

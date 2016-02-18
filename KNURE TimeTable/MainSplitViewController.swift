@@ -25,25 +25,6 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         scheduleTableController = viewControllers[0] as! TableSheduleController
-        /*
-        let event = Event(subject_id: "id", start_time: 1455318795, end_time: 1455268500, type: "1", numberOfPair: 1, auditory: 231, teachers: [11], groups: [112])
-        let event2 = Event(subject_id: "id", start_time: 1455318795, end_time: 1455268500, type: "1", numberOfPair: 2, auditory: 231, teachers: [11], groups: [112])
-        let events = [event, event2]
-        
-        let groups = ["212": "KN-14-2"]
-        
-        let teacher = Teacher(full_name: "ARTHUR", short_name: "SDS")
-        let teachers = ["1002": teacher]
-        
-        let subject = Subject(briefTitle: "CS", fullTitle: "Технологіі комп\"ютерного проектування")
-        let subjects = ["id": subject]
-        
-        let type = Type(short_name: "short_name", full_name: "Лекцыя")
-        let types =  ["1": type]
-        
-        shedule = Shedule(shedule_id: "KN-14-2", events: events, groups: groups, teachers: teachers, subjects: subjects, types: types)
-        */
-       
         let sheduleListController = ShedulesListTableViewController()
         sheduleListController.delegate = self
         sheduleNavigationController = UINavigationController(rootViewController: sheduleListController)
@@ -54,8 +35,11 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
 
 // loading and transfering shedule provided by default:
+        setObservers()
         initializeWithNewShedule()
+        
 // displaying:
+        
         maximumPrimaryColumnWidth = CGFloat.max
         preferredPrimaryColumnWidthFraction = 0.4
         preferredDisplayMode = .AllVisible
@@ -76,15 +60,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             height: button.bounds.height)
             presentViewController(sheduleNavigationController, animated: true, completion: nil)
     }
-    /*
-    func saveShedule() {
-        print("\(Shedule().urlPath.path!)/ex")
-        let save = NSKeyedArchiver.archiveRootObject(shedule, toFile: "\(Shedule().urlPath.path!)/ex")
-        if !save {
-            print("Error when saving")
-        }
-    }
-    */
+    
     func loadShedule(sheduleId: String) -> Shedule {
         return NSKeyedUnarchiver.unarchiveObjectWithFile("\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
     }
@@ -97,9 +73,11 @@ extension MainSplitViewController: SheduleControllersInitializer {
         let defaults = NSUserDefaults.standardUserDefaults()
         if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
             scheduleTableController.shedule = loadShedule(defaultKey)
-            scheduleTableController.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.scheduleTableController.tableView.reloadData()
+                self.button.setTitle(defaultKey, forState: UIControlState.Normal)
+            })
             // TODO: add collection controller init here
-            button.setTitle(defaultKey, forState: UIControlState.Normal)
         } else {
             scheduleTableController.shedule = Shedule()
             scheduleTableController.tableView.reloadData()
@@ -108,8 +86,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
     }
 }
 
-
-    // MARK: - pop all vieewCOntroller to root when dissmissing popOver:
+    // MARK: - pop all vieewController to root when dissmissing popOver:
 
 extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
     func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
@@ -117,6 +94,24 @@ extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
+    // MARK: - NSNotifications setting:
+
+extension MainSplitViewController {
+    func setObservers() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getNewSchedule", name: AppData.initNotification, object: nil)
+    }
+}
+
+    // MARK: - Notifications responders:
+
+extension MainSplitViewController {
+    func getNewSchedule() {
+        dispatch_async(dispatch_get_main_queue(), {
+            SVProgressHUD.dismiss()
+        })
+        self.initializeWithNewShedule()
+    }
+}
 
 
 

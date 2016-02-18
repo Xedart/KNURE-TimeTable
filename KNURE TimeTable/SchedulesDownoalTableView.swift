@@ -66,6 +66,10 @@ class SchedulesDownoalTableView: UITableViewController {
         initializeData()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source and Delegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -137,10 +141,11 @@ class SchedulesDownoalTableView: UITableViewController {
 extension SchedulesDownoalTableView {
     
     func initializeData() {
+        
         Server.makeRequest(initMetod, parameters: nil, callback: { ( data, responce, error) in
             // check for success connection:
             if error != nil {
-                self.presentViewController(AlertView.getAlert("Ошибка подключения", message: "Проверьте соединение с интернетом", handler: { action in
+                self.presentViewController(AlertView.getAlert("Сталася помилка", message: "Перевірте з'єднання з інтернетом", handler: { action in
                     self.navigationController?.popViewControllerAnimated(true)
                 }), animated: true, completion: nil)
                 return
@@ -159,13 +164,22 @@ extension SchedulesDownoalTableView {
 }
 
     // MARK: - dowload new Schedule
+
 extension SchedulesDownoalTableView {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(dataSource[indexPath.section].rows[indexPath.row].row_id)"], callback: { (data, responce, error) in
+        
+        dispatch_async(dispatch_get_main_queue(), {
+        
+        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)"], callback: { (data, responce, error) in
             // check for success connection:
             if error != nil {
-                self.presentViewController(AlertView.getAlert("Ошибка подключения", message: "Проверьте соединение с интернетом", handler: nil), animated: true, completion: nil)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    SVProgressHUD.showErrorWithStatus("Не вдалося завантажити розклад")
+                    //SVProgressHUD.dismiss()
+                })
+                return
             }
             let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
             let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -173,19 +187,35 @@ extension SchedulesDownoalTableView {
             Parser.parseSchedule(json, callback: { data in
                 data.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title
                 // saving new schedule to the defaults:
+                let defaults = NSUserDefaults.standardUserDefaults()
                 if self.initMetod == .getGroups {
                     self.groupsData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
-                    let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
                 }
+                
                 // TODO: /// if if...
-                let defaults = NSUserDefaults.standardUserDefaults()
+                
+                // set new default schedule:
                 defaults.setObject(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)
+                defaults.synchronize()
+                // save just-dowloaded schedule object to the file appending by schedule's title:
                 self.saveShedule(data, path: self.dataSource[indexPath.section].rows[indexPath.row].row_title)
-            })
+                // reloading schedules view with new schedule object:
+                NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
+             })
+          })
+       })
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            if let navigationController = self.navigationController {
+                navigationController.popToRootViewControllerAnimated(true)
+            }
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+            SVProgressHUD.show()
         })
     }
 }
+
 
 
 
