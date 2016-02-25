@@ -22,6 +22,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     let cellHeight: CGFloat = 100
     let headerHeight: CGFloat = 50
     let offset: CGFloat = 5
+    let scaleOffset: CGFloat = 55
     let contentHeight: CGFloat = 890
     var contentWidth = CGFloat()
     var cache = [UICollectionViewLayoutAttributes]()
@@ -55,13 +56,13 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         for section in 0..<collectionView!.numberOfSections() {
             // step 1) - setting collectionView header attributes:
             let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: "Header", withIndexPath: NSIndexPath(forItem: 0, inSection: section))
-            headerAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section), y: 0, width: cellWidth, height: headerHeight)
+            headerAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: 0, width: cellWidth, height: headerHeight)
             cache.append(headerAttributes)
             // step 2) - setting collectionView cells attributes:
             for item in 0..<collectionView!.numberOfItemsInSection(section) {
                 let cellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: item, inSection: section))
                 let eventTimeForRow = delegate.eventsTimesInSection(section)[item]
-                cellAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section), y: (cellHeight + offset) * (eventTimeForRow) + (headerHeight + offset), width: cellWidth, height: 100)
+                cellAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: (cellHeight + offset) * (eventTimeForRow) + (headerHeight + offset), width: cellWidth, height: 100)
                 cache.append(cellAttributes)
             }
         }

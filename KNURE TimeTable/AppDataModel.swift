@@ -19,6 +19,36 @@ struct AppData {
     //
     static let appleButtonDefault = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1)
     static let initNotification = "initNotification"
+    
+    // some global methods:
+    
+    static func getDayOfWeek(today:String)-> String {
+        let formatter  = NSDateFormatter()
+        formatter.dateFormat = "dd.MM"
+        let todayDate = formatter.dateFromString(today)!
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
+        let weekDay = myComponents.weekday
+        switch weekDay {
+        case 1:
+            return "Сб"
+        case 2:
+            return "Нд"
+        case 3:
+            return "Пн"
+        case 4:
+            return "Вт"
+        case 5:
+            return "Ср"
+        case 6:
+            return "Чт"
+        case 7:
+            return "Пт"
+        default:
+            print("Error fetching days")
+            return "Day"
+        }
+    }
 }
 
 extension NSDate {
@@ -32,7 +62,8 @@ extension NSDate {
         let components = calendar.components(.Day, fromDate: date1, toDate: date2, options: [])
         return components.day
     }
-    
 }
+
+
 
 

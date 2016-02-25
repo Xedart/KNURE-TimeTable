@@ -11,12 +11,11 @@ import UIKit
 class CollectionScheduleCell: UICollectionViewCell {
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    @IBOutlet weak var textView: UITextView!
     
+    func configure(eventTitle: String, eventType: String, auditory: String) {
+        self.backgroundColor = UIColor.lightGrayColor()
+        textView.text = "\n\(eventTitle)"
+        textView.text.appendContentsOf("\n\(eventType) \(auditory)")
+    }
 }

@@ -129,6 +129,9 @@ class Parser {
                 daysBuffer = Day()
                 daysBuffer.events.append(event)
             }
+            defer {
+                result_days[currentDateStr] = daysBuffer // need to do it for last day of the semester
+            }
         }
         let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types)
         callback(data: result)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
+		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
 		8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */; };
 		8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 846798451C76806000E350CE /* SVProgressHUD.bundle */; };
 		8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798471C76806000E350CE /* SVProgressHUD.m */; };
@@ -66,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
+		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
 		846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */,
 				849832701C7349D600727E74 /* AlertView.swift */,
 				848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */,
+				842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				84F0ABC71C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m in Sources */,
 				84F0ABCC1C70CDCC006E2F40 /* UIViewController+Chameleon.m in Sources */,
 				84F0ABC51C70CDCC006E2F40 /* UIButton+Chameleon.m in Sources */,
+				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
