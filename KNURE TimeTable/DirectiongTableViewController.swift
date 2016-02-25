@@ -12,9 +12,10 @@ class DirectingTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let title = TitleViewLabel()
-        navigationItem.titleView = title
-        title.text = "Додати"
+        title = "назад"
+        let titleView = TitleViewLabel()
+        navigationItem.titleView = titleView
+        titleView.text = "Додати"
     }
     
     // MARK: - Table view data source

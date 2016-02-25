@@ -37,15 +37,31 @@ class TableSheduleHeader: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getDayOfWeek(today: String) -> String {
-        let weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд", "Пн"]
+    func getDayOfWeek(today:String)-> String {
         let formatter  = NSDateFormatter()
-        formatter.dateFormat = "dd.mm"
+        formatter.dateFormat = "dd.MM"
         let todayDate = formatter.dateFromString(today)!
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
-        let weekDay = myComponents.weekday
-        print(weekDay)
-        return weekDays[weekDay]
+            let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
+            let weekDay = myComponents.weekday
+            switch weekDay {
+            case 1:
+                return "Сб"
+            case 2:
+                return "Нд"
+            case 3:
+                return "Пн"
+            case 4:
+                return "Вт"
+            case 5:
+                return "Ср"
+            case 6:
+                return "Чт"
+            case 7:
+                return "Пт"
+            default:
+                print("Error fetching days")
+                return "Day"
+            }
     }
 }

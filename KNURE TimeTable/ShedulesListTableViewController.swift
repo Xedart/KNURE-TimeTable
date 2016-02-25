@@ -11,7 +11,7 @@ import UIKit
 class ShedulesListTableViewController: UITableViewController {
     
     // MARK: - DataSource
-    
+
     var groupsData = [String]()
     var teachersData = [String]()
     var auditoryiesData = [String]()
@@ -23,7 +23,7 @@ class ShedulesListTableViewController: UITableViewController {
     init() {
         super.init(style: UITableViewStyle.Plain)
         tableView.registerClass(SheduleLIstCell.self, forCellReuseIdentifier: "ShedulesListCell")
-        addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addButtonPressed:")
+        addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ShedulesListTableViewController.addButtonPressed(_:)))
         navigationItem.rightBarButtonItem = addButton
     }
     

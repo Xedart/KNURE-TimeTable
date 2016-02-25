@@ -13,11 +13,15 @@ class MainTabBarController: UITabBarController {
     // MARK: - Data-source
     
     var scheduleTableController: TableSheduleController!
+    var scheduleCollectionController: CollectionScheduleViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let firsNavigationController = viewControllers![0] as! UINavigationController
+        let secondNavigationController = viewControllers![1] as! UINavigationController
         scheduleTableController = firsNavigationController.viewControllers[0] as! TableSheduleController
+        scheduleCollectionController = secondNavigationController.viewControllers[0] as! CollectionScheduleViewController
+        
         // loading and transfering shedule provided by default:
         setObservers()
         initializeWithNewShedule()
@@ -34,14 +38,17 @@ extension MainTabBarController: SheduleControllersInitializer {
         let defaults = NSUserDefaults.standardUserDefaults()
         if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
             scheduleTableController.shedule = loadShedule(defaultKey)
+            scheduleCollectionController.shedule = loadShedule(defaultKey)
             dispatch_async(dispatch_get_main_queue(), {
                 self.scheduleTableController.tableView.reloadData()
+                self.scheduleCollectionController.collectionView!.reloadData()
             })
-            // TODO: add collection controller init here
         } else {
             scheduleTableController.shedule = Shedule()
             scheduleTableController.tableView.reloadData()
-            // TODO: add collection controller init here
+            //
+            scheduleCollectionController.shedule = Shedule()
+            scheduleCollectionController.collectionView!.reloadData()
         }
     }
 }
@@ -50,7 +57,7 @@ extension MainTabBarController: SheduleControllersInitializer {
 
 extension MainTabBarController {
     func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getNewSchedule", name: AppData.initNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: AppData.initNotification, object: nil)
     }
 }
 

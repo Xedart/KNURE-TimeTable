@@ -141,6 +141,14 @@ class SchedulesDownoalTableView: UITableViewController {
 extension SchedulesDownoalTableView {
     
     func initializeData() {
+        // setDownloading indicator:
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        dispatch_async(dispatch_get_main_queue(), {
+            indicator.center = self.view.center
+            self.tableView.addSubview(indicator)
+            indicator.activityIndicatorViewStyle = .Gray
+            indicator.startAnimating()
+        })
         
         Server.makeRequest(initMetod, parameters: nil, callback: { ( data, responce, error) in
             // check for success connection:
@@ -148,6 +156,7 @@ extension SchedulesDownoalTableView {
                 self.presentViewController(AlertView.getAlert("Сталася помилка", message: "Перевірте з'єднання з інтернетом", handler: { action in
                     self.navigationController?.popViewControllerAnimated(true)
                 }), animated: true, completion: nil)
+                indicator.stopAnimating()
                 return
             }
             let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
@@ -156,6 +165,7 @@ extension SchedulesDownoalTableView {
             Parser.parseGroupsLst(json, callback: { data in
                 self.dataSource = data
                 dispatch_async(dispatch_get_main_queue(), {
+                    indicator.stopAnimating()
                     self.tableView.reloadData()
                 })
             })
@@ -168,7 +178,12 @@ extension SchedulesDownoalTableView {
 extension SchedulesDownoalTableView {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        // check for already added schedule:
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! NewScheduleCell
+        if !cell.doneLabel.text!.isEmpty {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
         dispatch_async(dispatch_get_main_queue(), {
         
         Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)"], callback: { (data, responce, error) in
@@ -177,7 +192,6 @@ extension SchedulesDownoalTableView {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     SVProgressHUD.showErrorWithStatus("Не вдалося завантажити розклад")
-                    //SVProgressHUD.dismiss()
                 })
                 return
             }

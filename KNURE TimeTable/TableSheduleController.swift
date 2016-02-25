@@ -30,7 +30,7 @@ class TableSheduleController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "назад"// title for back item
-        button.addTarget(self, action: "showMenu:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
         tableView.emptyDataSetSource = self
     }
@@ -56,12 +56,12 @@ class TableSheduleController: UITableViewController {
         if shedule.shedule_id.isEmpty {
             return 0
         }
-        let numberOfRows = shedule.eventsInTime((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))).count
+        let numberOfRows = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))).count
         return numberOfRows > 0 ? numberOfRows : 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let events = shedule.eventsInTime((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * indexPath.section))))
+        let events = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * indexPath.section))))
         if events.isEmpty {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmptyTableSheduleCell", forIndexPath: indexPath)
             return cell

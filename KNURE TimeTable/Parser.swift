@@ -48,12 +48,17 @@ class Parser {
     
     
     static func parseSchedule(data: JSON, callback: (data: Shedule) -> Void) {
+        // perform data for filling:
         var result_types = [String: NureType]()
         var result_teachers = [String: Teacher]()
         var result_subjects = [String: Subject]()
         var result_groups = [String: String]()
-        var result_events = [Event]()
-        
+        var result_days = [String: Day]()
+        var firstDayTime = Int()
+        var lastDayTime = Int()
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        print(data)
         let jsTypes = data["types"].arrayValue
         // grab types:
         for type in jsTypes {
@@ -90,6 +95,15 @@ class Parser {
         }
         // grab events:
         let jsEvents = data["events"].arrayValue
+        if let startTime = jsEvents.first?["start_time"].intValue {
+            firstDayTime = startTime
+        }
+        if let lastTime = jsEvents.last?["start_time"].intValue {
+            lastDayTime = lastTime
+        }
+        var daysBuffer = Day()
+        var currentDateStr = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(firstDayTime)))
+        
         for event in jsEvents {
             let id = event["subject_id"].stringValue
             let start_time = event["start_time"].intValue
@@ -106,9 +120,17 @@ class Parser {
                 groups.append(jgroup.intValue)
             }
             let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups)
-            result_events.append(event)
+            let eventDateStringId = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(start_time)))
+            if currentDateStr == eventDateStringId {
+                daysBuffer.events.append(event)
+            } else {
+                result_days[currentDateStr] = daysBuffer
+                currentDateStr = eventDateStringId
+                daysBuffer = Day()
+                daysBuffer.events.append(event)
+            }
         }
-        let result = Shedule(shedule_id: "", events: result_events, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types)
+        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types)
         callback(data: result)
     }
 }

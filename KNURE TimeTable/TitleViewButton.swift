@@ -12,7 +12,6 @@ class TitleViewButton: UIButton {
 
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 40))
-        
         setTitleColor(AppData.appleButtonDefault, forState: .Normal)
         setTitleColor(FlatSkyBlue().colorWithAlphaComponent(0.5), forState: .Highlighted)
         titleLabel?.font = UIFont.systemFontOfSize(20)
@@ -28,7 +27,7 @@ class TitleViewButton: UIButton {
 
 class TitleViewLabel: UILabel {
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
         font = UIFont.systemFontOfSize(20)
         textColor = UIColor.grayColor()
         text = "Розклади"

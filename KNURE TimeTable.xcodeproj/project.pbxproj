@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
 		8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */; };
 		8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 846798451C76806000E350CE /* SVProgressHUD.bundle */; };
 		8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798471C76806000E350CE /* SVProgressHUD.m */; };
@@ -23,6 +24,9 @@
 		847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776561C6BA1E2000776B9 /* SheduleDataModel.swift */; };
 		8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
+		848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */; };
+		848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */; };
+		848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */; };
 		849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */; };
 		849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832641C72169300727E74 /* DirectiongTableViewController.swift */; };
 		849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832661C72186C00727E74 /* SchedulesTypesCell.swift */; };
@@ -61,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
 		846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
@@ -85,6 +90,9 @@
 		847776561C6BA1E2000776B9 /* SheduleDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleDataModel.swift; sourceTree = "<group>"; };
 		8477765A1C6D2043000776B9 /* AppDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataModel.swift; sourceTree = "<group>"; };
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleControllerCollectionViewController.swift; sourceTree = "<group>"; };
+		848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleCell.swift; sourceTree = "<group>"; };
+		848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionLayout.swift; sourceTree = "<group>"; };
 		849832611C7110DC00727E74 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		849832641C72169300727E74 /* DirectiongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectiongTableViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
+				848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */,
 			);
 			name = SheduleControllers;
 			sourceTree = "<group>";
@@ -266,6 +275,7 @@
 			children = (
 				84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */,
 				849832701C7349D600727E74 /* AlertView.swift */,
+				848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -354,11 +364,13 @@
 		84F0ABD11C70D9CC006E2F40 /* CustomCellsView */ = {
 			isa = PBXGroup;
 			children = (
-				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
 				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
 				84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */,
+				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
 				849832661C72186C00727E74 /* SchedulesTypesCell.swift */,
 				849832771C737B0C00727E74 /* NewScheduleCell.swift */,
+				848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */,
+				84098D471C79092200BF1087 /* CollectionHeader.swift */,
 			);
 			name = CustomCellsView;
 			sourceTree = "<group>";
@@ -481,13 +493,16 @@
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
 				8498326D1C72862F00727E74 /* Server.swift in Sources */,
+				84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */,
 				84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */,
 				84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */,
 				8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */,
 				8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */,
+				848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				8467984D1C76806000E350CE /* SVRadialGradientLayer.m in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
+				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
 				849832731C734D9200727E74 /* SwiftyJSON.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
@@ -502,6 +517,7 @@
 				84F0ABC11C70CDCC006E2F40 /* ChameleonShorthand.swift in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
 				84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */,
+				848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */,
 				84F0ABC91C70CDCC006E2F40 /* UILabel+Chameleon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

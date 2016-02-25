@@ -69,6 +69,30 @@ class Event: NSObject, NSCoding  {
     }
 }
 
+// Wrapper class for incapsulating events within one day:
+
+class Day: NSObject, NSCoding {
+    var events: [Event]
+    init(events: [Event]) {
+        self.events = events
+    }
+    override init() {
+        self.events = [Event]()
+    }
+    // NCCoding:
+    required convenience init?(coder aDecoder: NSCoder) {
+        let events = aDecoder.decodeObjectForKey(Key.events) as! [Event]
+        self.init(events: events)
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(events, forKey: Key.events)
+    }
+    struct Key {
+        static let events = "DAYEvents"
+    }
+}
+
 //{"id":5335711,"full_name":"Дейнеко Анастасія Олександрівна","short_name":"Дейнеко А. О."}
 
 class Teacher: NSObject, NSCoding {
@@ -167,8 +191,10 @@ class Shedule: NSObject, NSCoding {
     let urlPath = DocumentsDirectory
     
 // Properties:
+    var startDayTime = Int()
+    var endDayTime = Int()
     var shedule_id: String
-    var events = [Event]()
+    var days = [String: Day]()
     var groups = [String: String]()
     var teachers = [String: Teacher]()
     var subjects = [String: Subject]()
@@ -176,9 +202,11 @@ class Shedule: NSObject, NSCoding {
     
     
 // Initialization:
-    init(shedule_id: String, events: [Event], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType]) {
+    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType]) {
+        self.startDayTime = startDayTime
+        self.endDayTime = endDayTime
         self.shedule_id = shedule_id
-        self.events = events
+        self.days = days
         self.groups = groups
         self.teachers = teachers
         self.subjects = subjects
@@ -187,54 +215,62 @@ class Shedule: NSObject, NSCoding {
     }
     
     convenience override init() {
-        self.init(shedule_id: String(), events: [], groups: [:], teachers: [:], subjects: [:], types: [:])
+        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:])
     }
     
     // MARK: - NSCoding:
     
     required convenience init?(coder aDecoder: NSCoder) {
+        let startDayTime = aDecoder.decodeObjectForKey(Key.startDayTime) as! Int
+        let endDayTime = aDecoder.decodeObjectForKey(Key.endDayTime) as! Int
         let shedule_id = aDecoder.decodeObjectForKey(Key.shedule_id) as! String
-        let events = aDecoder.decodeObjectForKey(Key.events) as! [Event]
+        let days = aDecoder.decodeObjectForKey(Key.days) as! [String: Day]
         let groups = aDecoder.decodeObjectForKey(Key.groups) as! [String: String]
         let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [String: Teacher]
         let subjects = aDecoder.decodeObjectForKey(Key.subjects) as! [String: Subject]
         let types = aDecoder.decodeObjectForKey(Key.types) as! [String: NureType]
-        self.init(shedule_id: shedule_id, events: events, groups: groups, teachers: teachers, subjects: subjects, types: types)
+        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types)
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(startDayTime, forKey: Key.startDayTime)
+        aCoder.encodeObject(endDayTime, forKey: Key.endDayTime)
         aCoder.encodeObject(shedule_id, forKey: Key.shedule_id)
         aCoder.encodeObject(groups, forKey: Key.groups)
         aCoder.encodeObject(teachers, forKey: Key.teachers)
-        aCoder.encodeObject(events, forKey: Key.events)
+        aCoder.encodeObject(days, forKey: Key.days)
         aCoder.encodeObject(subjects, forKey: Key.subjects)
         aCoder.encodeObject(types, forKey: Key.types)
     }
 // Keyes - constants:
     struct Key {
+        static let startDayTime = "SHStartDayTime"
+        static let endDayTime = "SHEndDayTime"
         static let shedule_id = "SHshedule_id"
-        static let events = "SHevents"
+        static let days = "SHevents"
         static let groups = "SHgroups"
         static let teachers = "SHteachers"
         static let subjects = "SHsubjects"
         static let types = "SHtypes"
     }
 }
-
     // MARK: - Methods:
 
 extension Shedule {
     
-// this function return events object composed with today's events:
-    func eventsInTime(date: NSDate) -> [Event] {
+    func eventsInDay(date: NSDate) -> [Event] {
         let formatter = NSDateFormatter()
         formatter.dateStyle = .ShortStyle
-        var resultEvents = [Event]()
-        for event in events {
-            if (formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(event.start_time))) == formatter.stringFromDate(date)) {
-                resultEvents.append(event)
-            }
+        let dayStrId = formatter.stringFromDate(date)
+        if let resultEvents = days[dayStrId]?.events {
+            return resultEvents
+        } else {
+            return [Event]()
         }
-        return resultEvents
     }
 }
+
+
+
+
+
