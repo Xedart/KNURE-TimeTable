@@ -14,13 +14,21 @@ private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
 class CollectionScheduleViewController: UICollectionViewController  {
     
-    var shedule: Shedule!
+    var shedule: Shedule! {
+        didSet {
+            if !initialScrollDone {
+            cacheData()
+            }
+        }
+    }
     let scale = CollectionDecorationView()
     var initialScrollDone = false
+    var headersCache = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Register cell classes
+        self.collectionView?.registerClass(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         self.collectionView!.registerClass(CollectionHeader.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: headerReuseIdentifier)
         // delegate:
         if let layout = collectionView?.collectionViewLayout as? ScheduleCollectionLayout {
@@ -30,6 +38,16 @@ class CollectionScheduleViewController: UICollectionViewController  {
         scale.frame = CGRect(x: 0, y: 0, width: 55, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
         collectionView!.addSubview(scale)
+    }
+    
+    func cacheData() {
+        headersCache.removeAll()
+        let formatter = NSDateFormatter()
+            formatter.dateFormat = "dd.MM"
+        for section in 0 ..< self.collectionView!.numberOfSections() {
+            let dateStr = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))))
+            self.headersCache.append("\(dateStr) \(AppData.getDayOfWeek(dateStr))")
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,18 +86,20 @@ class CollectionScheduleViewController: UICollectionViewController  {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! CollectionScheduleCell
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
-        let events = shedule.eventsInDay(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * indexPath.section), sinceDate: firstEventDay))
-        let eventTitle = shedule.subjects[events[indexPath.row].subject_id]!.briefTitle
-        let eventType = shedule.types[events[indexPath.row].type]!.short_name
-        let auditory = events[indexPath.row].auditory
-        cell.configure(eventTitle, eventType: eventType, auditory: auditory)
+            let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
+            let events = self.shedule.eventsInDay(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * indexPath.section), sinceDate: firstEventDay))
+            let eventTitle = self.shedule.subjects[events[indexPath.row].subject_id]!.briefTitle
+            let eventType = self.shedule.types[events[indexPath.row].type]!.short_name
+            let auditory = events[indexPath.row].auditory
+            
+            cell.configure(eventTitle, eventType: eventType, auditory: auditory)
+
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryViewOfKind("Header", withReuseIdentifier: headerReuseIdentifier, forIndexPath: indexPath) as! CollectionHeader
-        headerView.configure(indexPath.section, startDay: shedule.startDayTime)
+        headerView.configure(self.headersCache[indexPath.section])
         return headerView
     }
 }

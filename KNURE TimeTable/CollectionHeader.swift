@@ -11,20 +11,16 @@ import UIKit
 class CollectionHeader: UICollectionReusableView {
     
     var dateLabel: UILabel!
-    var firstDay = Int()
-    var formatter = NSDateFormatter()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         dateLabel = UILabel(frame: self.bounds)
         dateLabel.textAlignment = .Center
         self.addSubview(dateLabel)
-        formatter.dateFormat = "dd.MM"
     }
     
-    func configure(section: Int, startDay: Int) {
-        let dateStr = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(startDay))))
-        dateLabel.text = "\(dateStr) \(AppData.getDayOfWeek(dateStr))"
+    func configure(dateStr: String) {
+        dateLabel.text = dateStr
     }
 
     required init?(coder aDecoder: NSCoder) {

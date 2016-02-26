@@ -344,35 +344,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewLayout key="collectionViewLayout" id="wR7-LZ-VJx" customClass="ScheduleCollectionLayout" customModule="KNURE_TimeTable" customModuleProvider="target"/>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="sF8-Br-8uP" customClass="CollectionScheduleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="157"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="157"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7GU-Jl-acg">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="157"/>
-                                            <color key="backgroundColor" red="0.55214551089999997" green="0.86069213079999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="7GU-Jl-acg" secondAttribute="bottom" constant="-8" id="5eI-9W-Vn0"/>
-                                    <constraint firstItem="7GU-Jl-acg" firstAttribute="leading" secondItem="sF8-Br-8uP" secondAttribute="leadingMargin" constant="-8" id="ba5-0Z-JaD"/>
-                                    <constraint firstItem="7GU-Jl-acg" firstAttribute="top" secondItem="sF8-Br-8uP" secondAttribute="topMargin" constant="-8" id="baE-6t-aOr"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="7GU-Jl-acg" secondAttribute="trailing" constant="-8" id="hip-SL-lkd"/>
-                                </constraints>
-                                <size key="customSize" width="200" height="157"/>
-                                <connections>
-                                    <outlet property="textView" destination="7GU-Jl-acg" id="Q0b-fU-Waa"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="9sK-F6-Qsy" id="7aW-tB-P5Z"/>
                             <outlet property="delegate" destination="9sK-F6-Qsy" id="mfa-6e-Pie"/>

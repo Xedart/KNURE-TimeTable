@@ -76,6 +76,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
         self.initWithDefaultSchedule()
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleCollectionController.collectionView!.reloadData()
+            self.scheduleCollectionController.cacheData()
         })
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleTableController.tableView.reloadData()
