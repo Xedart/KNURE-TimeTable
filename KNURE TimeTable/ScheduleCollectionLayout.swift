@@ -61,8 +61,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
             // step 2) - setting collectionView cells attributes:
             for item in 0..<collectionView!.numberOfItemsInSection(section) {
                 let cellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: item, inSection: section))
-                let eventTimeForRow = delegate.eventsTimesInSection(section)[item]
-                cellAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: (cellHeight + offset) * (eventTimeForRow) + (headerHeight + offset), width: cellWidth, height: 100)
+                cellAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: (cellHeight + offset) * CGFloat(item) + (headerHeight + offset), width: cellWidth, height: 100)
                 cache.append(cellAttributes)
             }
         }

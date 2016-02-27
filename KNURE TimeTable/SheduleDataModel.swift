@@ -268,7 +268,33 @@ extension Shedule {
             return [Event]()
         }
     }
+    
+    func eventInDayWithNumberOfPair(day: NSDate, numberOFPair: Int) -> [Event] {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        let dayStrId = formatter.stringFromDate(day)
+        if let events = days[dayStrId]?.events {
+        var resultEvents = [Event]()
+        for event in events {
+            if numberOFPair == event.numberOf_pair {
+                resultEvents.append(event)
+            }
+          }
+            return resultEvents
+        } else {
+            return [Event]()
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
 
 
 

@@ -78,22 +78,20 @@ class CollectionScheduleViewController: UICollectionViewController  {
         if shedule.shedule_id.isEmpty {
             return 0
         }
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
-        let eventsDay = NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay)
-        let pairsInDay = shedule.eventsInDay(eventsDay)
-        return pairsInDay.count
+        return 8
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! CollectionScheduleCell
-            let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
-            let events = self.shedule.eventsInDay(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * indexPath.section), sinceDate: firstEventDay))
-            let eventTitle = self.shedule.subjects[events[indexPath.row].subject_id]!.briefTitle
-            let eventType = self.shedule.types[events[indexPath.row].type]!.short_name
-            let auditory = events[indexPath.row].auditory
-            
-            cell.configure(eventTitle, eventType: eventType, auditory: auditory)
-
+        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
+        
+        let events = self.shedule.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * indexPath.section), sinceDate: firstEventDay), numberOFPair: indexPath.row + 1)
+        if events.isEmpty {
+            cell.configureEmptyCell()
+            return cell
+        }
+        cell.configure(events, shedule: shedule)
         return cell
     }
     
@@ -111,10 +109,12 @@ extension CollectionScheduleViewController: CollectionScheduleViewControllerDele
     func eventsTimesInSection(section: Int) -> [CGFloat] {
         let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
         let eventsDay = NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay)
-        let pairsInDay = shedule.eventsInDay(eventsDay)
         var result = [CGFloat]()
-        for pair in pairsInDay {
-            result.append(CGFloat(pair.numberOf_pair - 1))
+        for row in  1...8 {
+            let events = self.shedule.eventInDayWithNumberOfPair(eventsDay, numberOFPair: row)
+            if !events.isEmpty {
+                result.append(CGFloat(row - 1))
+            }
         }
         return result
     }
