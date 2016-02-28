@@ -8,12 +8,6 @@
 
 import UIKit
 
-// Protocol for getting the list of events' starting tmes:
-
-protocol CollectionScheduleViewControllerDelegate {
-    func eventsTimesInSection(section: Int) -> [CGFloat]
-}
-
 class ScheduleCollectionLayout: UICollectionViewLayout {
     
     // MARK: - properties:
@@ -26,7 +20,6 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     let contentHeight: CGFloat = 890
     var contentWidth = CGFloat()
     var cache = [UICollectionViewLayoutAttributes]()
-    var delegate: CollectionScheduleViewControllerDelegate!
     
     override func prepareLayout() {
         // compute contentWidth:

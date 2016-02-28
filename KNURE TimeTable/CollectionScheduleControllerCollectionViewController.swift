@@ -9,8 +9,17 @@
 import UIKit
 
 private let cellReuseIdentifier = "CollectionViewCell"
+private let emptyCellReuseIndentifier = "emptyCellReuseIndentifier"
+private let multiCellReuseIndentifier = "multiCellReuseIndentifier"
 private let headerReuseIdentifier = "CollectionCell"
 private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
+
+struct EventCache {
+    var events = [Event]()
+    init(events: [Event]) {
+        self.events = events
+    }
+}
 
 class CollectionScheduleViewController: UICollectionViewController  {
     
@@ -24,16 +33,16 @@ class CollectionScheduleViewController: UICollectionViewController  {
     let scale = CollectionDecorationView()
     var initialScrollDone = false
     var headersCache = [String]()
+    var rowsCache = [String: EventCache]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Register cell classes
         self.collectionView?.registerClass(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        self.collectionView?.registerClass(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
+        self.collectionView?.registerClass(CollectionScheduleMultiCell.self, forCellWithReuseIdentifier: multiCellReuseIndentifier)
         self.collectionView!.registerClass(CollectionHeader.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: headerReuseIdentifier)
-        // delegate:
-        if let layout = collectionView?.collectionViewLayout as? ScheduleCollectionLayout {
-            layout.delegate = self
-        }
+       
         // Time - scale:
         scale.frame = CGRect(x: 0, y: 0, width: 55, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
@@ -42,11 +51,17 @@ class CollectionScheduleViewController: UICollectionViewController  {
     
     func cacheData() {
         headersCache.removeAll()
+        rowsCache.removeAll()
         let formatter = NSDateFormatter()
             formatter.dateFormat = "dd.MM"
+        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
         for section in 0 ..< self.collectionView!.numberOfSections() {
             let dateStr = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))))
             self.headersCache.append("\(dateStr) \(AppData.getDayOfWeek(dateStr))")
+            for row in 0..<self.collectionView!.numberOfItemsInSection(section) {
+                let events = self.shedule.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay), numberOFPair: row + 1)
+                rowsCache["\(section)\(row)"] = EventCache(events: events)
+            }
         }
     }
     
@@ -83,16 +98,22 @@ class CollectionScheduleViewController: UICollectionViewController  {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! CollectionScheduleCell
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
+        let events = rowsCache["\(indexPath.section)\(indexPath.row)"]!.events
         
-        let events = self.shedule.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * indexPath.section), sinceDate: firstEventDay), numberOFPair: indexPath.row + 1)
         if events.isEmpty {
-            cell.configureEmptyCell()
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(emptyCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleEmptyCell
+            
             return cell
         }
+        if events.count > 1 {
+             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(multiCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleMultiCell
+            cell.configure(events, shedule: shedule)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! CollectionScheduleCell
         cell.configure(events, shedule: shedule)
         return cell
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -102,23 +123,6 @@ class CollectionScheduleViewController: UICollectionViewController  {
     }
 }
 
-    // MARK: - CollectionScheduleViewControllerDelegate
-
-extension CollectionScheduleViewController: CollectionScheduleViewControllerDelegate {
-    
-    func eventsTimesInSection(section: Int) -> [CGFloat] {
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
-        let eventsDay = NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay)
-        var result = [CGFloat]()
-        for row in  1...8 {
-            let events = self.shedule.eventInDayWithNumberOfPair(eventsDay, numberOFPair: row)
-            if !events.isEmpty {
-                result.append(CGFloat(row - 1))
-            }
-        }
-        return result
-    }
-}
 
 
 
