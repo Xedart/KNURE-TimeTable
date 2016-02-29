@@ -26,7 +26,6 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             let textNode = ASTextNode()
             //textNode.measure(CGSize(width: self.bounds.width, height: self.bounds.height))
             textNode.frame = CGRect(x: 105 * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
-            // attribures:
             // text attributes:
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
