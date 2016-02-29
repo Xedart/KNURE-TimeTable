@@ -153,28 +153,33 @@ class Subject: NSObject, NSCoding {
 // {"id":0,"short_name":"Лк","full_name":"Лекція", "id_base":0, "type":"lecture"}
 
 class NureType: NSObject, NSCoding {
+    var id: String
     var short_name: String
     var full_name: String
-    init(short_name: String, full_name: String) {
+    init(short_name: String, full_name: String, id: String) {
+        self.id = id
         self.short_name = short_name
         self.full_name = full_name
     }
     convenience override init() {
-        self.init(short_name: String(), full_name: String())
+        self.init(short_name: String(), full_name: String(), id: String())
     }
 // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
         let short_name = aDecoder.decodeObjectForKey(Key.short_name) as! String
         let full_name = aDecoder.decodeObjectForKey(Key.full_name) as! String
-        self.init(short_name: short_name, full_name: full_name)
+        let id = aDecoder.decodeObjectForKey(Key.id_key) as! String
+        self.init(short_name: short_name, full_name: full_name, id: id)
     }
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(short_name, forKey: Key.short_name)
         aCoder.encodeObject(full_name, forKey: Key.full_name)
+        aCoder.encodeObject(id, forKey: Key.id_key)
     }
     struct Key {
         static let short_name = "TPShortName"
         static let full_name = "TPFullName"
+        static let id_key = "TPId"
     }
 }
 

@@ -25,17 +25,17 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         for i in 0..<events.count {
             let textNode = ASTextNode()
             //textNode.measure(CGSize(width: self.bounds.width, height: self.bounds.height))
-            textNode.frame = CGRect(x: 105 * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
+            textNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
             // text attributes:
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
             
             textNode.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
-            textNode.backgroundColor = UIColor.blueColor()
+            textNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type))
             scrollNode.addSubnode(textNode)
         }
             dispatch_async(dispatch_get_main_queue()) {
-                scrollNode.view.contentSize.width = (105) * CGFloat(events.count)
+                scrollNode.view.contentSize.width = (self.bounds.width + 1) * CGFloat(events.count)
                 for subView in self.subviews {
                     subView.removeFromSuperview()
                 }

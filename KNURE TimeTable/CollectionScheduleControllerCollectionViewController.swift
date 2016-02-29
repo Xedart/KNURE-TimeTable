@@ -70,7 +70,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
         if !initialScrollDone {
             let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
             let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
-            collectionView?.contentOffset = CGPoint(x: 105 * numberOfdays, y: 0)
+            collectionView?.contentOffset = CGPoint(x: 126 * numberOfdays, y: 0)
             initialScrollDone = true
         }
     }

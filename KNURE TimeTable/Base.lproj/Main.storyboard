@@ -145,20 +145,19 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N5g-ga-Zhu">
-                                            <rect key="frame" x="558" y="32" width="34" height="20.5"/>
-                                            <color key="backgroundColor" red="0.29454350992801975" green="0.71340880102040816" blue="0.38684481589290315" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="20.5" id="0i2-ym-WBp"/>
-                                                <constraint firstAttribute="width" constant="34" id="edq-7m-vXf"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моделювання систем" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-sd-4bi">
                                             <rect key="frame" x="70" y="8" width="522" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N5g-ga-Zhu">
+                                            <rect key="frame" x="558" y="32" width="34" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20.5" id="0i2-ym-WBp"/>
+                                                <constraint firstAttribute="width" constant="34" id="edq-7m-vXf"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="leading" secondItem="KjM-No-BaW" secondAttribute="trailing" constant="3" id="1pr-QC-5Gf"/>

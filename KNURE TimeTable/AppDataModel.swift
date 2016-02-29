@@ -49,6 +49,25 @@ struct AppData {
             return "Day"
         }
     }
+    
+    static func colorsForPairOfType(type: Int?) -> UIColor {
+        if type == nil {
+        return UIColor.lightGrayColor()
+        } else if type >= 0 && type < 10 {
+            return FlatYellow()
+        } else if type >= 10 && type < 20 {
+            return FlatGreen()
+        } else if type >= 20 && type < 30 {
+            return FlatMagenta()
+        } else if type >= 30 && type < 40 {
+            return FlatGray()
+        } else if type >= 40 && type < 50 {
+            return FlatSkyBlue()
+        }
+        else {
+            return UIColor.lightGrayColor()
+        }
+    }
 }
 
 extension NSDate {

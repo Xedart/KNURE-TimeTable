@@ -4,7 +4,7 @@
 //
 //  Created by Shkil Artur on 2/20/16.
 //  Copyright © 2016 Shkil Artur. All rights reserved.
-//..
+//
 
 import UIKit
 
@@ -31,7 +31,7 @@ class CollectionScheduleCell: UICollectionViewCell {
             self.node.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[0].subject_id]!.briefTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
             //self.node.measure(CGSize(width: self.bounds.width, height: self.bounds.height))
             self.node.frame = self.bounds
-            self.node.backgroundColor = UIColor.lightGrayColor()
+            self.node.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type))
         })
     }
 }
