@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
 		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
+		84271CD11C839C9D00F51755 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD01C839C9D00F51755 /* libAsyncDisplayKit.a */; };
+		84271CD31C839CFC00F51755 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD21C839CFC00F51755 /* MapKit.framework */; };
+		84271CD51C839D0A00F51755 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD41C839D0A00F51755 /* AssetsLibrary.framework */; };
+		84271CD71C839D1600F51755 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD61C839D1600F51755 /* Photos.framework */; };
 		8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */; };
 		8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 846798451C76806000E350CE /* SVProgressHUD.bundle */; };
 		8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798471C76806000E350CE /* SVProgressHUD.m */; };
@@ -70,6 +74,10 @@
 /* Begin PBXFileReference section */
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
+		84271CD01C839C9D00F51755 /* libAsyncDisplayKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAsyncDisplayKit.a; path = "../../Downloads/AsyncDisplayKit-master/build/Debug-iphoneos/libAsyncDisplayKit.a"; sourceTree = "<group>"; };
+		84271CD21C839CFC00F51755 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		84271CD41C839D0A00F51755 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		84271CD61C839D1600F51755 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
@@ -148,6 +156,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84271CD71C839D1600F51755 /* Photos.framework in Frameworks */,
+				84271CD51C839D0A00F51755 /* AssetsLibrary.framework in Frameworks */,
+				84271CD31C839CFC00F51755 /* MapKit.framework in Frameworks */,
+				84271CD11C839C9D00F51755 /* libAsyncDisplayKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +173,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84271CD81C839F5C00F51755 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84271CD01C839C9D00F51755 /* libAsyncDisplayKit.a */,
+				84271CD21C839CFC00F51755 /* MapKit.framework */,
+				84271CD41C839D0A00F51755 /* AssetsLibrary.framework */,
+				84271CD61C839D1600F51755 /* Photos.framework */,
+			);
+			name = Frameworks;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		847776181C63945C000776B9 = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +206,7 @@
 		847776231C63945C000776B9 /* KNURE TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				84271CD81C839F5C00F51755 /* Frameworks */,
 				84F0ABA31C70CDAE006E2F40 /* Libraries */,
 				8477764A1C6A47C7000776B9 /* Resources */,
 				8477764B1C6A4813000776B9 /* Data */,
@@ -663,6 +688,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "KNURE TimeTable/KNURE TimeTable-Bridging-Header.h";
@@ -678,6 +707,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "KNURE TimeTable/KNURE TimeTable-Bridging-Header.h";

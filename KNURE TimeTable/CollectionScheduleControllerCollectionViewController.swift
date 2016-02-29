@@ -102,7 +102,6 @@ class CollectionScheduleViewController: UICollectionViewController  {
         
         if events.isEmpty {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(emptyCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleEmptyCell
-            
             return cell
         }
         if events.count > 1 {

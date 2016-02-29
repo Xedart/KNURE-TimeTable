@@ -10,27 +10,8 @@ import UIKit
 
 class CollectionScheduleMultiCell: UICollectionViewCell {
     
-    let scrollView = UIScrollView()
-    let mainTextView = UITextView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(scrollView)
-        scrollView.addSubview(mainTextView)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        scrollView.frame = self.bounds
-        mainTextView.frame = self.bounds
-        mainTextView.textAlignment = .Center
-        mainTextView.font = UIFont.systemFontOfSize(17)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.layer.shouldRasterize = true;
-        self.layer.rasterizationScale = UIScreen.mainScreen().scale
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,15 +19,29 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
     }
     
     func configure(events: [Event], shedule: Shedule) {
-        mainTextView.text = "\n\(shedule.subjects[events[0].subject_id]!.briefTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)"
-        mainTextView.backgroundColor = UIColor.lightGrayColor()
-        scrollView.contentSize.width = (self.bounds.width + 5) * CGFloat(events.count)
-        for i in 1..<events.count - 1 {
-            let textView = UITextView(frame: CGRect(x: 105 * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height))
-            textView.textAlignment = .Center
-            textView.text = "\n\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)"
-            textView.backgroundColor = UIColor.lightGrayColor() // *
-            scrollView.addSubview(textView)
+        let scrollNode = ASScrollNode()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        scrollNode.frame = self.bounds
+        for i in 0..<events.count {
+            let textNode = ASTextNode()
+            //textNode.measure(CGSize(width: self.bounds.width, height: self.bounds.height))
+            textNode.frame = CGRect(x: 105 * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
+            // attribures:
+            // text attributes:
+            let titleParagraphStyle = NSMutableParagraphStyle()
+            titleParagraphStyle.alignment = .Center
+            
+            textNode.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            textNode.backgroundColor = UIColor.blueColor()
+            scrollNode.addSubnode(textNode)
         }
-    }
+            dispatch_async(dispatch_get_main_queue()) {
+                scrollNode.view.contentSize.width = (105) * CGFloat(events.count)
+                for subView in self.subviews {
+                    subView.removeFromSuperview()
+                }
+                self.addSubview(scrollNode.view)
+        }
+    })
+  }
 }
