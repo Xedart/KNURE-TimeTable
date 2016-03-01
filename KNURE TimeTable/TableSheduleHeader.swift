@@ -20,17 +20,20 @@ class TableSheduleHeader: UILabel {
         formatter.dateFormat = "dd.MM"
         super.init(frame: CGRect())
 // header content:
+        textColor = FlatGrayDark()
         var textDay = ""
         if daysTitles[section] != nil {
             textDay = daysTitles[section]!
         }
+        if section == 0 {
+            textColor = FlatSkyBlue()
+        }
             text = "\(textDay) \(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section))))"
             text?.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))))")
 // style:
-        backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
+        backgroundColor = UIColor.whiteColor()
         textAlignment = .Center
         font = UIFont.systemFontOfSize(20)
-        textColor = FlatGrayDark()
     }
 
     required init?(coder aDecoder: NSCoder) {

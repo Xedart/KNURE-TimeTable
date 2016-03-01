@@ -19,13 +19,24 @@ class CollectionHeader: UICollectionReusableView {
         }
     }
     
-    func configure(dateStr: String) {
+    func configure(section: Int, shedule: Shedule) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.node.frame = self.bounds
             // text attributes:
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "dd.MM"
+            var txtColor = UIColor()
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
-            self.node.attributedString = NSAttributedString(string: "\n\(dateStr)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: FlatGrayDark(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            var labelText = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))))
+            let todayDate = formatter.stringFromDate(NSDate())
+            if todayDate == labelText {
+                txtColor = FlatSkyBlue()
+            } else {
+                txtColor = FlatGrayDark()
+            }
+            labelText.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))))")
+            self.node.attributedString = NSAttributedString(string: "\n\(labelText)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: txtColor, NSParagraphStyleAttributeName: titleParagraphStyle])
         })
     }
 

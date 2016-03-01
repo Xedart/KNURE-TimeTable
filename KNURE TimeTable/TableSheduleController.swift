@@ -35,6 +35,10 @@ class TableSheduleController: UITableViewController {
         tableView.emptyDataSetSource = self
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
+    }
+    
     func showMenu(sender: UIButton) {
         shedulesListController.hidesBottomBarWhenPushed = true
         if let parent = tabBarController as? MainTabBarController {

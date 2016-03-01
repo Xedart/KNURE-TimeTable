@@ -30,8 +30,10 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
             
-            textNode.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
-            textNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type))
+            textNode.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            textNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).colorWithAlphaComponent(0.2)
+            textNode.borderColor =  AppData.colorsForPairOfType(Int(events[0].type)).CGColor
+            textNode.borderWidth = 1.0
             scrollNode.addSubnode(textNode)
         }
             dispatch_async(dispatch_get_main_queue()) {

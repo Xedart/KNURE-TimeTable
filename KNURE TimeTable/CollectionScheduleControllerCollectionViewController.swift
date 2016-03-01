@@ -32,11 +32,15 @@ class CollectionScheduleViewController: UICollectionViewController  {
     }
     let scale = CollectionDecorationView()
     var initialScrollDone = false
-    var headersCache = [String]()
     var rowsCache = [String: EventCache]()
+    var doubleTapGesture = UITapGestureRecognizer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // gesture-recognizer:
+        doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.addTarget(self, action: #selector(CollectionScheduleViewController.doubleTapGestureDetected(_:)))
+        collectionView?.addGestureRecognizer(doubleTapGesture)
         // Register cell classes
         self.collectionView?.registerClass(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         self.collectionView?.registerClass(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
@@ -49,15 +53,18 @@ class CollectionScheduleViewController: UICollectionViewController  {
         collectionView!.addSubview(scale)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.becomeFirstResponder()
+    }
+    
     func cacheData() {
-        headersCache.removeAll()
         rowsCache.removeAll()
         let formatter = NSDateFormatter()
             formatter.dateFormat = "dd.MM"
         let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
         for section in 0 ..< self.collectionView!.numberOfSections() {
-            let dateStr = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))))
-            self.headersCache.append("\(dateStr) \(AppData.getDayOfWeek(dateStr))")
+           
             for row in 0..<self.collectionView!.numberOfItemsInSection(section) {
                 let events = self.shedule.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay), numberOFPair: row + 1)
                 rowsCache["\(section)\(row)"] = EventCache(events: events)
@@ -117,12 +124,33 @@ class CollectionScheduleViewController: UICollectionViewController  {
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryViewOfKind("Header", withReuseIdentifier: headerReuseIdentifier, forIndexPath: indexPath) as! CollectionHeader
-        headerView.configure(self.headersCache[indexPath.section])
+        headerView.configure(indexPath.section, shedule: shedule)
         return headerView
     }
 }
 
+    // MARK: - Shade gesture:
 
+extension CollectionScheduleViewController {
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if motion == .MotionShake {
+            let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
+            let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
+            collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        }
+    }
+    
+     func doubleTapGestureDetected(sender: UITapGestureRecognizer) {
+        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
+        let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
+        collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+    }
+}
 
 
 
