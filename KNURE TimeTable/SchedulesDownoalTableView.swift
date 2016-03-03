@@ -36,7 +36,7 @@ struct ListSection {
 }
 
 //
-//
+
 //
 
 class SchedulesDownoalTableView: UITableViewController {
@@ -184,6 +184,7 @@ extension SchedulesDownoalTableView {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             return
         }
+        // first thread:
         dispatch_async(dispatch_get_main_queue(), {
         
         Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)"], callback: { (data, responce, error) in
@@ -219,6 +220,7 @@ extension SchedulesDownoalTableView {
              })
           })
        })
+        // second thread:
         dispatch_async(dispatch_get_main_queue(), {
             self.dismissViewControllerAnimated(true, completion: nil)
             if let navigationController = self.navigationController {
