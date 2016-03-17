@@ -13,6 +13,7 @@
 		84271CD31C839CFC00F51755 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD21C839CFC00F51755 /* MapKit.framework */; };
 		84271CD51C839D0A00F51755 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD41C839D0A00F51755 /* AssetsLibrary.framework */; };
 		84271CD71C839D1600F51755 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD61C839D1600F51755 /* Photos.framework */; };
+		843AB26A1C9AC8FE0007B3BF /* Swift.gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 843AB2691C9AC8FE0007B3BF /* Swift.gitignore */; };
 		8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */; };
 		8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 846798451C76806000E350CE /* SVProgressHUD.bundle */; };
 		8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798471C76806000E350CE /* SVProgressHUD.m */; };
@@ -78,6 +79,7 @@
 		84271CD21C839CFC00F51755 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		84271CD41C839D0A00F51755 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		84271CD61C839D1600F51755 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		843AB2691C9AC8FE0007B3BF /* Swift.gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Swift.gitignore; sourceTree = "<group>"; };
 		846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		847776181C63945C000776B9 = {
 			isa = PBXGroup;
 			children = (
+				843AB2691C9AC8FE0007B3BF /* Swift.gitignore */,
 				847776231C63945C000776B9 /* KNURE TimeTable */,
 				847776381C63945D000776B9 /* KNURE TimeTableTests */,
 				847776221C63945C000776B9 /* Products */,
@@ -492,6 +495,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843AB26A1C9AC8FE0007B3BF /* Swift.gitignore in Resources */,
 				8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */,
 				8477762C1C63945C000776B9 /* Assets.xcassets in Resources */,
 				8477762A1C63945C000776B9 /* Main.storyboard in Resources */,
