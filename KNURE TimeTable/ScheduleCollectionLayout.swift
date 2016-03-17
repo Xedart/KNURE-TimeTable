@@ -70,7 +70,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
             cache.append(attributes)
         }
     }
-    }
+  }
 }
 
 
