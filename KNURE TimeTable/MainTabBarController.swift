@@ -14,6 +14,7 @@ class MainTabBarController: UITabBarController {
     
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,22 +35,27 @@ class MainTabBarController: UITabBarController {
 }
 
 extension MainTabBarController: SheduleControllersInitializer {
-    func initializeWithNewShedule() {
-        let defaults = NSUserDefaults.standardUserDefaults()
+    
+    func initWithDefaultSchedule() {
         if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
-            scheduleTableController.shedule = loadShedule(defaultKey)
-            scheduleCollectionController.shedule = loadShedule(defaultKey)
-            dispatch_async(dispatch_get_main_queue(), {
-                self.scheduleTableController.tableView.reloadData()
-                self.scheduleCollectionController.collectionView!.reloadData()
-            })
+            let newSchedule = loadShedule(defaultKey)
+            scheduleTableController.shedule = newSchedule
+            scheduleCollectionController.shedule = newSchedule
         } else {
             scheduleTableController.shedule = Shedule()
-            scheduleTableController.tableView.reloadData()
-            //
             scheduleCollectionController.shedule = Shedule()
-            scheduleCollectionController.collectionView!.reloadData()
         }
+    }
+    
+    func initializeWithNewShedule() {
+        self.initWithDefaultSchedule()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.scheduleCollectionController.collectionView!.reloadData()
+            self.scheduleCollectionController.cacheData()
+        })
+        dispatch_async(dispatch_get_main_queue(), {
+            self.scheduleTableController.tableView.reloadData()
+        })
     }
 }
 

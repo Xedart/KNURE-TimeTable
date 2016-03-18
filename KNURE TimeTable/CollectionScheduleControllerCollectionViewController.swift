@@ -28,6 +28,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
             if !initialScrollDone {
             cacheData()
             }
+            
         }
     }
     let scale = CollectionDecorationView()
