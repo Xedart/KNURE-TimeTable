@@ -15,7 +15,9 @@ class TableSheduleController: UITableViewController {
     var shedule: Shedule! {
         didSet {
             if !shedule.shedule_id.isEmpty {
-                button.setTitle(shedule.shedule_id, forState: .Normal)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
+                })
             }
         }
     }
@@ -36,6 +38,11 @@ class TableSheduleController: UITableViewController {
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
