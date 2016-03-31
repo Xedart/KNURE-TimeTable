@@ -21,7 +21,8 @@ class Event: NSObject, NSCoding  {
     var auditory: String
     var teachers: [Int]
     var groups: [Int]
-//initialiation:
+    
+    //initialiation:
     init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int]) {
         self.subject_id = subject_id
         self.start_time = start_time
@@ -35,7 +36,8 @@ class Event: NSObject, NSCoding  {
     convenience override init() {
         self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int]())
     }
-// NCCoding:
+    
+    // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
         let subject_id = aDecoder.decodeObjectForKey(Key.subject_id) as! String
         let start_time = aDecoder.decodeObjectForKey(Key.start_time) as! Int
@@ -105,7 +107,8 @@ class Teacher: NSObject, NSCoding {
     convenience override init() {
         self.init(full_name: String(), short_name: String())
     }
-// NCCoding:
+    
+    // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
         let full_name = aDecoder.decodeObjectForKey(Key.fullName) as! String
         let short_name = aDecoder.decodeObjectForKey(Key.shortName) as! String
@@ -164,7 +167,8 @@ class NureType: NSObject, NSCoding {
     convenience override init() {
         self.init(short_name: String(), full_name: String(), id: String())
     }
-// NCCoding:
+    
+    // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
         let short_name = aDecoder.decodeObjectForKey(Key.short_name) as! String
         let full_name = aDecoder.decodeObjectForKey(Key.full_name) as! String
@@ -182,11 +186,17 @@ class NureType: NSObject, NSCoding {
         static let id_key = "TPId"
     }
 }
-
-//                                   //
-    // MARK: Main data-model class:
-
-//                                   //
+//----------------------------------------------------------------------------------------//
+//                                                                                        //
+//                                                                                        //
+//                                                                                        //
+//                                                                                        //
+//                         MARK: Main data-model class                                    //
+//                                                                                        //
+//                                                                                        //
+//                                                                                        //
+//                                                                                        //
+//----------------------------------------------------------------------------------------//
 
 class Shedule: NSObject, NSCoding {
     

@@ -41,6 +41,7 @@ class ShedulesListTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
         // load the saved shedules identifiers from defaults
         let defaults = NSUserDefaults.standardUserDefaults()
         if let groups = defaults.objectForKey(AppData.savedGroupsShedulesKey) as? [String] {
@@ -84,8 +85,10 @@ class ShedulesListTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         // get the cell from queue:
         let cell = tableView.dequeueReusableCellWithIdentifier("ShedulesListCell", forIndexPath: indexPath) as! SheduleLIstCell
+        
         // configure the cell:
         if indexPath.section == 0 {
             if groupsData.isEmpty {
@@ -140,6 +143,7 @@ class ShedulesListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         // get default schedule:
         var newScheduleId = ""
         if indexPath.section == 0 {
@@ -160,9 +164,11 @@ class ShedulesListTableViewController: UITableViewController {
             }
             newScheduleId = auditoryiesData[indexPath.row]
         }
+        
         // set the new default schedule:
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(newScheduleId, forKey: AppData.defaultScheduleKey)
+        
         // cgange default schedule
         self.delegate.initializeWithNewShedule()
         dismissViewControllerAnimated(true, completion: nil)

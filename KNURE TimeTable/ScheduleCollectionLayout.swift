@@ -24,7 +24,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     override func prepareLayout() {
         self.registerClass(lineView.self, forDecorationViewOfKind: "lineView")
         // compute contentWidth:
-        contentWidth = (CGFloat(collectionView!.numberOfSections()) * cellWidth) + (CGFloat(collectionView!.numberOfSections()) * offset)
+        contentWidth = (CGFloat(collectionView!.numberOfSections()) * cellWidth) + (CGFloat(collectionView!.numberOfSections()) * (offset)) + cellWidth / 2
         self.computeLayoutAttributes()
     }
     
@@ -69,8 +69,8 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
             attributes.frame = CGRect(x: 50, y: CGFloat((100 + 1) * (i) + (50 + 1)), width: contentWidth, height: 0.6)
             cache.append(attributes)
         }
+      }
     }
-  }
 }
 
 

@@ -141,6 +141,7 @@ class SchedulesDownoalTableView: UITableViewController {
 extension SchedulesDownoalTableView {
     
     func initializeData() {
+        
         // setDownloading indicator:
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         dispatch_async(dispatch_get_main_queue(), {
@@ -151,6 +152,7 @@ extension SchedulesDownoalTableView {
         })
         
         Server.makeRequest(initMetod, parameters: nil, callback: { ( data, responce, error) in
+           
             // check for success connection:
             if error != nil {
                 self.presentViewController(AlertView.getAlert("Сталася помилка", message: "Перевірте з'єднання з інтернетом", handler: { action in
@@ -208,7 +210,7 @@ extension SchedulesDownoalTableView {
                 defaults.setObject(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
                 }
                 
-                // TODO: /// if if...
+                // TODO: // if if...
                 
                 // set new default schedule:
                 defaults.setObject(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)

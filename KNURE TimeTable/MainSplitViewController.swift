@@ -93,13 +93,12 @@ extension MainSplitViewController: SheduleControllersInitializer {
             })
         } else {
             scheduleTableController.shedule = Shedule()
-            //
             scheduleCollectionController.shedule = Shedule()
         }
     }
 }
 
-    // MARK: - pop all vieewController to root when dissmissing popOver:
+    // MARK: - Pop all vieewController to root when dissmissing popover:
 
 extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
     func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {

@@ -48,6 +48,7 @@ class Parser {
     
     
     static func parseSchedule(data: JSON, callback: (data: Shedule) -> Void) {
+        
         // perform data arrays for filling:
         var result_types = [String: NureType]()
         var result_teachers = [String: Teacher]()
@@ -60,6 +61,7 @@ class Parser {
         formatter.dateStyle = .ShortStyle
         print(data)
         let jsTypes = data["types"].arrayValue
+        
         // grab types:
         for type in jsTypes {
             let id = type["id"].stringValue
@@ -69,6 +71,7 @@ class Parser {
             let nure_type = NureType(short_name: short_name, full_name: full_name, id: id)
             result_types[type_id] = nure_type
         }
+        
         // grab teachers:
         let jsTeachers = data["teachers"].arrayValue
         for teacher in jsTeachers {
@@ -78,6 +81,7 @@ class Parser {
             let nure_teacher = Teacher(full_name: full_name, short_name: short_name)
             result_teachers[teacher_id] = nure_teacher
         }
+        
         // grab subjects:
         let jsSubjects = data["subjects"].arrayValue
         for subject in jsSubjects {
@@ -87,6 +91,7 @@ class Parser {
             let nure_subject = Subject(briefTitle: briefTitle, fullTitle: title)
             result_subjects[subject_id] = nure_subject
         }
+        
         // grab groups:
         let jsGroups = data["groups"].arrayValue
         for jgroup in jsGroups {
@@ -94,6 +99,7 @@ class Parser {
             let name = jgroup["name"].stringValue
             result_groups[groupId] = name
         }
+        
         // grab events:
         let jsEvents = data["events"].arrayValue
         if let startTime = jsEvents.first?["start_time"].intValue {

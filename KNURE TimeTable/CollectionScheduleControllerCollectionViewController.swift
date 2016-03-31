@@ -37,10 +37,12 @@ class CollectionScheduleViewController: UICollectionViewController  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // gesture-recognizer:
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.addTarget(self, action: #selector(CollectionScheduleViewController.doubleTapGestureDetected(_:)))
         collectionView?.addGestureRecognizer(doubleTapGesture)
+        
         // Register cell classes
         self.collectionView?.registerClass(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         self.collectionView?.registerClass(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
@@ -129,7 +131,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
     }
 }
 
-    // MARK: - Shade gesture:
+    // MARK: -  Gestures:
 
 extension CollectionScheduleViewController {
     
@@ -138,17 +140,25 @@ extension CollectionScheduleViewController {
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
-            let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
-            let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
-            collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-        }
+        performScrollToToday()
     }
     
      func doubleTapGestureDetected(sender: UITapGestureRecognizer) {
+        performScrollToToday()
+    }
+    
+    func performScrollToToday() {
         let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
+        
         let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
-        collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        
+        // TODO: check for scrolling impossibility.
+        
+        if numberOfdays > collectionView!.numberOfSections() {
+            return
+        }
+        collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
+        collectionView?.contentOffset.x -= 55
     }
 }
 

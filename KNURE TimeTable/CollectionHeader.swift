@@ -22,6 +22,7 @@ class CollectionHeader: UICollectionReusableView {
     func configure(section: Int, shedule: Shedule) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.node.frame = self.bounds
+            
             // text attributes:
             let formatter = NSDateFormatter()
             formatter.dateFormat = "dd.MM"
@@ -35,7 +36,9 @@ class CollectionHeader: UICollectionReusableView {
             } else {
                 txtColor = FlatGrayDark()
             }
-            labelText.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))))")
+            
+            labelText.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))))))")
+            
             self.node.attributedString = NSAttributedString(string: "\n\(labelText)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: txtColor, NSParagraphStyleAttributeName: titleParagraphStyle])
         })
     }
