@@ -59,7 +59,7 @@ class Parser {
         var lastDayTime = Int()
         let formatter = NSDateFormatter()
         formatter.dateStyle = .ShortStyle
-        print(data)
+       
         let jsTypes = data["types"].arrayValue
         
         // grab types:

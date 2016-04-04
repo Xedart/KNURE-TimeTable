@@ -18,6 +18,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     
     var sheduleNavigationController = UINavigationController()
     let button = TitleViewButton()
+    var sideInfoButton: UIBarButtonItem!
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -26,6 +27,8 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // setup viewController:
         scheduleTableController = viewControllers[0] as! TableSheduleController
         scheduleCollectionController = viewControllers[1] as! CollectionScheduleViewController
         dispatch_async(dispatch_get_main_queue(), {
@@ -35,10 +38,28 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             })
         initWithDefaultSchedule()
         
-// displaying:
+        // setnavigation items:
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        navigationItem.setLeftBarButtonItems([sideInfoButton, self.displayModeButtonItem()], animated: true)
+        
+        // displaying:
         maximumPrimaryColumnWidth = CGFloat.max
         preferredPrimaryColumnWidthFraction = 0.4
         preferredDisplayMode = .AllVisible
+    }
+    
+    func targetDisplayModeForActionInSplitViewController(svc: UISplitViewController) -> UISplitViewControllerDisplayMode {
+        if self.displayMode == .AllVisible {
+            return UISplitViewControllerDisplayMode.PrimaryHidden
+        } else {
+            return UISplitViewControllerDisplayMode.AllVisible
+        }
+    }
+    
+    override func displayModeButtonItem() -> UIBarButtonItem {
+        let defaultButton = super.displayModeButtonItem()
+        let button = UIBarButtonItem(image: UIImage(named: "displayModeButton"), style: UIBarButtonItemStyle.Plain, target: defaultButton.target, action: defaultButton.action)
+        return button
     }
     
     // MARK: - Methods:
@@ -76,6 +97,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
         self.initWithDefaultSchedule()
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleCollectionController.collectionView!.reloadData()
+            self.scheduleCollectionController.initialScrollDone = false
             self.scheduleCollectionController.cacheData()
         })
         dispatch_async(dispatch_get_main_queue(), {

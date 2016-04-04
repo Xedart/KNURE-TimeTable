@@ -24,8 +24,8 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         scrollNode.frame = self.bounds
         for i in 0..<events.count {
             let textNode = ASTextNode()
-            //textNode.measure(CGSize(width: self.bounds.width, height: self.bounds.height))
             textNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
+            
             // text attributes:
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
@@ -41,6 +41,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 for subView in self.subviews {
                     subView.removeFromSuperview()
                 }
+                scrollNode.view.contentOffset.x = 20
                 self.addSubview(scrollNode.view)
         }
     })

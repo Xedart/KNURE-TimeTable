@@ -40,9 +40,11 @@ extension MainTabBarController: SheduleControllersInitializer {
         if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
             let newSchedule = loadShedule(defaultKey)
             scheduleTableController.shedule = newSchedule
+            self.scheduleCollectionController.initialScrollDone = false
             scheduleCollectionController.shedule = newSchedule
         } else {
             scheduleTableController.shedule = Shedule()
+            self.scheduleCollectionController.initialScrollDone = false
             scheduleCollectionController.shedule = Shedule()
         }
     }
@@ -51,6 +53,7 @@ extension MainTabBarController: SheduleControllersInitializer {
         self.initWithDefaultSchedule()
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleCollectionController.collectionView!.reloadData()
+            self.scheduleCollectionController.initialScrollDone = false
             self.scheduleCollectionController.cacheData()
         })
         dispatch_async(dispatch_get_main_queue(), {

@@ -26,6 +26,7 @@ class TableSheduleController: UITableViewController {
     
     let shedulesListController = ShedulesListTableViewController()
     let button = TitleViewButton()
+    var sideInfoButton: UIBarButtonItem!
 
     //MARK: - LifeCycle:
     
@@ -34,6 +35,10 @@ class TableSheduleController: UITableViewController {
         title = "назад"// title for back item
         button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
+        
+        // setnavigation items:
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = sideInfoButton
         tableView.emptyDataSetSource = self
     }
     

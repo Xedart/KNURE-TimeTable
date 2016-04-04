@@ -200,12 +200,11 @@ class NureType: NSObject, NSCoding {
 
 class Shedule: NSObject, NSCoding {
     
-// Static properties (File path ):
-    
+    // Static properties (File path ):
     static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
     let urlPath = DocumentsDirectory
     
-// Properties:
+    // Properties:
     var startDayTime = Int()
     var endDayTime = Int()
     var shedule_id: String
@@ -216,7 +215,7 @@ class Shedule: NSObject, NSCoding {
     var types = [String: NureType]()
     
     
-// Initialization:
+    // Initialization:
     init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType]) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
@@ -257,7 +256,8 @@ class Shedule: NSObject, NSCoding {
         aCoder.encodeObject(subjects, forKey: Key.subjects)
         aCoder.encodeObject(types, forKey: Key.types)
     }
-// Keyes - constants:
+    
+    // Keyes - constants:
     struct Key {
         static let startDayTime = "SHStartDayTime"
         static let endDayTime = "SHEndDayTime"

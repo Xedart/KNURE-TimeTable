@@ -25,11 +25,20 @@ class CollectionScheduleViewController: UICollectionViewController  {
     
     var shedule: Shedule! {
         didSet {
-            if !initialScrollDone {
             cacheData()
+            if !shedule.shedule_id.isEmpty {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
+                })
+            }
+            if !initialScrollDone {
+               
             }
         }
     }
+    let shedulesListController = ShedulesListTableViewController()
+    let button = TitleViewButton()
+    var sideInfoButton: UIBarButtonItem!
     let scale = CollectionDecorationView()
     var initialScrollDone = false
     var rowsCache = [String: EventCache]()
@@ -49,11 +58,19 @@ class CollectionScheduleViewController: UICollectionViewController  {
         self.collectionView?.registerClass(CollectionScheduleMultiCell.self, forCellWithReuseIdentifier: multiCellReuseIndentifier)
         self.collectionView!.registerClass(CollectionHeader.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: headerReuseIdentifier)
        
+        //navigationItem setUp:
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = sideInfoButton
+        button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
+        navigationItem.titleView = button
+        
         // Time - scale:
         scale.frame = CGRect(x: 0, y: 0, width: 55, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
         collectionView!.addSubview(scale)
     }
+    
+    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -84,6 +101,14 @@ class CollectionScheduleViewController: UICollectionViewController  {
         }
     }
     
+    func showMenu(sender: UIButton) {
+        shedulesListController.hidesBottomBarWhenPushed = true
+        if let parent = tabBarController as? MainTabBarController {
+            shedulesListController.delegate = parent
+        }
+        navigationController?.pushViewController(shedulesListController, animated: true)
+    }
+    
 
     // MARK: UICollectionViewDataSource
 
@@ -107,6 +132,9 @@ class CollectionScheduleViewController: UICollectionViewController  {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
+        if rowsCache["\(indexPath.section)\(indexPath.row)"] == nil {
+            cacheData()
+        }
         let events = rowsCache["\(indexPath.section)\(indexPath.row)"]!.events
         
         if events.isEmpty {
@@ -152,9 +180,8 @@ extension CollectionScheduleViewController {
         
         let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
         
-        // TODO: check for scrolling impossibility.
-        
-        if numberOfdays > collectionView!.numberOfSections() {
+        // check for scrolling impossibility.
+        if numberOfdays > collectionView!.numberOfSections() || numberOfdays < 0 {
             return
         }
         collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
