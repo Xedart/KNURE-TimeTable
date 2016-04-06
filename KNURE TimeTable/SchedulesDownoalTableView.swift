@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import SVProgressHUD
 
     // MARK: - dataSource structures
 

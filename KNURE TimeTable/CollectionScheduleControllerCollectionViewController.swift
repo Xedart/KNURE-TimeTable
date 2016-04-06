@@ -31,9 +31,6 @@ class CollectionScheduleViewController: UICollectionViewController  {
                     self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
                 })
             }
-            if !initialScrollDone {
-               
-            }
         }
     }
     let shedulesListController = ShedulesListTableViewController()
@@ -43,9 +40,14 @@ class CollectionScheduleViewController: UICollectionViewController  {
     var initialScrollDone = false
     var rowsCache = [String: EventCache]()
     var doubleTapGesture = UITapGestureRecognizer()
+    var weekScheduleControllerDelegate: TableSheduleControllerDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // EmptyDataSource:
+        collectionView!.emptyDataSetSource = self
+        collectionView!.emptyDataSetDelegate = self
         
         // gesture-recognizer:
         doubleTapGesture.numberOfTapsRequired = 2
@@ -64,17 +66,15 @@ class CollectionScheduleViewController: UICollectionViewController  {
         button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
         
-        // Time - scale:
+        // Timescale:
         scale.frame = CGRect(x: 0, y: 0, width: 55, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
-        collectionView!.addSubview(scale)
     }
     
-    
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.becomeFirstResponder()
+    override func viewWillAppear(animated: Bool) {
+        if shedule.shedule_id.isEmpty {
+            viewDidLayoutSubviews()
+        }
     }
     
     func cacheData() {
@@ -93,6 +93,16 @@ class CollectionScheduleViewController: UICollectionViewController  {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        // timeScale configuring:
+        self.becomeFirstResponder()
+        if shedule.shedule_id.isEmpty {
+            scale.removeFromSuperview()
+        } else {
+            collectionView?.addSubview(scale)
+        }
+        
+        // performing initil scroll:
         if !initialScrollDone {
             let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
             let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
@@ -113,6 +123,9 @@ class CollectionScheduleViewController: UICollectionViewController  {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        if shedule == nil {
+            return 0
+        }
         if shedule.shedule_id.isEmpty {
             return 0
         }
@@ -124,6 +137,9 @@ class CollectionScheduleViewController: UICollectionViewController  {
 
 
      override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if shedule == nil {
+            return 0
+        }
         if shedule.shedule_id.isEmpty {
             return 0
         }
@@ -168,7 +184,12 @@ extension CollectionScheduleViewController {
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        performScrollToToday()
+        if motion == UIEventSubtype.MotionShake{
+            performScrollToToday()
+            if weekScheduleControllerDelegate != nil {
+                weekScheduleControllerDelegate!.performScrollToToday()
+            }
+        }
     }
     
      func doubleTapGestureDetected(sender: UITapGestureRecognizer) {
@@ -186,8 +207,21 @@ extension CollectionScheduleViewController {
         }
         collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
         collectionView?.contentOffset.x -= 55
+        collectionView?.contentOffset.y = 0
+        
     }
 }
+
+    // MARK: - DZNEmptyDataSetSource
+
+extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "Розклад не обрано", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
+    }
+}
+
+
 
 
 

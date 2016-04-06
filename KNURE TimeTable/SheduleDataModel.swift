@@ -300,7 +300,6 @@ extension Shedule {
             return [Event]()
         }
     }
-    
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class MainTabBarController: UITabBarController {
     
@@ -29,6 +30,7 @@ class MainTabBarController: UITabBarController {
     }
     
     // MARK: - Methods:
+    
     func loadShedule(sheduleId: String) -> Shedule {
         return NSKeyedUnarchiver.unarchiveObjectWithFile("\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
     }
@@ -62,7 +64,7 @@ extension MainTabBarController: SheduleControllersInitializer {
     }
 }
 
-// MARK: - NSNotifications setting:
+    // MARK: - NSNotifications setting:
 
 extension MainTabBarController {
     func setObservers() {
@@ -70,7 +72,7 @@ extension MainTabBarController {
     }
 }
 
-// MARK: - Notifications responders:
+    // MARK: - Notifications responders:
 
 extension MainTabBarController {
     func getNewSchedule() {

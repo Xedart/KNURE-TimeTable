@@ -4,7 +4,7 @@
 //  https://github.com/dzenbot/DZNEmptyDataSet
 //
 //  Created by Ignacio Romero Zurbuchen on 6/20/14.
-//  Copyright (c) 2014 DZN Labs. All rights reserved.
+//  Copyright (c) 2016 DZN Labs. All rights reserved.
 //  Licence: MIT-Licence
 //
 
@@ -159,7 +159,7 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(titleForEmptyDataSet:)]) {
         NSAttributedString *string = [self.emptyDataSetSource titleForEmptyDataSet:self];
-        if (string) NSAssert([string isKindOfClass:[NSAttributedString class]], @"You must return a valid NSAttributedString object -titleForEmptyDataSet:");
+        if (string) NSAssert([string isKindOfClass:[NSAttributedString class]], @"You must return a valid NSAttributedString object for -titleForEmptyDataSet:");
         return string;
     }
     return nil;
@@ -169,7 +169,7 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(descriptionForEmptyDataSet:)]) {
         NSAttributedString *string = [self.emptyDataSetSource descriptionForEmptyDataSet:self];
-        if (string) NSAssert([string isKindOfClass:[NSAttributedString class]], @"You must return a valid NSAttributedString object -descriptionForEmptyDataSet:");
+        if (string) NSAssert([string isKindOfClass:[NSAttributedString class]], @"You must return a valid NSAttributedString object for -descriptionForEmptyDataSet:");
         return string;
     }
     return nil;
@@ -185,11 +185,11 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
     return nil;
 }
 
-- (CAAnimation *) dzn_imageAnimation
+- (CAAnimation *)dzn_imageAnimation
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(imageAnimationForEmptyDataSet:)]) {
         CAAnimation *imageAnimation = [self.emptyDataSetSource imageAnimationForEmptyDataSet:self];
-        if (imageAnimation) NSAssert([imageAnimation isKindOfClass:[CAAnimation class]], @"You must return a valid UIImage object for -imageForEmptyDataSet:");
+        if (imageAnimation) NSAssert([imageAnimation isKindOfClass:[CAAnimation class]], @"You must return a valid CAAnimation object for -imageAnimationForEmptyDataSet:");
         return imageAnimation;
     }
     return nil;
@@ -199,7 +199,7 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(imageTintColorForEmptyDataSet:)]) {
         UIColor *color = [self.emptyDataSetSource imageTintColorForEmptyDataSet:self];
-        if (color) NSAssert([color isKindOfClass:[UIColor class]], @"You must return a valid UIColor object -imageTintColorForEmptyDataSet:");
+        if (color) NSAssert([color isKindOfClass:[UIColor class]], @"You must return a valid UIColor object for -imageTintColorForEmptyDataSet:");
         return color;
     }
     return nil;
@@ -239,7 +239,7 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(backgroundColorForEmptyDataSet:)]) {
         UIColor *color = [self.emptyDataSetSource backgroundColorForEmptyDataSet:self];
-        if (color) NSAssert([color isKindOfClass:[UIColor class]], @"You must return a valid UIColor object -backgroundColorForEmptyDataSet:");
+        if (color) NSAssert([color isKindOfClass:[UIColor class]], @"You must return a valid UIColor object for -backgroundColorForEmptyDataSet:");
         return color;
     }
     return [UIColor clearColor];
@@ -307,7 +307,7 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
     return NO;
 }
 
-- (BOOL)dzn_isImageViewAnimateAllow
+- (BOOL)dzn_isImageViewAnimateAllowed
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetShouldAnimateImageView:)]) {
         return [self.emptyDataSetDelegate emptyDataSetShouldAnimateImageView:self];
@@ -522,7 +522,7 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
         self.scrollEnabled = [self dzn_isScrollAllowed];
         
         // Configure image view animation
-        if ([self dzn_isImageViewAnimateAllow])
+        if ([self dzn_isImageViewAnimateAllowed])
         {
             CAAnimation *animation = [self dzn_imageAnimation];
             
@@ -655,6 +655,10 @@ NSString *dzn_implementationKey(id target, SEL selector)
 
 
 #pragma mark - UIGestureRecognizerDelegate Methods
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return ![touch.view isKindOfClass:[UIControl class]];
+}
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -828,7 +832,7 @@ NSString *dzn_implementationKey(id target, SEL selector)
 - (BOOL)canShowButton
 {
     if ([_button attributedTitleForState:UIControlStateNormal].string.length > 0 || [_button imageForState:UIControlStateNormal]) {
-        return (_button.superview != nil) ? YES : NO;
+        return (_button.superview != nil);
     }
     return NO;
 }
@@ -904,8 +908,6 @@ NSString *dzn_implementationKey(id target, SEL selector)
     
     // If applicable, set the custom view's constraints
     if (_customView) {
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentView]|" options:0 metrics:nil views:@{@"contentView": self.contentView}]];
-        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
     }

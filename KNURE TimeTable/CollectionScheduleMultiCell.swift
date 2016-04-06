@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
 class CollectionScheduleMultiCell: UICollectionViewCell {
     

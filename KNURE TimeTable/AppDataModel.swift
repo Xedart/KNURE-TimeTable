@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ChameleonFramework
+
+  // Container structure for app global functionality:
 
 struct AppData {
     static let unixDay = 86400

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class Parser {
     static func parseGroupsLst(data: JSON, callback: (data: [ListSection]) -> Void) {

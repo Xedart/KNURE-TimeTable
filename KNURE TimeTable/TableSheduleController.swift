@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TableSheduleControllerDelegate {
+    func performScrollToToday()
+}
+
 class TableSheduleController: UITableViewController {
     
     //MARK: - DataSource:
@@ -97,7 +101,7 @@ class TableSheduleController: UITableViewController {
     }
 }
 
-// MARK: - DZNEmptyDataSetSource
+    // MARK: - DZNEmptyDataSetSource
 
 extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
@@ -105,3 +109,17 @@ extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
         return NSAttributedString(string: "Розклад не обрано", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
     }
 }
+
+    // MARK: - TableSheduleControllerDelegate
+
+extension TableSheduleController: TableSheduleControllerDelegate {
+    func performScrollToToday() {
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+    }
+}
+
+
+
+
+
+

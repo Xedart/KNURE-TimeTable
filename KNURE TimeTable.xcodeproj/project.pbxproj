@@ -9,14 +9,6 @@
 /* Begin PBXBuildFile section */
 		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
 		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
-		84271CD11C839C9D00F51755 /* libAsyncDisplayKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD01C839C9D00F51755 /* libAsyncDisplayKit.a */; };
-		84271CD31C839CFC00F51755 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD21C839CFC00F51755 /* MapKit.framework */; };
-		84271CD51C839D0A00F51755 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD41C839D0A00F51755 /* AssetsLibrary.framework */; };
-		84271CD71C839D1600F51755 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84271CD61C839D1600F51755 /* Photos.framework */; };
-		8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */; };
-		8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 846798451C76806000E350CE /* SVProgressHUD.bundle */; };
-		8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798471C76806000E350CE /* SVProgressHUD.m */; };
-		8467984D1C76806000E350CE /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 846798491C76806000E350CE /* SVRadialGradientLayer.m */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
 		8477762C1C63945C000776B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8477762B1C63945C000776B9 /* Assets.xcassets */; };
@@ -32,33 +24,20 @@
 		848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */; };
 		848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */; };
 		848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */; };
-		849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */; };
 		849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832641C72169300727E74 /* DirectiongTableViewController.swift */; };
 		849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832661C72186C00727E74 /* SchedulesTypesCell.swift */; };
 		8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */; };
 		8498326D1C72862F00727E74 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498326C1C72862F00727E74 /* Server.swift */; };
 		849832711C7349D600727E74 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832701C7349D600727E74 /* AlertView.swift */; };
-		849832731C734D9200727E74 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832721C734D9200727E74 /* SwiftyJSON.swift */; };
 		849832761C736C9600727E74 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832751C736C9500727E74 /* Parser.swift */; };
 		849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832771C737B0C00727E74 /* NewScheduleCell.swift */; };
 		84A1F6731C83292500A7C05C /* CollectionScheduleMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */; };
 		84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
-		84F0ABC11C70CDCC006E2F40 /* ChameleonShorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */; };
-		84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */; };
-		84F0ABC31C70CDCC006E2F40 /* ChameleonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABAA1C70CDCC006E2F40 /* ChameleonConstants.m */; };
-		84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABAE1C70CDCC006E2F40 /* NSArray+Chameleon.m */; };
-		84F0ABC51C70CDCC006E2F40 /* UIButton+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB01C70CDCC006E2F40 /* UIButton+Chameleon.m */; };
-		84F0ABC61C70CDCC006E2F40 /* UIColor+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB21C70CDCC006E2F40 /* UIColor+Chameleon.m */; };
-		84F0ABC71C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB41C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m */; };
-		84F0ABC81C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB61C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m */; };
-		84F0ABC91C70CDCC006E2F40 /* UILabel+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABB81C70CDCC006E2F40 /* UILabel+Chameleon.m */; };
-		84F0ABCA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABBA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m */; };
-		84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABBC1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m */; };
-		84F0ABCC1C70CDCC006E2F40 /* UIViewController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABBE1C70CDCC006E2F40 /* UIViewController+Chameleon.m */; };
-		84F0ABCD1C70CDCC006E2F40 /* UIAppearance+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABC01C70CDCC006E2F40 /* UIAppearance+Swift.m */; };
 		84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */; };
 		84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */; };
+		84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */; };
+		CAD3ECF9FC1566BD0BB3A5BE /* Pods_KNURE_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,20 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KNURE_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CE976CFB648CBAA61D0F5A7 /* Pods-KNURE TimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KNURE TimeTable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable.debug.xcconfig"; sourceTree = "<group>"; };
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
-		84271CD01C839C9D00F51755 /* libAsyncDisplayKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAsyncDisplayKit.a; path = "../../Downloads/AsyncDisplayKit-master/build/Debug-iphoneos/libAsyncDisplayKit.a"; sourceTree = "<group>"; };
-		84271CD21C839CFC00F51755 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		84271CD41C839D0A00F51755 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		84271CD61C839D1600F51755 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
-		846798451C76806000E350CE /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		846798461C76806000E350CE /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		846798471C76806000E350CE /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		846798481C76806000E350CE /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
-		846798491C76806000E350CE /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		847776211C63945C000776B9 /* KNURE TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KNURE TimeTable.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,50 +74,22 @@
 		848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleControllerCollectionViewController.swift; sourceTree = "<group>"; };
 		848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleCell.swift; sourceTree = "<group>"; };
 		848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionLayout.swift; sourceTree = "<group>"; };
-		849832611C7110DC00727E74 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
-		849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		849832641C72169300727E74 /* DirectiongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectiongTableViewController.swift; sourceTree = "<group>"; };
 		849832661C72186C00727E74 /* SchedulesTypesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesTypesCell.swift; sourceTree = "<group>"; };
 		8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesDownoalTableView.swift; sourceTree = "<group>"; };
 		8498326C1C72862F00727E74 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		849832701C7349D600727E74 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
-		849832721C734D9200727E74 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		849832751C736C9500727E74 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		849832771C737B0C00727E74 /* NewScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScheduleCell.swift; sourceTree = "<group>"; };
 		84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleMultiCell.swift; sourceTree = "<group>"; };
 		84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleEmptyCell.swift; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
-		84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KNURE TimeTable-Bridging-Header.h"; sourceTree = "<group>"; };
-		84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChameleonShorthand.swift; sourceTree = "<group>"; };
-		84F0ABA61C70CDCC006E2F40 /* Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chameleon.h; sourceTree = "<group>"; };
-		84F0ABA71C70CDCC006E2F40 /* Chameleon_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chameleon_.h; sourceTree = "<group>"; };
-		84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chameleon_.m; sourceTree = "<group>"; };
-		84F0ABA91C70CDCC006E2F40 /* ChameleonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonConstants.h; sourceTree = "<group>"; };
-		84F0ABAA1C70CDCC006E2F40 /* ChameleonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChameleonConstants.m; sourceTree = "<group>"; };
-		84F0ABAB1C70CDCC006E2F40 /* ChameleonEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonEnums.h; sourceTree = "<group>"; };
-		84F0ABAC1C70CDCC006E2F40 /* ChameleonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonMacros.h; sourceTree = "<group>"; };
-		84F0ABAD1C70CDCC006E2F40 /* NSArray+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chameleon.h"; sourceTree = "<group>"; };
-		84F0ABAE1C70CDCC006E2F40 /* NSArray+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chameleon.m"; sourceTree = "<group>"; };
-		84F0ABAF1C70CDCC006E2F40 /* UIButton+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Chameleon.h"; sourceTree = "<group>"; };
-		84F0ABB01C70CDCC006E2F40 /* UIButton+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Chameleon.m"; sourceTree = "<group>"; };
-		84F0ABB11C70CDCC006E2F40 /* UIColor+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Chameleon.h"; sourceTree = "<group>"; };
-		84F0ABB21C70CDCC006E2F40 /* UIColor+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Chameleon.m"; sourceTree = "<group>"; };
-		84F0ABB31C70CDCC006E2F40 /* UIColor+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		84F0ABB41C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		84F0ABB51C70CDCC006E2F40 /* UIImage+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		84F0ABB61C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		84F0ABB71C70CDCC006E2F40 /* UILabel+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Chameleon.h"; sourceTree = "<group>"; };
-		84F0ABB81C70CDCC006E2F40 /* UILabel+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Chameleon.m"; sourceTree = "<group>"; };
-		84F0ABB91C70CDCC006E2F40 /* UINavigationController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Chameleon.h"; sourceTree = "<group>"; };
-		84F0ABBA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Chameleon.m"; sourceTree = "<group>"; };
-		84F0ABBB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		84F0ABBC1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		84F0ABBD1C70CDCC006E2F40 /* UIViewController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Chameleon.h"; sourceTree = "<group>"; };
-		84F0ABBE1C70CDCC006E2F40 /* UIViewController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Chameleon.m"; sourceTree = "<group>"; };
-		84F0ABBF1C70CDCC006E2F40 /* UIAppearance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAppearance+Swift.h"; sourceTree = "<group>"; };
-		84F0ABC01C70CDCC006E2F40 /* UIAppearance+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAppearance+Swift.m"; sourceTree = "<group>"; };
 		84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewButton.swift; sourceTree = "<group>"; };
 		84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleLIstCell.swift; sourceTree = "<group>"; };
+		84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KNURE TimeTable-Bridging-Header.h"; sourceTree = "<group>"; };
+		84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
+		AA4C342CFBD5753438C27568 /* Pods-KNURE TimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KNURE TimeTable.release.xcconfig"; path = "Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,10 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84271CD71C839D1600F51755 /* Photos.framework in Frameworks */,
-				84271CD51C839D0A00F51755 /* AssetsLibrary.framework in Frameworks */,
-				84271CD31C839CFC00F51755 /* MapKit.framework in Frameworks */,
-				84271CD11C839C9D00F51755 /* libAsyncDisplayKit.a in Frameworks */,
+				CAD3ECF9FC1566BD0BB3A5BE /* Pods_KNURE_TimeTable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,24 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		84271CD81C839F5C00F51755 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				84271CD01C839C9D00F51755 /* libAsyncDisplayKit.a */,
-				84271CD21C839CFC00F51755 /* MapKit.framework */,
-				84271CD41C839D0A00F51755 /* AssetsLibrary.framework */,
-				84271CD61C839D1600F51755 /* Photos.framework */,
-			);
-			name = Frameworks;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		847776181C63945C000776B9 = {
 			isa = PBXGroup;
 			children = (
 				847776231C63945C000776B9 /* KNURE TimeTable */,
 				847776381C63945D000776B9 /* KNURE TimeTableTests */,
 				847776221C63945C000776B9 /* Products */,
+				CEBCD79CDB67043BF4DD36D6 /* Pods */,
+				B3010365F28E68BED05A4580 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,8 +134,6 @@
 		847776231C63945C000776B9 /* KNURE TimeTable */ = {
 			isa = PBXGroup;
 			children = (
-				84271CD81C839F5C00F51755 /* Frameworks */,
-				84F0ABA31C70CDAE006E2F40 /* Libraries */,
 				8477764A1C6A47C7000776B9 /* Resources */,
 				8477764B1C6A4813000776B9 /* Data */,
 				847776241C63945C000776B9 /* AppDelegate.swift */,
@@ -252,6 +178,9 @@
 			isa = PBXGroup;
 			children = (
 				8477762B1C63945C000776B9 /* Assets.xcassets */,
+				84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */,
+				84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */,
+				84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -283,15 +212,6 @@
 			name = SheduleControllers;
 			sourceTree = "<group>";
 		};
-		849832601C71109F00727E74 /* DZNEmptyDataSet */ = {
-			isa = PBXGroup;
-			children = (
-				849832611C7110DC00727E74 /* UIScrollView+EmptyDataSet.h */,
-				849832621C7110DC00727E74 /* UIScrollView+EmptyDataSet.m */,
-			);
-			name = DZNEmptyDataSet;
-			sourceTree = "<group>";
-		};
 		8498326E1C72863500727E74 /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,21 +241,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		84AA34301C7669B7009F0A9E /* SV */ = {
-			isa = PBXGroup;
-			children = (
-				846798421C76806000E350CE /* SVIndefiniteAnimatedView.h */,
-				846798431C76806000E350CE /* SVIndefiniteAnimatedView.m */,
-				846798441C76806000E350CE /* SVProgressHUD-Prefix.pch */,
-				846798451C76806000E350CE /* SVProgressHUD.bundle */,
-				846798461C76806000E350CE /* SVProgressHUD.h */,
-				846798471C76806000E350CE /* SVProgressHUD.m */,
-				846798481C76806000E350CE /* SVRadialGradientLayer.h */,
-				846798491C76806000E350CE /* SVRadialGradientLayer.m */,
-			);
-			name = SV;
-			sourceTree = "<group>";
-		};
 		84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,53 +249,6 @@
 				8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */,
 			);
 			name = ShedulesMenuControllers;
-			sourceTree = "<group>";
-		};
-		84F0ABA31C70CDAE006E2F40 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				84AA34301C7669B7009F0A9E /* SV */,
-				84F0ABA41C70CDCB006E2F40 /* KNURE TimeTable-Bridging-Header.h */,
-				849832721C734D9200727E74 /* SwiftyJSON.swift */,
-				849832601C71109F00727E74 /* DZNEmptyDataSet */,
-				84F0ABD01C70D192006E2F40 /* Chameleon */,
-			);
-			name = Libraries;
-			sourceTree = "<group>";
-		};
-		84F0ABD01C70D192006E2F40 /* Chameleon */ = {
-			isa = PBXGroup;
-			children = (
-				84F0ABA61C70CDCC006E2F40 /* Chameleon.h */,
-				84F0ABA71C70CDCC006E2F40 /* Chameleon_.h */,
-				84F0ABA81C70CDCC006E2F40 /* Chameleon_.m */,
-				84F0ABA91C70CDCC006E2F40 /* ChameleonConstants.h */,
-				84F0ABAA1C70CDCC006E2F40 /* ChameleonConstants.m */,
-				84F0ABAB1C70CDCC006E2F40 /* ChameleonEnums.h */,
-				84F0ABAC1C70CDCC006E2F40 /* ChameleonMacros.h */,
-				84F0ABAD1C70CDCC006E2F40 /* NSArray+Chameleon.h */,
-				84F0ABAE1C70CDCC006E2F40 /* NSArray+Chameleon.m */,
-				84F0ABAF1C70CDCC006E2F40 /* UIButton+Chameleon.h */,
-				84F0ABB01C70CDCC006E2F40 /* UIButton+Chameleon.m */,
-				84F0ABB11C70CDCC006E2F40 /* UIColor+Chameleon.h */,
-				84F0ABB21C70CDCC006E2F40 /* UIColor+Chameleon.m */,
-				84F0ABB31C70CDCC006E2F40 /* UIColor+ChameleonPrivate.h */,
-				84F0ABB41C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m */,
-				84F0ABB51C70CDCC006E2F40 /* UIImage+ChameleonPrivate.h */,
-				84F0ABB61C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m */,
-				84F0ABB71C70CDCC006E2F40 /* UILabel+Chameleon.h */,
-				84F0ABB81C70CDCC006E2F40 /* UILabel+Chameleon.m */,
-				84F0ABB91C70CDCC006E2F40 /* UINavigationController+Chameleon.h */,
-				84F0ABBA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m */,
-				84F0ABBB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.h */,
-				84F0ABBC1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m */,
-				84F0ABBD1C70CDCC006E2F40 /* UIViewController+Chameleon.h */,
-				84F0ABBE1C70CDCC006E2F40 /* UIViewController+Chameleon.m */,
-				84F0ABBF1C70CDCC006E2F40 /* UIAppearance+Swift.h */,
-				84F0ABC01C70CDCC006E2F40 /* UIAppearance+Swift.m */,
-				84F0ABA51C70CDCC006E2F40 /* ChameleonShorthand.swift */,
-			);
-			name = Chameleon;
 			sourceTree = "<group>";
 		};
 		84F0ABD11C70D9CC006E2F40 /* CustomCellsView */ = {
@@ -409,6 +267,23 @@
 			name = CustomCellsView;
 			sourceTree = "<group>";
 		};
+		B3010365F28E68BED05A4580 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEBCD79CDB67043BF4DD36D6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3CE976CFB648CBAA61D0F5A7 /* Pods-KNURE TimeTable.debug.xcconfig */,
+				AA4C342CFBD5753438C27568 /* Pods-KNURE TimeTable.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -416,9 +291,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8477763E1C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTable" */;
 			buildPhases = (
+				5203A172994916030A31C05E /* Check Pods Manifest.lock */,
 				8477761D1C63945C000776B9 /* Sources */,
 				8477761E1C63945C000776B9 /* Frameworks */,
 				8477761F1C63945C000776B9 /* Resources */,
+				F25B0B1366A10C265A8CE472 /* Embed Pods Frameworks */,
+				0E8399D6910543CA769ED437 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -495,7 +373,6 @@
 				8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */,
 				8477762C1C63945C000776B9 /* Assets.xcassets in Resources */,
 				8477762A1C63945C000776B9 /* Main.storyboard in Resources */,
-				8467984B1C76806000E350CE /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,54 +385,85 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0E8399D6910543CA769ED437 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5203A172994916030A31C05E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F25B0B1366A10C265A8CE472 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8477761D1C63945C000776B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84F0ABC31C70CDCC006E2F40 /* ChameleonConstants.m in Sources */,
 				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
-				84F0ABC81C70CDCC006E2F40 /* UIImage+ChameleonPrivate.m in Sources */,
-				849832631C7110DC00727E74 /* UIScrollView+EmptyDataSet.m in Sources */,
 				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
-				84F0ABC71C70CDCC006E2F40 /* UIColor+ChameleonPrivate.m in Sources */,
-				84F0ABCC1C70CDCC006E2F40 /* UIViewController+Chameleon.m in Sources */,
-				84F0ABC51C70CDCC006E2F40 /* UIButton+Chameleon.m in Sources */,
 				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
 				8498326D1C72862F00727E74 /* Server.swift in Sources */,
 				84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */,
-				84F0ABCB1C70CDCC006E2F40 /* UIView+ChameleonPrivate.m in Sources */,
-				84F0ABC41C70CDCC006E2F40 /* NSArray+Chameleon.m in Sources */,
 				8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */,
-				8467984C1C76806000E350CE /* SVProgressHUD.m in Sources */,
 				848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */,
+				84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
-				8467984D1C76806000E350CE /* SVRadialGradientLayer.m in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
-				849832731C734D9200727E74 /* SwiftyJSON.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
-				84F0ABC21C70CDCC006E2F40 /* Chameleon_.m in Sources */,
-				8467984A1C76806000E350CE /* SVIndefiniteAnimatedView.m in Sources */,
-				84F0ABCD1C70CDCC006E2F40 /* UIAppearance+Swift.m in Sources */,
-				84F0ABC61C70CDCC006E2F40 /* UIColor+Chameleon.m in Sources */,
-				84F0ABCA1C70CDCC006E2F40 /* UINavigationController+Chameleon.m in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
 				847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */,
-				84F0ABC11C70CDCC006E2F40 /* ChameleonShorthand.swift in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
 				84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */,
 				848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */,
 				84A1F6731C83292500A7C05C /* CollectionScheduleMultiCell.swift in Sources */,
-				84F0ABC91C70CDCC006E2F40 /* UILabel+Chameleon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +590,7 @@
 		};
 		8477763F1C63945D000776B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CE976CFB648CBAA61D0F5A7 /* Pods-KNURE TimeTable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -701,6 +610,7 @@
 		};
 		847776401C63945D000776B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA4C342CFBD5753438C27568 /* Pods-KNURE TimeTable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

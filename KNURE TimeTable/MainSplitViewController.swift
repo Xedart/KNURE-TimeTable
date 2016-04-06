@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 protocol SheduleControllersInitializer {
     func initializeWithNewShedule()
@@ -31,6 +32,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         // setup viewController:
         scheduleTableController = viewControllers[0] as! TableSheduleController
         scheduleCollectionController = viewControllers[1] as! CollectionScheduleViewController
+        scheduleCollectionController.weekScheduleControllerDelegate = scheduleTableController
         dispatch_async(dispatch_get_main_queue(), {
             self.navigationItem.titleView = self.button
             self.setObservers()
