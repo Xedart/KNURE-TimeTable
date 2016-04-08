@@ -72,6 +72,8 @@ class CollectionScheduleViewController: UICollectionViewController  {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
+        // set empty Data Set:
         if shedule.shedule_id.isEmpty {
             viewDidLayoutSubviews()
         }
