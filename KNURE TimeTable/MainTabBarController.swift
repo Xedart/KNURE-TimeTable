@@ -26,7 +26,7 @@ class MainTabBarController: UITabBarController {
         
         // loading and transfering shedule provided by default:
         setObservers()
-        initializeWithNewShedule()
+        initWithDefaultSchedule()
     }
     
     // MARK: - Methods:
@@ -56,7 +56,7 @@ extension MainTabBarController: SheduleControllersInitializer {
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleCollectionController.collectionView!.reloadData()
             self.scheduleCollectionController.initialScrollDone = false
-            self.scheduleCollectionController.cacheData()
+            self.scheduleCollectionController.shedule.performCache()
         })
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleTableController.tableView.reloadData()

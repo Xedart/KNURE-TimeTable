@@ -41,13 +41,16 @@ class TableSheduleController: UITableViewController {
         navigationItem.titleView = button
         
         // setnavigation items:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
         tableView.emptyDataSetSource = self
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        tableView.reloadData()
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.tableView?.reloadData()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

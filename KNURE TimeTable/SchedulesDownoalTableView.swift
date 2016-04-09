@@ -129,13 +129,6 @@ class SchedulesDownoalTableView: UITableViewController {
         }
         return false
     }
-    
-    func saveShedule(schedule: Shedule, path: String) {
-        let save = NSKeyedArchiver.archiveRootObject(schedule, toFile: "\(Shedule().urlPath.path!)/\(path)")
-        if !save {
-            print("Error when saving")
-        }
-    }
 }
 
     // MARK: - Data-Initializer:
@@ -205,6 +198,7 @@ extension SchedulesDownoalTableView {
             let json = JSON(data: dataFromString!)
             Parser.parseSchedule(json, callback: { data in
                 data.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title
+                data.scheduleIdentifier = self.dataSource[indexPath.section].rows[indexPath.row].row_id
                 // saving new schedule to the defaults:
                 let defaults = NSUserDefaults.standardUserDefaults()
                 if self.initMetod == .getGroups {
@@ -218,7 +212,7 @@ extension SchedulesDownoalTableView {
                 defaults.setObject(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)
                 defaults.synchronize()
                 // save just-dowloaded schedule object to the file appending by schedule's title:
-                self.saveShedule(data, path: self.dataSource[indexPath.section].rows[indexPath.row].row_title)
+                Shedule.saveShedule(data, path: self.dataSource[indexPath.section].rows[indexPath.row].row_title)
                 // reloading schedules view with new schedule object:
                 NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
              })

@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import RESideMenu
+import SwiftyJSON
 
 protocol SheduleControllersInitializer {
     func initializeWithNewShedule()
@@ -20,6 +22,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     var sheduleNavigationController = UINavigationController()
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
+    var rightSideInfoButton: UIBarButtonItem!
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -38,11 +41,18 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             self.setObservers()
             self.button.addTarget(self, action: #selector(MainSplitViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
             })
+        
+        // load saved schedul from the file:
         initWithDefaultSchedule()
         
+        // updateing schedule after default schedule was showed:
+        updateCurrentSchedule()
+        
         // setnavigation items:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
+        rightSideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainSplitViewController.presentRightMenuViewController(_:)))
         navigationItem.setLeftBarButtonItems([sideInfoButton, self.displayModeButtonItem()], animated: true)
+        navigationItem.setRightBarButtonItem(rightSideInfoButton, animated: true)
         
         // displaying:
         maximumPrimaryColumnWidth = CGFloat.max
@@ -100,10 +110,10 @@ extension MainSplitViewController: SheduleControllersInitializer {
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleCollectionController.collectionView!.reloadData()
             self.scheduleCollectionController.initialScrollDone = false
-            self.scheduleCollectionController.cacheData()
+            self.scheduleCollectionController.shedule.performCache()
         })
         dispatch_async(dispatch_get_main_queue(), {
-            self.scheduleTableController.tableView.reloadData()
+            self.scheduleTableController.tableView!.reloadData()
         })
     }
     
@@ -112,12 +122,58 @@ extension MainSplitViewController: SheduleControllersInitializer {
             let newSchedule = loadShedule(defaultKey)
             scheduleTableController.shedule = newSchedule
             scheduleCollectionController.shedule = newSchedule
+            scheduleCollectionController.shedule.performCache()
             dispatch_async(dispatch_get_main_queue(), {
                 self.button.setTitle(defaultKey, forState: UIControlState.Normal)
             })
         } else {
             scheduleTableController.shedule = Shedule()
             scheduleCollectionController.shedule = Shedule()
+            scheduleCollectionController.shedule.performCache()
+        }
+    }
+    
+    func updateCurrentSchedule() {
+        if let timeTableId = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+            let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
+            if scheduleIdentifier.isEmpty {
+                return
+            }
+            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(5259288)"], callback: { (data, responce, error) in
+                // check for success connection:
+                if error != nil {
+                    return
+                }
+                let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
+                let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                let json = JSON(data: dataFromString!)
+                // Parse result:
+                Parser.parseSchedule(json, callback: { data in
+                    data.shedule_id = timeTableId
+                    data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
+                    //set updated schedule to the controllers:
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.scheduleTableController.shedule = data
+                        self.scheduleTableController.tableView.reloadData()
+                    })
+                    dispatch_async(dispatch_get_main_queue(), {
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                           // self.scheduleCollectionController.shedule = data
+                            
+                            data.performCache()
+                            self.scheduleCollectionController.shedule = data
+                           // self.scheduleCollectionController.collectionView?.reloadData()
+                            print("calculated")
+                            })
+                        
+                        
+                    })
+                    
+                    //set updated schedule to the file:
+                    Shedule.saveShedule(data, path: timeTableId)
+                    print("UPDATED")
+                })
+            })
         }
     }
 }

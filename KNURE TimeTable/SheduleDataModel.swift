@@ -186,12 +186,20 @@ class NureType: NSObject, NSCoding {
         static let id_key = "TPId"
     }
 }
+
+// data-sctuct for eventsCahce:
+struct EventCache {
+    var events = [Event]()
+    init(events: [Event]) {
+        self.events = events
+    }
+}
 //----------------------------------------------------------------------------------------//
 //                                                                                        //
 //                                                                                        //
 //                                                                                        //
 //                                                                                        //
-//                         MARK: Main data-model class                                    //
+//                      *  MARK: Main data-model class  *                                 //
 //                                                                                        //
 //                                                                                        //
 //                                                                                        //
@@ -205,9 +213,11 @@ class Shedule: NSObject, NSCoding {
     let urlPath = DocumentsDirectory
     
     // Properties:
+    var eventsCache = [String: EventCache]()
     var startDayTime = Int()
     var endDayTime = Int()
     var shedule_id: String
+    var scheduleIdentifier: String
     var days = [String: Day]()
     var groups = [String: String]()
     var teachers = [String: Teacher]()
@@ -216,7 +226,7 @@ class Shedule: NSObject, NSCoding {
     
     
     // Initialization:
-    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType]) {
+    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -225,11 +235,12 @@ class Shedule: NSObject, NSCoding {
         self.teachers = teachers
         self.subjects = subjects
         self.types = types
+        self.scheduleIdentifier = scheduleIdentifier
         super.init()
     }
     
     convenience override init() {
-        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:])
+        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String())
     }
     
     // MARK: - NSCoding:
@@ -243,7 +254,11 @@ class Shedule: NSObject, NSCoding {
         let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [String: Teacher]
         let subjects = aDecoder.decodeObjectForKey(Key.subjects) as! [String: Subject]
         let types = aDecoder.decodeObjectForKey(Key.types) as! [String: NureType]
-        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types)
+        var scheduleIdentifier = aDecoder.decodeObjectForKey(Key.scheduleIdentifier) as? String
+        if scheduleIdentifier == nil {
+            scheduleIdentifier = ""
+        }
+        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!)
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -255,6 +270,7 @@ class Shedule: NSObject, NSCoding {
         aCoder.encodeObject(days, forKey: Key.days)
         aCoder.encodeObject(subjects, forKey: Key.subjects)
         aCoder.encodeObject(types, forKey: Key.types)
+        aCoder.encodeObject(scheduleIdentifier, forKey: Key.scheduleIdentifier)
     }
     
     // Keyes - constants:
@@ -267,11 +283,48 @@ class Shedule: NSObject, NSCoding {
         static let teachers = "SHteachers"
         static let subjects = "SHsubjects"
         static let types = "SHtypes"
+        static let scheduleIdentifier = "scheduleIdentifier"
     }
 }
-    // MARK: - Methods:
+
+
+
+    // MARK: - Methods: (Data - logic)
+
+
 
 extension Shedule {
+    
+    func performCache() {
+        eventsCache.removeAll()
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "dd.MM"
+        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.startDayTime))
+        for section in 0 ..< self.numberOfDaysInSemester() {
+            
+            for row in 0..<self.numberOfPairsInDay() {
+                let events = self.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay), numberOFPair: row + 1)
+                self.eventsCache["\(section)\(row)"] = EventCache(events: events)
+            }
+        }
+    }
+    
+    func numberOfDaysInSemester() -> Int {
+        if self.shedule_id.isEmpty {
+            return 0
+        }
+        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.startDayTime))
+        let lastDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.endDayTime))
+        let numberOfdays = firstEventDay.differenceInDaysWithDate(lastDay) + 1
+        return numberOfdays == 1 ? 0 : numberOfdays
+    }
+    
+    func numberOfPairsInDay() -> Int {
+        if self.shedule_id.isEmpty {
+            return 0
+        }
+        return 8
+    }
     
     func eventsInDay(date: NSDate) -> [Event] {
         let formatter = NSDateFormatter()
@@ -298,6 +351,13 @@ extension Shedule {
             return resultEvents
         } else {
             return [Event]()
+        }
+    }
+    
+    static func saveShedule(schedule: Shedule, path: String) {
+        let save = NSKeyedArchiver.archiveRootObject(schedule, toFile: "\(Shedule().urlPath.path!)/\(path)")
+        if !save {
+            print("Error when saving")
         }
     }
 }

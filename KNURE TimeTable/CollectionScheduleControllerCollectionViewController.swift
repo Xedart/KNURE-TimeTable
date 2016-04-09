@@ -14,18 +14,11 @@ private let multiCellReuseIndentifier = "multiCellReuseIndentifier"
 private let headerReuseIdentifier = "CollectionCell"
 private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
-struct EventCache {
-    var events = [Event]()
-    init(events: [Event]) {
-        self.events = events
-    }
-}
-
 class CollectionScheduleViewController: UICollectionViewController  {
     
     var shedule: Shedule! {
         didSet {
-            cacheData()
+            //cacheData()
             if !shedule.shedule_id.isEmpty {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
@@ -38,7 +31,6 @@ class CollectionScheduleViewController: UICollectionViewController  {
     var sideInfoButton: UIBarButtonItem!
     let scale = CollectionDecorationView()
     var initialScrollDone = false
-    var rowsCache = [String: EventCache]()
     var doubleTapGesture = UITapGestureRecognizer()
     var weekScheduleControllerDelegate: TableSheduleControllerDelegate!
 
@@ -61,7 +53,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
         self.collectionView!.registerClass(CollectionHeader.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: headerReuseIdentifier)
        
         //navigationItem setUp:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
         button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
@@ -76,20 +68,6 @@ class CollectionScheduleViewController: UICollectionViewController  {
         // set empty Data Set:
         if shedule.shedule_id.isEmpty {
             viewDidLayoutSubviews()
-        }
-    }
-    
-    func cacheData() {
-        rowsCache.removeAll()
-        let formatter = NSDateFormatter()
-            formatter.dateFormat = "dd.MM"
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.shedule.startDayTime))
-        for section in 0 ..< self.collectionView!.numberOfSections() {
-           
-            for row in 0..<self.collectionView!.numberOfItemsInSection(section) {
-                let events = self.shedule.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay), numberOFPair: row + 1)
-                rowsCache["\(section)\(row)"] = EventCache(events: events)
-            }
         }
     }
     
@@ -128,13 +106,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
         if shedule == nil {
             return 0
         }
-        if shedule.shedule_id.isEmpty {
-            return 0
-        }
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
-        let lastDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.endDayTime))
-        let numberOfdays = firstEventDay.differenceInDaysWithDate(lastDay) + 1
-        return numberOfdays == 1 ? 0 : numberOfdays
+        return shedule.numberOfDaysInSemester()
     }
 
 
@@ -142,18 +114,15 @@ class CollectionScheduleViewController: UICollectionViewController  {
         if shedule == nil {
             return 0
         }
-        if shedule.shedule_id.isEmpty {
-            return 0
-        }
-        return 8
+        return shedule.numberOfPairsInDay()
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        if rowsCache["\(indexPath.section)\(indexPath.row)"] == nil {
-            cacheData()
+        if shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] == nil {
+            shedule.performCache()
         }
-        let events = rowsCache["\(indexPath.section)\(indexPath.row)"]!.events
+        let events = shedule.eventsCache["\(indexPath.section)\(indexPath.row)"]!.events
         
         if events.isEmpty {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(emptyCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleEmptyCell

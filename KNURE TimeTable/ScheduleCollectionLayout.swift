@@ -43,6 +43,12 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         return layoutAttributes
     }
     
+    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        let layoutAttributes = UICollectionViewLayoutAttributes()
+        layoutAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(indexPath.section) + scaleOffset, y: (cellHeight + offset) * CGFloat(indexPath.item) + (headerHeight + offset), width: cellWidth, height: 100)
+        return layoutAttributes
+    }
+    
     // MARK: - Methods:
     
     func computeLayoutAttributes() {

@@ -29,6 +29,7 @@ class Server {
                 urlStr.appendContentsOf(parameter)
             }
         }
+        print(urlStr)
         let URL = NSURL(string: urlStr)
         let request = NSMutableURLRequest(URL: URL!)
         let session = NSURLSession.sharedSession()

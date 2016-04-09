@@ -15,18 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        // Setup:
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("IPhoneRootViewController")
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        } else if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("IPadRootViewController")
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        }
+        
         return true
     }
 

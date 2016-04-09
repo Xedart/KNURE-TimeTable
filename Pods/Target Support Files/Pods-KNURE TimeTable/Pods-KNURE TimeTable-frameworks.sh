@@ -88,6 +88,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-KNURE TimeTable/ChameleonFramework.framework"
   install_framework "Pods-KNURE TimeTable/PINCache.framework"
   install_framework "Pods-KNURE TimeTable/PINRemoteImage.framework"
+  install_framework "Pods-KNURE TimeTable/RESideMenu.framework"
   install_framework "Pods-KNURE TimeTable/SVProgressHUD.framework"
   install_framework "Pods-KNURE TimeTable/SwiftyJSON.framework"
 fi
@@ -96,6 +97,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-KNURE TimeTable/ChameleonFramework.framework"
   install_framework "Pods-KNURE TimeTable/PINCache.framework"
   install_framework "Pods-KNURE TimeTable/PINRemoteImage.framework"
+  install_framework "Pods-KNURE TimeTable/RESideMenu.framework"
   install_framework "Pods-KNURE TimeTable/SVProgressHUD.framework"
   install_framework "Pods-KNURE TimeTable/SwiftyJSON.framework"
 fi

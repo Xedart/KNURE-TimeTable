@@ -8,7 +8,7 @@ pod 'AsyncDisplayKit'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'ChameleonFramework/Swift'
 pod 'SVProgressHUD'
-
+pod 'RESideMenu', '~> 4.0.7'
 
 end
 

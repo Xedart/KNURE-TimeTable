@@ -13,12 +13,14 @@ PODS:
     - PINCache (>= 2.1)
   - PINRemoteImage/iOS (2.1.2):
     - PINRemoteImage/Core
+  - RESideMenu (4.0.7)
   - SVProgressHUD (2.0.3)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - AsyncDisplayKit
   - ChameleonFramework/Swift
+  - RESideMenu (~> 4.0.7)
   - SVProgressHUD
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
   PINRemoteImage: 2ce3f1fcc52f0360a3821f91f1a1bc653c5d2338
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
