@@ -31,6 +31,7 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
             contentViewScaleValue = 0.8
         }
         
+        backgroundImage = UIImage(named: "BluredBackground")
         self.delegate = self
         
         var contentViewControllerID = String()

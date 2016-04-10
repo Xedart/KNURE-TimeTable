@@ -43,6 +43,18 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         return layoutAttributes
     }
     
+    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: "Header", withIndexPath: NSIndexPath(forItem: 0, inSection: indexPath.section))
+        headerAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(indexPath.section) + scaleOffset, y: 0, width: cellWidth, height: headerHeight)
+        return headerAttributes
+    }
+    
+    override func layoutAttributesForDecorationViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "lineView", withIndexPath: NSIndexPath(forItem: indexPath.row, inSection: 0))
+        attributes.frame = CGRect(x: 50, y: CGFloat((100 + 1) * (indexPath.row) + (50 + 1)), width: contentWidth, height: 0.6)
+        return attributes
+    }
+    
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         let layoutAttributes = UICollectionViewLayoutAttributes()
         layoutAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(indexPath.section) + scaleOffset, y: (cellHeight + offset) * CGFloat(indexPath.item) + (headerHeight + offset), width: cellWidth, height: 100)

@@ -42,10 +42,10 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             self.button.addTarget(self, action: #selector(MainSplitViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
             })
         
-        // load saved schedul from the file:
+        // load saved schedule from the file:
         initWithDefaultSchedule()
         
-        // updateing schedule after default schedule was showed:
+        // updating schedule after default schedule was showed:
         updateCurrentSchedule()
         
         // setnavigation items:
@@ -111,6 +111,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
             self.scheduleCollectionController.collectionView!.reloadData()
             self.scheduleCollectionController.initialScrollDone = false
             self.scheduleCollectionController.shedule.performCache()
+            dispatch_async(dispatch_get_main_queue(), {
+                SVProgressHUD.dismiss()
+            })
         })
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleTableController.tableView!.reloadData()
@@ -139,7 +142,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
             if scheduleIdentifier.isEmpty {
                 return
             }
-            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(5259288)"], callback: { (data, responce, error) in
+            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(4801986)"], callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
                     return
@@ -151,6 +154,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                 Parser.parseSchedule(json, callback: { data in
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
+
                     //set updated schedule to the controllers:
                     dispatch_async(dispatch_get_main_queue(), {
                         self.scheduleTableController.shedule = data
@@ -161,17 +165,41 @@ extension MainSplitViewController: SheduleControllersInitializer {
                            // self.scheduleCollectionController.shedule = data
                             
                             data.performCache()
-                            self.scheduleCollectionController.shedule = data
-                           // self.scheduleCollectionController.collectionView?.reloadData()
-                            print("calculated")
-                            })
-                        
-                        
+                            
+                            if self.scheduleCollectionController.shedule.numberOfDaysInSemester() == data.numberOfDaysInSemester() {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.scheduleCollectionController.shedule = data
+                                    self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
+                                    /*
+                                    let indexPaths = self.scheduleCollectionController.collectionView!.indexPathsForVisibleItems()
+                                    
+                                    var sectionsToReload = [Int]()
+                                    for indexPath in indexPaths {
+                                        if sectionsToReload.contains(indexPath.section) {
+                                            continue
+                                        }
+                                        sectionsToReload.append(indexPath.section)
+                                    }
+                                    
+                                    self.scheduleCollectionController.collectionView?.reloadSections(NSIndexSet(indexesInRange: NSRange(sectionsToReload.minElement()!...sectionsToReload.maxElement()!)))
+                                    
+                                    */
+                                    
+                                    
+                                    print("UPDATED")
+                                })
+                            } else {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.scheduleCollectionController.shedule = data
+                                    self.scheduleCollectionController.collectionView?.reloadData()
+                                })
+                            }
+                        })
                     })
                     
                     //set updated schedule to the file:
-                    Shedule.saveShedule(data, path: timeTableId)
-                    print("UPDATED")
+                    data.saveShedule()
+                    
                 })
             })
         }
@@ -198,9 +226,7 @@ extension MainSplitViewController {
 
 extension MainSplitViewController {
     func getNewSchedule() {
-        dispatch_async(dispatch_get_main_queue(), {
-            SVProgressHUD.dismiss()
-        })
+        
         self.initializeWithNewShedule()
     }
 }

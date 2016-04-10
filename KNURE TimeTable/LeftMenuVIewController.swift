@@ -12,7 +12,7 @@ class LeftMenuVIewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.greenColor()
+        view.backgroundColor = UIColor.clearColor()
         // Do any additional setup after loading the view.
     }
 

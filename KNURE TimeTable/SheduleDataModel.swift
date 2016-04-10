@@ -213,7 +213,7 @@ class Shedule: NSObject, NSCoding {
     let urlPath = DocumentsDirectory
     
     // Properties:
-    var eventsCache = [String: EventCache]()
+    var eventsCache = [String: EventCache]() // cache with data for collectionvView
     var startDayTime = Int()
     var endDayTime = Int()
     var shedule_id: String
@@ -354,8 +354,8 @@ extension Shedule {
         }
     }
     
-    static func saveShedule(schedule: Shedule, path: String) {
-        let save = NSKeyedArchiver.archiveRootObject(schedule, toFile: "\(Shedule().urlPath.path!)/\(path)")
+     func saveShedule() {
+        let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path!)/\(self.shedule_id)")
         if !save {
             print("Error when saving")
         }

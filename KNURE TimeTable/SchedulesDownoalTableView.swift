@@ -212,7 +212,7 @@ extension SchedulesDownoalTableView {
                 defaults.setObject(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)
                 defaults.synchronize()
                 // save just-dowloaded schedule object to the file appending by schedule's title:
-                Shedule.saveShedule(data, path: self.dataSource[indexPath.section].rows[indexPath.row].row_title)
+                data.saveShedule()
                 // reloading schedules view with new schedule object:
                 NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
              })
