@@ -142,7 +142,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
             if scheduleIdentifier.isEmpty {
                 return
             }
-            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(4801986)"], callback: { (data, responce, error) in
+            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
                     return
@@ -155,14 +155,15 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
 
-                    //set updated schedule to the controllers:
+                    // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
                         self.scheduleTableController.shedule = data
                         self.scheduleTableController.tableView.reloadData()
                     })
+                    
+                    //Updating collection schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                           // self.scheduleCollectionController.shedule = data
                             
                             data.performCache()
                             
@@ -179,12 +180,12 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                             continue
                                         }
                                         sectionsToReload.append(indexPath.section)
-                                    }
-                                    
-                                    self.scheduleCollectionController.collectionView?.reloadSections(NSIndexSet(indexesInRange: NSRange(sectionsToReload.minElement()!...sectionsToReload.maxElement()!)))
+                                    }self.scheduleCollectionController.collectionView?.reloadSections(NSIndexSet(indexesInRange: NSRange(sectionsToReload.minElement()!...sectionsToReload.maxElement()!)))
                                     
                                     */
-                                    
+                                    //-----------------------------------------------------------------
+                                    // TODO: implement smooth update of currently visible cells.      //
+                                    //-----------------------------------------------------------------
                                     
                                     print("UPDATED")
                                 })
