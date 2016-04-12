@@ -224,7 +224,6 @@ class Shedule: NSObject, NSCoding {
     var subjects = [String: Subject]()
     var types = [String: NureType]()
     
-    
     // Initialization:
     init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String) {
         self.startDayTime = startDayTime

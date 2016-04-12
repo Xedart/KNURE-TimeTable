@@ -10,7 +10,6 @@
 		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
 		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
 		842CB8561CB9186000292170 /* LeftMenuVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CB8551CB9186000292170 /* LeftMenuVIewController.swift */; };
-		842CB8581CB9207600292170 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CB8571CB9207600292170 /* RightMenuViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
 		8477762C1C63945C000776B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8477762B1C63945C000776B9 /* Assets.xcassets */; };
@@ -60,7 +59,6 @@
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
 		842CB8551CB9186000292170 /* LeftMenuVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuVIewController.swift; sourceTree = "<group>"; };
-		842CB8571CB9207600292170 /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
 		847776211C63945C000776B9 /* KNURE TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KNURE TimeTable.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 			children = (
 				84F6F1891CB8435900CC8C36 /* SideMenuRootViewController.swift */,
 				842CB8551CB9186000292170 /* LeftMenuVIewController.swift */,
-				842CB8571CB9207600292170 /* RightMenuViewController.swift */,
 				8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */,
 				847776441C639FB5000776B9 /* MainSplitViewController.swift */,
 			);
@@ -454,7 +451,6 @@
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
 				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
-				842CB8581CB9207600292170 /* RightMenuViewController.swift in Sources */,
 				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,

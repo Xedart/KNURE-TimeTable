@@ -9,7 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 
-class CollectionScheduleMultiCell: UICollectionViewCell {
+class CollectionScheduleMultiCell: CollectionScheduleCellParent {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(events: [Event], shedule: Shedule) {
+    override func configure(events: [Event], shedule: Shedule) {
         let scrollNode = ASScrollNode()
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
         scrollNode.frame = self.bounds

@@ -50,9 +50,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         
         // setnavigation items:
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
-        rightSideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainSplitViewController.presentRightMenuViewController(_:)))
         navigationItem.setLeftBarButtonItems([sideInfoButton, self.displayModeButtonItem()], animated: true)
-        navigationItem.setRightBarButtonItem(rightSideInfoButton, animated: true)
         
         // displaying:
         maximumPrimaryColumnWidth = CGFloat.max
@@ -126,6 +124,10 @@ extension MainSplitViewController: SheduleControllersInitializer {
             scheduleTableController.shedule = newSchedule
             scheduleCollectionController.shedule = newSchedule
             scheduleCollectionController.shedule.performCache()
+            
+            // pass schedule to sideMenus:
+            let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+            
             dispatch_async(dispatch_get_main_queue(), {
                 self.button.setTitle(defaultKey, forState: UIControlState.Normal)
             })
@@ -160,7 +162,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         self.scheduleTableController.shedule = data
                         self.scheduleTableController.tableView.reloadData()
                     })
-                    
+                    // 14-4
                     //Updating collection schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -171,22 +173,20 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
+                                    
                                     /*
-                                    let indexPaths = self.scheduleCollectionController.collectionView!.indexPathsForVisibleItems()
+                                    let vivsibleCells = self.scheduleCollectionController.collectionView?.visibleCells() as! [CollectionScheduleCellParent]
+                                    let events = data.eventsCache["\(64)\(1)"]!.events
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                    for cell in vivsibleCells {
+                                        cell.configure(events, shedule: data)
+                                    }
+                                        })
                                     
-                                    var sectionsToReload = [Int]()
-                                    for indexPath in indexPaths {
-                                        if sectionsToReload.contains(indexPath.section) {
-                                            continue
-                                        }
-                                        sectionsToReload.append(indexPath.section)
-                                    }self.scheduleCollectionController.collectionView?.reloadSections(NSIndexSet(indexesInRange: NSRange(sectionsToReload.minElement()!...sectionsToReload.maxElement()!)))
-                                    
-                                    */
                                     //-----------------------------------------------------------------
                                     // TODO: implement smooth update of currently visible cells.      //
                                     //-----------------------------------------------------------------
-                                    
+                                    */
                                     print("UPDATED")
                                 })
                             } else {
@@ -200,7 +200,6 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     
                     //set updated schedule to the file:
                     data.saveShedule()
-                    
                 })
             })
         }

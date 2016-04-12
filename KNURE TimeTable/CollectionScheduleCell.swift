@@ -9,7 +9,13 @@
 import UIKit
 import AsyncDisplayKit
 
-class CollectionScheduleCell: UICollectionViewCell {
+class CollectionScheduleCellParent: UICollectionViewCell {
+    func configure(events: [Event], shedule: Shedule) {
+        print("sdkfksdfskdfhj")
+    }
+}
+
+class CollectionScheduleCell: CollectionScheduleCellParent {
     
     let node = ASTextNode()
     let backgroundNode = ASDisplayNode()
@@ -27,7 +33,7 @@ class CollectionScheduleCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(events: [Event], shedule: Shedule) {
+    override func configure(events: [Event], shedule: Shedule) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.backgroundNode.frame = self.bounds
             self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).colorWithAlphaComponent(0.3)

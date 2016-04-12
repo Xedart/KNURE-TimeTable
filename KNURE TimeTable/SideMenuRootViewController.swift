@@ -14,9 +14,7 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     var shouldRotate = true
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-       
+        super.viewDidLoad()       
     }
     
     override func awakeFromNib() {
@@ -45,13 +43,13 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
         self.contentViewController = (self.storyboard?.instantiateViewControllerWithIdentifier(contentViewControllerID))! as UIViewController
         
         self.leftMenuViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("LeftMenuViewController"))! as UIViewController
-        self.rightMenuViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("RightMenuViewController"))! as UIViewController
     }
     
     // MARK: RESide Delegate Methods
     
     func sideMenu(sideMenu: RESideMenu!, willShowMenuViewController menuViewController: UIViewController!) {
-        
+        let leftController = self.leftMenuViewController as! LeftMenuVIewController
+        leftController.infoTableView.reloadData()
         shouldRotate = false
         
     }
