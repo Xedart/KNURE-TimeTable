@@ -11,6 +11,9 @@ import AsyncDisplayKit
 
 class CollectionScheduleMultiCell: CollectionScheduleCellParent {
     
+    var displayedNodes: [Event]!
+    var currentSchedule: Shedule!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -20,11 +23,17 @@ class CollectionScheduleMultiCell: CollectionScheduleCellParent {
     }
     
     override func configure(events: [Event], shedule: Shedule) {
+        
+        displayedNodes = events
+        currentSchedule = shedule
+        
         let scrollNode = ASScrollNode()
+        scrollNode.userInteractionEnabled = true
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
         scrollNode.frame = self.bounds
         for i in 0..<events.count {
             let textNode = ASTextNode()
+            
             textNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
             
             // text attributes:
@@ -43,8 +52,30 @@ class CollectionScheduleMultiCell: CollectionScheduleCellParent {
                     subView.removeFromSuperview()
                 }
                 scrollNode.view.contentOffset.x = 20
+                
+                // adding tap gestures to the nodes:
+                var counter = 0
+                for textNode in scrollNode.subnodes {
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentInfoMenu(_:)))
+                    textNode.userInteractionEnabled = true
+                    textNode.view.addGestureRecognizer(tapGestureRecognizer)
+                    textNode.view.tag = counter
+                    counter += 1
+                }
                 self.addSubview(scrollNode.view)
         }
     })
   }
+    
+    // MARK: - Info menu
+    
+    func presentInfoMenu(sender: UITapGestureRecognizer) {
+        print(displayedNodes[sender.view!.tag].auditory)
+    }
+    
 }
+
+
+
+
+

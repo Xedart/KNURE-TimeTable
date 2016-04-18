@@ -14,7 +14,11 @@ private let multiCellReuseIndentifier = "multiCellReuseIndentifier"
 private let headerReuseIdentifier = "CollectionCell"
 private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
-class CollectionScheduleViewController: UICollectionViewController  {
+protocol CollectionScheduleViewControllerDelegate {
+    func presentViewController(viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
+}
+
+class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
     
     var shedule: Shedule! {
         didSet {
@@ -37,6 +41,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "назад"// title for back item
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
@@ -134,6 +139,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! CollectionScheduleCell
+            cell.delegate = self
         cell.configure(events, shedule: shedule)
         return cell
         }
@@ -144,6 +150,7 @@ class CollectionScheduleViewController: UICollectionViewController  {
         headerView.configure(indexPath.section, shedule: shedule)
         return headerView
     }
+    
 }
 
     // MARK: -  Gestures:

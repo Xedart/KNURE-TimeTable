@@ -19,14 +19,23 @@ class CollectionScheduleCell: CollectionScheduleCellParent {
     
     let node = ASTextNode()
     let backgroundNode = ASDisplayNode()
+    var tapGestureRecognizer: UITapGestureRecognizer!
+    var displayedEvent: Event!
+    var currentSchedule: Shedule!
+    var delegate: CollectionScheduleViewControllerDelegate!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         dispatch_async(dispatch_get_main_queue()) {
+            self.node.userInteractionEnabled = true
             self.addSubview(self.node.view)
             self.addSubview(self.backgroundNode.view)
             self.sendSubviewToBack(self.backgroundNode.view)
         }
+        
+        // touch gesture recognizer:
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentInfoMenu(_:)))
+        self.node.view.addGestureRecognizer(self.tapGestureRecognizer)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +43,10 @@ class CollectionScheduleCell: CollectionScheduleCellParent {
     }
     
     override func configure(events: [Event], shedule: Shedule) {
+        
+        displayedEvent = events[0]
+        currentSchedule = shedule
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.backgroundNode.frame = self.bounds
             self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).colorWithAlphaComponent(0.3)
@@ -51,6 +64,16 @@ class CollectionScheduleCell: CollectionScheduleCellParent {
             self.node.backgroundColor = UIColor.clearColor()
         })
     }
+    
+    // MARK: - Info menu
+    
+    func presentInfoMenu(sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let eventDetailViewController = storyboard.instantiateViewControllerWithIdentifier("EventDetailViewController")
+        eventDetailViewController.modalPresentationStyle = .FormSheet
+        delegate.presentViewController(eventDetailViewController, animated: true, completion: nil)
+    }
+    
 }
 
 

@@ -95,6 +95,18 @@ class TableSheduleController: UITableViewController {
         }
     }
     
+    // MARK: - TableView delegate:
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let events = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * indexPath.section))))
+        if events.isEmpty {
+            return
+        }
+        
+        print(events[indexPath.row].auditory)
+        
+    }
+    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return TableSheduleHeader(section: section)
     }

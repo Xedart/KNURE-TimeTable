@@ -22,6 +22,7 @@
 		847776571C6BA1E2000776B9 /* SheduleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776561C6BA1E2000776B9 /* SheduleDataModel.swift */; };
 		8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
+		8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */; };
 		848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */; };
 		848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */; };
 		848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */; };
@@ -75,6 +76,7 @@
 		847776561C6BA1E2000776B9 /* SheduleDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleDataModel.swift; sourceTree = "<group>"; };
 		8477765A1C6D2043000776B9 /* AppDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataModel.swift; sourceTree = "<group>"; };
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleControllerCollectionViewController.swift; sourceTree = "<group>"; };
 		848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleCell.swift; sourceTree = "<group>"; };
 		848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionLayout.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
 				848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */,
+				8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */,
 				84F6F18B1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift */,
 			);
 			name = SheduleControllers;
@@ -453,6 +456,7 @@
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
+				8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */,
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
 				8498326D1C72862F00727E74 /* Server.swift in Sources */,

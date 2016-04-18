@@ -34,7 +34,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NM7-m8-IxB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3230" y="-218"/>
+            <point key="canvasLocation" x="3014" y="-446"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xdz-LV-9ax">
@@ -167,7 +167,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableSheduleCell" rowHeight="60" id="6DM-e5-K4n" customClass="TableSheduleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableSheduleCell" rowHeight="60" id="6DM-e5-K4n" customClass="TableSheduleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6DM-e5-K4n" id="ofr-6C-s2M">
@@ -342,7 +342,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d9S-i7-6aP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3906" y="482"/>
+            <point key="canvasLocation" x="3690" y="196"/>
         </scene>
         <!--Schedules Downoal Table View-->
         <scene sceneID="rzN-Po-Ndq">
@@ -398,7 +398,52 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0C2-UK-ieG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4645" y="482"/>
+            <point key="canvasLocation" x="4429" y="196"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="BbY-dt-MCR">
+            <objects>
+                <tableViewController id="09u-hg-GyR" customClass="EventDetailViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ymc-KJ-zBy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="a8o-Ps-ojb">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a8o-Ps-ojb" id="Uvl-dv-Rf8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="09u-hg-GyR" id="1zE-nU-aJy"/>
+                            <outlet property="delegate" destination="09u-hg-GyR" id="4gf-hh-hXx"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="hx2-MC-O5a"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LPi-Ri-IKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4429" y="917"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YBt-h4-hU0">
+            <objects>
+                <navigationController storyboardIdentifier="EventDetailViewController" id="F2z-1w-IsD" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8ou-pv-uyr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="09u-hg-GyR" kind="relationship" relationship="rootViewController" id="Dou-qN-4yS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t2P-4I-tHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3690" y="917"/>
         </scene>
         <!--Item-->
         <scene sceneID="aIj-WZ-bq5">

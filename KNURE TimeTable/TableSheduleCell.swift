@@ -29,7 +29,7 @@ class TableSheduleCell: UITableViewCell {
             self.node.clipsToBounds = true
             self.node.cornerRadius = 15.0
             self.node.borderWidth = 0.5
-             self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.8).CGColor
+            self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.8).CGColor
             self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.1)
             
             })
