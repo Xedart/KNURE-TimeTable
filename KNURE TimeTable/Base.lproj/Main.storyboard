@@ -403,19 +403,55 @@
         <!--Root View Controller-->
         <scene sceneID="BbY-dt-MCR">
             <objects>
-                <tableViewController id="09u-hg-GyR" customClass="EventDetailViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ymc-KJ-zBy">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="09u-hg-GyR" customClass="EventDetailViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ymc-KJ-zBy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="a8o-Ps-ojb">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventDetailInfoTitleCell" rowHeight="100" id="a8o-Ps-ojb" customClass="EventDetailInfoTitleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a8o-Ps-ojb" id="Uvl-dv-Rf8">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-cR-rlB">
+                                            <rect key="frame" x="8" y="8" width="584" height="83.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XPI-cR-rlB" firstAttribute="trailing" secondItem="Uvl-dv-Rf8" secondAttribute="trailingMargin" id="ISX-oy-hIy"/>
+                                        <constraint firstItem="XPI-cR-rlB" firstAttribute="top" secondItem="Uvl-dv-Rf8" secondAttribute="topMargin" id="R1F-wc-aL2"/>
+                                        <constraint firstItem="XPI-cR-rlB" firstAttribute="leading" secondItem="Uvl-dv-Rf8" secondAttribute="leadingMargin" id="Wsd-Qu-u3u"/>
+                                        <constraint firstItem="XPI-cR-rlB" firstAttribute="bottom" secondItem="Uvl-dv-Rf8" secondAttribute="bottomMargin" id="yad-yj-ktf"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="eventTitleView" destination="XPI-cR-rlB" id="4Ta-KZ-Jzo"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventDetailInfoCell" rowHeight="40" id="4wN-se-nRo" customClass="EventDetailInfoCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="213.5" width="600" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4wN-se-nRo" id="VnZ-98-KVE">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="39.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6A-f2-EgP">
+                                            <rect key="frame" x="8" y="8" width="584" height="23.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="infoTextView" destination="b6A-f2-EgP" id="i8r-tu-AnT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

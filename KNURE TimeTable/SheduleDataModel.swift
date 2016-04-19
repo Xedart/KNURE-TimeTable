@@ -20,7 +20,7 @@ class Event: NSObject, NSCoding  {
     var numberOf_pair: Int
     var auditory: String
     var teachers: [Int]
-    var groups: [Int]
+    var groups: [Int] 
     
     //initialiation:
     init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int]) {

@@ -9,13 +9,18 @@
 import UIKit
 import AsyncDisplayKit
 
-class CollectionScheduleCellParent: UICollectionViewCell {
+protocol EventDetailInfoContainer {
+    var currentSchedule: Shedule! { get set }
+    var displayedEvent: Event! { get }
+}
+
+class CollectionScheduleCellParent: UICollectionViewCell  {
     func configure(events: [Event], shedule: Shedule) {
         print("sdkfksdfskdfhj")
     }
 }
 
-class CollectionScheduleCell: CollectionScheduleCellParent {
+class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoContainer {
     
     let node = ASTextNode()
     let backgroundNode = ASDisplayNode()
@@ -69,9 +74,11 @@ class CollectionScheduleCell: CollectionScheduleCellParent {
     
     func presentInfoMenu(sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let eventDetailViewController = storyboard.instantiateViewControllerWithIdentifier("EventDetailViewController")
+        let eventDetailViewController = storyboard.instantiateViewControllerWithIdentifier("EventDetailViewController") as! UINavigationController
         eventDetailViewController.modalPresentationStyle = .FormSheet
         delegate.presentViewController(eventDetailViewController, animated: true, completion: nil)
+        let destionationController = eventDetailViewController.viewControllers[0] as! EventDetailViewController
+        destionationController.delegate = self
     }
     
 }
