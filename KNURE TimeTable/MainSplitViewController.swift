@@ -156,6 +156,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                 Parser.parseSchedule(json, callback: { data in
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
+                    // TODO: data.notes = old.schedule.notes.
 
                     // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {

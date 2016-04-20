@@ -9,11 +9,6 @@
 import UIKit
 import AsyncDisplayKit
 
-protocol EventDetailInfoContainer {
-    var currentSchedule: Shedule! { get set }
-    var displayedEvent: Event! { get }
-}
-
 class CollectionScheduleCellParent: UICollectionViewCell  {
     func configure(events: [Event], shedule: Shedule) {
         print("sdkfksdfskdfhj")
@@ -24,6 +19,7 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
     
     let node = ASTextNode()
     let backgroundNode = ASDisplayNode()
+    let bookmarkImage = UIImageView()
     var tapGestureRecognizer: UITapGestureRecognizer!
     var displayedEvent: Event!
     var currentSchedule: Shedule!
@@ -31,6 +27,11 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        bookmarkImage.frame = CGRect(x: 100, y: 0, width: 20, height: 40)
+        bookmarkImage.image = UIImage(named: "DoneImage")
+        bookmarkImage.backgroundColor = UIColor.redColor()
+        
         dispatch_async(dispatch_get_main_queue()) {
             self.node.userInteractionEnabled = true
             self.addSubview(self.node.view)
@@ -64,9 +65,19 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
             self.node.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[0].subject_id]!.briefTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
-            //self.node.measure(CGSize(width: self.bounds.width, height: self.bounds.height))
             self.node.frame = self.bounds
             self.node.backgroundColor = UIColor.clearColor()
+            
+            // bookmark:
+            if !events[0].note.isEmpty {
+                dispatch_async(dispatch_get_main_queue(), {
+                self.node.view.addSubview(self.bookmarkImage)
+                })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                self.bookmarkImage.removeFromSuperview()
+                })
+            }
         })
     }
     

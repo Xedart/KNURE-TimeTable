@@ -127,7 +127,7 @@ class Parser {
             for jgroup in event["groups"].arrayValue {
                 groups.append(jgroup.intValue)
             }
-            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups)
+            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups, note: String())
             let eventDateStringId = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(start_time)))
             if currentDateStr == eventDateStringId {
                 daysBuffer.events.append(event)
@@ -141,7 +141,7 @@ class Parser {
                 result_days[currentDateStr] = daysBuffer // need to do it for last day of the semester
             }
         }
-        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "")
+        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [Note]())
         callback(data: result)
     }
 }

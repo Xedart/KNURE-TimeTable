@@ -8,7 +8,7 @@
 
 import UIKit
 
-    // MARK: - Basic data-classes: programm
+    // MARK: - Basic data-classes:
 
 //"subject_id":2045902,"start_time":1454910300,"end_time":1454916000,"type":0,"number_pair":1,"auditory":"259","teachers":[4554758],"groups":[4801980 ,4802018 ,4801950 ]}
 
@@ -20,10 +20,11 @@ class Event: NSObject, NSCoding  {
     var numberOf_pair: Int
     var auditory: String
     var teachers: [Int]
-    var groups: [Int] 
+    var groups: [Int]
+    var note: String
     
     //initialiation:
-    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int]) {
+    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int], note: String) {
         self.subject_id = subject_id
         self.start_time = start_time
         self.end_time = end_time
@@ -32,9 +33,10 @@ class Event: NSObject, NSCoding  {
         self.auditory = auditory
         self.teachers = teachers
         self.groups = groups
+        self.note = note
     }
     convenience override init() {
-        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int]())
+        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int](), note: String())
     }
     
     // NCCoding:
@@ -47,7 +49,8 @@ class Event: NSObject, NSCoding  {
         let auditory = aDecoder.decodeObjectForKey(Key.auditory) as! String
         let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [Int]
         let groups = aDecoder.decodeObjectForKey(Key.groups) as! [Int]
-        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups)
+        let note = aDecoder.decodeObjectForKey(Key.note) as! String
+        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups, note: note)
     }
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(subject_id, forKey: Key.subject_id)
@@ -58,6 +61,7 @@ class Event: NSObject, NSCoding  {
         aCoder.encodeObject(auditory, forKey: Key.auditory)
         aCoder.encodeObject(teachers, forKey: Key.teachers)
         aCoder.encodeObject(groups, forKey: Key.groups)
+        aCoder.encodeObject(note, forKey: Key.note)
     }
     struct Key {
         static let subject_id = "EVSubjectId"
@@ -68,6 +72,7 @@ class Event: NSObject, NSCoding  {
         static let auditory = "EVAuditory"
         static let teachers = "EVTeachers"
         static let groups = "EVGroups"
+        static let note = "EVNote"
     }
 }
 
@@ -187,6 +192,54 @@ class NureType: NSObject, NSCoding {
     }
 }
 
+// Notes:
+
+class Note: NSObject, NSCoding {
+    let idToken: String
+    let coupledEventTitle: String
+    let creationDate: Int
+    let updateDate: Int
+    var text: String
+    
+    init(idToken: String, coupledEventTitle: String, creationDate: Int, updatedDate: Int, text: String) {
+        self.idToken = idToken
+        self.coupledEventTitle = coupledEventTitle
+        self.creationDate = creationDate
+        self.updateDate = updatedDate
+        self.text = text
+    }
+    
+    convenience override init() {
+        self.init(idToken: String(), coupledEventTitle: String(), creationDate: Int(), updatedDate: Int(), text: String())
+    }
+    
+    // NCCoding:
+    required convenience init?(coder aDecoder: NSCoder) {
+        let idToken = aDecoder.decodeObjectForKey(Key.idTokenKey) as! String
+        let coupledEventTitle = aDecoder.decodeObjectForKey(Key.coupledEventTitleKey) as! String
+        let creationDate = aDecoder.decodeObjectForKey(Key.creationDateKey) as! Int
+        let updatedDate = aDecoder.decodeObjectForKey(Key.updatedDateKey) as! Int
+        let text = aDecoder.decodeObjectForKey(Key.textKey) as! String
+        self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text)
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.idToken, forKey: Key.idTokenKey)
+        aCoder.encodeObject(self.coupledEventTitle, forKey: Key.coupledEventTitleKey)
+        aCoder.encodeObject(self.creationDate, forKey: Key.creationDateKey)
+        aCoder.encodeObject(self.updateDate, forKey: Key.updatedDateKey)
+        aCoder.encodeObject(self.text, forKey: Key.textKey)
+    }
+    
+    struct Key {
+        static let idTokenKey = "NTIDTokenKey"
+        static let coupledEventTitleKey = "NTcoupledEventTitle"
+        static let creationDateKey = "NTcreationDate"
+        static let updatedDateKey = "NTupdatedDate"
+        static let textKey = "NTTextKEy"
+    }
+}
+
 // data-sctuct for eventsCahce:
 struct EventCache {
     var events = [Event]()
@@ -194,6 +247,7 @@ struct EventCache {
         self.events = events
     }
 }
+
 //----------------------------------------------------------------------------------------//
 //                                                                                        //
 //                                                                                        //
@@ -223,9 +277,10 @@ class Shedule: NSObject, NSCoding {
     var teachers = [String: Teacher]()
     var subjects = [String: Subject]()
     var types = [String: NureType]()
+    var notes = [Note]()
     
     // Initialization:
-    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String) {
+    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [Note]) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -235,11 +290,12 @@ class Shedule: NSObject, NSCoding {
         self.subjects = subjects
         self.types = types
         self.scheduleIdentifier = scheduleIdentifier
+        self.notes = notes
         super.init()
     }
     
     convenience override init() {
-        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String())
+        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [Note]())
     }
     
     // MARK: - NSCoding:
@@ -257,7 +313,8 @@ class Shedule: NSObject, NSCoding {
         if scheduleIdentifier == nil {
             scheduleIdentifier = ""
         }
-        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!)
+        let notes = aDecoder.decodeObjectForKey(Key.notesKey) as! [Note]
+        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes)
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -270,6 +327,7 @@ class Shedule: NSObject, NSCoding {
         aCoder.encodeObject(subjects, forKey: Key.subjects)
         aCoder.encodeObject(types, forKey: Key.types)
         aCoder.encodeObject(scheduleIdentifier, forKey: Key.scheduleIdentifier)
+        aCoder.encodeObject(notes, forKey: Key.notesKey)
     }
     
     // Keyes - constants:
@@ -283,6 +341,7 @@ class Shedule: NSObject, NSCoding {
         static let subjects = "SHsubjects"
         static let types = "SHtypes"
         static let scheduleIdentifier = "scheduleIdentifier"
+        static let notesKey = "SHNotesKey"
     }
 }
 

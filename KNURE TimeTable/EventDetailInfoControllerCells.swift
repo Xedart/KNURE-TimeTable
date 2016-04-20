@@ -18,16 +18,24 @@ class EventDetailInfoTitleCell: UITableViewCell {
 class EventDetailHeaderView: UIView {
     
     var title = UILabel()
+    var saveNoteButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         
         // title
-        title = UILabel(frame: CGRect(x: 8, y: -8, width: self.bounds.width, height: self.bounds.height))
+        title = UILabel(frame: CGRect(x: 8, y: 0, width: self.bounds.width, height: self.bounds.height))
         title.font = UIFont.systemFontOfSize(18)
         title.textColor = FlatSkyBlue()
         self.addSubview(title)
+        
+        // save button:
+        saveNoteButton = UIButton(frame: CGRect(x: self.frame.width - 100, y: self.bounds.origin.y, width: 100, height: self.bounds.height))
+        saveNoteButton.setTitle("Зберегти", forState: .Normal)
+        saveNoteButton.setTitleColor(AppData.appleButtonDefault, forState: .Normal)
+        saveNoteButton.setTitleColor(AppData.appleButtonDefault.colorWithAlphaComponent(0.6), forState: .Highlighted)
+        saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), forControlEvents: .TouchUpInside)
     }
     
     func configure(section: Int) {
@@ -47,6 +55,15 @@ class EventDetailHeaderView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showSaveButton() {
+        self.addSubview(saveNoteButton)
+        self.bringSubviewToFront(saveNoteButton)
+    }
+    
+    func hideSaveButton() {
+        saveNoteButton.removeFromSuperview()
     }
 }
 

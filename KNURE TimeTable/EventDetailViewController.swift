@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import SVProgressHUD
 import ChameleonFramework
+
+protocol EventDetailInfoContainer {
+    var currentSchedule: Shedule! { get set }
+    var displayedEvent: Event! { get }
+}
 
 class EventDetailViewController: UITableViewController {
     
     var closeButton: UIBarButtonItem!
     var delegate: EventDetailInfoContainer!
+    var sectionHeader: EventDetailHeaderView!
+    var noteTextView: UITextView!
+    var noteText = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +50,7 @@ class EventDetailViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("EventDetailInfoTitleCell", forIndexPath: indexPath) as! EventDetailInfoTitleCell
         
+        // displaying subject, subject's type and auditory:
         if indexPath.section == 0 {
             
             switch indexPath.row {
@@ -70,6 +80,7 @@ class EventDetailViewController: UITableViewController {
             }
         }
             
+            // displaying teacher:
         else if indexPath.section == 1 {
             if !delegate.displayedEvent.teachers.isEmpty {
                 cell.eventTitleView.text = delegate.currentSchedule.teachers[String(delegate.displayedEvent.teachers[0])]!.full_name
@@ -78,6 +89,7 @@ class EventDetailViewController: UITableViewController {
             cell.eventTitleView.textAlignment = .Center
             return cell
             
+            // displaying groups:
         } else if indexPath.section == 2 {
             
             var groupsText = String()
@@ -96,9 +108,16 @@ class EventDetailViewController: UITableViewController {
             
             // notes' textView:
         } else {
+            if delegate.displayedEvent.note.isEmpty {
+                cell.eventTitleView.text = " Додати запис"
+                cell.eventTitleView.textColor = UIColor.lightGrayColor()
+            } else {
+                cell.eventTitleView.text = delegate.displayedEvent.note
+            }
             cell.eventTitleView.editable = true
             cell.eventTitleView.font = UIFont.systemFontOfSize(18)
             cell.eventTitleView.delegate = self
+            noteTextView = cell.eventTitleView
         }
         return cell
     }
@@ -126,19 +145,48 @@ class EventDetailViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = EventDetailHeaderView(frame: tableView.rectForHeaderInSection(section))
-        header.configure(section)
-        return header
+        if section == 0 {
+            return nil
+        }
+        sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeaderInSection(section))
+        sectionHeader.configure(section)
+        return sectionHeader
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        if section == 0 {
+            return 20
+        }
+        return 40
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
     }
     
     // MARK: Sub-methods:
     
     func closeController(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func saveNoteButtonTaped(sender: UIButton) {
+        delegate.displayedEvent.note = noteText
+        delegate.currentSchedule.saveShedule()
+        
+        noteTextView.resignFirstResponder()
+        sectionHeader.hideSaveButton()
+        
+        // done animation:
+        SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))
+        dispatch_async(dispatch_get_main_queue(), {
+            SVProgressHUD.showInfoWithStatus("Збережено!")
+        })
+        
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            SVProgressHUD.dismiss()
+        }
     }
 }
 
@@ -158,10 +206,11 @@ extension EventDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(textView: UITextView) {
+        textView.resignFirstResponder()
         if !(textView.text!.isEmpty) {
-           // sendButton.enabled = true
+           sectionHeader.showSaveButton()
         } else {
-           // sendButton.enabled = false
+           sectionHeader.hideSaveButton()
         }
         if textView.text.isEmpty {
             textView.text = " Додати запис"
@@ -170,10 +219,11 @@ extension EventDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(textView: UITextView) {
+        noteText = textView.text
         if !(textView.text!.isEmpty) {
-           // sendButton.enabled = true
+           sectionHeader.showSaveButton()
         } else {
-           // sendButton.enabled = false
+           sectionHeader.hideSaveButton()
         }
     }
 }
