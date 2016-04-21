@@ -16,6 +16,7 @@ private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
 protocol CollectionScheduleViewControllerDelegate {
     func presentViewController(viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
+    func passScheduleToLeftController() -> Void
 }
 
 class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
@@ -151,6 +152,10 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         return headerView
     }
     
+    func passScheduleToLeftController() {
+        let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+        leftSideMenu.schedule = shedule
+    }
 }
 
     // MARK: -  Gestures:

@@ -125,9 +125,6 @@ extension MainSplitViewController: SheduleControllersInitializer {
             scheduleCollectionController.shedule = newSchedule
             scheduleCollectionController.shedule.performCache()
             
-            // pass schedule to sideMenus:
-            let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
-            
             dispatch_async(dispatch_get_main_queue(), {
                 self.button.setTitle(defaultKey, forState: UIControlState.Normal)
             })
@@ -136,6 +133,10 @@ extension MainSplitViewController: SheduleControllersInitializer {
             scheduleCollectionController.shedule = Shedule()
             scheduleCollectionController.shedule.performCache()
         }
+        // pass schedule to sideMenu:
+        let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+        leftSideMenu.schedule = scheduleTableController.shedule
+
     }
     
     func updateCurrentSchedule() {
@@ -156,6 +157,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                 Parser.parseSchedule(json, callback: { data in
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
+                    data.notes = self.scheduleTableController.shedule.notes
                     // TODO: data.notes = old.schedule.notes.
 
                     // Updating table schedule controller:
@@ -201,6 +203,10 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     
                     //set updated schedule to the file:
                     data.saveShedule()
+                    
+                    // pass schedule to sideMenu:
+                    let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+                    leftSideMenu.schedule = self.scheduleTableController.shedule
                 })
             })
         }

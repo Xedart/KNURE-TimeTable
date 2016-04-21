@@ -270,9 +270,9 @@
 			children = (
 				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
 				84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */,
-				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
 				849832661C72186C00727E74 /* SchedulesTypesCell.swift */,
 				849832771C737B0C00727E74 /* NewScheduleCell.swift */,
+				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
 				848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */,
 				84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */,
 				84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */,

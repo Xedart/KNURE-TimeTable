@@ -50,15 +50,11 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     func sideMenu(sideMenu: RESideMenu!, willShowMenuViewController menuViewController: UIViewController!) {
         let leftController = self.leftMenuViewController as! LeftMenuVIewController
         leftController.infoTableView.reloadData()
-        shouldRotate = false
-        
     }
     
     func sideMenu(sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {
-        shouldRotate = true
     }
     
     func sideMenu(sideMenu: RESideMenu!, didHideMenuViewController menuViewController: UIViewController!) {
-        // TODO: rotate interfce if device was rotated with menu opened.
     }
 }

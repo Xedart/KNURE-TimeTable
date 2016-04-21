@@ -103,7 +103,7 @@ class TableSheduleController: UITableViewController {
             return
         }
         
-        print(events[indexPath.row].auditory)
+        
         
     }
     

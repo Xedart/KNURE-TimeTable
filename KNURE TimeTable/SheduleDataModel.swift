@@ -21,10 +21,14 @@ class Event: NSObject, NSCoding  {
     var auditory: String
     var teachers: [Int]
     var groups: [Int]
-    var note: String
+    var getEventId: String {
+        get {
+            return "\(subject_id)\(start_time)" // composed event token
+        }
+    }
     
     //initialiation:
-    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int], note: String) {
+    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int]) {
         self.subject_id = subject_id
         self.start_time = start_time
         self.end_time = end_time
@@ -33,10 +37,9 @@ class Event: NSObject, NSCoding  {
         self.auditory = auditory
         self.teachers = teachers
         self.groups = groups
-        self.note = note
     }
     convenience override init() {
-        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int](), note: String())
+        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int]())
     }
     
     // NCCoding:
@@ -49,8 +52,7 @@ class Event: NSObject, NSCoding  {
         let auditory = aDecoder.decodeObjectForKey(Key.auditory) as! String
         let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [Int]
         let groups = aDecoder.decodeObjectForKey(Key.groups) as! [Int]
-        let note = aDecoder.decodeObjectForKey(Key.note) as! String
-        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups, note: note)
+        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups)
     }
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(subject_id, forKey: Key.subject_id)
@@ -61,7 +63,6 @@ class Event: NSObject, NSCoding  {
         aCoder.encodeObject(auditory, forKey: Key.auditory)
         aCoder.encodeObject(teachers, forKey: Key.teachers)
         aCoder.encodeObject(groups, forKey: Key.groups)
-        aCoder.encodeObject(note, forKey: Key.note)
     }
     struct Key {
         static let subject_id = "EVSubjectId"
@@ -72,7 +73,6 @@ class Event: NSObject, NSCoding  {
         static let auditory = "EVAuditory"
         static let teachers = "EVTeachers"
         static let groups = "EVGroups"
-        static let note = "EVNote"
     }
 }
 
@@ -198,7 +198,7 @@ class Note: NSObject, NSCoding {
     let idToken: String
     let coupledEventTitle: String
     let creationDate: Int
-    let updateDate: Int
+    var updateDate: Int
     var text: String
     
     init(idToken: String, coupledEventTitle: String, creationDate: Int, updatedDate: Int, text: String) {
@@ -410,6 +410,15 @@ extension Shedule {
         } else {
             return [Event]()
         }
+    }
+    
+    func getNoteWithTokenId(tokenId: String) -> Note? {
+        for note in self.notes {
+            if note.idToken == tokenId {
+                return note
+            }
+        }
+        return nil
     }
     
      func saveShedule() {

@@ -53,6 +53,10 @@ extension MainTabBarController: SheduleControllersInitializer {
             self.scheduleCollectionController.initialScrollDone = false
             scheduleCollectionController.shedule = Shedule()
         }
+        // pass schedule to sideMenu:
+        let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+        leftSideMenu.schedule = scheduleTableController.shedule
+
     }
     
     func initializeWithNewShedule() {
@@ -85,6 +89,7 @@ extension MainTabBarController: SheduleControllersInitializer {
                 Parser.parseSchedule(json, callback: { data in
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
+                    data.notes = self.scheduleTableController.shedule.notes
                     
                     // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
@@ -132,6 +137,9 @@ extension MainTabBarController: SheduleControllersInitializer {
                     //set updated schedule to the file:
                     data.saveShedule()
                     
+                    // pass schedule to sideMenu:
+                    let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+                    leftSideMenu.schedule = self.scheduleTableController.shedule
                 })
             })
         }

@@ -28,9 +28,8 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        bookmarkImage.frame = CGRect(x: 100, y: 0, width: 20, height: 40)
+        bookmarkImage.frame = CGRect(x: 100, y: 1, width: 20, height: 40)
         bookmarkImage.image = UIImage(named: "DoneImage")
-        bookmarkImage.backgroundColor = UIColor.redColor()
         
         dispatch_async(dispatch_get_main_queue()) {
             self.node.userInteractionEnabled = true
@@ -69,10 +68,16 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
             self.node.backgroundColor = UIColor.clearColor()
             
             // bookmark:
-            if !events[0].note.isEmpty {
-                dispatch_async(dispatch_get_main_queue(), {
-                self.node.view.addSubview(self.bookmarkImage)
-                })
+            if  shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+                if !shedule.getNoteWithTokenId(events[0].getEventId)!.text.isEmpty {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.node.view.addSubview(self.bookmarkImage)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.bookmarkImage.removeFromSuperview()
+                    })
+                }
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
                 self.bookmarkImage.removeFromSuperview()
@@ -81,17 +86,21 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
         })
     }
     
+    func passScheduleToLeftController() {
+        delegate.passScheduleToLeftController()
+    }
+    
     // MARK: - Info menu
     
     func presentInfoMenu(sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let eventDetailViewController = storyboard.instantiateViewControllerWithIdentifier("EventDetailViewController") as! UINavigationController
         eventDetailViewController.modalPresentationStyle = .FormSheet
+        eventDetailViewController.modalTransitionStyle = .CrossDissolve
         delegate.presentViewController(eventDetailViewController, animated: true, completion: nil)
         let destionationController = eventDetailViewController.viewControllers[0] as! EventDetailViewController
         destionationController.delegate = self
     }
-    
 }
 
 

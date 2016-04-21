@@ -127,7 +127,7 @@ class Parser {
             for jgroup in event["groups"].arrayValue {
                 groups.append(jgroup.intValue)
             }
-            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups, note: String())
+            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups)
             let eventDateStringId = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(start_time)))
             if currentDateStr == eventDateStringId {
                 daysBuffer.events.append(event)

@@ -13,6 +13,7 @@ import ChameleonFramework
 protocol EventDetailInfoContainer {
     var currentSchedule: Shedule! { get set }
     var displayedEvent: Event! { get }
+    func passScheduleToLeftController() -> Void
 }
 
 class EventDetailViewController: UITableViewController {
@@ -108,14 +109,20 @@ class EventDetailViewController: UITableViewController {
             
             // notes' textView:
         } else {
-            if delegate.displayedEvent.note.isEmpty {
-                cell.eventTitleView.text = " Додати запис"
-                cell.eventTitleView.textColor = UIColor.lightGrayColor()
+            if delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId) == nil {
+                    cell.eventTitleView.text = " Додати запис"
+                    cell.eventTitleView.textColor = UIColor.lightGrayColor()
             } else {
-                cell.eventTitleView.text = delegate.displayedEvent.note
+                 if delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId)!.text.isEmpty {
+                    cell.eventTitleView.text = " Додати запис"
+                    cell.eventTitleView.textColor = UIColor.lightGrayColor()
+                 } else {
+                    cell.eventTitleView.text = delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId)!.text
+                }
             }
             cell.eventTitleView.editable = true
             cell.eventTitleView.font = UIFont.systemFontOfSize(18)
+            cell.eventTitleView.textColor = UIColor.darkGrayColor()
             cell.eventTitleView.delegate = self
             noteTextView = cell.eventTitleView
         }
@@ -171,11 +178,26 @@ class EventDetailViewController: UITableViewController {
     }
     
     func saveNoteButtonTaped(sender: UIButton) {
-        delegate.displayedEvent.note = noteText
+        
+        // add new note:
+        if delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId) == nil {
+               let newNote = Note(idToken: "\(delegate.displayedEvent.subject_id)\(delegate.displayedEvent.start_time)", coupledEventTitle: delegate.currentSchedule.subjects[delegate.displayedEvent.subject_id]!.fullTitle, creationDate: Int(NSDate().timeIntervalSince1970), updatedDate: Int(NSDate().timeIntervalSince1970), text: noteText)
+            delegate.currentSchedule.notes.append(newNote)
+            //update existing note:
+        } else {
+           let updatedNote = delegate.currentSchedule.getNoteWithTokenId("\(delegate.displayedEvent.subject_id)\(delegate.displayedEvent.start_time)")
+            updatedNote!.text = noteText
+            updatedNote!.updateDate = Int(NSDate().timeIntervalSince1970)
+        }
+        
         delegate.currentSchedule.saveShedule()
+        // pass schedule to sideMenu:
+        delegate.passScheduleToLeftController()
+
         
         noteTextView.resignFirstResponder()
         sectionHeader.hideSaveButton()
+        //delegate.reloadCollectionView()
         
         // done animation:
         SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))
@@ -187,6 +209,7 @@ class EventDetailViewController: UITableViewController {
         dispatch_after(delayTime, dispatch_get_main_queue()) {
             SVProgressHUD.dismiss()
         }
+        noteTextView.textColor = UIColor.darkGrayColor()
     }
 }
 
@@ -219,20 +242,7 @@ extension EventDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(textView: UITextView) {
+        sectionHeader.showSaveButton()
         noteText = textView.text
-        if !(textView.text!.isEmpty) {
-           sectionHeader.showSaveButton()
-        } else {
-           sectionHeader.hideSaveButton()
-        }
     }
 }
-
-
-
-
-
-
-
-
-
