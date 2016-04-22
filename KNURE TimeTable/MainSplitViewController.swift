@@ -226,6 +226,7 @@ extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
 extension MainSplitViewController {
     func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: AppData.initNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: AppData.reloadNotification, object: nil)
     }
 }
 
@@ -235,6 +236,11 @@ extension MainSplitViewController {
     func getNewSchedule() {
         
         self.initializeWithNewShedule()
+    }
+    
+    func reloadViewController() {
+        scheduleCollectionController.collectionView?.reloadData()
+        scheduleTableController.tableView.reloadData()
     }
 }
 

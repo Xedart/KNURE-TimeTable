@@ -186,18 +186,21 @@ class EventDetailViewController: UITableViewController {
             //update existing note:
         } else {
            let updatedNote = delegate.currentSchedule.getNoteWithTokenId("\(delegate.displayedEvent.subject_id)\(delegate.displayedEvent.start_time)")
-            updatedNote!.text = noteText
-            updatedNote!.updateDate = Int(NSDate().timeIntervalSince1970)
+            if noteText.isEmpty {
+                delegate.currentSchedule.deleteNoteWithId(updatedNote!.idToken)
+            } else {
+                updatedNote!.text = noteText
+                updatedNote!.updateDate = Int(NSDate().timeIntervalSince1970)
+            }
         }
         
         delegate.currentSchedule.saveShedule()
-        // pass schedule to sideMenu:
         delegate.passScheduleToLeftController()
 
         
         noteTextView.resignFirstResponder()
         sectionHeader.hideSaveButton()
-        //delegate.reloadCollectionView()
+        NSNotificationCenter.defaultCenter().postNotificationName(AppData.reloadNotification, object: nil)
         
         // done animation:
         SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))

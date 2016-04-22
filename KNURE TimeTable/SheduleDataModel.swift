@@ -421,6 +421,17 @@ extension Shedule {
         return nil
     }
     
+    func deleteNoteWithId(noteId: String) {
+        var noteIndex = 0
+        for note in self.notes {
+            if note.idToken == noteId {
+                self.notes.removeAtIndex(noteIndex)
+                return
+            }
+            noteIndex += 1
+        }
+    }
+    
      func saveShedule() {
         let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path!)/\(self.shedule_id)")
         if !save {

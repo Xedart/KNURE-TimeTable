@@ -22,7 +22,7 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
             contentViewInPortraitOffsetCenterX = 0
             contentViewInLandscapeOffsetCenterX = 0
-            contentViewScaleValue = 0.7
+            contentViewScaleValue = 0.6
         } else if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             contentViewInPortraitOffsetCenterX = -30
             contentViewInLandscapeOffsetCenterX = -30
