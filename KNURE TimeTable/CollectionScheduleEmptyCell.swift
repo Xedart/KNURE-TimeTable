@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CollectionScheduleEmptyCell: CollectionScheduleCellParent {
+class CollectionScheduleEmptyCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    override func configure(events: [Event], shedule: Shedule) {}
+    func configure(events: [Event], shedule: Shedule) {}
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

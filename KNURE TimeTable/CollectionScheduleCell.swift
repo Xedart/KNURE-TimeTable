@@ -9,35 +9,27 @@
 import UIKit
 import AsyncDisplayKit
 
-class CollectionScheduleCellParent: UICollectionViewCell  {
-    func configure(events: [Event], shedule: Shedule) {
-        print("sdkfksdfskdfhj")
-    }
-}
-
-class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoContainer {
+class CollectionScheduleCell: UICollectionViewCell {
     
     let node = ASTextNode()
     let backgroundNode = ASDisplayNode()
-    let bookmarkImage = UIImageView()
     var tapGestureRecognizer: UITapGestureRecognizer!
-    var displayedEvent: Event!
-    var currentSchedule: Shedule!
     var delegate: CollectionScheduleViewControllerDelegate!
+    let bookmarkImage = ASImageNode()
+    var displayedEvent: Event!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        bookmarkImage.frame = CGRect(x: 100, y: 1, width: 20, height: 40)
-        bookmarkImage.image = UIImage(named: "DoneImage")
-        
-        dispatch_async(dispatch_get_main_queue()) {
+        dispatch_async(dispatch_get_main_queue(), {
             self.node.userInteractionEnabled = true
             self.addSubview(self.node.view)
             self.addSubview(self.backgroundNode.view)
             self.sendSubviewToBack(self.backgroundNode.view)
-        }
-        
+
+        })
+        self.bookmarkImage.frame = CGRect(x: 105, y: 1, width: 10, height: 40)
+        self.bookmarkImage.image = UIImage(named: "DoneImage")
         // touch gesture recognizer:
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentInfoMenu(_:)))
         self.node.view.addGestureRecognizer(self.tapGestureRecognizer)
@@ -47,11 +39,8 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func configure(events: [Event], shedule: Shedule) {
-        
+    func configure(events: [Event], shedule: Shedule) {
         displayedEvent = events[0]
-        currentSchedule = shedule
-        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.backgroundNode.frame = self.bounds
             self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).colorWithAlphaComponent(0.3)
@@ -68,26 +57,16 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
             self.node.backgroundColor = UIColor.clearColor()
             
             // bookmark:
-            if  shedule.getNoteWithTokenId(events[0].getEventId) != nil {
-                if !shedule.getNoteWithTokenId(events[0].getEventId)!.text.isEmpty {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.node.view.addSubview(self.bookmarkImage)
-                    })
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.bookmarkImage.removeFromSuperview()
-                    })
-                }
+            if shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.addSubview(self.bookmarkImage.view)
+                })
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
-                self.bookmarkImage.removeFromSuperview()
+                   self.bookmarkImage.view.removeFromSuperview()
                 })
             }
         })
-    }
-    
-    func passScheduleToLeftController() {
-        delegate.passScheduleToLeftController()
     }
     
     // MARK: - Info menu
@@ -99,15 +78,8 @@ class CollectionScheduleCell: CollectionScheduleCellParent, EventDetailInfoConta
         eventDetailViewController.modalTransitionStyle = .CrossDissolve
         delegate.presentViewController(eventDetailViewController, animated: true, completion: nil)
         let destionationController = eventDetailViewController.viewControllers[0] as! EventDetailViewController
-        destionationController.delegate = self
+        destionationController.delegate = delegate
+        destionationController.displayedEvent = displayedEvent
+        destionationController.currentSchedule = delegate.shedule
     }
 }
-
-
-
-
-
-
-
-
-

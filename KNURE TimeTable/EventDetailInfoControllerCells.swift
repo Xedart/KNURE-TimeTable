@@ -10,8 +10,8 @@ import UIKit
 import ChameleonFramework
 
 class EventDetailInfoTitleCell: UITableViewCell {
-    
-    @IBOutlet weak var eventTitleView: UITextView!
+
+    @IBOutlet weak var eventTitleView: NoteTextView!
     
 }
 

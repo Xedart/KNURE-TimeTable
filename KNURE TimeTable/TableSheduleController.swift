@@ -12,7 +12,7 @@ protocol TableSheduleControllerDelegate {
     func performScrollToToday()
 }
 
-class TableSheduleController: UITableViewController {
+class TableSheduleController: UITableViewController, CollectionScheduleViewControllerDelegate {
     
     //MARK: - DataSource:
     
@@ -90,6 +90,7 @@ class TableSheduleController: UITableViewController {
             return cell
         } else {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableSheduleCell", forIndexPath: indexPath) as! TableSheduleCell
+            cell.delegate = self
         cell.configure(shedule, event: events[indexPath.row])
         return cell
         }
@@ -97,22 +98,17 @@ class TableSheduleController: UITableViewController {
     
     // MARK: - TableView delegate:
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let events = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * indexPath.section))))
-        if events.isEmpty {
-            return
-        }
-        
-        
-        
-    }
-    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return TableSheduleHeader(section: section)
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    func passScheduleToLeftController() {
+        let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
+        leftSideMenu.schedule = shedule
     }
 }
 

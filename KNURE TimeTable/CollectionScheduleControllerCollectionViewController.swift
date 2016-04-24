@@ -17,13 +17,14 @@ private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 protocol CollectionScheduleViewControllerDelegate {
     func presentViewController(viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func passScheduleToLeftController() -> Void
+    var shedule: Shedule! { get }
 }
 
 class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
     
     var shedule: Shedule! {
         didSet {
-            //cacheData()
+            NSNotificationCenter.defaultCenter().postNotificationName(AppData.scheduleDidReload, object: nil)
             if !shedule.shedule_id.isEmpty {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
@@ -136,6 +137,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         }
         if events.count > 1 {
              let cell = collectionView.dequeueReusableCellWithReuseIdentifier(multiCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleMultiCell
+            cell.delegate = self
             cell.configure(events, shedule: shedule)
             return cell
         } else {

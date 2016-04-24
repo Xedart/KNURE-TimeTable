@@ -10,19 +10,30 @@ import UIKit
 import SVProgressHUD
 import ChameleonFramework
 
-protocol EventDetailInfoContainer {
-    var currentSchedule: Shedule! { get set }
-    var displayedEvent: Event! { get }
+class NoteTextView: UITextView {
+    
+    var shouldResignFirstResponder = false
+    
+    override func canResignFirstResponder() -> Bool {
+        return shouldResignFirstResponder
+    }
+}
+
+protocol EventDetailInfoProvider {
     func passScheduleToLeftController() -> Void
+    func reloadSchedule() -> Void
 }
 
 class EventDetailViewController: UITableViewController {
     
     var closeButton: UIBarButtonItem!
-    var delegate: EventDetailInfoContainer!
+    var delegate: CollectionScheduleViewControllerDelegate!
     var sectionHeader: EventDetailHeaderView!
-    var noteTextView: UITextView!
+    var noteTextView: NoteTextView!
     var noteText = String()
+    var displayedEvent: Event!
+    var currentSchedule: Shedule!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +42,11 @@ class EventDetailViewController: UITableViewController {
         
         closeButton = UIBarButtonItem(title: "Готово", style: .Plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
         navigationItem.leftBarButtonItem = closeButton
+        
+        // adding observer notification for schedule:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: AppData.scheduleDidReload, object: nil)
+        // noteTextViewNotifications:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: AppData.openNoteTextView, object: nil)
     }
 
     // MARK: - Table view data source
@@ -57,7 +73,7 @@ class EventDetailViewController: UITableViewController {
             switch indexPath.row {
                 
             case 0:
-                cell.eventTitleView.text =  delegate.currentSchedule.subjects[delegate.displayedEvent.subject_id]!.fullTitle
+                cell.eventTitleView.text = currentSchedule.subjects[displayedEvent.subject_id]!.fullTitle
                 cell.eventTitleView.font = UIFont.systemFontOfSize(22)
                 cell.eventTitleView.textAlignment = .Center
                 if cell.eventTitleView.contentSize.height > cell.eventTitleView.frame.height {
@@ -67,12 +83,12 @@ class EventDetailViewController: UITableViewController {
                 }
                 return cell
             case 1:
-                cell.eventTitleView.text = delegate.currentSchedule.types[delegate.displayedEvent.type]!.full_name
+                cell.eventTitleView.text = currentSchedule.types[displayedEvent.type]!.full_name
                 cell.eventTitleView.textAlignment = .Center
                 cell.eventTitleView.font = UIFont.systemFontOfSize(18)
                 cell.eventTitleView.scrollEnabled = false
             case 2:
-                cell.eventTitleView.text = "Аудиторія \(delegate.displayedEvent.auditory)"
+                cell.eventTitleView.text = "Аудиторія \(displayedEvent.auditory)"
                 cell.eventTitleView.font = UIFont.systemFontOfSize(18)
                 cell.eventTitleView.textAlignment = .Center
                 cell.eventTitleView.scrollEnabled = false
@@ -83,8 +99,8 @@ class EventDetailViewController: UITableViewController {
             
             // displaying teacher:
         else if indexPath.section == 1 {
-            if !delegate.displayedEvent.teachers.isEmpty {
-                cell.eventTitleView.text = delegate.currentSchedule.teachers[String(delegate.displayedEvent.teachers[0])]!.full_name
+            if !displayedEvent.teachers.isEmpty {
+                cell.eventTitleView.text = currentSchedule.teachers[String(displayedEvent.teachers[0])]!.full_name
             }
             cell.eventTitleView.font = UIFont.systemFontOfSize(18)
             cell.eventTitleView.textAlignment = .Center
@@ -95,8 +111,8 @@ class EventDetailViewController: UITableViewController {
             
             var groupsText = String()
             
-            for groupId in delegate.displayedEvent.groups {
-                groupsText.appendContentsOf(delegate.currentSchedule.groups[String(groupId)]!)
+            for groupId in displayedEvent.groups {
+                groupsText.appendContentsOf(currentSchedule.groups[String(groupId)]!)
                 groupsText.appendContentsOf(", ")
             }
             for _ in 0...1 {
@@ -109,16 +125,11 @@ class EventDetailViewController: UITableViewController {
             
             // notes' textView:
         } else {
-            if delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId) == nil {
-                    cell.eventTitleView.text = " Додати запис"
-                    cell.eventTitleView.textColor = UIColor.lightGrayColor()
+            if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
+                cell.eventTitleView.text = " Додати запис"
+                cell.eventTitleView.textColor = UIColor.lightGrayColor()
             } else {
-                 if delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId)!.text.isEmpty {
-                    cell.eventTitleView.text = " Додати запис"
-                    cell.eventTitleView.textColor = UIColor.lightGrayColor()
-                 } else {
-                    cell.eventTitleView.text = delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId)!.text
-                }
+                cell.eventTitleView.text = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId)!.text
             }
             cell.eventTitleView.editable = true
             cell.eventTitleView.font = UIFont.systemFontOfSize(18)
@@ -174,34 +185,39 @@ class EventDetailViewController: UITableViewController {
     // MARK: Sub-methods:
     
     func closeController(sender: UIBarButtonItem) {
+        noteTextView.shouldResignFirstResponder = true
+        noteTextView.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func getNewSchedule() {
+        currentSchedule = delegate.shedule
+    }
+    
     func saveNoteButtonTaped(sender: UIButton) {
-        
+        noteTextView.shouldResignFirstResponder = true
         // add new note:
-        if delegate.currentSchedule.getNoteWithTokenId(delegate.displayedEvent.getEventId) == nil {
-               let newNote = Note(idToken: "\(delegate.displayedEvent.subject_id)\(delegate.displayedEvent.start_time)", coupledEventTitle: delegate.currentSchedule.subjects[delegate.displayedEvent.subject_id]!.fullTitle, creationDate: Int(NSDate().timeIntervalSince1970), updatedDate: Int(NSDate().timeIntervalSince1970), text: noteText)
-            delegate.currentSchedule.notes.append(newNote)
+        if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
+              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.fullTitle, creationDate: Int(NSDate().timeIntervalSince1970), updatedDate: Int(NSDate().timeIntervalSince1970), text: noteText)
+            currentSchedule.notes.append(newNote)
             //update existing note:
         } else {
-           let updatedNote = delegate.currentSchedule.getNoteWithTokenId("\(delegate.displayedEvent.subject_id)\(delegate.displayedEvent.start_time)")
+           let updatedNote = currentSchedule.getNoteWithTokenId("\(displayedEvent.subject_id)\(displayedEvent.start_time)")
             if noteText.isEmpty {
-                delegate.currentSchedule.deleteNoteWithId(updatedNote!.idToken)
+                currentSchedule.deleteNoteWithId(updatedNote!.idToken)
             } else {
                 updatedNote!.text = noteText
                 updatedNote!.updateDate = Int(NSDate().timeIntervalSince1970)
             }
         }
         
-        delegate.currentSchedule.saveShedule()
+        currentSchedule.saveShedule()
         delegate.passScheduleToLeftController()
 
         
         noteTextView.resignFirstResponder()
         sectionHeader.hideSaveButton()
         NSNotificationCenter.defaultCenter().postNotificationName(AppData.reloadNotification, object: nil)
-        
         // done animation:
         SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))
         dispatch_async(dispatch_get_main_queue(), {
@@ -232,6 +248,7 @@ extension EventDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(textView: UITextView) {
+        noteTextView.shouldResignFirstResponder = true
         textView.resignFirstResponder()
         if !(textView.text!.isEmpty) {
            sectionHeader.showSaveButton()
@@ -244,8 +261,16 @@ extension EventDetailViewController: UITextViewDelegate {
         }
     }
     
+    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+        return true
+    }
+    
     func textViewDidChange(textView: UITextView) {
         sectionHeader.showSaveButton()
         noteText = textView.text
+    }
+    
+    func openNoteTextView() {
+        noteTextView.shouldResignFirstResponder = true
     }
 }

@@ -46,8 +46,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         initWithDefaultSchedule()
         
         // updating schedule after default schedule was showed:
-        updateCurrentSchedule()
-        
+        self.updateCurrentSchedule()
         // setnavigation items:
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
         navigationItem.setLeftBarButtonItems([sideInfoButton, self.displayModeButtonItem()], animated: true)
@@ -158,8 +157,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
                     data.notes = self.scheduleTableController.shedule.notes
-                    // TODO: data.notes = old.schedule.notes.
-
+                    
                     // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
                         self.scheduleTableController.shedule = data
@@ -191,6 +189,10 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                     //-----------------------------------------------------------------
                                     */
                                     print("UPDATED")
+                                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+                                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+                                        NSNotificationCenter.defaultCenter().postNotificationName(AppData.openNoteTextView, object: nil)
+                                    }
                                 })
                             } else {
                                 dispatch_async(dispatch_get_main_queue(), {
@@ -200,9 +202,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
                             }
                         })
                     })
-                    
                     //set updated schedule to the file:
                     data.saveShedule()
+                    print("lkdsjfsld")
                     
                     // pass schedule to sideMenu:
                     let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController

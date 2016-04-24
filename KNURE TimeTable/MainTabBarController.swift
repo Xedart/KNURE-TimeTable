@@ -122,7 +122,10 @@ extension MainTabBarController: SheduleControllersInitializer {
                                     //-----------------------------------------------------------------
                                     // TODO: implement smooth update of currently visible cells.      //
                                     //-----------------------------------------------------------------
-                                    
+                                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+                                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+                                        NSNotificationCenter.defaultCenter().postNotificationName(AppData.openNoteTextView, object: nil)
+                                    }
                                     print("UPDATED")
                                 })
                             } else {
@@ -151,6 +154,7 @@ extension MainTabBarController: SheduleControllersInitializer {
 extension MainTabBarController {
     func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: AppData.initNotification, object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.reloadViewController), name: AppData.reloadNotification, object: nil)
     }
 }
 
@@ -162,5 +166,10 @@ extension MainTabBarController {
             SVProgressHUD.dismiss()
         })
         self.initializeWithNewShedule()
+    }
+    
+    func reloadViewController() {
+        scheduleTableController.tableView.reloadData()
+        scheduleCollectionController.collectionView?.reloadData()
     }
 }
