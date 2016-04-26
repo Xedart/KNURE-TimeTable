@@ -10,8 +10,56 @@ import UIKit
 import SwiftyJSON
 
 class Parser {
+    
+    static func parseAuditoriesList(data: JSON, callback: (data: [ListSection]) -> Void) {
+        var resultList = [ListSection]()
+        let buildings = data["university"]["buildings"].arrayValue
+        
+         for building in buildings {
+            var resultRow = ListSection()
+            resultRow.title = building["full_name"].stringValue
+            let auditories = building["auditories"].arrayValue
+            for auditory in auditories {
+                let aud_id = auditory["id"].stringValue
+                let aud_title = auditory["short_name"].stringValue
+                let row = ListRow(row_id: aud_id, row_title: aud_title)
+                if !resultRow.containsRow(aud_id) {
+                    resultRow.rows.append(row)
+                }
+            }
+            resultList.append(resultRow)
+        }
+        callback(data: resultList)
+    }
+    
+    static func parseTeachersList(data: JSON, callback: (data: [ListSection]) -> Void) {
+        var resultList = [ListSection]()
+        let faculties = data["university"]["faculties"].arrayValue
+        
+        for faculty in faculties {
+            var resultRow = ListSection()
+            resultRow.title = " Факультет \(faculty["short_name"].stringValue)" // Value
+            let departments = faculty["departments"].arrayValue
+            for department in departments {
+                let teachers = department["teachers"].arrayValue
+                
+                for teacher in teachers {
+                    let teacher_id = teacher["id"].stringValue
+                    let short_name = teacher["short_name"].stringValue
+                    let row = ListRow(row_id: teacher_id, row_title: short_name)
+                    if !resultRow.containsRow(teacher_id) {
+                        resultRow.rows.append(row)
+                    }
+                }
+            }
+            resultList.append(resultRow)
+        }
+        callback(data: resultList)
+    }
+    
     static func parseGroupsLst(data: JSON, callback: (data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
+        
         let faculties = data["university"]["faculties"].arrayValue
         for faculty in faculties {
             
@@ -141,7 +189,7 @@ class Parser {
                 result_days[currentDateStr] = daysBuffer // need to do it for last day of the semester
             }
         }
-        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [Note]())
+        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup]())
         callback(data: result)
     }
 }

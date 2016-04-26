@@ -15,10 +15,9 @@ class Server {
     // methods:
     enum Method: String {
         case getGroups = "P_API_GROUP_JSON"
-        case getTeachers = "PSOAPSAPSAPOSPOS"
-        case getAuditoryes = "sasdasdasdasdad"
+        case getTeachers = "/P_API_PODR_JSON"
         case getSchedule = "/P_API_EVEN_JSON"
-        case getAudytories = "sasdasdasd"
+        case getAudytories = "P_API_AUDITORIES_JSON"
     }
     
     static func makeRequest(method: Method, parameters: [String]?, callback: (data: NSData?, responce: NSURLResponse?, error: NSError?) -> Void ) {

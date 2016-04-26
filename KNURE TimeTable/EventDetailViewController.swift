@@ -48,6 +48,10 @@ class EventDetailViewController: UITableViewController {
         // noteTextViewNotifications:
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: AppData.openNoteTextView, object: nil)
     }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -185,8 +189,11 @@ class EventDetailViewController: UITableViewController {
     // MARK: Sub-methods:
     
     func closeController(sender: UIBarButtonItem) {
+        if noteTextView != nil {
         noteTextView.shouldResignFirstResponder = true
         noteTextView.resignFirstResponder()
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -197,9 +204,11 @@ class EventDetailViewController: UITableViewController {
     func saveNoteButtonTaped(sender: UIButton) {
         noteTextView.shouldResignFirstResponder = true
         // add new note:
+        let converter = NSDateFormatter()
+        converter.dateStyle = .ShortStyle
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.fullTitle, creationDate: Int(NSDate().timeIntervalSince1970), updatedDate: Int(NSDate().timeIntervalSince1970), text: noteText)
-            currentSchedule.notes.append(newNote)
+              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.stringFromDate(NSDate()), updatedDate: converter.stringFromDate(NSDate()), text: noteText)
+            currentSchedule.addNewNote(newNote)
             //update existing note:
         } else {
            let updatedNote = currentSchedule.getNoteWithTokenId("\(displayedEvent.subject_id)\(displayedEvent.start_time)")
@@ -207,7 +216,7 @@ class EventDetailViewController: UITableViewController {
                 currentSchedule.deleteNoteWithId(updatedNote!.idToken)
             } else {
                 updatedNote!.text = noteText
-                updatedNote!.updateDate = Int(NSDate().timeIntervalSince1970)
+                updatedNote!.updateDate = converter.stringFromDate(NSDate())
             }
         }
         
@@ -271,6 +280,6 @@ extension EventDetailViewController: UITextViewDelegate {
     }
     
     func openNoteTextView() {
-        noteTextView.shouldResignFirstResponder = true
+        noteTextView?.shouldResignFirstResponder = true
     }
 }

@@ -159,13 +159,32 @@ extension SchedulesDownoalTableView {
             let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
             let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
             let json = JSON(data: dataFromString!)
-            Parser.parseGroupsLst(json, callback: { data in
-                self.dataSource = data
-                dispatch_async(dispatch_get_main_queue(), {
-                    indicator.stopAnimating()
-                    self.tableView.reloadData()
+            if self.initMetod == .getGroups {
+                Parser.parseGroupsLst(json, callback: { data in
+                    self.dataSource = data
+                    dispatch_async(dispatch_get_main_queue(), {
+                        indicator.stopAnimating()
+                        self.tableView.reloadData()
+                    })
                 })
-            })
+            } else if self.initMetod == .getTeachers {
+                Parser.parseTeachersList(json, callback: { data in
+                    self.dataSource = data
+                    dispatch_async(dispatch_get_main_queue(), {
+                        indicator.stopAnimating()
+                        self.tableView.reloadData()
+                    })
+                })
+            } else if self.initMetod == .getAudytories {
+                Parser.parseAuditoriesList(json, callback: { data in
+                    self.dataSource = data
+                    dispatch_async(dispatch_get_main_queue(), {
+                        indicator.stopAnimating()
+                        self.tableView.reloadData()
+                    })
+
+                })
+            }
         })
     }
 }
@@ -184,7 +203,15 @@ extension SchedulesDownoalTableView {
         // first thread:
         dispatch_async(dispatch_get_main_queue(), {
         
-        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)"], callback: { (data, responce, error) in
+            var type_id = 0
+            if self.initMetod == .getGroups {
+                type_id = 1
+            } else if self.initMetod == .getTeachers {
+                type_id = 2
+            } else {
+                type_id = 3
+            }
+        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)&type_id=\(type_id)"], callback: { (data, responce, error) in
             // check for success connection:
             if error != nil {
                 
@@ -204,9 +231,13 @@ extension SchedulesDownoalTableView {
                 if self.initMetod == .getGroups {
                     self.groupsData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
                 defaults.setObject(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
+                } else if self.initMetod == .getTeachers {
+                    self.teachersData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
+                    defaults.setObject(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
+                } else if self.initMetod == .getAudytories {
+                    self.auditoryiesData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
+                    defaults.setObject(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
                 }
-                
-                // TODO: // if if...
                 
                 // set new default schedule:
                 defaults.setObject(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)

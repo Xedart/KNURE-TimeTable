@@ -30,6 +30,7 @@ class DirectingTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTypesCell", forIndexPath: indexPath) as! SchedulesTypesCell
+        cell.tag = indexPath.row
         cell.configure(indexPath)
         return cell
     }
@@ -38,7 +39,14 @@ class DirectingTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationController = segue.destinationViewController as! SchedulesDownoalTableView
-        destinationController.initMetod = .getGroups
+        let cell = sender as! SchedulesTypesCell
+        if cell.tag == 0 {
+            destinationController.initMetod = .getGroups
+        } else if cell.tag == 1 {
+            destinationController.initMetod = .getTeachers
+        } else {
+            destinationController.initMetod = .getAudytories
+        }
     }
 }
 

@@ -157,7 +157,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
                     data.notes = self.scheduleTableController.shedule.notes
-                    
+                    if data.days.isEmpty {
+                        return
+                    }
                     // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
                         self.scheduleTableController.shedule = data
@@ -203,6 +205,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         })
                     })
                     //set updated schedule to the file:
+                    if data.shedule_id.isEmpty {
+                        return
+                    }
                     data.saveShedule()
                     print("lkdsjfsld")
                     

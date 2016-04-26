@@ -9,6 +9,7 @@ pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'ChameleonFramework/Swift'
 pod 'SVProgressHUD'
 pod 'RESideMenu', '~> 4.0.7'
+pod 'FZAccordionTableView', '~> 0.1.3'
 
 end
 

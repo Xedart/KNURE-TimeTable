@@ -117,6 +117,48 @@ class ShedulesListTableViewController: UITableViewController {
     
     // MARK: - TableView Delegate:
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?  {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Видалити", handler: { (action , indexPath) -> Void in
+            
+            // TODO: finish deleting implementation/
+            
+            if indexPath.section == 0 {
+                self.groupsData.removeAtIndex(indexPath.row)
+                defaults.setObject(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
+                if self.groupsData.isEmpty {
+                    tableView.reloadData()
+                    return
+                }
+            } else if indexPath.section == 1 {
+                self.teachersData.removeAtIndex(indexPath.row)
+                defaults.setObject(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
+                if self.teachersData.isEmpty {
+                    tableView.reloadData()
+                    return
+                }
+            } else if indexPath.section == 2 {
+                self.auditoryiesData.removeAtIndex(indexPath.row)
+                defaults.setObject(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
+                if self.auditoryiesData.isEmpty {
+                    tableView.reloadData()
+                    return
+                }
+            }
+            // closing animation:
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                tableView.beginUpdates()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                tableView.endUpdates()
+            })
+        })
+        return [deleteAction]
+    }
+    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UILabel(frame: tableView.rectForHeaderInSection(section))
         headerView.font = UIFont.systemFontOfSize(18)

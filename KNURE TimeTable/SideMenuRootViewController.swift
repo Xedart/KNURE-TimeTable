@@ -20,14 +20,16 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     override func awakeFromNib() {
         
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            contentViewInPortraitOffsetCenterX = 0
-            contentViewInLandscapeOffsetCenterX = 0
-            contentViewScaleValue = 0.6
+            contentViewInPortraitOffsetCenterX = 70
+            contentViewInLandscapeOffsetCenterX = 170
+            contentViewScaleValue = 0.8
         } else if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            contentViewInPortraitOffsetCenterX = -30
-            contentViewInLandscapeOffsetCenterX = -30
+            contentViewInPortraitOffsetCenterX = 0
+            contentViewInLandscapeOffsetCenterX = 50
             contentViewScaleValue = 0.8
         }
+        
+        setStatusBarStyle(UIStatusBarStyle.LightContent)
         
         backgroundImage = UIImage(named: "BluredBackground")
         self.delegate = self
@@ -51,6 +53,7 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
         let leftController = self.leftMenuViewController as! LeftMenuVIewController
         leftController.infoTableView.reloadData()
     }
+    
     
     func sideMenu(sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {
     }

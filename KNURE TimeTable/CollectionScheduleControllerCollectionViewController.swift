@@ -72,10 +72,10 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     
     override func viewWillAppear(animated: Bool) {
         
-        // set empty Data Set:
-        if shedule.shedule_id.isEmpty {
-            viewDidLayoutSubviews()
-        }
+        super.viewWillAppear(animated)
+        collectionView?.reloadData()
+        
+        viewDidLayoutSubviews()
     }
     
     override func viewDidLayoutSubviews() {
@@ -110,7 +110,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        if shedule == nil {
+        if shedule == nil && shedule.shedule_id.isEmpty{
             return 0
         }
         return shedule.numberOfDaysInSemester()
@@ -118,7 +118,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
 
      override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if shedule == nil {
+        if shedule == nil && shedule.shedule_id.isEmpty {
             return 0
         }
         return shedule.numberOfPairsInDay()
@@ -201,8 +201,12 @@ extension CollectionScheduleViewController {
 
 extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
+     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "Logo")
+    }
+    
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "Розклад не обрано", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
+        return NSAttributedString(string: "Should find better pic", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(15, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
     }
 }
 

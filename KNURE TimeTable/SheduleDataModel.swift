@@ -197,11 +197,11 @@ class NureType: NSObject, NSCoding {
 class Note: NSObject, NSCoding {
     let idToken: String
     let coupledEventTitle: String
-    let creationDate: Int
-    var updateDate: Int
+    let creationDate: String
+    var updateDate: String
     var text: String
     
-    init(idToken: String, coupledEventTitle: String, creationDate: Int, updatedDate: Int, text: String) {
+    init(idToken: String, coupledEventTitle: String, creationDate: String, updatedDate: String, text: String) {
         self.idToken = idToken
         self.coupledEventTitle = coupledEventTitle
         self.creationDate = creationDate
@@ -210,15 +210,15 @@ class Note: NSObject, NSCoding {
     }
     
     convenience override init() {
-        self.init(idToken: String(), coupledEventTitle: String(), creationDate: Int(), updatedDate: Int(), text: String())
+        self.init(idToken: String(), coupledEventTitle: String(), creationDate: String(), updatedDate: String(), text: String())
     }
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
         let idToken = aDecoder.decodeObjectForKey(Key.idTokenKey) as! String
         let coupledEventTitle = aDecoder.decodeObjectForKey(Key.coupledEventTitleKey) as! String
-        let creationDate = aDecoder.decodeObjectForKey(Key.creationDateKey) as! Int
-        let updatedDate = aDecoder.decodeObjectForKey(Key.updatedDateKey) as! Int
+        let creationDate = aDecoder.decodeObjectForKey(Key.creationDateKey) as! String
+        let updatedDate = aDecoder.decodeObjectForKey(Key.updatedDateKey) as! String
         let text = aDecoder.decodeObjectForKey(Key.textKey) as! String
         self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text)
     }
@@ -237,6 +237,37 @@ class Note: NSObject, NSCoding {
         static let creationDateKey = "NTcreationDate"
         static let updatedDateKey = "NTupdatedDate"
         static let textKey = "NTTextKEy"
+    }
+}
+
+class NoteGroup: NSObject, NSCoding {
+    var groupTitle: String
+    var notes: [Note]
+    
+    init(groupTitle: String, notes: [Note]) {
+        self.groupTitle = groupTitle
+        self.notes = notes
+    }
+    
+    convenience override init() {
+        self.init(groupTitle: "", notes: [Note]())
+    }
+    
+    // NCCoding:
+    required convenience init?(coder aDecoder: NSCoder) {
+        let groupTitle = aDecoder.decodeObjectForKey(Key.groupTitleKey) as! String
+        let notes = aDecoder.decodeObjectForKey(Key.notesKey) as! [Note]
+        self.init(groupTitle: groupTitle, notes: notes)
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.groupTitle, forKey: Key.groupTitleKey)
+        aCoder.encodeObject(self.notes, forKey: Key.notesKey)
+    }
+    
+    struct Key {
+        static let groupTitleKey = "NTGroupTitleKey"
+        static let notesKey = "NTNotesKey"
     }
 }
 
@@ -277,10 +308,10 @@ class Shedule: NSObject, NSCoding {
     var teachers = [String: Teacher]()
     var subjects = [String: Subject]()
     var types = [String: NureType]()
-    var notes = [Note]()
+    var notes = [NoteGroup]()
     
     // Initialization:
-    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [Note]) {
+    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup]) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -295,7 +326,7 @@ class Shedule: NSObject, NSCoding {
     }
     
     convenience override init() {
-        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [Note]())
+        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup]())
     }
     
     // MARK: - NSCoding:
@@ -313,7 +344,7 @@ class Shedule: NSObject, NSCoding {
         if scheduleIdentifier == nil {
             scheduleIdentifier = ""
         }
-        let notes = aDecoder.decodeObjectForKey(Key.notesKey) as! [Note]
+        let notes = aDecoder.decodeObjectForKey(Key.notesKey) as! [NoteGroup]
         self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes)
     }
     
@@ -413,41 +444,51 @@ extension Shedule {
     }
     
     func getNoteWithTokenId(tokenId: String) -> Note? {
-        for note in self.notes {
-            if note.idToken == tokenId {
-                return note
+        for group in self.notes {
+            for note in group.notes {
+                if note.idToken == tokenId {
+                    return note
+                }
             }
         }
         return nil
     }
     
     func deleteNoteWithId(noteId: String) {
-        var noteIndex = 0
-        for note in self.notes {
-            if note.idToken == noteId {
-                self.notes.removeAtIndex(noteIndex)
-                return
+        var groupeIndex = 0
+        for groupe in self.notes {
+            var noteIndex = 0
+            for note in groupe.notes {
+                if note.idToken == noteId {
+                self.notes[groupeIndex].notes.removeAtIndex(noteIndex)
+                    if self.notes[groupeIndex].notes.isEmpty {
+                        notes.removeAtIndex(groupeIndex)
+                    }
+                    return
+                }
+                noteIndex += 1
             }
-            noteIndex += 1
+            groupeIndex += 1
         }
     }
     
+    func addNewNote(note: Note) {
+        for groupe in self.notes {
+            if groupe.groupTitle == note.coupledEventTitle {
+                groupe.notes.append(note)
+                return
+            }
+        }
+        // create new group:
+        let newGroup = NoteGroup(groupTitle: note.coupledEventTitle, notes: [note])
+        self.notes.append(newGroup)
+    }
+    
      func saveShedule() {
+        
         let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path!)/\(self.shedule_id)")
         if !save {
             print("Error when saving")
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
