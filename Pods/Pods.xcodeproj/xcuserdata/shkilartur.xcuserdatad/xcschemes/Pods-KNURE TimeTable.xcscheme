@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '080163277D072753DA41F6CF'
+               BlueprintIdentifier = '8F5B0E5798F23EEA07B77D3D'
                BlueprintName = 'Pods-KNURE TimeTable'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_KNURE_TimeTable.framework'>

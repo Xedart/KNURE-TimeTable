@@ -13,11 +13,11 @@ class TableSheduleHeader: UILabel {
     
 // properties:
     
-    let daysTitles = [0: "Сьогодні",1: "Завтра"]
+    let daysTitles = [0: AppStrings.Today,1: AppStrings.Tomorrow]
     
     init(section: Int) {
         let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "ua_UA")
+        formatter.locale = NSLocale(localeIdentifier: AppStrings.LocaleStr)
         formatter.dateFormat = "dd.MM"
         super.init(frame: CGRect())
 // header content:

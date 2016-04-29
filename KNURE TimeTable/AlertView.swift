@@ -11,7 +11,7 @@ import UIKit
 class AlertView {
     static func getAlert(title: String, message: String, handler: ((UIAlertAction) -> Void)? ) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.Cancel, handler: handler))
+        alert.addAction(UIAlertAction(title: AppStrings.Close, style: UIAlertActionStyle.Cancel, handler: handler))
         return alert
     }
 }

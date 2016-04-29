@@ -128,6 +128,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
                 self.button.setTitle(defaultKey, forState: UIControlState.Normal)
             })
         } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.button.setTitle(AppStrings.ChooseSchedule, forState: UIControlState.Normal)
+            })
             scheduleTableController.shedule = Shedule()
             scheduleCollectionController.shedule = Shedule()
             scheduleCollectionController.shedule.performCache()
@@ -160,8 +163,11 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     if data.days.isEmpty {
                         return
                     }
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(AppData.blockNoteTextView, object: nil)
                     // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
+                        
                         self.scheduleTableController.shedule = data
                         self.scheduleTableController.tableView.reloadData()
                     })

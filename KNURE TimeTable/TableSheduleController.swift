@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 protocol TableSheduleControllerDelegate {
     func performScrollToToday()
@@ -22,6 +23,10 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
                 dispatch_async(dispatch_get_main_queue(), {
                     self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
                 })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.button.setTitle(AppStrings.ChooseSchedule, forState: UIControlState.Normal)
+                })
             }
         }
     }
@@ -36,9 +41,9 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "назад"// title for back item
         button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
+        navigationController?.navigationBar.barTintColor = FlatWhite()
         
         // setnavigation items:
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
@@ -63,7 +68,10 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         if let parent = tabBarController as? MainTabBarController {
             shedulesListController.delegate = parent
         }
-        navigationController?.pushViewController(shedulesListController, animated: true)
+        let menuNavigationController = SchedulesMenuNavigationViewController(rootViewController: shedulesListController)
+        menuNavigationController.navigationBar.barTintColor = FlatWhite()
+        self.presentViewController(menuNavigationController, animated: true, completion: nil)
+
     }
    
     // MARK: - Table view data source
@@ -117,7 +125,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
 extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         tableView.tableFooterView = UIView()
-        return NSAttributedString(string: "Розклад не обрано", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
+        return NSAttributedString(string: AppStrings.NotChoosenSchedule, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
     }
 }
 

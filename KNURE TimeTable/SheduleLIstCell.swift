@@ -36,7 +36,7 @@ class SheduleLIstCell: UITableViewCell {
         selectionStyle = .None
         titleLbl.textColor = FlatTeal()
         titleLbl.font = UIFont.systemFontOfSize(17, weight: 0.2)
-        titleLbl.text = "Немає розкладів"
+        titleLbl.text = AppStrings.NoSchedule
 
     }
     

@@ -12,7 +12,7 @@ import ChameleonFramework
 
 class NoteTextView: UITextView {
     
-    var shouldResignFirstResponder = false
+    var shouldResignFirstResponder = true
     
     override func canResignFirstResponder() -> Bool {
         return shouldResignFirstResponder
@@ -37,16 +37,17 @@ class EventDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Інформація"
+        navigationItem.title = AppStrings.Information
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: FlatSkyBlue()]
         
-        closeButton = UIBarButtonItem(title: "Готово", style: .Plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
+        closeButton = UIBarButtonItem(title: AppStrings.Done, style: .Plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
         navigationItem.leftBarButtonItem = closeButton
         
         // adding observer notification for schedule:
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: AppData.scheduleDidReload, object: nil)
         // noteTextViewNotifications:
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: AppData.openNoteTextView, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.closeNoteTextView), name: AppData.blockNoteTextView, object: nil)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -92,7 +93,7 @@ class EventDetailViewController: UITableViewController {
                 cell.eventTitleView.font = UIFont.systemFontOfSize(18)
                 cell.eventTitleView.scrollEnabled = false
             case 2:
-                cell.eventTitleView.text = "Аудиторія \(displayedEvent.auditory)"
+                cell.eventTitleView.text = "\(AppStrings.Audytori) \(displayedEvent.auditory)"
                 cell.eventTitleView.font = UIFont.systemFontOfSize(18)
                 cell.eventTitleView.textAlignment = .Center
                 cell.eventTitleView.scrollEnabled = false
@@ -130,7 +131,7 @@ class EventDetailViewController: UITableViewController {
             // notes' textView:
         } else {
             if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-                cell.eventTitleView.text = " Додати запис"
+                cell.eventTitleView.text = AppStrings.AddNote
                 cell.eventTitleView.textColor = UIColor.lightGrayColor()
             } else {
                 cell.eventTitleView.text = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId)!.text
@@ -230,7 +231,7 @@ class EventDetailViewController: UITableViewController {
         // done animation:
         SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))
         dispatch_async(dispatch_get_main_queue(), {
-            SVProgressHUD.showInfoWithStatus("Збережено!")
+            SVProgressHUD.showInfoWithStatus(AppStrings.Saved)
         })
         
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
@@ -249,7 +250,7 @@ class EventDetailViewController: UITableViewController {
 extension EventDetailViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(textView: UITextView) {
-        let placeHolderTeext = " Додати запис"
+        let placeHolderTeext = AppStrings.AddNote
         if textView.text == placeHolderTeext {
             textView.text = ""
         }
@@ -265,7 +266,7 @@ extension EventDetailViewController: UITextViewDelegate {
            sectionHeader.hideSaveButton()
         }
         if textView.text.isEmpty {
-            textView.text = " Додати запис"
+            textView.text = AppStrings.AddNote
             textView.textColor = UIColor.lightGrayColor()
         }
     }
@@ -281,5 +282,9 @@ extension EventDetailViewController: UITextViewDelegate {
     
     func openNoteTextView() {
         noteTextView?.shouldResignFirstResponder = true
+    }
+    
+    func closeNoteTextView() {
+        noteTextView?.shouldResignFirstResponder = false
     }
 }

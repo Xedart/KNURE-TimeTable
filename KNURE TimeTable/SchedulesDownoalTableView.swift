@@ -46,12 +46,15 @@ class SchedulesDownoalTableView: UITableViewController {
     // MARK: - dataSource
     
     var dataSource = [ListSection]()
+    var dataSourceStorage = [ListSection]()
     var initMetod: Server.Method!
     
     // MARK: - Properties:
     var groupsData = [String]()
     var teachersData = [String]()
     var auditoryiesData = [String]()
+    var searchButton: UIBarButtonItem!
+    var searchField = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,10 +69,24 @@ class SchedulesDownoalTableView: UITableViewController {
             auditoryiesData = auditoryies
         }
         initializeData()
+        
+        //search
+        searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(SchedulesDownoalTableView.searchButtonTapped(_:)))
+        searchButton.tintColor = AppData.appleButtonDefault
+        searchField.delegate = self
+        self.becomeFirstResponder()
     }
     
     override func viewDidDisappear(animated: Bool) {
         tableView.reloadData()
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        searchField.frame.size.width = self.view.frame.width - 120.0
     }
     
     // MARK: - Table view data source and Delegate
@@ -85,7 +102,7 @@ class SchedulesDownoalTableView: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewScheduleCellId") as! NewScheduleCell
         if isAlreadyAdded(dataSource[indexPath.section].rows[indexPath.row].row_title) {
-            cell.doneLabel.text = "добавлено"
+            cell.doneLabel.text = AppStrings.Added
         } else {
             cell.doneLabel.text = ""
         }
@@ -150,7 +167,7 @@ extension SchedulesDownoalTableView {
            
             // check for success connection:
             if error != nil {
-                self.presentViewController(AlertView.getAlert("Сталася помилка", message: "Перевірте з'єднання з інтернетом", handler: { action in
+                self.presentViewController(AlertView.getAlert(AppStrings.Error, message: AppStrings.CheckInternet, handler: { action in
                     self.navigationController?.popViewControllerAnimated(true)
                 }), animated: true, completion: nil)
                 indicator.stopAnimating()
@@ -164,6 +181,7 @@ extension SchedulesDownoalTableView {
                     self.dataSource = data
                     dispatch_async(dispatch_get_main_queue(), {
                         indicator.stopAnimating()
+                        self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
                     })
                 })
@@ -172,6 +190,7 @@ extension SchedulesDownoalTableView {
                     self.dataSource = data
                     dispatch_async(dispatch_get_main_queue(), {
                         indicator.stopAnimating()
+                        self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
                     })
                 })
@@ -180,6 +199,7 @@ extension SchedulesDownoalTableView {
                     self.dataSource = data
                     dispatch_async(dispatch_get_main_queue(), {
                         indicator.stopAnimating()
+                        self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
                     })
 
@@ -216,7 +236,7 @@ extension SchedulesDownoalTableView {
             if error != nil {
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    SVProgressHUD.showErrorWithStatus("Не вдалося завантажити розклад")
+                    SVProgressHUD.showErrorWithStatus(AppStrings.ScheduleDidNonDownloaded)
                 })
                 return
             }
@@ -258,6 +278,62 @@ extension SchedulesDownoalTableView {
             SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
             SVProgressHUD.show()
         })
+    }
+}
+
+extension SchedulesDownoalTableView: UISearchBarDelegate {
+    func searchButtonTapped(sender: UIBarButtonItem) {
+        
+        // search field:
+        searchField.frame = CGRect(x: 10, y: 4, width: 1, height: 40)
+        let wrapper = UIBarButtonItem(customView: searchField)
+        navigationItem.leftBarButtonItem = wrapper
+        UIView.animateWithDuration(0.2, animations: {
+            self.searchField.frame.size.width += self.view.frame.width - 100
+        })
+        
+        // cancell button:
+        let cancelButton = UIBarButtonItem(title: AppStrings.Close, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SchedulesDownoalTableView.cancelSearch(_:)))
+        navigationItem.rightBarButtonItem = cancelButton
+        searchField.becomeFirstResponder()
+    }
+    
+    func cancelSearch(sender: UIBarButtonItem) {
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem = searchButton
+        dataSource = dataSourceStorage
+        dataSourceStorage = [ListSection]()
+        tableView.reloadData()
+    }
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        dataSourceStorage = dataSource
+        return true
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            dataSource = dataSourceStorage
+            tableView.reloadData()
+            return
+        }
+        // performing search:
+        var searchedData = [ListSection]()
+        for rowlist in dataSourceStorage {
+            var resultList = ListSection()
+            resultList.title = rowlist.title
+            for row in rowlist.rows {
+                if row.row_title.localizedStandardContainsString(searchText) {
+                    resultList.rows.append(row)
+                }
+            }
+            if resultList.rows.isEmpty {
+                continue
+            }
+            searchedData.append(resultList)
+        }
+        dataSource = searchedData
+        tableView.reloadData()
     }
 }
 

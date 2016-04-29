@@ -9,6 +9,13 @@
 import UIKit
 import ChameleonFramework
 
+class SchedulesMenuNavigationViewController: UINavigationController {
+    
+    func doneButtonTapped(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 class ShedulesListTableViewController: UITableViewController {
     
     // MARK: - DataSource
@@ -17,6 +24,7 @@ class ShedulesListTableViewController: UITableViewController {
     var teachersData = [String]()
     var auditoryiesData = [String]()
     var addButton: UIBarButtonItem!
+    var closeButton: UIBarButtonItem!
     
     // delegate:
     var delegate: SheduleControllersInitializer!
@@ -26,6 +34,10 @@ class ShedulesListTableViewController: UITableViewController {
         tableView.registerClass(SheduleLIstCell.self, forCellReuseIdentifier: "ShedulesListCell")
         addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ShedulesListTableViewController.addButtonPressed(_:)))
         navigationItem.rightBarButtonItem = addButton
+        
+        // close button:
+        closeButton = UIBarButtonItem(title: AppStrings.Done, style: UIBarButtonItemStyle.Plain, target: SchedulesMenuNavigationViewController(), action: #selector(SchedulesMenuNavigationViewController.doneButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = closeButton
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +48,7 @@ class ShedulesListTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
-        title = "назад"// back button title
+        title = AppStrings.Back// back button title
         navigationItem.titleView = TitleViewLabel()
     }
     
@@ -118,16 +130,37 @@ class ShedulesListTableViewController: UITableViewController {
     // MARK: - TableView Delegate:
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.section == 0 {
+            if groupsData.isEmpty {
+                return false
+            }
+        } else if indexPath.section == 1 {
+            if teachersData.isEmpty {
+                return false
+            }
+        } else if indexPath.section == 2 {
+            if auditoryiesData.isEmpty {
+                return false
+            }
+        }
         return true
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?  {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let deleteAction = UITableViewRowAction(style: .Default, title: "Видалити", handler: { (action , indexPath) -> Void in
+        let deleteAction = UITableViewRowAction(style: .Default, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
             
-            // TODO: finish deleting implementation/
+            var defaultSchedule = defaults.objectForKey(AppData.defaultScheduleKey) as? String
+            if defaultSchedule == nil {
+                defaultSchedule = ""
+            }
             
             if indexPath.section == 0 {
+                self.deleteFile("\(Shedule().urlPath.path!)/\(self.groupsData[indexPath.row])")
+                if self.groupsData[indexPath.row] == defaultSchedule {
+                    defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
+                }
                 self.groupsData.removeAtIndex(indexPath.row)
                 defaults.setObject(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
                 if self.groupsData.isEmpty {
@@ -135,6 +168,11 @@ class ShedulesListTableViewController: UITableViewController {
                     return
                 }
             } else if indexPath.section == 1 {
+                self.deleteFile("\(Shedule().urlPath.path!)/\(self.teachersData[indexPath.row])")
+                if self.teachersData[indexPath.row] == defaultSchedule {
+                    defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
+                }
                 self.teachersData.removeAtIndex(indexPath.row)
                 defaults.setObject(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
                 if self.teachersData.isEmpty {
@@ -142,6 +180,11 @@ class ShedulesListTableViewController: UITableViewController {
                     return
                 }
             } else if indexPath.section == 2 {
+                self.deleteFile("\(Shedule().urlPath.path!)/\(self.auditoryiesData[indexPath.row])")
+                if self.auditoryiesData[indexPath.row] == defaultSchedule {
+                    defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
+                }
                 self.auditoryiesData.removeAtIndex(indexPath.row)
                 defaults.setObject(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
                 if self.auditoryiesData.isEmpty {
@@ -166,13 +209,13 @@ class ShedulesListTableViewController: UITableViewController {
         headerView.textAlignment = .Center
         headerView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         if section == 0 {
-            headerView.text = "Групи"
+            headerView.text = AppStrings.Schedules
         }
         if section == 1 {
-            headerView.text = "Викладачі"
+            headerView.text = AppStrings.Teachers
         }
         if section == 2 {
-            headerView.text = "Аудиторії"
+            headerView.text = AppStrings.Audytories
         }
         return headerView
     }
@@ -227,6 +270,19 @@ class ShedulesListTableViewController: UITableViewController {
         let controller = storyboard.instantiateViewControllerWithIdentifier("ScheduletypesTableViewControler") as! DirectingTableViewController
         navigationController?.pushViewController(controller, animated: true)
     }
+    
+    func deleteFile(path: String) -> Bool{
+        let exists = NSFileManager.defaultManager().fileExistsAtPath(path)
+        if exists {
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath(path)
+            }catch let error as NSError {
+                print("error: \(error.localizedDescription)")
+                return false
+            }
+        }
+        return exists
+    }
 }
 
     // MARK: - DZNEmptyDataSetSource and delegate
@@ -234,12 +290,12 @@ class ShedulesListTableViewController: UITableViewController {
 extension ShedulesListTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "Додані розклади відсутні", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        return NSAttributedString(string: AppStrings.NoSchedule, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
     }
     
     func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
         tableView.tableFooterView = UIView()
-        return NSAttributedString(string: "Додати", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17, weight: 1), NSForegroundColorAttributeName: AppData.appleButtonDefault.colorWithAlphaComponent(0.9)])
+        return NSAttributedString(string: AppStrings.Add, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17, weight: 1), NSForegroundColorAttributeName: AppData.appleButtonDefault.colorWithAlphaComponent(0.9)])
     }
     
     func emptyDataSetDidTapButton(scrollView: UIScrollView!) {

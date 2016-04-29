@@ -32,7 +32,7 @@ class EventDetailHeaderView: UIView {
         
         // save button:
         saveNoteButton = UIButton(frame: CGRect(x: self.frame.width - 100, y: self.bounds.origin.y, width: 100, height: self.bounds.height))
-        saveNoteButton.setTitle("Зберегти", forState: .Normal)
+        saveNoteButton.setTitle(AppStrings.Save, forState: .Normal)
         saveNoteButton.setTitleColor(AppData.appleButtonDefault, forState: .Normal)
         saveNoteButton.setTitleColor(AppData.appleButtonDefault.colorWithAlphaComponent(0.6), forState: .Highlighted)
         saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), forControlEvents: .TouchUpInside)
@@ -43,11 +43,11 @@ class EventDetailHeaderView: UIView {
         case 0:
             title.text = ""
         case 1:
-            title.text = "Викладач"
+            title.text = AppStrings.Teacher
         case 2:
-            title.text = "Групи"
+            title.text = AppStrings.Groups
         case 3:
-            title.text = "Нотатки"
+            title.text = AppStrings.Notes
         default:
             title.text = ""
         }

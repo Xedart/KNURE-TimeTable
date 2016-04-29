@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import SwiftyJSON
+import ChameleonFramework
 
 class MainTabBarController: UITabBarController {
     
@@ -20,10 +21,15 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.barTintColor = FlatWhite()
+        
         let firsNavigationController = viewControllers![0] as! UINavigationController
         let secondNavigationController = viewControllers![1] as! UINavigationController
         scheduleTableController = firsNavigationController.viewControllers[0] as! TableSheduleController
         scheduleCollectionController = secondNavigationController.viewControllers[0] as! CollectionScheduleViewController
+        
+        viewControllers![0].tabBarItem = UITabBarItem(title: AppStrings.Week, image: UIImage(named: "Week"), selectedImage: nil)
+        viewControllers![1].tabBarItem = UITabBarItem(title: AppStrings.Semester, image: UIImage(named: "Semester"), selectedImage: nil)
         
         // loading and transfering shedule provided by default:
         setObservers()

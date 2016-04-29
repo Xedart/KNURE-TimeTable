@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 private let cellReuseIdentifier = "CollectionViewCell"
 private let emptyCellReuseIndentifier = "emptyCellReuseIndentifier"
@@ -29,6 +30,10 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
                 dispatch_async(dispatch_get_main_queue(), {
                     self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
                 })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.button.setTitle(AppStrings.ChooseSchedule, forState: UIControlState.Normal)
+                })
             }
         }
     }
@@ -43,7 +48,10 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "назад"// title for back item
+        //title = "Семестр"// title for back item
+        
+        
+        navigationController?.navigationBar.barTintColor = FlatWhite()
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
@@ -71,11 +79,11 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        super.viewWillAppear(animated)
+        // set empty data set:
         collectionView?.reloadData()
-        
-        viewDidLayoutSubviews()
+        if shedule.shedule_id.isEmpty {
+            viewDidLayoutSubviews()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -103,7 +111,9 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         if let parent = tabBarController as? MainTabBarController {
             shedulesListController.delegate = parent
         }
-        navigationController?.pushViewController(shedulesListController, animated: true)
+        let menuNavigationController = SchedulesMenuNavigationViewController(rootViewController: shedulesListController)
+        menuNavigationController.navigationBar.barTintColor = FlatWhite()
+        self.presentViewController(menuNavigationController, animated: true, completion: nil)
     }
     
 
@@ -201,12 +211,8 @@ extension CollectionScheduleViewController {
 
 extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
-     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "Logo")
-    }
-    
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "Should find better pic", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(15, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        return NSAttributedString(string: "Should place some pic here", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(15, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
     }
 }
 

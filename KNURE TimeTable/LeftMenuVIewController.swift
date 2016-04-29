@@ -193,7 +193,7 @@ extension LeftMenuVIewController: DZNEmptyDataSetSource {
         if !schedule.notes.isEmpty {
             return NSAttributedString(string: "", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(22, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
         }
-        return NSAttributedString(string: "Замітки відсутні", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(22, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        return NSAttributedString(string: AppStrings.NoNotes, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(22, weight: 1), NSForegroundColorAttributeName: UIColor.whiteColor()])
     }
 }
 

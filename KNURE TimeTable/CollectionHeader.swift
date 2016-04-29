@@ -54,15 +54,26 @@ class CollectionHeader: UICollectionReusableView {
 
 class CollectionDecorationView: UIView {
     
+    var cellHeight: CGFloat!
+    var extraSpacePlaceholder = ""
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            cellHeight = 100
+            extraSpacePlaceholder = "\n"
+        } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            extraSpacePlaceholder = ""
+            cellHeight = 70
+        }
     }
     
     func configure(height: CGFloat) {
         for i in 0 ..< 8 {
-            let timeLabel = UITextView(frame: CGRect(x: 0, y: CGFloat((100 + 1) * (i) + (50 + 1)), width: 55, height: 100))
-            timeLabel.text = "\n\(AppData.pairsStartTime[i+1]!)\n\n\(AppData.pairsEndTime[i+1]!)"
+            let timeLabel = UITextView(frame: CGRect(x: 0, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: 55, height: cellHeight))
+            timeLabel.text = "\n\(AppData.pairsStartTime[i+1]!)\n\(extraSpacePlaceholder)\(AppData.pairsEndTime[i+1]!)"
             timeLabel.font = UIFont.systemFontOfSize(15)
             timeLabel.editable = false
             timeLabel.textAlignment = .Center
