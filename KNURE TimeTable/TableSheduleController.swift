@@ -36,11 +36,13 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     let shedulesListController = ShedulesListTableViewController()
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
+    var refresher: UIRefreshControl!
 
     //MARK: - LifeCycle:
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
         button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
         navigationController?.navigationBar.barTintColor = FlatWhite()
@@ -49,6 +51,11 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
         tableView.emptyDataSetSource = self
+        
+        //refrecher:
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(refresher)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -94,7 +101,8 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let events = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * indexPath.section))))
         if events.isEmpty {
-            let cell = tableView.dequeueReusableCellWithIdentifier("EmptyTableSheduleCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("EmptyTableSheduleCell", forIndexPath: indexPath) as! LabelCell
+            cell.EmptyLabel.text = AppStrings.NoEvents
             return cell
         } else {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableSheduleCell", forIndexPath: indexPath) as! TableSheduleCell
@@ -117,6 +125,11 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     func passScheduleToLeftController() {
         let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
         leftSideMenu.schedule = shedule
+    }
+    
+    func refreshContent() {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("UpDateNotification", object: nil)
     }
 }
 

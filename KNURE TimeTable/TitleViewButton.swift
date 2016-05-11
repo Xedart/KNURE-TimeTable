@@ -12,7 +12,7 @@ import ChameleonFramework
 class TitleViewButton: UIButton {
 
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
+        super.init(frame: CGRect(x: 300, y: 0, width: 300, height: 40))
         setTitleColor(AppData.appleButtonDefault, forState: .Normal)
         setTitleColor(FlatSkyBlue().colorWithAlphaComponent(0.5), forState: .Highlighted)
         titleLabel?.font = UIFont.systemFontOfSize(20)

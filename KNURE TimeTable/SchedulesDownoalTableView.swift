@@ -111,7 +111,7 @@ class SchedulesDownoalTableView: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return TitleViewLabel(title: (dataSource[section].title))
+        return TitleViewLabel(title: (" \(dataSource[section].title)"))
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

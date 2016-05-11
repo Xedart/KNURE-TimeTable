@@ -81,11 +81,13 @@ extension MainTabBarController: SheduleControllersInitializer {
         if let timeTableId = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
+                self.scheduleTableController?.refresher?.endRefreshing()
                 return
             }
             Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
+                    self.scheduleTableController?.refresher?.endRefreshing()
                     return
                 }
                 let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
@@ -97,6 +99,7 @@ extension MainTabBarController: SheduleControllersInitializer {
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
                     data.notes = self.scheduleTableController.shedule.notes
                     if data.days.isEmpty {
+                        self.scheduleTableController?.refresher?.endRefreshing()
                         return
                     }
                     // Updating table schedule controller:
@@ -115,31 +118,18 @@ extension MainTabBarController: SheduleControllersInitializer {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                                    /*
-                                     let indexPaths = self.scheduleCollectionController.collectionView!.indexPathsForVisibleItems()
-                                     
-                                     var sectionsToReload = [Int]()
-                                     for indexPath in indexPaths {
-                                     if sectionsToReload.contains(indexPath.section) {
-                                     continue
-                                     }
-                                     sectionsToReload.append(indexPath.section)
-                                     }self.scheduleCollectionController.collectionView?.reloadSections(NSIndexSet(indexesInRange: NSRange(sectionsToReload.minElement()!...sectionsToReload.maxElement()!)))
-                                     
-                                     */
-                                    //-----------------------------------------------------------------
-                                    // TODO: implement smooth update of currently visible cells.      //
-                                    //-----------------------------------------------------------------
                                     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
                                     dispatch_after(delayTime, dispatch_get_main_queue()) {
                                         NSNotificationCenter.defaultCenter().postNotificationName(AppData.openNoteTextView, object: nil)
                                     }
-                                    print("UPDATED")
+                                    self.scheduleTableController?.refresher?.endRefreshing()
                                 })
                             } else {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.reloadData()
+                                    self.scheduleCollectionController.configureDateScale()
+                                    self.scheduleTableController?.refresher?.endRefreshing()
                                 })
                             }
                         })
@@ -166,6 +156,8 @@ extension MainTabBarController {
     func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: AppData.initNotification, object: nil)
          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.reloadViewController), name: AppData.reloadNotification, object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
     }
 }
 
@@ -182,5 +174,10 @@ extension MainTabBarController {
     func reloadViewController() {
         scheduleTableController.tableView.reloadData()
         scheduleCollectionController.collectionView?.reloadData()
+    }
+    
+    func relodAfetrBecameActive() {
+        scheduleTableController.tableView.reloadData()
+        scheduleCollectionController.configureDateScale()
     }
 }

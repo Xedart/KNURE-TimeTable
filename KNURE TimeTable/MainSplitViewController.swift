@@ -107,7 +107,6 @@ extension MainSplitViewController: SheduleControllersInitializer {
         dispatch_async(dispatch_get_main_queue(), {
             self.scheduleCollectionController.collectionView!.reloadData()
             self.scheduleCollectionController.initialScrollDone = false
-            self.scheduleCollectionController.shedule.performCache()
             dispatch_async(dispatch_get_main_queue(), {
                 SVProgressHUD.dismiss()
             })
@@ -145,11 +144,13 @@ extension MainSplitViewController: SheduleControllersInitializer {
         if let timeTableId = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
+                self.scheduleTableController?.refresher?.endRefreshing()
                 return
             }
             Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
+                    self.scheduleTableController?.refresher?.endRefreshing()
                     return
                 }
                 let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
@@ -161,17 +162,17 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
                     data.notes = self.scheduleTableController.shedule.notes
                     if data.days.isEmpty {
+                        self.scheduleTableController?.refresher?.endRefreshing()
                         return
                     }
                     
                     NSNotificationCenter.defaultCenter().postNotificationName(AppData.blockNoteTextView, object: nil)
                     // Updating table schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
-                        
                         self.scheduleTableController.shedule = data
                         self.scheduleTableController.tableView.reloadData()
                     })
-                    // 14-4
+                    
                     //Updating collection schedule controller:
                     dispatch_async(dispatch_get_main_queue(), {
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -182,30 +183,18 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                                    
-                                    /*
-                                    let vivsibleCells = self.scheduleCollectionController.collectionView?.visibleCells() as! [CollectionScheduleCellParent]
-                                    let events = data.eventsCache["\(64)\(1)"]!.events
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                    for cell in vivsibleCells {
-                                        cell.configure(events, shedule: data)
-                                    }
-                                        })
-                                    
-                                    //-----------------------------------------------------------------
-                                    // TODO: implement smooth update of currently visible cells.      //
-                                    //-----------------------------------------------------------------
-                                    */
-                                    print("UPDATED")
                                     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
                                     dispatch_after(delayTime, dispatch_get_main_queue()) {
                                         NSNotificationCenter.defaultCenter().postNotificationName(AppData.openNoteTextView, object: nil)
                                     }
+                                    self.scheduleTableController?.refresher?.endRefreshing()
                                 })
                             } else {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.reloadData()
+                                    self.scheduleCollectionController.configureDateScale()
+                                    self.scheduleTableController?.refresher?.endRefreshing()
                                 })
                             }
                         })
@@ -215,8 +204,6 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         return
                     }
                     data.saveShedule()
-                    print("lkdsjfsld")
-                    
                     // pass schedule to sideMenu:
                     let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
                     leftSideMenu.schedule = self.scheduleTableController.shedule
@@ -240,6 +227,8 @@ extension MainSplitViewController {
     func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: AppData.initNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: AppData.reloadNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
     }
 }
 
@@ -254,6 +243,11 @@ extension MainSplitViewController {
     func reloadViewController() {
         scheduleCollectionController.collectionView?.reloadData()
         scheduleTableController.tableView.reloadData()
+    }
+    
+    func relodAfetrBecameActive() {
+        scheduleTableController.tableView.reloadData()
+        scheduleCollectionController.configureDateScale()
     }
 }
 

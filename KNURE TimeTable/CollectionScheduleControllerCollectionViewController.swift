@@ -15,10 +15,11 @@ private let multiCellReuseIndentifier = "multiCellReuseIndentifier"
 private let headerReuseIdentifier = "CollectionCell"
 private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
-protocol CollectionScheduleViewControllerDelegate {
+@objc protocol CollectionScheduleViewControllerDelegate {
     func presentViewController(viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func passScheduleToLeftController() -> Void
     var shedule: Shedule! { get }
+    optional var collectionView: UICollectionView? { get }
 }
 
 class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
@@ -41,41 +42,48 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
     let scale = CollectionDecorationView()
+    let headerScale = CollectionHeaderView()
     var initialScrollDone = false
     var doubleTapGesture = UITapGestureRecognizer()
+    var scaleTapGestureRecognizer = UITapGestureRecognizer()
     var weekScheduleControllerDelegate: TableSheduleControllerDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //title = "Семестр"// title for back item
-        
-        
         navigationController?.navigationBar.barTintColor = FlatWhite()
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
         
-        // gesture-recognizer:
+        // gesture-recognizers:
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.addTarget(self, action: #selector(CollectionScheduleViewController.doubleTapGestureDetected(_:)))
         collectionView?.addGestureRecognizer(doubleTapGesture)
         
+        scaleTapGestureRecognizer.addTarget(self, action: #selector(CollectionScheduleViewController.doubleTapGestureDetected(_:)))
+        headerScale.addGestureRecognizer(scaleTapGestureRecognizer)
+    
         // Register cell classes
         self.collectionView?.registerClass(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         self.collectionView?.registerClass(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
         self.collectionView?.registerClass(CollectionScheduleMultiCell.self, forCellWithReuseIdentifier: multiCellReuseIndentifier)
-        self.collectionView!.registerClass(CollectionHeader.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: headerReuseIdentifier)
        
         //navigationItem setUp:
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
+        button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
         button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = button
         
         // Timescale:
         scale.frame = CGRect(x: 0, y: 0, width: 55, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
+    }
+    
+    func configureDateScale() {
+        //Date scale:
+        headerScale.delegate = self
+        headerScale.configure(shedule)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -93,8 +101,10 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         self.becomeFirstResponder()
         if shedule.shedule_id.isEmpty {
             scale.removeFromSuperview()
+            headerScale.removeFromSuperview()
         } else {
             collectionView?.addSubview(scale)
+            collectionView?.addSubview(headerScale)
         }
         
         // performing initil scroll:
@@ -102,6 +112,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
             let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
             collectionView?.contentOffset = CGPoint(x: 126 * numberOfdays, y: 0)
+            configureDateScale()
             initialScrollDone = true
         }
     }
@@ -158,12 +169,6 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind("Header", withReuseIdentifier: headerReuseIdentifier, forIndexPath: indexPath) as! CollectionHeader
-        headerView.configure(indexPath.section, shedule: shedule)
-        return headerView
-    }
-    
     func passScheduleToLeftController() {
         let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
         leftSideMenu.schedule = shedule
@@ -210,9 +215,8 @@ extension CollectionScheduleViewController {
     // MARK: - DZNEmptyDataSetSource
 
 extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "Should place some pic here", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(15, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        return NSAttributedString(string: "NureTimeTable", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(24, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
     }
 }
 

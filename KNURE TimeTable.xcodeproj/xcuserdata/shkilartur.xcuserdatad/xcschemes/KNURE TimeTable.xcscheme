@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "847776201C63945C000776B9"
-               BuildableName = "KNURE TimeTable.app"
+               BuildableName = "NureTimeTable.app"
                BlueprintName = "KNURE TimeTable"
                ReferencedContainer = "container:KNURE TimeTable.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "847776201C63945C000776B9"
-            BuildableName = "KNURE TimeTable.app"
+            BuildableName = "NureTimeTable.app"
             BlueprintName = "KNURE TimeTable"
             ReferencedContainer = "container:KNURE TimeTable.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "847776201C63945C000776B9"
-            BuildableName = "KNURE TimeTable.app"
+            BuildableName = "NureTimeTable.app"
             BlueprintName = "KNURE TimeTable"
             ReferencedContainer = "container:KNURE TimeTable.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "847776201C63945C000776B9"
-            BuildableName = "KNURE TimeTable.app"
+            BuildableName = "NureTimeTable.app"
             BlueprintName = "KNURE TimeTable"
             ReferencedContainer = "container:KNURE TimeTable.xcodeproj">
          </BuildableReference>

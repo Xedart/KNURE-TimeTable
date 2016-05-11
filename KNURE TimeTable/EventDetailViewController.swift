@@ -208,7 +208,7 @@ class EventDetailViewController: UITableViewController {
         let converter = NSDateFormatter()
         converter.dateStyle = .ShortStyle
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.stringFromDate(NSDate()), updatedDate: converter.stringFromDate(NSDate()), text: noteText)
+              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(displayedEvent.start_time))), updatedDate: converter.stringFromDate(NSDate()), text: noteText)
             currentSchedule.addNewNote(newNote)
             //update existing note:
         } else {
@@ -260,11 +260,6 @@ extension EventDetailViewController: UITextViewDelegate {
     func textViewDidEndEditing(textView: UITextView) {
         noteTextView.shouldResignFirstResponder = true
         textView.resignFirstResponder()
-        if !(textView.text!.isEmpty) {
-           sectionHeader.showSaveButton()
-        } else {
-           sectionHeader.hideSaveButton()
-        }
         if textView.text.isEmpty {
             textView.text = AppStrings.AddNote
             textView.textColor = UIColor.lightGrayColor()

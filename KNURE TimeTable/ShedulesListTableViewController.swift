@@ -146,6 +146,50 @@ class ShedulesListTableViewController: UITableViewController {
         return true
     }
     
+    func chooseProperSchedule(scheduleToDelete: String) -> Bool {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        // choosing aming groups:
+        if groupsData.count > 0 {
+            var counter = 0
+            for group in groupsData {
+                if scheduleToDelete != group {
+                    defaults.setObject(group, forKey: AppData.defaultScheduleKey)
+                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: counter, inSection: 0)], withRowAnimation: UITableViewRowAnimation.None)
+                    return true
+                }
+                counter += 1
+            }
+        }
+        
+        // choosing among teachers:
+        if teachersData.count > 0 {
+            var counter = 0
+            for group in teachersData {
+                if scheduleToDelete != group {
+                    defaults.setObject(group, forKey: AppData.defaultScheduleKey)
+                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: counter, inSection: 1)], withRowAnimation: UITableViewRowAnimation.None)
+                    return true
+                }
+                counter += 1
+            }
+        }
+        
+        // choosing among auditories:
+        if auditoryiesData.count > 0 {
+            var counter = 0
+            for group in auditoryiesData {
+                if scheduleToDelete != group {
+                    defaults.setObject(group, forKey: AppData.defaultScheduleKey)
+                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: counter, inSection: 2)], withRowAnimation: UITableViewRowAnimation.None)
+                    return true
+                }
+                counter += 1
+            }
+        }
+        return false
+    }
+    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?  {
         let defaults = NSUserDefaults.standardUserDefaults()
         let deleteAction = UITableViewRowAction(style: .Default, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
@@ -158,7 +202,10 @@ class ShedulesListTableViewController: UITableViewController {
             if indexPath.section == 0 {
                 self.deleteFile("\(Shedule().urlPath.path!)/\(self.groupsData[indexPath.row])")
                 if self.groupsData[indexPath.row] == defaultSchedule {
-                    defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    
+                    if !self.chooseProperSchedule(self.groupsData[indexPath.row]) {
+                        defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    }
                     NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
                 }
                 self.groupsData.removeAtIndex(indexPath.row)
@@ -170,7 +217,10 @@ class ShedulesListTableViewController: UITableViewController {
             } else if indexPath.section == 1 {
                 self.deleteFile("\(Shedule().urlPath.path!)/\(self.teachersData[indexPath.row])")
                 if self.teachersData[indexPath.row] == defaultSchedule {
-                    defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    
+                    if !self.chooseProperSchedule(self.teachersData[indexPath.row]) {
+                        defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    }
                     NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
                 }
                 self.teachersData.removeAtIndex(indexPath.row)
@@ -182,7 +232,9 @@ class ShedulesListTableViewController: UITableViewController {
             } else if indexPath.section == 2 {
                 self.deleteFile("\(Shedule().urlPath.path!)/\(self.auditoryiesData[indexPath.row])")
                 if self.auditoryiesData[indexPath.row] == defaultSchedule {
-                    defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    if !self.chooseProperSchedule(self.auditoryiesData[indexPath.row]) {
+                        defaults.setObject(nil, forKey: AppData.defaultScheduleKey)
+                    }
                     NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
                 }
                 self.auditoryiesData.removeAtIndex(indexPath.row)
@@ -198,6 +250,7 @@ class ShedulesListTableViewController: UITableViewController {
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
                 tableView.endUpdates()
             })
+            //tableView.reloadData()
         })
         return [deleteAction]
     }

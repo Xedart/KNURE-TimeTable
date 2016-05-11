@@ -11,20 +11,38 @@ import AsyncDisplayKit
 import ChameleonFramework
 import SVProgressHUD
 
-class CollectionHeader: UICollectionReusableView {
+class CollectionHeaderView: UIView {
     
-    let node = ASTextNode()
+    let cellWidth: CGFloat = 125
+    let cellHeight: CGFloat = 50
+    let offset: CGFloat = 1
+    var delegate: CollectionScheduleViewControllerDelegate!
+    let formatter = NSDateFormatter()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        dispatch_async(dispatch_get_main_queue()) {
-            self.addSubview(self.node.view)
-        }
     }
     
-    func configure(section: Int, shedule: Shedule) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            self.node.frame = self.bounds
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    convenience init() {
+        self.init(frame: CGRect())
+    }
+    
+    func configure(schedule: Shedule) {
+        
+        // frame configuring:
+        let contentWidth = (CGFloat(delegate.collectionView!!.numberOfSections()) * cellWidth) + (CGFloat(delegate.collectionView!!.numberOfSections()) * (offset)) + cellWidth / 2
+        self.frame = CGRect(x: 55, y: 0, width: contentWidth, height: cellHeight)
+        // delete old subViews:
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
+        // 
+        for i in 0..<delegate.collectionView!!.numberOfSections() {
+            let dateLabel = UILabel(frame: CGRect(x: (cellWidth + offset) * CGFloat(i), y: 0, width: cellWidth, height: cellHeight))
             
             // text attributes:
             let formatter = NSDateFormatter()
@@ -32,25 +50,26 @@ class CollectionHeader: UICollectionReusableView {
             var txtColor = UIColor()
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
-            var labelText = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))))
+            var labelText = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * i), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(schedule.startDayTime))))
             let todayDate = formatter.stringFromDate(NSDate())
             if todayDate == labelText {
                 txtColor = FlatSkyBlue()
             } else {
                 txtColor = FlatGrayDark()
             }
-            
-            labelText.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))))))")
-            
-            self.node.attributedString = NSAttributedString(string: "\n\(labelText)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: txtColor, NSParagraphStyleAttributeName: titleParagraphStyle])
-        })
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+            // add week:
+            labelText.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * i), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(schedule.startDayTime))))))")
+            // style:
+            dateLabel.textAlignment = .Center
+            dateLabel.textColor = txtColor
+            dateLabel.font = UIFont.systemFontOfSize(17)
+            //
+            dateLabel.text = labelText
+            self.addSubview(dateLabel)
+        }
+        
     }
 }
-
 
 class CollectionDecorationView: UIView {
     

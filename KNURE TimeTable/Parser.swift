@@ -17,7 +17,7 @@ class Parser {
         
          for building in buildings {
             var resultRow = ListSection()
-            resultRow.title = building["full_name"].stringValue
+            resultRow.title = " \(building["full_name"].stringValue)"
             let auditories = building["auditories"].arrayValue
             for auditory in auditories {
                 let aud_id = auditory["id"].stringValue
@@ -38,7 +38,7 @@ class Parser {
         
         for faculty in faculties {
             var resultRow = ListSection()
-            resultRow.title = " Факультет \(faculty["short_name"].stringValue)" // Value
+            resultRow.title = " \(AppStrings.Faculty) \(faculty["short_name"].stringValue)" // Value
             let departments = faculty["departments"].arrayValue
             for department in departments {
                 let teachers = department["teachers"].arrayValue
@@ -64,7 +64,7 @@ class Parser {
         for faculty in faculties {
             
             var resultRow = ListSection()
-            resultRow.title = " Факультет \(faculty["full_name"].stringValue)" // Value
+            resultRow.title = " \(AppStrings.Faculty) \(faculty["full_name"].stringValue)" // Value
             
             let directions = faculty["directions"].arrayValue
             for direction in directions {

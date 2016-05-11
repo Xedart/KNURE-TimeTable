@@ -9,11 +9,11 @@
         <!--Table Schedule Collection View Controller-->
         <scene sceneID="nOa-fU-qrG">
             <objects>
-                <collectionViewController id="SPX-53-RUg" customClass="TableScheduleCollectionViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="SPX-53-RUg" customClass="TableScheduleCollectionViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fLZ-Gc-mXp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewLayout key="collectionViewLayout" id="Kg0-Oz-PbG" customClass="exampleLayout" customModule="KNURE_TimeTable" customModuleProvider="target"/>
+                        <collectionViewLayout key="collectionViewLayout" id="Kg0-Oz-PbG" customClass="exampleLayout" customModule="NureTimeTable" customModuleProvider="target"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wkr-kU-E2j">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -56,7 +56,7 @@
         <!--Main Split View Controller-->
         <scene sceneID="isG-3y-IJY">
             <objects>
-                <splitViewController id="B6U-2I-l13" customClass="MainSplitViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController id="B6U-2I-l13" customClass="MainSplitViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="JlU-uV-ffE"/>
                     <connections>
                         <segue destination="9sK-F6-Qsy" kind="relationship" relationship="detailViewController" id="5gB-Wj-k96"/>
@@ -88,7 +88,7 @@
         <!--Side Menu View Controller-->
         <scene sceneID="HEk-5y-2yZ">
             <objects>
-                <viewController storyboardIdentifier="RootViewController" id="GhB-vC-toC" customClass="SideMenuViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RootViewController" id="GhB-vC-toC" customClass="SideMenuViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HD3-7j-znT"/>
                         <viewControllerLayoutGuide type="bottom" id="Zgt-7h-9Vp"/>
@@ -106,7 +106,7 @@
         <!--Left MenuV Iew Controller-->
         <scene sceneID="HTx-Kf-nEQ">
             <objects>
-                <viewController storyboardIdentifier="LeftMenuViewController" id="ybj-DE-V2t" customClass="LeftMenuVIewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftMenuViewController" id="ybj-DE-V2t" customClass="LeftMenuVIewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="i66-Qj-vFs"/>
                         <viewControllerLayoutGuide type="bottom" id="Wi3-0k-hLd"/>
@@ -124,7 +124,7 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="IVZ-pP-AFH">
             <objects>
-                <tabBarController storyboardIdentifier="IPhoneRootViewController" id="Eae-Wv-yLq" customClass="MainTabBarController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="IPhoneRootViewController" id="Eae-Wv-yLq" customClass="MainTabBarController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="jVr-y3-Wld">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -161,13 +161,13 @@
         <!--Item-->
         <scene sceneID="6DQ-SK-c9n">
             <objects>
-                <tableViewController id="bWJ-pf-8et" customClass="TableSheduleController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="bWJ-pf-8et" customClass="TableSheduleController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="YCi-US-5Aj">
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableSheduleCell" rowHeight="60" id="6DM-e5-K4n" customClass="TableSheduleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableSheduleCell" rowHeight="60" id="6DM-e5-K4n" customClass="TableSheduleCell" customModule="NureTimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6DM-e5-K4n" id="ofr-6C-s2M">
@@ -254,7 +254,7 @@
                                     <outlet property="subjectType" destination="gLl-xh-bHp" id="ob5-Ge-731"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmptyTableSheduleCell" rowHeight="60" id="MfJ-oN-6Q5">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmptyTableSheduleCell" rowHeight="60" id="MfJ-oN-6Q5" customClass="LabelCell" customModule="NureTimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MfJ-oN-6Q5" id="yoZ-xZ-wG6">
@@ -273,6 +273,9 @@
                                         <constraint firstItem="mqG-Zp-xCa" firstAttribute="centerY" secondItem="yoZ-xZ-wG6" secondAttribute="centerY" id="zFl-FA-DHf"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="EmptyLabel" destination="mqG-Zp-xCa" id="L3Q-xB-YH5"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -290,13 +293,13 @@
         <!--Directing Table View Controller-->
         <scene sceneID="Rux-wP-Pik">
             <objects>
-                <tableViewController storyboardIdentifier="ScheduletypesTableViewControler" id="lDx-nq-M6J" customClass="DirectingTableViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ScheduletypesTableViewControler" id="lDx-nq-M6J" customClass="DirectingTableViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="EVb-er-C3D">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTypesCell" rowHeight="70" id="BLJ-jE-KGz" customClass="SchedulesTypesCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTypesCell" rowHeight="70" id="BLJ-jE-KGz" customClass="SchedulesTypesCell" customModule="NureTimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BLJ-jE-KGz" id="k4X-WZ-qID">
@@ -347,13 +350,13 @@
         <!--Schedules Downoal Table View-->
         <scene sceneID="rzN-Po-Ndq">
             <objects>
-                <tableViewController id="62q-pQ-VHb" customClass="SchedulesDownoalTableView" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="62q-pQ-VHb" customClass="SchedulesDownoalTableView" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="40" sectionHeaderHeight="18" sectionFooterHeight="18" id="72m-2i-Zb4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewScheduleCellId" id="mrO-07-D84" customClass="NewScheduleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewScheduleCellId" id="mrO-07-D84" customClass="NewScheduleCell" customModule="NureTimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="49.5" width="600" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mrO-07-D84" id="78h-Qe-eFt">
@@ -403,20 +406,20 @@
         <!--Root View Controller-->
         <scene sceneID="BbY-dt-MCR">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="09u-hg-GyR" customClass="EventDetailViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="09u-hg-GyR" customClass="EventDetailViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ymc-KJ-zBy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventDetailInfoTitleCell" rowHeight="100" id="a8o-Ps-ojb" customClass="EventDetailInfoTitleCell" customModule="KNURE_TimeTable" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventDetailInfoTitleCell" rowHeight="100" id="a8o-Ps-ojb" customClass="EventDetailInfoTitleCell" customModule="NureTimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a8o-Ps-ojb" id="Uvl-dv-Rf8">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-cR-rlB" customClass="NoteTextView" customModule="KNURE_TimeTable" customModuleProvider="target">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-cR-rlB" customClass="NoteTextView" customModule="NureTimeTable" customModuleProvider="target">
                                             <rect key="frame" x="8" y="8" width="584" height="83.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -465,12 +468,12 @@
         <!--Item-->
         <scene sceneID="aIj-WZ-bq5">
             <objects>
-                <collectionViewController id="9sK-F6-Qsy" customClass="CollectionScheduleViewController" customModule="KNURE_TimeTable" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="73E-po-Cxg" customClass="ScheduleCollectionView" customModule="KNURE_TimeTable" customModuleProvider="target">
+                <collectionViewController id="9sK-F6-Qsy" customClass="CollectionScheduleViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="73E-po-Cxg" customClass="ScheduleCollectionView" customModule="NureTimeTable" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewLayout key="collectionViewLayout" id="wR7-LZ-VJx" customClass="ScheduleCollectionLayout" customModule="KNURE_TimeTable" customModuleProvider="target"/>
+                        <collectionViewLayout key="collectionViewLayout" id="wR7-LZ-VJx" customClass="ScheduleCollectionLayout" customModule="NureTimeTable" customModuleProvider="target"/>
                         <cells/>
                         <connections>
                             <outlet property="dataSource" destination="9sK-F6-Qsy" id="7aW-tB-P5Z"/>

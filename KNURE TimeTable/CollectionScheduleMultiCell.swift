@@ -47,6 +47,8 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             backgroundNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
             backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).colorWithAlphaComponent(0.3)
             backgroundNode.borderColor = AppData.colorsForPairOfType(Int(events[i].type)).CGColor
+            backgroundNode.clipsToBounds = true
+            backgroundNode.cornerRadius = 5.0
             backgroundNode.borderWidth = 1.0
             textNode.frame = backgroundNode.bounds
             backgroundNode.addSubnode(textNode)

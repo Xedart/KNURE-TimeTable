@@ -8,6 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
+import ChameleonFramework
 
 class TableSheduleCell: UITableViewCell {
     
@@ -21,6 +22,7 @@ class TableSheduleCell: UITableViewCell {
     @IBOutlet weak var statusImage: UIImageView!
     var tapGestureRecognizer: UITapGestureRecognizer!
     let node = ASDisplayNode()
+    let timeNode = ASDisplayNode()
     var displayedEvent: Event!
     var delegate: CollectionScheduleViewControllerDelegate!
     
@@ -36,6 +38,24 @@ class TableSheduleCell: UITableViewCell {
             self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.8).CGColor
             self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.1)
             
+            // time widget:
+
+            let now = Int(NSDate().timeIntervalSince1970)
+            
+            if now >= event.start_time && now <= event.end_time {
+                let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
+                let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
+                print(yOffset)
+                self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
+                self.timeNode.backgroundColor = UIColor.redColor()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.node.view.addSubview(self.timeNode.view)
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.timeNode.view.removeFromSuperview()
+                }
+            }
             })
         dispatch_async(dispatch_get_main_queue()) {
             // touch gesture recognizer:

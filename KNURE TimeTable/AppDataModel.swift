@@ -40,7 +40,7 @@ struct AppData {
         case 1:
             return "Сб"
         case 2:
-            return "Нд"
+            return "Вс"
         case 3:
             return "Пн"
         case 4:
@@ -69,6 +69,8 @@ struct AppData {
         } else if type >= 30 && type < 40 {
             return FlatGray()
         } else if type >= 40 && type < 50 {
+            return FlatGray()
+        } else if type >= 50 && type <= 60 {
             return FlatSkyBlue()
         }
         else {

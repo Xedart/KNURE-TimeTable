@@ -10,6 +10,7 @@
 		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
 		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
 		84247C951CD3F5C3000654F9 /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
+		84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C961CD51B4A000654F9 /* LabelCell.swift */; };
 		842CB8561CB9186000292170 /* LeftMenuVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CB8551CB9186000292170 /* LeftMenuVIewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
@@ -62,8 +63,9 @@
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
 		84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceStrings.swift; sourceTree = "<group>"; };
+		84247C961CD51B4A000654F9 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		842CB8551CB9186000292170 /* LeftMenuVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuVIewController.swift; sourceTree = "<group>"; };
-		847776211C63945C000776B9 /* KNURE TimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KNURE TimeTable.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		847776211C63945C000776B9 /* NureTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NureTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8477762B1C63945C000776B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,7 +139,7 @@
 		847776221C63945C000776B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				847776211C63945C000776B9 /* KNURE TimeTable.app */,
+				847776211C63945C000776B9 /* NureTimeTable.app */,
 				847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */,
 			);
 			name = Products;
@@ -281,6 +283,7 @@
 				84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */,
 				84098D471C79092200BF1087 /* CollectionHeader.swift */,
 				8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */,
+				84247C961CD51B4A000654F9 /* LabelCell.swift */,
 			);
 			name = CustomCellsView;
 			sourceTree = "<group>";
@@ -322,7 +325,7 @@
 			);
 			name = "KNURE TimeTable";
 			productName = "KNURE TimeTable";
-			productReference = 847776211C63945C000776B9 /* KNURE TimeTable.app */;
+			productReference = 847776211C63945C000776B9 /* NureTimeTable.app */;
 			productType = "com.apple.product-type.application";
 		};
 		847776341C63945D000776B9 /* KNURE TimeTableTests */ = {
@@ -472,6 +475,7 @@
 				848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */,
 				84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
+				84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */,
 				84F6F18C1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift in Sources */,
 				84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
@@ -620,13 +624,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NureTimeTable;
 				SWIFT_OBJC_BRIDGING_HEADER = "KNURE TimeTable/KNURE TimeTable-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -641,13 +646,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NureTimeTable;
 				SWIFT_OBJC_BRIDGING_HEADER = "KNURE TimeTable/KNURE TimeTable-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

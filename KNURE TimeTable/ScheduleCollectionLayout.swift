@@ -53,12 +53,6 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         return layoutAttributes
     }
     
-    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: "Header", withIndexPath: NSIndexPath(forItem: 0, inSection: indexPath.section))
-        headerAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(indexPath.section) + scaleOffset, y: 0, width: cellWidth, height: headerHeight)
-        return headerAttributes
-    }
-    
     override func layoutAttributesForDecorationViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "lineView", withIndexPath: NSIndexPath(forItem: indexPath.row, inSection: 0))
         attributes.frame = CGRect(x: 50, y: CGFloat((Int(cellHeight) + 1) * (indexPath.row) + (51)), width: contentWidth, height: 0.6)
@@ -77,11 +71,6 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         cache.removeAll()
         computeDecorationAttributes()
         for section in 0..<collectionView!.numberOfSections() {
-            // step 1) - setting collectionView header attributes:
-            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: "Header", withIndexPath: NSIndexPath(forItem: 0, inSection: section))
-            headerAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: 0, width: cellWidth, height: headerHeight)
-            cache.append(headerAttributes)
-            // step 2) - setting collectionView cells attributes:
             for item in 0..<collectionView!.numberOfItemsInSection(section) {
                 let cellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: item, inSection: section))
                 cellAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: (cellHeight + offset) * CGFloat(item) + (headerHeight + offset), width: cellWidth, height: cellHeight)
