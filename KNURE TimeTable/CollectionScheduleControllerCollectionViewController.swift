@@ -76,7 +76,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         navigationItem.titleView = button
         
         // Timescale:
-        scale.frame = CGRect(x: 0, y: 0, width: 55, height: collectionView!.contentSize.height)
+        scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
     }
     
@@ -122,7 +122,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         if let parent = tabBarController as? MainTabBarController {
             shedulesListController.delegate = parent
         }
-        let menuNavigationController = SchedulesMenuNavigationViewController(rootViewController: shedulesListController)
+        let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
         self.presentViewController(menuNavigationController, animated: true, completion: nil)
     }

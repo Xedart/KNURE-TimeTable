@@ -75,7 +75,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         if let parent = tabBarController as? MainTabBarController {
             shedulesListController.delegate = parent
         }
-        let menuNavigationController = SchedulesMenuNavigationViewController(rootViewController: shedulesListController)
+        let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
         self.presentViewController(menuNavigationController, animated: true, completion: nil)
 

@@ -25,11 +25,11 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         
         // defining height:
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            cellHeight = 100
+            cellHeight = 90
             contentHeight = 890
         } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            cellHeight = 70
-            contentHeight = 610
+            cellHeight = 65
+            contentHeight = 570
         }
         
         self.registerClass(lineView.self, forDecorationViewOfKind: "lineView")

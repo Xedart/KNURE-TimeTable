@@ -9,13 +9,6 @@
 import UIKit
 import ChameleonFramework
 
-class SchedulesMenuNavigationViewController: UINavigationController {
-    
-    func doneButtonTapped(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-}
-
 class ShedulesListTableViewController: UITableViewController {
     
     // MARK: - DataSource
@@ -36,8 +29,12 @@ class ShedulesListTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = addButton
         
         // close button:
-        closeButton = UIBarButtonItem(title: AppStrings.Done, style: UIBarButtonItemStyle.Plain, target: SchedulesMenuNavigationViewController(), action: #selector(SchedulesMenuNavigationViewController.doneButtonTapped(_:)))
+        closeButton = UIBarButtonItem(title: AppStrings.Done, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ShedulesListTableViewController.dismiss))
         navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    func dismiss() {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -149,13 +146,14 @@ class ShedulesListTableViewController: UITableViewController {
     func chooseProperSchedule(scheduleToDelete: String) -> Bool {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        // choosing aming groups:
+        // choosing among groups:
         if groupsData.count > 0 {
             var counter = 0
             for group in groupsData {
                 if scheduleToDelete != group {
                     defaults.setObject(group, forKey: AppData.defaultScheduleKey)
-                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: counter, inSection: 0)], withRowAnimation: UITableViewRowAnimation.None)
+                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: counter, inSection: 0)) as! SheduleLIstCell
+                    cell.titleLbl.text?.appendContentsOf(" ✓")
                     return true
                 }
                 counter += 1
@@ -168,7 +166,8 @@ class ShedulesListTableViewController: UITableViewController {
             for group in teachersData {
                 if scheduleToDelete != group {
                     defaults.setObject(group, forKey: AppData.defaultScheduleKey)
-                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: counter, inSection: 1)], withRowAnimation: UITableViewRowAnimation.None)
+                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: counter, inSection: 0)) as! SheduleLIstCell
+                    cell.titleLbl.text?.appendContentsOf(" ✓")
                     return true
                 }
                 counter += 1
@@ -181,7 +180,8 @@ class ShedulesListTableViewController: UITableViewController {
             for group in auditoryiesData {
                 if scheduleToDelete != group {
                     defaults.setObject(group, forKey: AppData.defaultScheduleKey)
-                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: counter, inSection: 2)], withRowAnimation: UITableViewRowAnimation.None)
+                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: counter, inSection: 0)) as! SheduleLIstCell
+                    cell.titleLbl.text?.appendContentsOf(" ✓")
                     return true
                 }
                 counter += 1

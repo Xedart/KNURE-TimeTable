@@ -8,6 +8,8 @@
 
 import UIKit
 
+// class server handles http request to the api server ( cist )
+
 class Server {
     
     static let apiRoot = "http://cist.nure.ua/ias/app/tt/"

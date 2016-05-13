@@ -17,6 +17,7 @@ class CollectionScheduleCell: UICollectionViewCell {
     var delegate: CollectionScheduleViewControllerDelegate!
     let bookmarkImage = ASImageNode()
     var displayedEvent: Event!
+    var extraTopSpace = CGFloat()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +34,12 @@ class CollectionScheduleCell: UICollectionViewCell {
         // touch gesture recognizer:
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentInfoMenu(_:)))
         self.node.view.addGestureRecognizer(self.tapGestureRecognizer)
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            extraTopSpace = 17.0
+        } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            extraTopSpace = 10.0
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,8 +59,8 @@ class CollectionScheduleCell: UICollectionViewCell {
             // text attributes:
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
-            self.node.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[0].subject_id]!.briefTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
-            self.node.frame = self.bounds
+            self.node.attributedString = NSAttributedString(string: "\(shedule.subjects[events[0].subject_id]!.briefTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            self.node.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace)
             self.node.backgroundColor = UIColor.clearColor()
             
             // bookmark:

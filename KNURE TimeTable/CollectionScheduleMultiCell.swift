@@ -14,9 +14,16 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
     var displayedNodes: [Event]!
     var displayedEvent: Event!
     var delegate: CollectionScheduleViewControllerDelegate!
+    var extraTopSpace = CGFloat()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            extraTopSpace = 17.0
+        } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            extraTopSpace = 10.0
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +46,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .Center
             
-            textNode.attributedString = NSAttributedString(string: "\n\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            textNode.attributedString = NSAttributedString(string: "\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
             textNode.backgroundColor = UIColor.clearColor()
             
             // backGroundNode:
@@ -50,7 +57,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             backgroundNode.clipsToBounds = true
             backgroundNode.cornerRadius = 5.0
             backgroundNode.borderWidth = 1.0
-            textNode.frame = backgroundNode.bounds
+            textNode.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace - 10)
             backgroundNode.addSubnode(textNode)
             
             // bookmark: 
@@ -58,8 +65,14 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 let bookmarkImage = ASImageNode()
                 bookmarkImage.frame = CGRect(x: 100, y: 1, width: 10, height: 40)
                 bookmarkImage.image = UIImage(named: "DoneImage")
-                textNode.addSubnode(bookmarkImage)
+                backgroundNode.addSubnode(bookmarkImage)
             }
+            // scrolling image tip:
+            let scrollingImage = ASImageNode()
+            scrollingImage.frame = CGRect(x: textNode.frame.width - 25, y: textNode.frame.height - 10, width: 20, height: 20)
+            scrollingImage.image = UIImage(named: "displayModeButton")
+            textNode.addSubnode(scrollingImage)
+            //
             scrollNode.addSubnode(backgroundNode)
         }
             //
@@ -68,7 +81,6 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 for subView in self.subviews {
                     subView.removeFromSuperview()
                 }
-                scrollNode.view.contentOffset.x = 20
                 // adding tap gestures to the nodes:
                 var counter = 0
                 for textNode in scrollNode.subnodes {
@@ -81,6 +93,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 self.addSubview(scrollNode.view)
         }
     })
+        
   }
     
     // MARK: - Info menu

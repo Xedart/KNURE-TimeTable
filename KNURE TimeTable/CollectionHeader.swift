@@ -81,19 +81,20 @@ class CollectionDecorationView: UIView {
         self.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            cellHeight = 100
+            cellHeight = 90
             extraSpacePlaceholder = "\n"
         } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
             extraSpacePlaceholder = ""
-            cellHeight = 70
+            cellHeight = 65
         }
     }
     
     func configure(height: CGFloat) {
         for i in 0 ..< 8 {
-            let timeLabel = UITextView(frame: CGRect(x: 0, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: 55, height: cellHeight))
+            let timeLabel = UITextView(frame: CGRect(x: 0, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: 50, height: cellHeight))
             timeLabel.text = "\n\(AppData.pairsStartTime[i+1]!)\n\(extraSpacePlaceholder)\(AppData.pairsEndTime[i+1]!)"
-            timeLabel.font = UIFont.systemFontOfSize(15)
+            timeLabel.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: -4)
+            timeLabel.font = UIFont.systemFontOfSize(16)
             timeLabel.editable = false
             timeLabel.textAlignment = .Center
             timeLabel.backgroundColor = self.backgroundColor

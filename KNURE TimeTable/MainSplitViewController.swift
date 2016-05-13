@@ -19,7 +19,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     
     // MARK: - Properties:
     
-    var sheduleNavigationController = UINavigationController()
+    var sheduleNavigationController: UINavigationController!
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
     var rightSideInfoButton: UIBarButtonItem!
@@ -86,7 +86,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         popoverMenuViewController?.backgroundColor = UIColor.whiteColor()
         popoverMenuViewController?.sourceRect = CGRect(
             x: 0,
-            y: 10,
+            y: 8,
             width: button.bounds.width,
             height: button.bounds.height)
             presentViewController(sheduleNavigationController, animated: true, completion: nil)

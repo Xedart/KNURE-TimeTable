@@ -22,6 +22,7 @@ class SheduleLIstCell: UITableViewCell {
     }
     
     func configure(title: String, row: Int) {
+        titleLbl.text = ""
         titleLbl.text = title
         // append a mark to already choosen cell:
         let defaults = NSUserDefaults.standardUserDefaults()
