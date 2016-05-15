@@ -67,10 +67,11 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 bookmarkImage.image = UIImage(named: "DoneImage")
                 backgroundNode.addSubnode(bookmarkImage)
             }
+            
             // scrolling image tip:
             let scrollingImage = ASImageNode()
             scrollingImage.frame = CGRect(x: textNode.frame.width - 25, y: textNode.frame.height - 10, width: 20, height: 20)
-            scrollingImage.image = UIImage(named: "displayModeButton")
+            scrollingImage.image = UIImage(named: "ScrollIndicator")
             textNode.addSubnode(scrollingImage)
             //
             scrollNode.addSubnode(backgroundNode)

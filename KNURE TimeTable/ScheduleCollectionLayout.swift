@@ -16,7 +16,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     var cellHeight: CGFloat!
     let headerHeight: CGFloat = 50
     let offset: CGFloat = 1
-    let scaleOffset: CGFloat = 55
+    let scaleOffset: CGFloat = 50
     var contentHeight: CGFloat! // need to left 40px extra space
     var contentWidth = CGFloat()
     var cache = [UICollectionViewLayoutAttributes]()

@@ -35,7 +35,7 @@ class CollectionHeaderView: UIView {
         
         // frame configuring:
         let contentWidth = (CGFloat(delegate.collectionView!!.numberOfSections()) * cellWidth) + (CGFloat(delegate.collectionView!!.numberOfSections()) * (offset)) + cellWidth / 2
-        self.frame = CGRect(x: 55, y: 0, width: contentWidth, height: cellHeight)
+        self.frame = CGRect(x: 50, y: 0, width: contentWidth, height: cellHeight)
         // delete old subViews:
         for view in self.subviews {
             view.removeFromSuperview()

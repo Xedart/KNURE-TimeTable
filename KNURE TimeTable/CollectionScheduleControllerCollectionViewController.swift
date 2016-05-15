@@ -206,7 +206,7 @@ extension CollectionScheduleViewController {
             return
         }
         collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
-        collectionView?.contentOffset.x -= 55
+        collectionView?.contentOffset.x -= 50
         collectionView?.contentOffset.y = 0
         
     }

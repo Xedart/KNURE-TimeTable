@@ -198,31 +198,31 @@
                                                 <constraint firstAttribute="width" constant="1" id="OCA-aB-o9A"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Лекція" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-xh-bHp">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Лекція" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-xh-bHp">
                                             <rect key="frame" x="70" y="32" width="52.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="337" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8A9-7u-MqR">
-                                            <rect key="frame" x="130" y="32" width="30" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моделювання систем" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-sd-4bi">
-                                            <rect key="frame" x="70" y="8" width="522" height="18"/>
+                                            <rect key="frame" x="70" y="8" width="522" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N5g-ga-Zhu">
-                                            <rect key="frame" x="557" y="27" width="35" height="33"/>
+                                            <rect key="frame" x="567" y="28" width="25" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="33" id="buk-40-D3I"/>
-                                                <constraint firstAttribute="width" constant="35" id="jgo-OM-aUg"/>
+                                                <constraint firstAttribute="height" constant="25" id="buk-40-D3I"/>
+                                                <constraint firstAttribute="width" constant="25" id="jgo-OM-aUg"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="337" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8A9-7u-MqR">
+                                            <rect key="frame" x="130" y="32" width="429" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="leading" secondItem="KjM-No-BaW" secondAttribute="trailing" constant="3" id="1pr-QC-5Gf"/>
@@ -231,13 +231,14 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="8A9-7u-MqR" secondAttribute="bottom" constant="-1" id="46h-wi-6Jb"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="gLl-xh-bHp" secondAttribute="bottom" constant="-1" id="7Qc-xe-KXv"/>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="top" secondItem="ofr-6C-s2M" secondAttribute="topMargin" id="93X-nc-xTR"/>
-                                        <constraint firstItem="8A9-7u-MqR" firstAttribute="leading" secondItem="gLl-xh-bHp" secondAttribute="trailing" constant="8" id="AoY-z1-yCg"/>
+                                        <constraint firstItem="8A9-7u-MqR" firstAttribute="leading" secondItem="gLl-xh-bHp" secondAttribute="trailing" constant="4" id="AoY-z1-yCg"/>
                                         <constraint firstItem="8JC-i1-Syq" firstAttribute="top" secondItem="ofr-6C-s2M" secondAttribute="topMargin" id="Jjb-lN-FE3"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="KjM-No-BaW" secondAttribute="bottom" constant="-1.5" id="JvA-V3-MHn"/>
+                                        <constraint firstItem="N5g-ga-Zhu" firstAttribute="leading" secondItem="8A9-7u-MqR" secondAttribute="trailing" id="L4B-7p-ee3"/>
                                         <constraint firstItem="N5g-ga-Zhu" firstAttribute="top" secondItem="7pJ-sd-4bi" secondAttribute="bottom" constant="1" id="OLd-hb-Pnh"/>
                                         <constraint firstItem="N5g-ga-Zhu" firstAttribute="trailing" secondItem="ofr-6C-s2M" secondAttribute="trailingMargin" id="Sxz-rz-Lda"/>
                                         <constraint firstItem="8JC-i1-Syq" firstAttribute="leading" secondItem="ofr-6C-s2M" secondAttribute="leadingMargin" id="TI0-9u-ZNx"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="N5g-ga-Zhu" secondAttribute="bottom" constant="-8" id="aoy-aP-92o"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="N5g-ga-Zhu" secondAttribute="bottom" constant="-1" id="aoy-aP-92o"/>
                                         <constraint firstItem="7pJ-sd-4bi" firstAttribute="trailing" secondItem="ofr-6C-s2M" secondAttribute="trailingMargin" id="cuR-ZN-NN6"/>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="bottom" secondItem="ofr-6C-s2M" secondAttribute="bottomMargin" id="nGJ-Hk-waY"/>
                                         <constraint firstItem="7pJ-sd-4bi" firstAttribute="leading" secondItem="3pC-1c-3O2" secondAttribute="trailing" constant="8" id="pvy-5j-X8N"/>
