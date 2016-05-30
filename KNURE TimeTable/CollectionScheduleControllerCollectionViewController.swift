@@ -38,6 +38,9 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             }
         }
     }
+    
+    //MARK: - Properies:
+    
     let shedulesListController = ShedulesListTableViewController()
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
@@ -47,6 +50,8 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     var doubleTapGesture = UITapGestureRecognizer()
     var scaleTapGestureRecognizer = UITapGestureRecognizer()
     var weekScheduleControllerDelegate: TableSheduleControllerDelegate!
+    
+    //MARK: - Lifecycle:
 
     override func viewDidLoad() {
         super.viewDidLoad()
