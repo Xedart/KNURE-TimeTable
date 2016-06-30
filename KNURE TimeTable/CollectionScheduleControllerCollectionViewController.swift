@@ -16,24 +16,24 @@ private let headerReuseIdentifier = "CollectionCell"
 private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
 @objc protocol CollectionScheduleViewControllerDelegate {
-    func presentViewController(viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
+    func presentViewController(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func passScheduleToLeftController() -> Void
     var shedule: Shedule! { get }
-    optional var collectionView: UICollectionView? { get }
+    @objc optional var collectionView: UICollectionView? { get }
 }
 
 class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
     
     var shedule: Shedule! {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(AppData.scheduleDidReload, object: nil)
+            NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.scheduleDidReload), object: nil)
             if !shedule.shedule_id.isEmpty {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
+                DispatchQueue.main.async(execute: {
+                    self.button.setTitle(self.shedule.shedule_id, for: UIControlState())
                 })
             } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.button.setTitle(AppStrings.ChooseSchedule, forState: UIControlState.Normal)
+                DispatchQueue.main.async(execute: {
+                    self.button.setTitle(AppStrings.ChooseSchedule, for: UIControlState())
                 })
             }
         }
@@ -69,29 +69,29 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         headerScale.addGestureRecognizer(scaleTapGestureRecognizer)
     
         // Register cell classes
-        self.collectionView?.registerClass(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        self.collectionView?.registerClass(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
-        self.collectionView?.registerClass(CollectionScheduleMultiCell.self, forCellWithReuseIdentifier: multiCellReuseIndentifier)
+        self.collectionView?.register(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        self.collectionView?.register(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
+        self.collectionView?.register(CollectionScheduleMultiCell.self, forCellWithReuseIdentifier: multiCellReuseIndentifier)
        
         //navigationItem setUp:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
         button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), for: .touchUpInside)
         navigationItem.titleView = button
         
         // Timescale:
         scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
-        scale.configure(collectionView!.bounds.height)
+        scale.configure(height: collectionView!.bounds.height)
     }
     
     func configureDateScale() {
         //Date scale:
         headerScale.delegate = self
-        headerScale.configure(shedule)
+        headerScale.configure(schedule: shedule)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // set empty data set:
         collectionView?.reloadData()
         if shedule.shedule_id.isEmpty {
@@ -114,28 +114,28 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         
         // performing initil scroll:
         if !initialScrollDone {
-            let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
-            let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
+            let firstEventDay = Date(timeIntervalSince1970: TimeInterval(shedule.startDayTime))
+            let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
             collectionView?.contentOffset = CGPoint(x: 126 * numberOfdays, y: 0)
             configureDateScale()
             initialScrollDone = true
         }
     }
     
-    func showMenu(sender: UIButton) {
+    func showMenu(_ sender: UIButton) {
         shedulesListController.hidesBottomBarWhenPushed = true
         if let parent = tabBarController as? MainTabBarController {
             shedulesListController.delegate = parent
         }
         let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
-        self.presentViewController(menuNavigationController, animated: true, completion: nil)
+        self.present(menuNavigationController, animated: true, completion: nil)
     }
     
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if shedule == nil && shedule.shedule_id.isEmpty{
             return 0
         }
@@ -143,31 +143,31 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     }
 
 
-     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if shedule == nil && shedule.shedule_id.isEmpty {
             return 0
         }
         return shedule.numberOfPairsInDay()
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] == nil {
+        if shedule.eventsCache["\((indexPath as NSIndexPath).section)\((indexPath as NSIndexPath).row)"] == nil {
             shedule.performCache()
         }
-        let events = shedule.eventsCache["\(indexPath.section)\(indexPath.row)"]!.events
+        let events = shedule.eventsCache["\((indexPath as NSIndexPath).section)\((indexPath as NSIndexPath).row)"]!.events
         
         if events.isEmpty {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(emptyCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleEmptyCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellReuseIndentifier, for: indexPath) as! CollectionScheduleEmptyCell
             return cell
         }
         if events.count > 1 {
-             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(multiCellReuseIndentifier, forIndexPath: indexPath) as! CollectionScheduleMultiCell
+             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multiCellReuseIndentifier, for: indexPath) as! CollectionScheduleMultiCell
             cell.delegate = self
             cell.configure(events, shedule: shedule)
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! CollectionScheduleCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CollectionScheduleCell
             cell.delegate = self
         cell.configure(events, shedule: shedule)
         return cell
@@ -188,8 +188,8 @@ extension CollectionScheduleViewController {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == UIEventSubtype.MotionShake{
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == UIEventSubtype.motionShake{
             performScrollToToday()
             if weekScheduleControllerDelegate != nil {
                 weekScheduleControllerDelegate!.performScrollToToday()
@@ -197,20 +197,20 @@ extension CollectionScheduleViewController {
         }
     }
     
-     func doubleTapGestureDetected(sender: UITapGestureRecognizer) {
+     func doubleTapGestureDetected(_ sender: UITapGestureRecognizer) {
         performScrollToToday()
     }
     
     func performScrollToToday() {
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(shedule.startDayTime))
+        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(shedule.startDayTime))
         
-        let numberOfdays = firstEventDay.differenceInDaysWithDate(NSDate())
+        let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
         
         // check for scrolling impossibility.
         if numberOfdays > collectionView!.numberOfSections() || numberOfdays < 0 {
             return
         }
-        collectionView!.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: numberOfdays), atScrollPosition: UICollectionViewScrollPosition.Left, animated: true)
+        collectionView!.scrollToItem(at: IndexPath(item: 0, section: numberOfdays), at: UICollectionViewScrollPosition.left, animated: true)
         collectionView?.contentOffset.x -= 50
         collectionView?.contentOffset.y = 0
         
@@ -220,8 +220,8 @@ extension CollectionScheduleViewController {
     // MARK: - DZNEmptyDataSetSource
 
 extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "NureTimeTable", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(24, weight: 1), NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> AttributedString! {
+        return AttributedString(string: "NureTimeTable", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray()])
     }
 }
 

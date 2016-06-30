@@ -22,22 +22,21 @@ class Server {
         case getAudytories = "P_API_AUDITORIES_JSON"
     }
     
-    static func makeRequest(method: Method, parameters: [String]?, callback: (data: NSData?, responce: NSURLResponse?, error: NSError?) -> Void ) {
-        // utr making:
+    static func makeRequest(_ method: Method, parameters: [String]?, callback: (data: Data?, responce: URLResponse?, error: NSError?) -> Void ) {
+        // url making:
         var urlStr = "\(apiRoot)\(method.rawValue)"
         if parameters != nil {
             for parameter in parameters! {
-                urlStr.appendContentsOf(parameter)
+                urlStr.append(parameter)
             }
         }
-        print(urlStr)
-        let URL = NSURL(string: urlStr)
-        let request = NSMutableURLRequest(URL: URL!)
-        let session = NSURLSession.sharedSession()
+        let URL = Foundation.URL(string: urlStr)
+        let request = URLRequest(url: URL!)
+        let session = URLSession.shared()
         
         // make request and callback
-        let task = session.dataTaskWithRequest(request, completionHandler: callback)
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        let task = session.dataTask(with: request, completionHandler: callback)
+        DispatchQueue.main.async(execute: { () -> Void in
             task.resume()
         })
     }

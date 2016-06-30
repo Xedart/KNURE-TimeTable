@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftyJSON
+//import SwiftyJSON
 import SVProgressHUD
 
     // MARK: - dataSource structures
@@ -22,7 +22,7 @@ struct ListSection {
     var rows: [ListRow]
     
     // check for already added rows:
-    func containsRow(rowId :String) -> Bool {
+    func containsRow(_ rowId :String) -> Bool {
         for row in rows {
             if row.row_id == rowId {
                 return true
@@ -58,26 +58,26 @@ class SchedulesDownoalTableView: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let groups = defaults.objectForKey(AppData.savedGroupsShedulesKey) as? [String] {
+        let defaults = UserDefaults.standard()
+        if let groups = defaults.object(forKey: AppData.savedGroupsShedulesKey) as? [String] {
             groupsData = groups
         }
-        if let teachers = defaults.objectForKey(AppData.savedTeachersShedulesKey) as? [String] {
+        if let teachers = defaults.object(forKey: AppData.savedTeachersShedulesKey) as? [String] {
             teachersData = teachers
         }
-        if let auditoryies = defaults.objectForKey(AppData.savedAuditoriesShedulesKey) as? [String] {
+        if let auditoryies = defaults.object(forKey: AppData.savedAuditoriesShedulesKey) as? [String] {
             auditoryiesData = auditoryies
         }
         initializeData()
         
-        //search
-        searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(SchedulesDownoalTableView.searchButtonTapped(_:)))
+        //Search
+        searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(SchedulesDownoalTableView.searchButtonTapped(_:)))
         searchButton.tintColor = AppData.appleButtonDefault
         searchField.delegate = self
         self.becomeFirstResponder()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         tableView.reloadData()
     }
     
@@ -91,40 +91,40 @@ class SchedulesDownoalTableView: UITableViewController {
     
     // MARK: - Table view data source and Delegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource[section].rows.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NewScheduleCellId") as! NewScheduleCell
-        if isAlreadyAdded(dataSource[indexPath.section].rows[indexPath.row].row_title) {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewScheduleCellId") as! NewScheduleCell
+        if isAlreadyAdded(dataSource[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row].row_title) {
             cell.doneLabel.text = AppStrings.Added
         } else {
             cell.doneLabel.text = ""
         }
-        cell.titleLbl.text = dataSource[indexPath.section].rows[indexPath.row].row_title
+        cell.titleLbl.text = dataSource[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row].row_title
         return cell
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return TitleViewLabel(title: (" \(dataSource[section].title)"))
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
     
     // methods:
     
-    func isAlreadyAdded(row: String) -> Bool {
+    func isAlreadyAdded(_ row: String) -> Bool {
         if initMetod == .getGroups {
             for group in groupsData {
                 if group == row {
@@ -156,10 +156,10 @@ extension SchedulesDownoalTableView {
         
         // setDownloading indicator:
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             indicator.center = self.view.center
             self.tableView.addSubview(indicator)
-            indicator.activityIndicatorViewStyle = .Gray
+            indicator.activityIndicatorViewStyle = .gray
             indicator.startAnimating()
         })
         
@@ -167,19 +167,19 @@ extension SchedulesDownoalTableView {
            
             // check for success connection:
             if error != nil {
-                self.presentViewController(AlertView.getAlert(AppStrings.Error, message: AppStrings.CheckInternet, handler: { action in
-                    self.navigationController?.popViewControllerAnimated(true)
+                self.present(AlertView.getAlert(AppStrings.Error, message: AppStrings.CheckInternet, handler: { action in
+                    self.navigationController?.popViewController(animated: true)
                 }), animated: true, completion: nil)
                 indicator.stopAnimating()
                 return
             }
-            let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
-            let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+            let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
+            let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
             let json = JSON(data: dataFromString!)
             if self.initMetod == .getGroups {
                 Parser.parseGroupsLst(json, callback: { data in
                     self.dataSource = data
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         indicator.stopAnimating()
                         self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
@@ -188,7 +188,7 @@ extension SchedulesDownoalTableView {
             } else if self.initMetod == .getTeachers {
                 Parser.parseTeachersList(json, callback: { data in
                     self.dataSource = data
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         indicator.stopAnimating()
                         self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
@@ -197,7 +197,7 @@ extension SchedulesDownoalTableView {
             } else if self.initMetod == .getAudytories {
                 Parser.parseAuditoriesList(json, callback: { data in
                     self.dataSource = data
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         indicator.stopAnimating()
                         self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
@@ -213,15 +213,15 @@ extension SchedulesDownoalTableView {
 
 extension SchedulesDownoalTableView {
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // check for already added schedule:
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! NewScheduleCell
+        let cell = tableView.cellForRow(at: indexPath) as! NewScheduleCell
         if !cell.doneLabel.text!.isEmpty {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
         // first thread:
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
         
             var type_id = 0
             if self.initMetod == .getGroups {
@@ -231,74 +231,74 @@ extension SchedulesDownoalTableView {
             } else {
                 type_id = 3
             }
-        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)&type_id=\(type_id)"], callback: { (data, responce, error) in
+        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row].row_id)&type_id=\(type_id)"], callback: { (data, responce, error) in
             // check for success connection:
             if error != nil {
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    SVProgressHUD.showErrorWithStatus(AppStrings.ScheduleDidNonDownloaded)
+                DispatchQueue.main.async(execute: {
+                    SVProgressHUD.showError(withStatus: AppStrings.ScheduleDidNonDownloaded)
                 })
                 return
             }
-            let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
-            let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+            let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
+            let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
             let json = JSON(data: dataFromString!)
             Parser.parseSchedule(json, callback: { data in
                 data.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title
                 data.scheduleIdentifier = self.dataSource[indexPath.section].rows[indexPath.row].row_id
                 // saving new schedule to the defaults:
-                let defaults = NSUserDefaults.standardUserDefaults()
+                let defaults = UserDefaults.standard()
                 if self.initMetod == .getGroups {
                     self.groupsData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
-                defaults.setObject(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
+                defaults.set(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
                 } else if self.initMetod == .getTeachers {
                     self.teachersData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
-                    defaults.setObject(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
+                    defaults.set(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
                 } else if self.initMetod == .getAudytories {
                     self.auditoryiesData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
-                    defaults.setObject(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
+                    defaults.set(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
                 }
                 
                 // set new default schedule:
-                defaults.setObject(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)
+                defaults.set(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)
                 defaults.synchronize()
                 // save just-dowloaded schedule object to the file appending by schedule's title:
                 data.saveShedule()
                 // reloading schedules view with new schedule object:
-                NSNotificationCenter.defaultCenter().postNotificationName(AppData.initNotification, object: nil)
+                NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
              })
           })
        })
         // second thread:
-        dispatch_async(dispatch_get_main_queue(), {
-            self.dismissViewControllerAnimated(true, completion: nil)
+        DispatchQueue.main.async(execute: {
+            self.dismiss(animated: true, completion: nil)
             if let navigationController = self.navigationController {
-                navigationController.popToRootViewControllerAnimated(true)
+                navigationController.popToRootViewController(animated: true)
             }
-            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
             SVProgressHUD.show()
         })
     }
 }
 
 extension SchedulesDownoalTableView: UISearchBarDelegate {
-    func searchButtonTapped(sender: UIBarButtonItem) {
+    func searchButtonTapped(_ sender: UIBarButtonItem) {
         
         // search field:
         searchField.frame = CGRect(x: 10, y: 4, width: 1, height: 40)
         let wrapper = UIBarButtonItem(customView: searchField)
         navigationItem.leftBarButtonItem = wrapper
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.searchField.frame.size.width += self.view.frame.width - 100
         })
         
         // cancell button:
-        let cancelButton = UIBarButtonItem(title: AppStrings.Close, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SchedulesDownoalTableView.cancelSearch(_:)))
+        let cancelButton = UIBarButtonItem(title: AppStrings.Close, style: UIBarButtonItemStyle.plain, target: self, action: #selector(SchedulesDownoalTableView.cancelSearch(_:)))
         navigationItem.rightBarButtonItem = cancelButton
         searchField.becomeFirstResponder()
     }
     
-    func cancelSearch(sender: UIBarButtonItem) {
+    func cancelSearch(_ sender: UIBarButtonItem) {
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = searchButton
         dataSource = dataSourceStorage
@@ -306,12 +306,12 @@ extension SchedulesDownoalTableView: UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         dataSourceStorage = dataSource
         return true
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             dataSource = dataSourceStorage
             tableView.reloadData()
@@ -323,7 +323,7 @@ extension SchedulesDownoalTableView: UISearchBarDelegate {
             var resultList = ListSection()
             resultList.title = rowlist.title
             for row in rowlist.rows {
-                if row.row_title.localizedStandardContainsString(searchText) {
+                if row.row_title.contains(searchText) {
                     resultList.rows.append(row)
                 }
             }

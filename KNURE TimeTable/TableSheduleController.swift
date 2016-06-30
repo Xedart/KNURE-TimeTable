@@ -20,12 +20,12 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     var shedule: Shedule! {
         didSet {
             if !shedule.shedule_id.isEmpty {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.button.setTitle(self.shedule.shedule_id, forState: .Normal)
+                DispatchQueue.main.async(execute: {
+                    self.button.setTitle(self.shedule.shedule_id, for: UIControlState())
                 })
             } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.button.setTitle(AppStrings.ChooseSchedule, forState: UIControlState.Normal)
+                DispatchQueue.main.async(execute: {
+                    self.button.setTitle(AppStrings.ChooseSchedule, for: UIControlState())
                 })
             }
         }
@@ -43,82 +43,82 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), for: .touchUpInside)
         navigationItem.titleView = button
         navigationController?.navigationBar.barTintColor = FlatWhite()
         
         // setnavigation items:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
         tableView.emptyDataSetSource = self
         
         //refrecher:
         refresher = UIRefreshControl()
-        refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), forControlEvents: UIControlEvents.ValueChanged)
+        refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.after(when: delayTime) {
             self.tableView?.reloadData()
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
-    func showMenu(sender: UIButton) {
+    func showMenu(_ sender: UIButton) {
         shedulesListController.hidesBottomBarWhenPushed = true
         if let parent = tabBarController as? MainTabBarController {
             shedulesListController.delegate = parent
         }
         let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
-        self.presentViewController(menuNavigationController, animated: true, completion: nil)
+        self.present(menuNavigationController, animated: true, completion: nil)
 
     }
    
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if shedule.shedule_id.isEmpty {
             return 0
         }
         return 7
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if shedule.shedule_id.isEmpty {
             return 0
         }
-        let numberOfRows = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))).count
+        let numberOfRows = shedule.eventsInDay((Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * section)))).count
         return numberOfRows > 0 ? numberOfRows : 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let events = shedule.eventsInDay((NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * indexPath.section))))
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let events = shedule.eventsInDay((Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * (indexPath as NSIndexPath).section))))
         if events.isEmpty {
-            let cell = tableView.dequeueReusableCellWithIdentifier("EmptyTableSheduleCell", forIndexPath: indexPath) as! LabelCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyTableSheduleCell", for: indexPath) as! LabelCell
             cell.EmptyLabel.text = AppStrings.NoEvents
             return cell
         } else {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableSheduleCell", forIndexPath: indexPath) as! TableSheduleCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableSheduleCell", for: indexPath) as! TableSheduleCell
             cell.delegate = self
-        cell.configure(shedule, event: events[indexPath.row])
+        cell.configure(shedule, event: events[(indexPath as NSIndexPath).row])
         return cell
         }
     }
     
     // MARK: - TableView delegate:
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return TableSheduleHeader(section: section)
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
@@ -129,16 +129,16 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     
     func refreshContent() {
         
-        NSNotificationCenter.defaultCenter().postNotificationName("UpDateNotification", object: nil)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: "UpDateNotification"), object: nil)
     }
 }
 
     // MARK: - DZNEmptyDataSetSource
 
 extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> AttributedString! {
         tableView.tableFooterView = UIView()
-        return NSAttributedString(string: AppStrings.NotChoosenSchedule, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(20, weight: 1)])
+        return AttributedString(string: AppStrings.NotChoosenSchedule, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: 1)])
     }
 }
 
@@ -146,7 +146,7 @@ extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
 
 extension TableSheduleController: TableSheduleControllerDelegate {
     func performScrollToToday() {
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
 

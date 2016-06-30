@@ -20,24 +20,24 @@ class DirectingTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTypesCell", forIndexPath: indexPath) as! SchedulesTypesCell
-        cell.tag = indexPath.row
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTypesCell", for: indexPath) as! SchedulesTypesCell
+        cell.tag = (indexPath as NSIndexPath).row
         cell.configure(indexPath)
         return cell
     }
 
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationController = segue.destinationViewController as! SchedulesDownoalTableView
         let cell = sender as! SchedulesTypesCell
         if cell.tag == 0 {

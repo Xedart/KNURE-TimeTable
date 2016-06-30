@@ -13,11 +13,13 @@ import SVProgressHUD
 
 class CollectionHeaderView: UIView {
     
+    // MARK: - Properties:
+    
     let cellWidth: CGFloat = 125
     let cellHeight: CGFloat = 50
     let offset: CGFloat = 1
     var delegate: CollectionScheduleViewControllerDelegate!
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,24 +47,24 @@ class CollectionHeaderView: UIView {
             let dateLabel = UILabel(frame: CGRect(x: (cellWidth + offset) * CGFloat(i), y: 0, width: cellWidth, height: cellHeight))
             
             // text attributes:
-            let formatter = NSDateFormatter()
+            let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM"
             var txtColor = UIColor()
             let titleParagraphStyle = NSMutableParagraphStyle()
-            titleParagraphStyle.alignment = .Center
-            var labelText = formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * i), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(schedule.startDayTime))))
-            let todayDate = formatter.stringFromDate(NSDate())
+            titleParagraphStyle.alignment = .center
+            var labelText = formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)
+            let todayDate = formatter.string(from: NSDate() as Date)
             if todayDate == labelText {
                 txtColor = FlatSkyBlue()
             } else {
                 txtColor = FlatGrayDark()
             }
             // add week:
-            labelText.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * i), sinceDate: NSDate(timeIntervalSince1970: NSTimeInterval(schedule.startDayTime))))))")
+            labelText.append(", \(AppData.getDayOfWeek(formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)))")
             // style:
-            dateLabel.textAlignment = .Center
+            dateLabel.textAlignment = .center
             dateLabel.textColor = txtColor
-            dateLabel.font = UIFont.systemFontOfSize(17)
+            dateLabel.font = UIFont.systemFont(ofSize: 17)
             //
             dateLabel.text = labelText
             self.addSubview(dateLabel)
@@ -80,10 +82,10 @@ class CollectionDecorationView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if UIDevice.current().userInterfaceIdiom == .pad {
             cellHeight = 90
             extraSpacePlaceholder = "\n"
-        } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        } else if UIDevice.current().userInterfaceIdiom == .phone {
             extraSpacePlaceholder = ""
             cellHeight = 65
         }
@@ -94,9 +96,9 @@ class CollectionDecorationView: UIView {
             let timeLabel = UITextView(frame: CGRect(x: 0, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: 50, height: cellHeight))
             timeLabel.text = "\n\(AppData.pairsStartTime[i+1]!)\n\(extraSpacePlaceholder)\(AppData.pairsEndTime[i+1]!)"
             timeLabel.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: -4)
-            timeLabel.font = UIFont.systemFontOfSize(16)
-            timeLabel.editable = false
-            timeLabel.textAlignment = .Center
+            timeLabel.font = UIFont.systemFont(ofSize: 16)
+            timeLabel.isEditable = false
+            timeLabel.textAlignment = .center
             timeLabel.backgroundColor = self.backgroundColor
             timeLabel.textColor = FlatGrayDark()
             self.addSubview(timeLabel)
@@ -112,7 +114,7 @@ class lineView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = FlatGrayDark().colorWithAlphaComponent(0.2)
+        self.backgroundColor = FlatGrayDark().withAlphaComponent(0.2)
     }
     
     convenience init() {

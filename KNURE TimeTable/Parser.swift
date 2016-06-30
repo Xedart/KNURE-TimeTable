@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import SwiftyJSON
+//import SwiftyJSON
 
 class Parser {
     
-    static func parseAuditoriesList(data: JSON, callback: (data: [ListSection]) -> Void) {
+    static func parseAuditoriesList(_ data: JSON, callback: (data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
         let buildings = data["university"]["buildings"].arrayValue
         
@@ -32,7 +32,7 @@ class Parser {
         callback(data: resultList)
     }
     
-    static func parseTeachersList(data: JSON, callback: (data: [ListSection]) -> Void) {
+    static func parseTeachersList(_ data: JSON, callback: (data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
         let faculties = data["university"]["faculties"].arrayValue
         
@@ -57,7 +57,7 @@ class Parser {
         callback(data: resultList)
     }
     
-    static func parseGroupsLst(data: JSON, callback: (data: [ListSection]) -> Void) {
+    static func parseGroupsLst(_ data: JSON, callback: (data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
         
         let faculties = data["university"]["faculties"].arrayValue
@@ -96,7 +96,7 @@ class Parser {
     }
     
     
-    static func parseSchedule(data: JSON, callback: (data: Shedule) -> Void) {
+    static func parseSchedule(_ data: JSON, callback: (data: Shedule) -> Void) {
         
         // perform data arrays for filling:
         var result_types = [String: NureType]()
@@ -106,8 +106,8 @@ class Parser {
         var result_days = [String: Day]()
         var firstDayTime = Int()
         var lastDayTime = Int()
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
+        let formatter = DateFormatter()
+        formatter.dateStyle = .shortStyle
        
         let jsTypes = data["types"].arrayValue
         
@@ -158,7 +158,7 @@ class Parser {
             lastDayTime = lastTime
         }
         var daysBuffer = Day()
-        var currentDateStr = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(firstDayTime)))
+        var currentDateStr = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(firstDayTime)))
         
         for event in jsEvents {
             let id = event["subject_id"].stringValue
@@ -176,7 +176,7 @@ class Parser {
                 groups.append(jgroup.intValue)
             }
             let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups)
-            let eventDateStringId = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(start_time)))
+            let eventDateStringId = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(start_time)))
             if currentDateStr == eventDateStringId {
                 daysBuffer.events.append(event)
             } else {
@@ -189,6 +189,7 @@ class Parser {
                 result_days[currentDateStr] = daysBuffer // need to do it for last day of the semester
             }
         }
+        print(firstDayTime)
         let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup]())
         callback(data: result)
     }

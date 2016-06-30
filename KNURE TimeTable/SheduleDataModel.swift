@@ -44,25 +44,25 @@ class Event: NSObject, NSCoding  {
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let subject_id = aDecoder.decodeObjectForKey(Key.subject_id) as! String
-        let start_time = aDecoder.decodeObjectForKey(Key.start_time) as! Int
-        let end_time = aDecoder.decodeObjectForKey(Key.end_time) as! Int
-        let type = aDecoder.decodeObjectForKey(Key.type) as! String
-        let numberOfPair = aDecoder.decodeObjectForKey(Key.numberOFPair) as! Int
-        let auditory = aDecoder.decodeObjectForKey(Key.auditory) as! String
-        let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [Int]
-        let groups = aDecoder.decodeObjectForKey(Key.groups) as! [Int]
+        let subject_id = aDecoder.decodeObject(forKey: Key.subject_id) as! String
+        let start_time = aDecoder.decodeObject(forKey: Key.start_time) as! Int
+        let end_time = aDecoder.decodeObject(forKey: Key.end_time) as! Int
+        let type = aDecoder.decodeObject(forKey: Key.type) as! String
+        let numberOfPair = aDecoder.decodeObject(forKey: Key.numberOFPair) as! Int
+        let auditory = aDecoder.decodeObject(forKey: Key.auditory) as! String
+        let teachers = aDecoder.decodeObject(forKey: Key.teachers) as! [Int]
+        let groups = aDecoder.decodeObject(forKey: Key.groups) as! [Int]
         self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups)
     }
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(subject_id, forKey: Key.subject_id)
-        aCoder.encodeObject(start_time, forKey: Key.start_time)
-        aCoder.encodeObject(end_time, forKey: Key.end_time)
-        aCoder.encodeObject(type, forKey: Key.type)
-        aCoder.encodeObject(numberOf_pair, forKey: Key.numberOFPair)
-        aCoder.encodeObject(auditory, forKey: Key.auditory)
-        aCoder.encodeObject(teachers, forKey: Key.teachers)
-        aCoder.encodeObject(groups, forKey: Key.groups)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(subject_id, forKey: Key.subject_id)
+        aCoder.encode(start_time, forKey: Key.start_time)
+        aCoder.encode(end_time, forKey: Key.end_time)
+        aCoder.encode(type, forKey: Key.type)
+        aCoder.encode(numberOf_pair, forKey: Key.numberOFPair)
+        aCoder.encode(auditory, forKey: Key.auditory)
+        aCoder.encode(teachers, forKey: Key.teachers)
+        aCoder.encode(groups, forKey: Key.groups)
     }
     struct Key {
         static let subject_id = "EVSubjectId"
@@ -88,12 +88,12 @@ class Day: NSObject, NSCoding {
     }
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let events = aDecoder.decodeObjectForKey(Key.events) as! [Event]
+        let events = aDecoder.decodeObject(forKey: Key.events) as! [Event]
         self.init(events: events)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(events, forKey: Key.events)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(events, forKey: Key.events)
     }
     struct Key {
         static let events = "DAYEvents"
@@ -115,14 +115,14 @@ class Teacher: NSObject, NSCoding {
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let full_name = aDecoder.decodeObjectForKey(Key.fullName) as! String
-        let short_name = aDecoder.decodeObjectForKey(Key.shortName) as! String
+        let full_name = aDecoder.decodeObject(forKey: Key.fullName) as! String
+        let short_name = aDecoder.decodeObject(forKey: Key.shortName) as! String
         self.init(full_name: full_name, short_name: short_name)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(full_name, forKey: Key.fullName)
-        aCoder.encodeObject(short_name, forKey: Key.shortName)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(full_name, forKey: Key.fullName)
+        aCoder.encode(short_name, forKey: Key.shortName)
     }
     struct Key {
         static let fullName = "TCfullName"
@@ -144,13 +144,13 @@ class Subject: NSObject, NSCoding {
     }
 // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let briefTitle = aDecoder.decodeObjectForKey(Key.briefTitle) as! String
-        let fullTitle = aDecoder.decodeObjectForKey(Key.fullTitle) as! String
+        let briefTitle = aDecoder.decodeObject(forKey: Key.briefTitle) as! String
+        let fullTitle = aDecoder.decodeObject(forKey: Key.fullTitle) as! String
         self.init(briefTitle: briefTitle, fullTitle: fullTitle)
     }
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(briefTitle, forKey: Key.briefTitle)
-        aCoder.encodeObject(fullTitle, forKey: Key.fullTitle)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(briefTitle, forKey: Key.briefTitle)
+        aCoder.encode(fullTitle, forKey: Key.fullTitle)
     }
     struct Key {
         static let briefTitle = "SBBriefTitle"
@@ -175,15 +175,15 @@ class NureType: NSObject, NSCoding {
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let short_name = aDecoder.decodeObjectForKey(Key.short_name) as! String
-        let full_name = aDecoder.decodeObjectForKey(Key.full_name) as! String
-        let id = aDecoder.decodeObjectForKey(Key.id_key) as! String
+        let short_name = aDecoder.decodeObject(forKey: Key.short_name) as! String
+        let full_name = aDecoder.decodeObject(forKey: Key.full_name) as! String
+        let id = aDecoder.decodeObject(forKey: Key.id_key) as! String
         self.init(short_name: short_name, full_name: full_name, id: id)
     }
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(short_name, forKey: Key.short_name)
-        aCoder.encodeObject(full_name, forKey: Key.full_name)
-        aCoder.encodeObject(id, forKey: Key.id_key)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(short_name, forKey: Key.short_name)
+        aCoder.encode(full_name, forKey: Key.full_name)
+        aCoder.encode(id, forKey: Key.id_key)
     }
     struct Key {
         static let short_name = "TPShortName"
@@ -215,20 +215,20 @@ class Note: NSObject, NSCoding {
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let idToken = aDecoder.decodeObjectForKey(Key.idTokenKey) as! String
-        let coupledEventTitle = aDecoder.decodeObjectForKey(Key.coupledEventTitleKey) as! String
-        let creationDate = aDecoder.decodeObjectForKey(Key.creationDateKey) as! String
-        let updatedDate = aDecoder.decodeObjectForKey(Key.updatedDateKey) as! String
-        let text = aDecoder.decodeObjectForKey(Key.textKey) as! String
+        let idToken = aDecoder.decodeObject(forKey: Key.idTokenKey) as! String
+        let coupledEventTitle = aDecoder.decodeObject(forKey: Key.coupledEventTitleKey) as! String
+        let creationDate = aDecoder.decodeObject(forKey: Key.creationDateKey) as! String
+        let updatedDate = aDecoder.decodeObject(forKey: Key.updatedDateKey) as! String
+        let text = aDecoder.decodeObject(forKey: Key.textKey) as! String
         self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.idToken, forKey: Key.idTokenKey)
-        aCoder.encodeObject(self.coupledEventTitle, forKey: Key.coupledEventTitleKey)
-        aCoder.encodeObject(self.creationDate, forKey: Key.creationDateKey)
-        aCoder.encodeObject(self.updateDate, forKey: Key.updatedDateKey)
-        aCoder.encodeObject(self.text, forKey: Key.textKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.idToken, forKey: Key.idTokenKey)
+        aCoder.encode(self.coupledEventTitle, forKey: Key.coupledEventTitleKey)
+        aCoder.encode(self.creationDate, forKey: Key.creationDateKey)
+        aCoder.encode(self.updateDate, forKey: Key.updatedDateKey)
+        aCoder.encode(self.text, forKey: Key.textKey)
     }
     
     struct Key {
@@ -255,14 +255,14 @@ class NoteGroup: NSObject, NSCoding {
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let groupTitle = aDecoder.decodeObjectForKey(Key.groupTitleKey) as! String
-        let notes = aDecoder.decodeObjectForKey(Key.notesKey) as! [Note]
+        let groupTitle = aDecoder.decodeObject(forKey: Key.groupTitleKey) as! String
+        let notes = aDecoder.decodeObject(forKey: Key.notesKey) as! [Note]
         self.init(groupTitle: groupTitle, notes: notes)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.groupTitle, forKey: Key.groupTitleKey)
-        aCoder.encodeObject(self.notes, forKey: Key.notesKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.groupTitle, forKey: Key.groupTitleKey)
+        aCoder.encode(self.notes, forKey: Key.notesKey)
     }
     
     struct Key {
@@ -294,7 +294,7 @@ struct EventCache {
 class Shedule: NSObject, NSCoding {
     
     // Static properties (File path ):
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let DocumentsDirectory = FileManager().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask).first!
     let urlPath = DocumentsDirectory
     
     // Properties:
@@ -332,33 +332,34 @@ class Shedule: NSObject, NSCoding {
     // MARK: - NSCoding:
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let startDayTime = aDecoder.decodeObjectForKey(Key.startDayTime) as! Int
-        let endDayTime = aDecoder.decodeObjectForKey(Key.endDayTime) as! Int
-        let shedule_id = aDecoder.decodeObjectForKey(Key.shedule_id) as! String
-        let days = aDecoder.decodeObjectForKey(Key.days) as! [String: Day]
-        let groups = aDecoder.decodeObjectForKey(Key.groups) as! [String: String]
-        let teachers = aDecoder.decodeObjectForKey(Key.teachers) as! [String: Teacher]
-        let subjects = aDecoder.decodeObjectForKey(Key.subjects) as! [String: Subject]
-        let types = aDecoder.decodeObjectForKey(Key.types) as! [String: NureType]
-        var scheduleIdentifier = aDecoder.decodeObjectForKey(Key.scheduleIdentifier) as? String
+        let startDayTime = aDecoder.decodeObject(forKey: Key.startDayTime) as! Int
+        let endDayTime = aDecoder.decodeObject(forKey: Key.endDayTime) as! Int
+        let shedule_id = aDecoder.decodeObject(forKey: Key.shedule_id) as! String
+        let days = aDecoder.decodeObject(forKey: Key.days) as! [String: Day]
+        let groups = aDecoder.decodeObject(forKey: Key.groups) as! [String: String]
+        let teachers = aDecoder.decodeObject(forKey: Key.teachers) as! [String: Teacher]
+        let subjects = aDecoder.decodeObject(forKey: Key.subjects) as! [String: Subject]
+        let types = aDecoder.decodeObject(forKey: Key.types) as! [String: NureType]
+        var scheduleIdentifier = aDecoder.decodeObject(forKey: Key.scheduleIdentifier) as? String
         if scheduleIdentifier == nil {
             scheduleIdentifier = ""
         }
-        let notes = aDecoder.decodeObjectForKey(Key.notesKey) as! [NoteGroup]
+        let notes = aDecoder.decodeObject(forKey: Key.notesKey) as! [NoteGroup]
         self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(startDayTime, forKey: Key.startDayTime)
-        aCoder.encodeObject(endDayTime, forKey: Key.endDayTime)
-        aCoder.encodeObject(shedule_id, forKey: Key.shedule_id)
-        aCoder.encodeObject(groups, forKey: Key.groups)
-        aCoder.encodeObject(teachers, forKey: Key.teachers)
-        aCoder.encodeObject(days, forKey: Key.days)
-        aCoder.encodeObject(subjects, forKey: Key.subjects)
-        aCoder.encodeObject(types, forKey: Key.types)
-        aCoder.encodeObject(scheduleIdentifier, forKey: Key.scheduleIdentifier)
-        aCoder.encodeObject(notes, forKey: Key.notesKey)
+    func encode(with aCoder: NSCoder) {
+        print(Key.startDayTime)
+        aCoder.encode(startDayTime, forKey: Key.startDayTime)
+        aCoder.encode(endDayTime, forKey: Key.endDayTime)
+        aCoder.encode(shedule_id, forKey: Key.shedule_id)
+        aCoder.encode(groups, forKey: Key.groups)
+        aCoder.encode(teachers, forKey: Key.teachers)
+        aCoder.encode(days, forKey: Key.days)
+        aCoder.encode(subjects, forKey: Key.subjects)
+        aCoder.encode(types, forKey: Key.types)
+        aCoder.encode(scheduleIdentifier, forKey: Key.scheduleIdentifier)
+        aCoder.encode(notes, forKey: Key.notesKey)
     }
     
     // Keyes - constants:
@@ -386,13 +387,13 @@ extension Shedule {
     
     func performCache() {
         eventsCache.removeAll()
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM"
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.startDayTime))
+        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(self.startDayTime))
         for section in 0 ..< self.numberOfDaysInSemester() {
             
             for row in 0..<self.numberOfPairsInDay() {
-                let events = self.eventInDayWithNumberOfPair(NSDate(timeInterval: NSTimeInterval(AppData.unixDay * section), sinceDate: firstEventDay), numberOFPair: row + 1)
+                let events = self.eventInDayWithNumberOfPair(Date(timeInterval: TimeInterval(AppData.unixDay * section), since: firstEventDay), numberOFPair: row + 1)
                 self.eventsCache["\(section)\(row)"] = EventCache(events: events)
             }
         }
@@ -402,8 +403,8 @@ extension Shedule {
         if self.shedule_id.isEmpty {
             return 0
         }
-        let firstEventDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.startDayTime))
-        let lastDay = NSDate(timeIntervalSince1970: NSTimeInterval(self.endDayTime))
+        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(self.startDayTime))
+        let lastDay = Date(timeIntervalSince1970: TimeInterval(self.endDayTime))
         let numberOfdays = firstEventDay.differenceInDaysWithDate(lastDay) + 1
         return numberOfdays == 1 ? 0 : numberOfdays
     }
@@ -415,10 +416,10 @@ extension Shedule {
         return 8
     }
     
-    func eventsInDay(date: NSDate) -> [Event] {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        let dayStrId = formatter.stringFromDate(date)
+    func eventsInDay(_ date: Date) -> [Event] {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .shortStyle
+        let dayStrId = formatter.string(from: date)
         if let resultEvents = days[dayStrId]?.events {
             return resultEvents
         } else {
@@ -426,10 +427,10 @@ extension Shedule {
         }
     }
     
-    func eventInDayWithNumberOfPair(day: NSDate, numberOFPair: Int) -> [Event] {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        let dayStrId = formatter.stringFromDate(day)
+    func eventInDayWithNumberOfPair(_ day: Date, numberOFPair: Int) -> [Event] {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .shortStyle
+        let dayStrId = formatter.string(from: day)
         if let events = days[dayStrId]?.events {
         var resultEvents = [Event]()
         for event in events {
@@ -443,7 +444,7 @@ extension Shedule {
         }
     }
     
-    func getNoteWithTokenId(tokenId: String) -> Note? {
+    func getNoteWithTokenId(_ tokenId: String) -> Note? {
         for group in self.notes {
             for note in group.notes {
                 if note.idToken == tokenId {
@@ -454,15 +455,15 @@ extension Shedule {
         return nil
     }
     
-    func deleteNoteWithId(noteId: String) {
+    func deleteNoteWithId(_ noteId: String) {
         var groupeIndex = 0
         for groupe in self.notes {
             var noteIndex = 0
             for note in groupe.notes {
                 if note.idToken == noteId {
-                self.notes[groupeIndex].notes.removeAtIndex(noteIndex)
+                self.notes[groupeIndex].notes.remove(at: noteIndex)
                     if self.notes[groupeIndex].notes.isEmpty {
-                        notes.removeAtIndex(groupeIndex)
+                        notes.remove(at: groupeIndex)
                     }
                     return
                 }
@@ -472,7 +473,7 @@ extension Shedule {
         }
     }
     
-    func addNewNote(note: Note) {
+    func addNewNote(_ note: Note) {
         for groupe in self.notes {
             if groupe.groupTitle == note.coupledEventTitle {
                 groupe.notes.append(note)
@@ -485,7 +486,7 @@ extension Shedule {
     }
     
      func saveShedule() {
-        
+    
         let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path!)/\(self.shedule_id)")
         if !save {
             print("Error when saving")

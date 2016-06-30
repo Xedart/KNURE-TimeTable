@@ -19,9 +19,9 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if UIDevice.current().userInterfaceIdiom == .pad {
             extraTopSpace = 17.0
-        } else if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        } else if UIDevice.current().userInterfaceIdiom == .phone {
             extraTopSpace = 10.0
         }
     }
@@ -30,13 +30,13 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(events: [Event], shedule: Shedule) {
+    func configure(_ events: [Event], shedule: Shedule) {
         
         displayedNodes = events
         
         let scrollNode = ASScrollNode()
-        scrollNode.userInteractionEnabled = true
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        scrollNode.isUserInteractionEnabled = true
+        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
         scrollNode.frame = self.bounds
             
         for i in 0..<events.count {
@@ -44,16 +44,16 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             let textNode = ASTextNode()
             // text attributes:
             let titleParagraphStyle = NSMutableParagraphStyle()
-            titleParagraphStyle.alignment = .Center
+            titleParagraphStyle.alignment = .center
             
-            textNode.attributedString = NSAttributedString(string: "\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17), NSForegroundColorAttributeName: UIColor.darkGrayColor(), NSParagraphStyleAttributeName: titleParagraphStyle])
-            textNode.backgroundColor = UIColor.clearColor()
+            textNode.attributedString = AttributedString(string: "\(shedule.subjects[events[i].subject_id]!.briefTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            textNode.backgroundColor = UIColor.clear()
             
             // backGroundNode:
             let backgroundNode = ASDisplayNode()
             backgroundNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
-            backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).colorWithAlphaComponent(0.3)
-            backgroundNode.borderColor = AppData.colorsForPairOfType(Int(events[i].type)).CGColor
+            backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.3)
+            backgroundNode.borderColor = AppData.colorsForPairOfType(Int(events[i].type)).cgColor
             backgroundNode.clipsToBounds = true
             backgroundNode.cornerRadius = 5.0
             backgroundNode.borderWidth = 1.0
@@ -77,7 +77,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             scrollNode.addSubnode(backgroundNode)
         }
             //
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 scrollNode.view.contentSize.width = (self.bounds.width + 1) * CGFloat(events.count)
                 for subView in self.subviews {
                     subView.removeFromSuperview()
@@ -86,7 +86,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 var counter = 0
                 for textNode in scrollNode.subnodes {
                     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentInfoMenu(_:)))
-                    textNode.userInteractionEnabled = true
+                    textNode.isUserInteractionEnabled = true
                     textNode.view.addGestureRecognizer(tapGestureRecognizer)
                     textNode.view.tag = counter
                     counter += 1
@@ -99,12 +99,12 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
     
     // MARK: - Info menu
     
-    func presentInfoMenu(sender: UITapGestureRecognizer) {
+    func presentInfoMenu(_ sender: UITapGestureRecognizer) {
         displayedEvent = displayedNodes[sender.view!.tag]
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let eventDetailViewController = storyboard.instantiateViewControllerWithIdentifier("EventDetailViewController") as! UINavigationController
-        eventDetailViewController.modalPresentationStyle = .FormSheet
-        eventDetailViewController.modalTransitionStyle = .CrossDissolve
+        let eventDetailViewController = storyboard.instantiateViewController(withIdentifier: "EventDetailViewController") as! UINavigationController
+        eventDetailViewController.modalPresentationStyle = .formSheet
+        eventDetailViewController.modalTransitionStyle = .crossDissolve
         delegate.presentViewController(eventDetailViewController, animated: true, completion: nil)
         let destionationController = eventDetailViewController.viewControllers[0] as! EventDetailViewController
         destionationController.delegate = delegate

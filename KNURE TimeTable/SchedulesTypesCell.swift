@@ -16,8 +16,8 @@ class SchedulesTypesCell: UITableViewCell {
     let cellTitle = [AppStrings.Groups, AppStrings.Teachers, AppStrings.Audytories]
     let cellImages = ["GroupsImage", "TeachersImage", "AuditoryImage"]
     
-    func configure(indexPath: NSIndexPath) {
-        typeLabel.text = cellTitle[indexPath.row]
-        typeImageView.image = UIImage(named: cellImages[indexPath.row])
+    func configure(_ indexPath: IndexPath) {
+        typeLabel.text = cellTitle[(indexPath as NSIndexPath).row]
+        typeImageView.image = UIImage(named: cellImages[(indexPath as NSIndexPath).row])
     }
 }

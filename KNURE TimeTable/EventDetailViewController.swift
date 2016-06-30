@@ -40,27 +40,27 @@ class EventDetailViewController: UITableViewController {
         navigationItem.title = AppStrings.Information
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: FlatSkyBlue()]
         
-        closeButton = UIBarButtonItem(title: AppStrings.Done, style: .Plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
+        closeButton = UIBarButtonItem(title: AppStrings.Done, style: .plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
         navigationItem.leftBarButtonItem = closeButton
         
         // adding observer notification for schedule:
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: AppData.scheduleDidReload, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: AppData.scheduleDidReload, object: nil)
         // noteTextViewNotifications:
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: AppData.openNoteTextView, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventDetailViewController.closeNoteTextView), name: AppData.blockNoteTextView, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: AppData.openNoteTextView, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(EventDetailViewController.closeNoteTextView), name: AppData.blockNoteTextView, object: nil)
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 3
         } else {
@@ -68,77 +68,77 @@ class EventDetailViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("EventDetailInfoTitleCell", forIndexPath: indexPath) as! EventDetailInfoTitleCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailInfoTitleCell", for: indexPath) as! EventDetailInfoTitleCell
         
         // displaying subject, subject's type and auditory:
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
                 
             case 0:
                 cell.eventTitleView.text = currentSchedule.subjects[displayedEvent.subject_id]!.fullTitle
-                cell.eventTitleView.font = UIFont.systemFontOfSize(22)
-                cell.eventTitleView.textAlignment = .Center
+                cell.eventTitleView.font = UIFont.systemFont(ofSize: 22)
+                cell.eventTitleView.textAlignment = .center
                 if cell.eventTitleView.contentSize.height > cell.eventTitleView.frame.height {
-                    cell.eventTitleView.scrollEnabled = true
+                    cell.eventTitleView.isScrollEnabled = true
                 } else {
-                    cell.eventTitleView.scrollEnabled = false
+                    cell.eventTitleView.isScrollEnabled = false
                 }
                 return cell
             case 1:
                 cell.eventTitleView.text = currentSchedule.types[displayedEvent.type]!.full_name
-                cell.eventTitleView.textAlignment = .Center
-                cell.eventTitleView.font = UIFont.systemFontOfSize(18)
-                cell.eventTitleView.scrollEnabled = false
+                cell.eventTitleView.textAlignment = .center
+                cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
+                cell.eventTitleView.isScrollEnabled = false
             case 2:
                 cell.eventTitleView.text = "\(AppStrings.Audytori) \(displayedEvent.auditory)"
-                cell.eventTitleView.font = UIFont.systemFontOfSize(18)
-                cell.eventTitleView.textAlignment = .Center
-                cell.eventTitleView.scrollEnabled = false
+                cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
+                cell.eventTitleView.textAlignment = .center
+                cell.eventTitleView.isScrollEnabled = false
             default: let cell = UITableViewCell()
                 return cell
             }
         }
             
             // displaying teacher:
-        else if indexPath.section == 1 {
+        else if (indexPath as NSIndexPath).section == 1 {
             if !displayedEvent.teachers.isEmpty {
                 cell.eventTitleView.text = currentSchedule.teachers[String(displayedEvent.teachers[0])]!.full_name
             }
-            cell.eventTitleView.font = UIFont.systemFontOfSize(18)
-            cell.eventTitleView.textAlignment = .Center
+            cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
+            cell.eventTitleView.textAlignment = .center
             return cell
             
             // displaying groups:
-        } else if indexPath.section == 2 {
+        } else if (indexPath as NSIndexPath).section == 2 {
             
             var groupsText = String()
             
             for groupId in displayedEvent.groups {
-                groupsText.appendContentsOf(currentSchedule.groups[String(groupId)]!)
-                groupsText.appendContentsOf(", ")
+                groupsText.append(currentSchedule.groups[String(groupId)]!)
+                groupsText.append(", ")
             }
             for _ in 0...1 {
-                groupsText.removeAtIndex(groupsText.endIndex.predecessor())
+                groupsText.remove(at: groupsText.index(before: groupsText.endIndex))
             }
             
             cell.eventTitleView.text = groupsText
-            cell.eventTitleView.font = UIFont.systemFontOfSize(18)
-            cell.eventTitleView.textAlignment = .Center
+            cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
+            cell.eventTitleView.textAlignment = .center
             
             // notes' textView:
         } else {
             if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
                 cell.eventTitleView.text = AppStrings.AddNote
-                cell.eventTitleView.textColor = UIColor.lightGrayColor()
+                cell.eventTitleView.textColor = UIColor.lightGray()
             } else {
                 cell.eventTitleView.text = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId)!.text
             }
-            cell.eventTitleView.editable = true
-            cell.eventTitleView.font = UIFont.systemFontOfSize(18)
-            cell.eventTitleView.textColor = UIColor.darkGrayColor()
+            cell.eventTitleView.isEditable = true
+            cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
+            cell.eventTitleView.textColor = UIColor.darkGray()
             cell.eventTitleView.delegate = self
             noteTextView = cell.eventTitleView
         }
@@ -147,68 +147,68 @@ class EventDetailViewController: UITableViewController {
     
     // MARK: - UITableViewDelegate:
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return 100
             } else {
                 return 50
             }
         }
-        else if indexPath.section == 1 {
+        else if (indexPath as NSIndexPath).section == 1 {
             return 60
-        } else if indexPath.section == 2 {
+        } else if (indexPath as NSIndexPath).section == 2 {
             return 60
-        } else if indexPath.section == 3 {
+        } else if (indexPath as NSIndexPath).section == 3 {
             return 100
         } else {
             return 0
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return nil
         }
-        sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeaderInSection(section))
+        sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeader(inSection: section))
         sectionHeader.configure(section)
         return sectionHeader
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 20
         }
         return 40
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
     
     // MARK: Sub-methods:
     
-    func closeController(sender: UIBarButtonItem) {
+    func closeController(_ sender: UIBarButtonItem) {
         if noteTextView != nil {
         noteTextView.shouldResignFirstResponder = true
         noteTextView.resignFirstResponder()
         }
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func getNewSchedule() {
         currentSchedule = delegate.shedule
     }
     
-    func saveNoteButtonTaped(sender: UIButton) {
+    func saveNoteButtonTaped(_ sender: UIButton) {
         noteTextView.shouldResignFirstResponder = true
         // add new note:
-        let converter = NSDateFormatter()
-        converter.dateStyle = .ShortStyle
+        let converter = DateFormatter()
+        converter.dateStyle = .shortStyle
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(displayedEvent.start_time))), updatedDate: converter.stringFromDate(NSDate()), text: noteText)
+              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText)
             currentSchedule.addNewNote(newNote)
             //update existing note:
         } else {
@@ -217,7 +217,7 @@ class EventDetailViewController: UITableViewController {
                 currentSchedule.deleteNoteWithId(updatedNote!.idToken)
             } else {
                 updatedNote!.text = noteText
-                updatedNote!.updateDate = converter.stringFromDate(NSDate())
+                updatedNote!.updateDate = converter.string(from: Date())
             }
         }
         
@@ -227,18 +227,18 @@ class EventDetailViewController: UITableViewController {
         
         noteTextView.resignFirstResponder()
         sectionHeader.hideSaveButton()
-        NSNotificationCenter.defaultCenter().postNotificationName(AppData.reloadNotification, object: nil)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.reloadNotification), object: nil)
         // done animation:
         SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))
-        dispatch_async(dispatch_get_main_queue(), {
-            SVProgressHUD.showInfoWithStatus(AppStrings.Saved)
+        DispatchQueue.main.async(execute: {
+            SVProgressHUD.showInfo(withStatus: AppStrings.Saved)
         })
         
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+        let delayTime = DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.after(when: delayTime) {
             SVProgressHUD.dismiss()
         }
-        noteTextView.textColor = UIColor.darkGrayColor()
+        noteTextView.textColor = UIColor.darkGray()
     }
 }
 
@@ -249,28 +249,28 @@ class EventDetailViewController: UITableViewController {
 
 extension EventDetailViewController: UITextViewDelegate {
     
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         let placeHolderTeext = AppStrings.AddNote
         if textView.text == placeHolderTeext {
             textView.text = ""
         }
-        textView.textColor = UIColor.blackColor()
+        textView.textColor = UIColor.black()
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         noteTextView.shouldResignFirstResponder = true
         textView.resignFirstResponder()
         if textView.text.isEmpty {
             textView.text = AppStrings.AddNote
-            textView.textColor = UIColor.lightGrayColor()
+            textView.textColor = UIColor.lightGray()
         }
     }
     
-    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return true
     }
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         sectionHeader.showSaveButton()
         noteText = textView.text
     }

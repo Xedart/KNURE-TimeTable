@@ -28,41 +28,41 @@ class TableSheduleCell: UITableViewCell {
     
 // configuring:
     
-    func configure(shedule: Shedule, event: Event) {
+    func configure(_ shedule: Shedule, event: Event) {
         displayedEvent = event
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
             self.node.frame = self.bounds
             self.node.clipsToBounds = true
             self.node.cornerRadius = 15.0
             self.node.borderWidth = 0.5
-            self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.8).CGColor
-            self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).colorWithAlphaComponent(0.1)
+            self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.8).cgColor
+            self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.1)
             
             // time widget:
 
-            let now = Int(NSDate().timeIntervalSince1970)
+            let now = Int(Date().timeIntervalSince1970)
             
             if now >= event.start_time && now <= event.end_time {
                 let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
                 let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
                 print(yOffset)
                 self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
-                self.timeNode.backgroundColor = UIColor.redColor()
-                dispatch_async(dispatch_get_main_queue()) {
+                self.timeNode.backgroundColor = UIColor.red()
+                DispatchQueue.main.async {
                     self.node.view.addSubview(self.timeNode.view)
                 }
             } else {
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.timeNode.view.removeFromSuperview()
                 }
             }
             })
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             // touch gesture recognizer:
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TableSheduleCell.presentInfoMenu(_:)))
             self.addGestureRecognizer(tapGestureRecognizer)
             self.addSubview(self.node.view)
-            self.sendSubviewToBack(self.node.view)
+            self.sendSubview(toBack: self.node.view)
         }
         subjectTitle.text = shedule.subjects[event.subject_id]!.fullTitle
         startTime.text = AppData.pairsStartTime[event.numberOf_pair]
@@ -79,11 +79,11 @@ class TableSheduleCell: UITableViewCell {
 
     }
     
-    func presentInfoMenu(sender: UITapGestureRecognizer) {
+    func presentInfoMenu(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let eventDetailViewController = storyboard.instantiateViewControllerWithIdentifier("EventDetailViewController") as! UINavigationController
-        eventDetailViewController.modalPresentationStyle = .FormSheet
-        eventDetailViewController.modalTransitionStyle = .CrossDissolve
+        let eventDetailViewController = storyboard.instantiateViewController(withIdentifier: "EventDetailViewController") as! UINavigationController
+        eventDetailViewController.modalPresentationStyle = .formSheet
+        eventDetailViewController.modalTransitionStyle = .crossDissolve
         delegate.presentViewController(eventDetailViewController, animated: true, completion: nil)
         let destionationController = eventDetailViewController.viewControllers[0] as! EventDetailViewController
         destionationController.delegate = delegate

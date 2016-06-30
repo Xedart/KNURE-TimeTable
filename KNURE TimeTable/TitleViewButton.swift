@@ -13,10 +13,10 @@ class TitleViewButton: UIButton {
 
     init() {
         super.init(frame: CGRect(x: 300, y: 0, width: 300, height: 40))
-        setTitleColor(AppData.appleButtonDefault, forState: .Normal)
-        setTitleColor(FlatSkyBlue().colorWithAlphaComponent(0.5), forState: .Highlighted)
-        titleLabel?.font = UIFont.systemFontOfSize(20)
-        setTitle(AppStrings.ChooseSchedule, forState: .Normal)
+        setTitleColor(AppData.appleButtonDefault, for: UIControlState())
+        setTitleColor(FlatSkyBlue().withAlphaComponent(0.5), for: .highlighted)
+        titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        setTitle(AppStrings.ChooseSchedule, for: UIControlState())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,8 +29,8 @@ class TitleViewButton: UIButton {
 class TitleViewLabel: UILabel {
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
-        font = UIFont.systemFontOfSize(20)
-        textColor = UIColor.grayColor()
+        font = UIFont.systemFont(ofSize: 20)
+        textColor = UIColor.gray()
         text = AppStrings.Schedules
     }
     

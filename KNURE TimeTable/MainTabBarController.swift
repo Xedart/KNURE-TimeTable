@@ -8,7 +8,7 @@
 
 import UIKit
 import SVProgressHUD
-import SwiftyJSON
+//import SwiftyJSON
 import ChameleonFramework
 
 class MainTabBarController: UITabBarController {
@@ -17,7 +17,6 @@ class MainTabBarController: UITabBarController {
     
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
-    let defaults = NSUserDefaults.standardUserDefaults()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +40,16 @@ class MainTabBarController: UITabBarController {
     
     // MARK: - Methods:
     
-    func loadShedule(sheduleId: String) -> Shedule {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile("\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
+    func loadShedule(_ sheduleId: String) -> Shedule {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
     }
 }
 
 extension MainTabBarController: SheduleControllersInitializer {
     
     func initWithDefaultSchedule() {
-        if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+        let defaults = UserDefaults.standard()
+        if let defaultKey = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let newSchedule = loadShedule(defaultKey)
             scheduleTableController.shedule = newSchedule
             self.scheduleCollectionController.initialScrollDone = false
@@ -67,18 +67,19 @@ extension MainTabBarController: SheduleControllersInitializer {
     
     func initializeWithNewShedule() {
         self.initWithDefaultSchedule()
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.scheduleCollectionController.collectionView!.reloadData()
             self.scheduleCollectionController.initialScrollDone = false
             self.scheduleCollectionController.shedule.performCache()
         })
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.scheduleTableController.tableView.reloadData()
         })
     }
     
     func updateCurrentSchedule() {
-        if let timeTableId = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+        let defaults = UserDefaults.standard()
+        if let timeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
                 self.scheduleTableController?.refresher?.endRefreshing()
@@ -90,8 +91,8 @@ extension MainTabBarController: SheduleControllersInitializer {
                     self.scheduleTableController?.refresher?.endRefreshing()
                     return
                 }
-                let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
-                let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
+                let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
                 let json = JSON(data: dataFromString!)
                 // Parse result:
                 Parser.parseSchedule(json, callback: { data in
@@ -103,29 +104,28 @@ extension MainTabBarController: SheduleControllersInitializer {
                         return
                     }
                     // Updating table schedule controller:
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.scheduleTableController.shedule = data
                         self.scheduleTableController.tableView.reloadData()
                     })
                     
                     //Updating collection schedule controller:
-                    dispatch_async(dispatch_get_main_queue(), {
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            
+                    DispatchQueue.main.async(execute: {
+                         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
+                        
                             data.performCache()
                             
                             if self.scheduleCollectionController.shedule.numberOfDaysInSemester() == data.numberOfDaysInSemester() {
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
-                                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-                                        NSNotificationCenter.defaultCenter().postNotificationName(AppData.openNoteTextView, object: nil)
+                                     DispatchQueue.main.after(when: .now() + 0.1) {
+                                        NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refresher?.endRefreshing()
                                 })
                             } else {
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.reloadData()
                                     self.scheduleCollectionController.configureDateScale()
@@ -154,10 +154,10 @@ extension MainTabBarController: SheduleControllersInitializer {
 
 extension MainTabBarController {
     func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: AppData.initNotification, object: nil)
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarController.reloadViewController), name: AppData.reloadNotification, object: nil)
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: AppData.initNotification, object: nil)
+         NotificationCenter.default().addObserver(self, selector: #selector(MainTabBarController.reloadViewController), name: AppData.reloadNotification, object: nil)
+         NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
+         NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
     }
 }
 
@@ -165,7 +165,7 @@ extension MainTabBarController {
 
 extension MainTabBarController {
     func getNewSchedule() {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             SVProgressHUD.dismiss()
         })
         self.initializeWithNewShedule()

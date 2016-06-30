@@ -19,45 +19,45 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     
     override func awakeFromNib() {
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if UIDevice.current().userInterfaceIdiom == .phone {
             contentViewInPortraitOffsetCenterX = 70
             contentViewInLandscapeOffsetCenterX = 170
             contentViewScaleValue = 0.8
-        } else if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        } else if UIDevice.current().userInterfaceIdiom == .pad {
             contentViewInPortraitOffsetCenterX = 0
             contentViewInLandscapeOffsetCenterX = 50
             contentViewScaleValue = 0.8
         }
         
-        setStatusBarStyle(UIStatusBarStyle.LightContent)
+        setStatusBarStyle(UIStatusBarStyle.lightContent)
         
         backgroundImage = UIImage(named: "BluredBackground")
         self.delegate = self
         
         var contentViewControllerID = String()
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if UIDevice.current().userInterfaceIdiom == .phone {
             contentViewControllerID = "IPhoneRootViewController"
-        } else if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        } else if UIDevice.current().userInterfaceIdiom == .pad {
             contentViewControllerID = "IPadRootViewController"
         }
         
-        self.contentViewController = (self.storyboard?.instantiateViewControllerWithIdentifier(contentViewControllerID))! as UIViewController
+        self.contentViewController = (self.storyboard?.instantiateViewController(withIdentifier: contentViewControllerID))! as UIViewController
         
-        self.leftMenuViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("LeftMenuViewController"))! as UIViewController
+        self.leftMenuViewController = (self.storyboard?.instantiateViewController(withIdentifier: "LeftMenuViewController"))! as UIViewController
     }
     
     // MARK: RESide Delegate Methods
     
-    func sideMenu(sideMenu: RESideMenu!, willShowMenuViewController menuViewController: UIViewController!) {
+    func sideMenu(_ sideMenu: RESideMenu!, willShowMenuViewController menuViewController: UIViewController!) {
         let leftController = self.leftMenuViewController as! LeftMenuVIewController
         leftController.infoTableView.reloadData()
     }
     
     
-    func sideMenu(sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {
+    func sideMenu(_ sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {
     }
     
-    func sideMenu(sideMenu: RESideMenu!, didHideMenuViewController menuViewController: UIViewController!) {
+    func sideMenu(_ sideMenu: RESideMenu!, didHideMenuViewController menuViewController: UIViewController!) {
     }
 }

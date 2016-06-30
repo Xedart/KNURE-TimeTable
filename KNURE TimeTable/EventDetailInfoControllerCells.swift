@@ -26,19 +26,19 @@ class EventDetailHeaderView: UIView {
         
         // title
         title = UILabel(frame: CGRect(x: 8, y: 0, width: self.bounds.width, height: self.bounds.height))
-        title.font = UIFont.systemFontOfSize(18)
+        title.font = UIFont.systemFont(ofSize: 18)
         title.textColor = FlatSkyBlue()
         self.addSubview(title)
         
         // save button:
         saveNoteButton = UIButton(frame: CGRect(x: self.frame.width - 100, y: self.bounds.origin.y, width: 100, height: self.bounds.height))
-        saveNoteButton.setTitle(AppStrings.Save, forState: .Normal)
-        saveNoteButton.setTitleColor(AppData.appleButtonDefault, forState: .Normal)
-        saveNoteButton.setTitleColor(AppData.appleButtonDefault.colorWithAlphaComponent(0.6), forState: .Highlighted)
-        saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), forControlEvents: .TouchUpInside)
+        saveNoteButton.setTitle(AppStrings.Save, for: UIControlState())
+        saveNoteButton.setTitleColor(AppData.appleButtonDefault, for: UIControlState())
+        saveNoteButton.setTitleColor(AppData.appleButtonDefault.withAlphaComponent(0.6), for: .highlighted)
+        saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
     }
     
-    func configure(section: Int) {
+    func configure(_ section: Int) {
         switch section {
         case 0:
             title.text = ""
@@ -59,7 +59,7 @@ class EventDetailHeaderView: UIView {
     
     func showSaveButton() {
         self.addSubview(saveNoteButton)
-        self.bringSubviewToFront(saveNoteButton)
+        self.bringSubview(toFront: saveNoteButton)
     }
     
     func hideSaveButton() {

@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class exampleLayout: UICollectionViewLayout {
     
-    override func prepareLayout() {
+    override func prepare() {
         
     }
     
@@ -23,8 +23,8 @@ class exampleLayout: UICollectionViewLayout {
         return size
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attr = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let attr = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: 0))
         attr.frame.size.height = 40
         attr.frame.origin.x = 10
         attr.frame.size.width = collectionView!.frame.width - 20
@@ -42,14 +42,14 @@ class TableScheduleCollectionViewController: UICollectionViewController {
         self.collectionViewLayout
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.after(when: delayTime) {
             
             self.collectionView?.reloadData()
         }
@@ -69,23 +69,23 @@ class TableScheduleCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         // Configure the cel
         let label = UILabel()
         label.frame = cell.bounds
-        label.backgroundColor = UIColor.redColor()
-        cell.backgroundColor = UIColor.greenColor()
+        label.backgroundColor = UIColor.red()
+        cell.backgroundColor = UIColor.green()
         for subView in cell.subviews {
             subView.removeFromSuperview()
         }

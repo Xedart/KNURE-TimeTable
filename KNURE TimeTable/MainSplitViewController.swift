@@ -9,7 +9,6 @@
 import UIKit
 import SVProgressHUD
 import RESideMenu
-import SwiftyJSON
 
 protocol SheduleControllersInitializer {
     func initializeWithNewShedule()
@@ -25,7 +24,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     var rightSideInfoButton: UIBarButtonItem!
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard()
     
     // MARK: - ViewController lifecycle:
 
@@ -36,10 +35,10 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         scheduleTableController = viewControllers[0] as! TableSheduleController
         scheduleCollectionController = viewControllers[1] as! CollectionScheduleViewController
         scheduleCollectionController.weekScheduleControllerDelegate = scheduleTableController
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.navigationItem.titleView = self.button
             self.setObservers()
-            self.button.addTarget(self, action: #selector(MainSplitViewController.showMenu(_:)), forControlEvents: .TouchUpInside)
+            self.button.addTarget(self, action: #selector(MainSplitViewController.showMenu(_:)), for: .touchUpInside)
             })
         
         // load saved schedule from the file:
@@ -48,53 +47,53 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         // updating schedule after default schedule was showed:
         self.updateCurrentSchedule()
         // setnavigation items:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
+        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
         navigationItem.setLeftBarButtonItems([sideInfoButton, self.displayModeButtonItem()], animated: true)
         
         // displaying:
-        maximumPrimaryColumnWidth = CGFloat.max
+        maximumPrimaryColumnWidth = CGFloat.greatestFiniteMagnitude
         preferredPrimaryColumnWidthFraction = 0.4
-        preferredDisplayMode = .AllVisible
+        preferredDisplayMode = .allVisible
     }
     
-    func targetDisplayModeForActionInSplitViewController(svc: UISplitViewController) -> UISplitViewControllerDisplayMode {
-        if self.displayMode == .AllVisible {
-            return UISplitViewControllerDisplayMode.PrimaryHidden
+    func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewControllerDisplayMode {
+        if self.displayMode == .allVisible {
+            return UISplitViewControllerDisplayMode.primaryHidden
         } else {
-            return UISplitViewControllerDisplayMode.AllVisible
+            return UISplitViewControllerDisplayMode.allVisible
         }
     }
     
     override func displayModeButtonItem() -> UIBarButtonItem {
         let defaultButton = super.displayModeButtonItem()
-        let button = UIBarButtonItem(image: UIImage(named: "displayModeButton"), style: UIBarButtonItemStyle.Plain, target: defaultButton.target, action: defaultButton.action)
+        let button = UIBarButtonItem(image: UIImage(named: "displayModeButton"), style: UIBarButtonItemStyle.plain, target: defaultButton.target, action: defaultButton.action)
         return button
     }
     
     // MARK: - Methods:
     
-    func showMenu(sender: UIButton) {
+    func showMenu(_ sender: UIButton) {
         let sheduleListController = ShedulesListTableViewController()
         sheduleListController.delegate = self
         sheduleNavigationController = UINavigationController(rootViewController: sheduleListController)
-        sheduleNavigationController.modalPresentationStyle = .Popover
+        sheduleNavigationController.modalPresentationStyle = .popover
         sheduleNavigationController.preferredContentSize = CGSize(width: 350, height: 500)
         let popoverMenuViewController = sheduleNavigationController.popoverPresentationController
         popoverMenuViewController?.delegate = self
-        popoverMenuViewController?.permittedArrowDirections = .Up
+        popoverMenuViewController?.permittedArrowDirections = .up
         popoverMenuViewController?.sourceView = navigationItem.titleView
-        popoverMenuViewController?.backgroundColor = UIColor.whiteColor()
+        popoverMenuViewController?.backgroundColor = UIColor.white()
         popoverMenuViewController?.sourceRect = CGRect(
             x: 0,
             y: 8,
             width: button.bounds.width,
             height: button.bounds.height)
-            presentViewController(sheduleNavigationController, animated: true, completion: nil)
+            present(sheduleNavigationController, animated: true, completion: nil)
     }
     
     // load schedule with specified id from the fiile:
-    func loadShedule(sheduleId: String) -> Shedule {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile("\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
+    func loadShedule(_ sheduleId: String) -> Shedule {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
     }
 }
 
@@ -104,31 +103,34 @@ extension MainSplitViewController: SheduleControllersInitializer {
     
     func initializeWithNewShedule() {
         self.initWithDefaultSchedule()
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.scheduleCollectionController.collectionView!.reloadData()
             self.scheduleCollectionController.initialScrollDone = false
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 SVProgressHUD.dismiss()
             })
         })
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.scheduleTableController.tableView!.reloadData()
         })
     }
     
     func initWithDefaultSchedule() {
-        if let defaultKey = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+        
+        print(UserDefaults.standard().dictionaryRepresentation())
+        
+        if let defaultKey = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let newSchedule = loadShedule(defaultKey)
             scheduleTableController.shedule = newSchedule
             scheduleCollectionController.shedule = newSchedule
             scheduleCollectionController.shedule.performCache()
             
-            dispatch_async(dispatch_get_main_queue(), {
-                self.button.setTitle(defaultKey, forState: UIControlState.Normal)
+            DispatchQueue.main.async(execute: {
+                self.button.setTitle(defaultKey, for: UIControlState())
             })
         } else {
-            dispatch_async(dispatch_get_main_queue(), {
-                self.button.setTitle(AppStrings.ChooseSchedule, forState: UIControlState.Normal)
+            DispatchQueue.main.async(execute: {
+                self.button.setTitle(AppStrings.ChooseSchedule, for: UIControlState())
             })
             scheduleTableController.shedule = Shedule()
             scheduleCollectionController.shedule = Shedule()
@@ -141,7 +143,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
     }
     
     func updateCurrentSchedule() {
-        if let timeTableId = defaults.objectForKey(AppData.defaultScheduleKey) as? String {
+        if let timeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
                 self.scheduleTableController?.refresher?.endRefreshing()
@@ -153,8 +155,8 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     self.scheduleTableController?.refresher?.endRefreshing()
                     return
                 }
-                let jsonStr = String(data: data!, encoding: NSWindowsCP1251StringEncoding)
-                let dataFromString = jsonStr!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
+                let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
                 let json = JSON(data: dataFromString!)
                 // Parse result:
                 Parser.parseSchedule(json, callback: { data in
@@ -166,31 +168,30 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         return
                     }
                     
-                    NSNotificationCenter.defaultCenter().postNotificationName(AppData.blockNoteTextView, object: nil)
+                    NotificationCenter.default().post(name: NSNotification.Name(rawValue: AppData.blockNoteTextView), object: nil)
                     // Updating table schedule controller:
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.scheduleTableController.shedule = data
                         self.scheduleTableController.tableView.reloadData()
                     })
                     
                     //Updating collection schedule controller:
-                    dispatch_async(dispatch_get_main_queue(), {
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    DispatchQueue.main.async(execute: {
+                        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
                             
                             data.performCache()
                             
                             if self.scheduleCollectionController.shedule.numberOfDaysInSemester() == data.numberOfDaysInSemester() {
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
-                                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-                                        NSNotificationCenter.defaultCenter().postNotificationName(AppData.openNoteTextView, object: nil)
+                                    DispatchQueue.main.after(when: .now() + 0.1) {
+                                        NotificationCenter.default().post(name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refresher?.endRefreshing()
                                 })
                             } else {
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.reloadData()
                                     self.scheduleCollectionController.configureDateScale()
@@ -216,8 +217,8 @@ extension MainSplitViewController: SheduleControllersInitializer {
     // MARK: - Pop all vieewController to root when dissmissing popover:
 
 extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
-    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
-        sheduleNavigationController.popToRootViewControllerAnimated(false)
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        sheduleNavigationController.popToRootViewController(animated: false)
     }
 }
 
@@ -225,10 +226,10 @@ extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
 
 extension MainSplitViewController {
     func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: AppData.initNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: AppData.reloadNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: AppData.initNotification, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: AppData.reloadNotification, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
     }
 }
 

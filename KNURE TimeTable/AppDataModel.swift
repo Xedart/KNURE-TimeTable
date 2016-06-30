@@ -29,14 +29,14 @@ struct AppData {
     
     // some global methods:
     
-    static func getDayOfWeek(today:String)-> String {
-        let formatter  = NSDateFormatter()
+    static func getDayOfWeek(_ today:String)-> String {
+        let formatter  = DateFormatter()
         formatter.dateFormat = "dd.MM"
-        let todayDate = formatter.dateFromString(today)!
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
+        let todayDate = formatter.date(from: today)!
+        let myCalendar = Calendar(calendarIdentifier: Calendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.weekday, from: todayDate)
         let weekDay = myComponents.weekday
-        switch weekDay {
+        switch weekDay! {
         case 1:
             return "Сб"
         case 2:
@@ -57,9 +57,9 @@ struct AppData {
         }
     }
     
-    static func colorsForPairOfType(type: Int?) -> UIColor {
+    static func colorsForPairOfType(_ type: Int?) -> UIColor {
         if type == nil {
-        return UIColor.lightGrayColor()
+        return UIColor.lightGray()
         } else if type >= 0 && type < 10 {
             return FlatYellow()
         } else if type >= 10 && type < 20 {
@@ -74,21 +74,21 @@ struct AppData {
             return FlatSkyBlue()
         }
         else {
-            return UIColor.lightGrayColor()
+            return UIColor.lightGray()
         }
     }
 }
 
-extension NSDate {
+extension Date {
     
-    func differenceInDaysWithDate(date: NSDate) -> Int {
-        let calendar: NSCalendar = NSCalendar.currentCalendar()
+    func differenceInDaysWithDate(_ date: Date) -> Int {
+        let calendar: Calendar = Calendar.current()
         
-        let date1 = calendar.startOfDayForDate(self)
-        let date2 = calendar.startOfDayForDate(date)
+        let date1 = calendar.startOfDay(for: self)
+        let date2 = calendar.startOfDay(for: date)
         
-        let components = calendar.components(.Day, fromDate: date1, toDate: date2, options: [])
-        return components.day
+        let components = calendar.components(.day, from: date1, to: date2, options: [])
+        return components.day!
     }
 }
 

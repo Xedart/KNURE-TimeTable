@@ -16,8 +16,8 @@ class TableSheduleHeader: UILabel {
     let daysTitles = [0: AppStrings.Today,1: AppStrings.Tomorrow]
     
     init(section: Int) {
-        let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: AppStrings.LocaleStr)
+        let formatter = DateFormatter()
+        formatter.locale = Locale(localeIdentifier: AppStrings.LocaleStr)
         formatter.dateFormat = "dd.MM"
         super.init(frame: CGRect())
 // header content:
@@ -29,12 +29,12 @@ class TableSheduleHeader: UILabel {
         if section == 0 {
             textColor = FlatSkyBlue()
         }
-            text = "\(textDay) \(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section))))"
-            text?.appendContentsOf(", \(AppData.getDayOfWeek(formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(AppData.unixDay * section)))))")
+            text = "\(textDay) \(formatter.string(from: Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * section))))"
+            text?.append(", \(AppData.getDayOfWeek(formatter.string(from: Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * section)))))")
 // style:
-        backgroundColor = UIColor.whiteColor()
-        textAlignment = .Center
-        font = UIFont.systemFontOfSize(20)
+        backgroundColor = UIColor.white()
+        textAlignment = .center
+        font = UIFont.systemFont(ofSize: 20)
     }
 
     required init?(coder aDecoder: NSCoder) {
