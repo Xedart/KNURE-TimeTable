@@ -21,6 +21,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         didSet {
             if !shedule.shedule_id.isEmpty {
                 DispatchQueue.main.async(execute: {
+                    self.refresher.attributedTitle = AttributedString(string: "\(AppStrings.lastRefresh)\(self.shedule.lastRefreshDate)")
                     self.button.setTitle(self.shedule.shedule_id, for: UIControlState())
                 })
             } else {
@@ -52,10 +53,10 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         navigationItem.leftBarButtonItem = sideInfoButton
         tableView.emptyDataSetSource = self
         
-        //refrecher:
+        //Refrecher:
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
-        tableView.addSubview(refresher)
+        tableView.backgroundView = refresher
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

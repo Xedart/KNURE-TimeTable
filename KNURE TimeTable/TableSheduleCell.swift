@@ -45,7 +45,6 @@ class TableSheduleCell: UITableViewCell {
             if now >= event.start_time && now <= event.end_time {
                 let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
                 let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
-                print(yOffset)
                 self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
                 self.timeNode.backgroundColor = UIColor.red()
                 DispatchQueue.main.async {

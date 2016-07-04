@@ -24,6 +24,7 @@ private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
 class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
     
+    // Displayed schedule object:
     var shedule: Shedule! {
         didSet {
             NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.scheduleDidReload), object: nil)
@@ -116,7 +117,8 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         if !initialScrollDone {
             let firstEventDay = Date(timeIntervalSince1970: TimeInterval(shedule.startDayTime))
             let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
-            collectionView?.contentOffset = CGPoint(x: 126 * numberOfdays, y: 0)
+            let offset = numberOfdays < collectionView!.numberOfSections() ? numberOfdays : collectionView!.numberOfSections()
+            collectionView?.contentOffset = CGPoint(x: 126 * offset, y: 0)
             configureDateScale()
             initialScrollDone = true
         }
@@ -206,7 +208,7 @@ extension CollectionScheduleViewController {
         
         let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
         
-        // check for scrolling impossibility.
+        // check for scrolling possibility.
         if numberOfdays > collectionView!.numberOfSections() || numberOfdays < 0 {
             return
         }

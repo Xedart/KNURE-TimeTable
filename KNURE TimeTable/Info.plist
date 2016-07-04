@@ -35,6 +35,13 @@
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
+			<key>http://localhost:8081/</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<string></string>
+				<key>NSIncludesSubdomains</key>
+				<string></string>
+			</dict>
 		</dict>
 	</dict>
 	<key>UILaunchStoryboardName</key>

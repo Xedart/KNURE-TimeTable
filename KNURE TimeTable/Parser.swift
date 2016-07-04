@@ -108,7 +108,7 @@ class Parser {
         var lastDayTime = Int()
         let formatter = DateFormatter()
         formatter.dateStyle = .shortStyle
-       
+        
         let jsTypes = data["types"].arrayValue
         
         // grab types:
@@ -175,7 +175,7 @@ class Parser {
             for jgroup in event["groups"].arrayValue {
                 groups.append(jgroup.intValue)
             }
-            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups)
+            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: Bool())
             let eventDateStringId = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(start_time)))
             if currentDateStr == eventDateStringId {
                 daysBuffer.events.append(event)
@@ -189,8 +189,10 @@ class Parser {
                 result_days[currentDateStr] = daysBuffer // need to do it for last day of the semester
             }
         }
-        print(firstDayTime)
-        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup]())
+        
+        let refreshDate = formatter.string(from: Date())
+        
+        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup](), lastRefreshDate: refreshDate)
         callback(data: result)
     }
 }

@@ -41,4 +41,6 @@ struct AppStrings {
     static let ScheduleDidNonDownloaded = "Не удалось загрузить расписание"
     static let Faculty = "Факультет:"
     static let NoEvents = "Пары отсутствуют"
+    static let lastRefresh = "Обновлено:"
+    static let notRefreshed = "Не обновлено"
 }

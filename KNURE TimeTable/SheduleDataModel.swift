@@ -21,6 +21,7 @@ class Event: NSObject, NSCoding  {
     var auditory: String
     var teachers: [Int]
     var groups: [Int]
+    var isCustom: Bool
     var getEventId: String {
         get {
             return "\(subject_id)\(start_time)" // composed event token
@@ -28,7 +29,7 @@ class Event: NSObject, NSCoding  {
     }
     
     //initialiation:
-    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int]) {
+    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int], isCustom: Bool) {
         self.subject_id = subject_id
         self.start_time = start_time
         self.end_time = end_time
@@ -37,22 +38,24 @@ class Event: NSObject, NSCoding  {
         self.auditory = auditory
         self.teachers = teachers
         self.groups = groups
+        self.isCustom = isCustom
     }
     convenience override init() {
-        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int]())
+        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int](), isCustom: Bool())
     }
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
+        let start_time = aDecoder.decodeInteger(forKey: Key.start_time)
+        let end_time = aDecoder.decodeInteger(forKey: Key.end_time)
         let subject_id = aDecoder.decodeObject(forKey: Key.subject_id) as! String
-        let start_time = aDecoder.decodeObject(forKey: Key.start_time) as! Int
-        let end_time = aDecoder.decodeObject(forKey: Key.end_time) as! Int
         let type = aDecoder.decodeObject(forKey: Key.type) as! String
-        let numberOfPair = aDecoder.decodeObject(forKey: Key.numberOFPair) as! Int
+        let numberOfPair = aDecoder.decodeInteger(forKey: Key.numberOFPair)
         let auditory = aDecoder.decodeObject(forKey: Key.auditory) as! String
         let teachers = aDecoder.decodeObject(forKey: Key.teachers) as! [Int]
         let groups = aDecoder.decodeObject(forKey: Key.groups) as! [Int]
-        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups)
+        let isCustom = aDecoder.decodeBool(forKey: Key.isCustomKey)
+        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: isCustom)
     }
     func encode(with aCoder: NSCoder) {
         aCoder.encode(subject_id, forKey: Key.subject_id)
@@ -63,6 +66,7 @@ class Event: NSObject, NSCoding  {
         aCoder.encode(auditory, forKey: Key.auditory)
         aCoder.encode(teachers, forKey: Key.teachers)
         aCoder.encode(groups, forKey: Key.groups)
+        aCoder.encode(isCustom, forKey: Key.isCustomKey)
     }
     struct Key {
         static let subject_id = "EVSubjectId"
@@ -73,6 +77,7 @@ class Event: NSObject, NSCoding  {
         static let auditory = "EVAuditory"
         static let teachers = "EVTeachers"
         static let groups = "EVGroups"
+        static let isCustomKey = "EXISCustomKey"
     }
 }
 
@@ -303,6 +308,7 @@ class Shedule: NSObject, NSCoding {
     var endDayTime = Int()
     var shedule_id: String
     var scheduleIdentifier: String
+    var lastRefreshDate: String
     var days = [String: Day]()
     var groups = [String: String]()
     var teachers = [String: Teacher]()
@@ -311,7 +317,7 @@ class Shedule: NSObject, NSCoding {
     var notes = [NoteGroup]()
     
     // Initialization:
-    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup]) {
+    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup], lastRefreshDate: String) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -322,18 +328,19 @@ class Shedule: NSObject, NSCoding {
         self.types = types
         self.scheduleIdentifier = scheduleIdentifier
         self.notes = notes
+        self.lastRefreshDate = lastRefreshDate
         super.init()
     }
     
     convenience override init() {
-        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup]())
+        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup](), lastRefreshDate: String())
     }
     
     // MARK: - NSCoding:
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let startDayTime = aDecoder.decodeObject(forKey: Key.startDayTime) as! Int
-        let endDayTime = aDecoder.decodeObject(forKey: Key.endDayTime) as! Int
+        let startDayTime = aDecoder.decodeInteger(forKey: Key.startDayTime)
+        let endDayTime = aDecoder.decodeInteger(forKey: Key.endDayTime)
         let shedule_id = aDecoder.decodeObject(forKey: Key.shedule_id) as! String
         let days = aDecoder.decodeObject(forKey: Key.days) as! [String: Day]
         let groups = aDecoder.decodeObject(forKey: Key.groups) as! [String: String]
@@ -344,12 +351,15 @@ class Shedule: NSObject, NSCoding {
         if scheduleIdentifier == nil {
             scheduleIdentifier = ""
         }
+        var lastRefreshDate = aDecoder.decodeObject(forKey: Key.lastRefreshDateKey) as? String
+        if lastRefreshDate == nil {
+            lastRefreshDate = AppStrings.notRefreshed
+        }
         let notes = aDecoder.decodeObject(forKey: Key.notesKey) as! [NoteGroup]
-        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes)
+        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes, lastRefreshDate: lastRefreshDate!)
     }
     
     func encode(with aCoder: NSCoder) {
-        print(Key.startDayTime)
         aCoder.encode(startDayTime, forKey: Key.startDayTime)
         aCoder.encode(endDayTime, forKey: Key.endDayTime)
         aCoder.encode(shedule_id, forKey: Key.shedule_id)
@@ -360,6 +370,7 @@ class Shedule: NSObject, NSCoding {
         aCoder.encode(types, forKey: Key.types)
         aCoder.encode(scheduleIdentifier, forKey: Key.scheduleIdentifier)
         aCoder.encode(notes, forKey: Key.notesKey)
+        aCoder.encode(lastRefreshDate, forKey: Key.lastRefreshDateKey)
     }
     
     // Keyes - constants:
@@ -374,6 +385,7 @@ class Shedule: NSObject, NSCoding {
         static let types = "SHtypes"
         static let scheduleIdentifier = "scheduleIdentifier"
         static let notesKey = "SHNotesKey"
+        static let lastRefreshDateKey = "SHlastRefreshDate"
     }
 }
 

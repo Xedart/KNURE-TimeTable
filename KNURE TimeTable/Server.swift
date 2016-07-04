@@ -12,7 +12,8 @@ import UIKit
 
 class Server {
     
-    static let apiRoot = "http://cist.nure.ua/ias/app/tt/"
+    static var apiRoot = "http://cist.nure.ua/ias/app/tt/"
+   // static let testApiRoot =
     
     // methods:
     enum Method: String {
@@ -23,6 +24,15 @@ class Server {
     }
     
     static func makeRequest(_ method: Method, parameters: [String]?, callback: (data: Data?, responce: URLResponse?, error: NSError?) -> Void ) {
+        
+        // This code is for test only: {
+        if method == .getSchedule {
+            apiRoot = "http://192.168.0.106:8081"
+        } else {
+            apiRoot = "http://cist.nure.ua/ias/app/tt/"
+        }
+        // }
+        
         // url making:
         var urlStr = "\(apiRoot)\(method.rawValue)"
         if parameters != nil {
