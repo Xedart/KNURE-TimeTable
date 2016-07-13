@@ -5,10 +5,10 @@ use_frameworks!
 target 'KNURE TimeTable' do
 
 pod 'AsyncDisplayKit'
-pod 'ChameleonFramework/Swift'
 pod 'SVProgressHUD'
 pod 'RESideMenu', '~> 4.0.7'
 pod 'FZAccordionTableView', '~> 0.1.3'
+pod 'ChameleonFramework/Swift'
 
 end
 

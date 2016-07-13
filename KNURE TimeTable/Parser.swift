@@ -107,7 +107,7 @@ class Parser {
         var firstDayTime = Int()
         var lastDayTime = Int()
         let formatter = DateFormatter()
-        formatter.dateStyle = .shortStyle
+        formatter.dateStyle = .short
         
         let jsTypes = data["types"].arrayValue
         
@@ -192,7 +192,7 @@ class Parser {
         
         let refreshDate = formatter.string(from: Date())
         
-        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup](), lastRefreshDate: refreshDate)
+        let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup](), lastRefreshDate: refreshDate, customData: CustomData())
         callback(data: result)
     }
 }

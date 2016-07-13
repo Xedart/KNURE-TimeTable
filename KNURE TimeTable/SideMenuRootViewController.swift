@@ -29,7 +29,7 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
             contentViewScaleValue = 0.8
         }
         
-        setStatusBarStyle(UIStatusBarStyle.lightContent)
+        //setStatusBarStyle(UIStatusBarStyle.lightContent)
         
         backgroundImage = UIImage(named: "BluredBackground")
         self.delegate = self

@@ -53,7 +53,7 @@ class ShedulesListTableViewController: UITableViewController {
         super.viewWillAppear(true)
         
         // load the saved shedules identifiers from defaults
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         if let groups = defaults.object(forKey: AppData.savedGroupsShedulesKey) as? [String] {
             groupsData = groups
         }
@@ -144,7 +144,7 @@ class ShedulesListTableViewController: UITableViewController {
     }
     
     func chooseProperSchedule(_ scheduleToDelete: String) -> Bool {
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         
         // choosing among groups:
         if groupsData.count > 0 {
@@ -191,7 +191,7 @@ class ShedulesListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         let deleteAction = UITableViewRowAction(style: .default, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
             
             var defaultSchedule = defaults.object(forKey: AppData.defaultScheduleKey) as? String
@@ -206,7 +206,7 @@ class ShedulesListTableViewController: UITableViewController {
                     if !self.chooseProperSchedule(self.groupsData[(indexPath as NSIndexPath).row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
-                    NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.groupsData.remove(at: (indexPath as NSIndexPath).row)
                 defaults.set(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
@@ -221,7 +221,7 @@ class ShedulesListTableViewController: UITableViewController {
                     if !self.chooseProperSchedule(self.teachersData[(indexPath as NSIndexPath).row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
-                    NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.teachersData.remove(at: (indexPath as NSIndexPath).row)
                 defaults.set(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
@@ -235,7 +235,7 @@ class ShedulesListTableViewController: UITableViewController {
                     if !self.chooseProperSchedule(self.auditoryiesData[(indexPath as NSIndexPath).row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
-                    NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.auditoryiesData.remove(at: (indexPath as NSIndexPath).row)
                 defaults.set(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
@@ -305,7 +305,7 @@ class ShedulesListTableViewController: UITableViewController {
         }
         
         // set the new default schedule:
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         defaults.set(newScheduleId, forKey: AppData.defaultScheduleKey)
         
         // cgange default schedule
@@ -325,10 +325,10 @@ class ShedulesListTableViewController: UITableViewController {
     }
     
     func deleteFile(_ path: String) -> Bool{
-        let exists = FileManager.default().fileExists(atPath: path)
+        let exists = FileManager.default.fileExists(atPath: path)
         if exists {
             do {
-                try FileManager.default().removeItem(atPath: path)
+                try FileManager.default.removeItem(atPath: path)
             }catch let error as NSError {
                 print("error: \(error.localizedDescription)")
                 return false

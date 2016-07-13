@@ -44,10 +44,10 @@ class EventDetailViewController: UITableViewController {
         navigationItem.leftBarButtonItem = closeButton
         
         // adding observer notification for schedule:
-        NotificationCenter.default().addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: AppData.scheduleDidReload, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: NSNotification.Name(rawValue: AppData.scheduleDidReload), object: nil)
         // noteTextViewNotifications:
-        NotificationCenter.default().addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: AppData.openNoteTextView, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(EventDetailViewController.closeNoteTextView), name: AppData.blockNoteTextView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.closeNoteTextView), name: NSNotification.Name(rawValue: AppData.blockNoteTextView), object: nil)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -78,7 +78,7 @@ class EventDetailViewController: UITableViewController {
             switch (indexPath as NSIndexPath).row {
                 
             case 0:
-                cell.eventTitleView.text = currentSchedule.subjects[displayedEvent.subject_id]!.fullTitle
+                cell.eventTitleView.text = currentSchedule.subjects[displayedEvent.subject_id]?.fullTitle
                 cell.eventTitleView.font = UIFont.systemFont(ofSize: 22)
                 cell.eventTitleView.textAlignment = .center
                 if cell.eventTitleView.contentSize.height > cell.eventTitleView.frame.height {
@@ -88,7 +88,7 @@ class EventDetailViewController: UITableViewController {
                 }
                 return cell
             case 1:
-                cell.eventTitleView.text = currentSchedule.types[displayedEvent.type]!.full_name
+                cell.eventTitleView.text = currentSchedule.types[displayedEvent.type]?.full_name
                 cell.eventTitleView.textAlignment = .center
                 cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
                 cell.eventTitleView.isScrollEnabled = false
@@ -105,7 +105,7 @@ class EventDetailViewController: UITableViewController {
             // displaying teacher:
         else if (indexPath as NSIndexPath).section == 1 {
             if !displayedEvent.teachers.isEmpty {
-                cell.eventTitleView.text = currentSchedule.teachers[String(displayedEvent.teachers[0])]!.full_name
+                cell.eventTitleView.text = currentSchedule.teachers[String(displayedEvent.teachers[0])]?.full_name
             }
             cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
             cell.eventTitleView.textAlignment = .center
@@ -206,7 +206,7 @@ class EventDetailViewController: UITableViewController {
         noteTextView.shouldResignFirstResponder = true
         // add new note:
         let converter = DateFormatter()
-        converter.dateStyle = .shortStyle
+        converter.dateStyle = .short
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
               let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText)
             currentSchedule.addNewNote(newNote)
@@ -227,9 +227,9 @@ class EventDetailViewController: UITableViewController {
         
         noteTextView.resignFirstResponder()
         sectionHeader.hideSaveButton()
-        NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.reloadNotification), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.reloadNotification), object: nil)
         // done animation:
-        SVProgressHUD.setInfoImage(UIImage(named: "DoneImage"))
+        SVProgressHUD.setInfoImage(UIImage(named: "tableBookmark"))
         DispatchQueue.main.async(execute: {
             SVProgressHUD.showInfo(withStatus: AppStrings.Saved)
         })

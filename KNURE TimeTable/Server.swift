@@ -42,7 +42,7 @@ class Server {
         }
         let URL = Foundation.URL(string: urlStr)
         let request = URLRequest(url: URL!)
-        let session = URLSession.shared()
+        let session = URLSession.shared
         
         // make request and callback
         let task = session.dataTask(with: request, completionHandler: callback)

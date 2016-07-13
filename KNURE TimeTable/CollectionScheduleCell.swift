@@ -18,6 +18,7 @@ class CollectionScheduleCell: UICollectionViewCell {
     var tapGestureRecognizer: UITapGestureRecognizer!
     var delegate: CollectionScheduleViewControllerDelegate!
     let bookmarkImage = ASImageNode()
+    let isCustomImage = ASImageNode()
     var displayedEvent: Event!
     var extraTopSpace = CGFloat()
     

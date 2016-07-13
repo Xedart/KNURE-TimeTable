@@ -11,7 +11,7 @@
             <objects>
                 <collectionViewController id="SPX-53-RUg" customClass="TableScheduleCollectionViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fLZ-Gc-mXp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewLayout key="collectionViewLayout" id="Kg0-Oz-PbG" customClass="exampleLayout" customModule="NureTimeTable" customModuleProvider="target"/>
                         <cells>
@@ -93,7 +93,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Zgt-7h-9Vp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KlO-hA-G4s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -111,7 +111,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Wi3-0k-hLd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Y3m-AF-zfI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -162,15 +162,15 @@
             <objects>
                 <tableViewController id="bWJ-pf-8et" customClass="TableSheduleController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="YCi-US-5Aj">
-                        <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableSheduleCell" rowHeight="60" id="6DM-e5-K4n" customClass="TableSheduleCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <frame key="frameInset" minY="28" width="414" height="60"/>
+                                <frame key="frameInset" minY="28" width="768" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6DM-e5-K4n" id="ofr-6C-s2M">
-                                    <frame key="frameInset" width="414" height="60"/>
+                                    <frame key="frameInset" width="768" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JC-i1-Syq">
@@ -197,46 +197,53 @@
                                                 <constraint firstAttribute="width" constant="1" id="OCA-aB-o9A"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Лекція" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-xh-bHp">
-                                            <frame key="frameInset" minX="70" minY="32" width="52.5" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Лекція" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-xh-bHp">
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моделювання систем" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-sd-4bi">
-                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="337" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8A9-7u-MqR">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N5g-ga-Zhu">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="buk-40-D3I"/>
-                                                <constraint firstAttribute="width" constant="25" id="jgo-OM-aUg"/>
+                                                <constraint firstAttribute="height" constant="20" id="buk-40-D3I"/>
+                                                <constraint firstAttribute="width" constant="20" id="jgo-OM-aUg"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="337" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8A9-7u-MqR">
-                                            <frame key="frameInset" minX="130" minY="32" width="429" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моделювання систем" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-sd-4bi">
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rcg-tw-RSn">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="8Eg-k0-uLb"/>
+                                                <constraint firstAttribute="width" constant="20" id="BKA-ID-Cb7"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Y9o-ac-KrU"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="leading" secondItem="KjM-No-BaW" secondAttribute="trailing" constant="3" id="1pr-QC-5Gf"/>
                                         <constraint firstItem="gLl-xh-bHp" firstAttribute="leading" secondItem="3pC-1c-3O2" secondAttribute="trailing" constant="8" id="3Yh-p9-4EU"/>
                                         <constraint firstItem="7pJ-sd-4bi" firstAttribute="top" secondItem="ofr-6C-s2M" secondAttribute="topMargin" id="40I-Zs-4pL"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="8A9-7u-MqR" secondAttribute="bottom" constant="-1" id="46h-wi-6Jb"/>
+                                        <constraint firstItem="Rcg-tw-RSn" firstAttribute="top" secondItem="ofr-6C-s2M" secondAttribute="top" constant="8" id="4iB-LB-VtA"/>
+                                        <constraint firstItem="Rcg-tw-RSn" firstAttribute="leading" secondItem="7pJ-sd-4bi" secondAttribute="trailing" constant="10" id="6Ym-Go-wB2"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="gLl-xh-bHp" secondAttribute="bottom" constant="-1" id="7Qc-xe-KXv"/>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="top" secondItem="ofr-6C-s2M" secondAttribute="topMargin" id="93X-nc-xTR"/>
                                         <constraint firstItem="8A9-7u-MqR" firstAttribute="leading" secondItem="gLl-xh-bHp" secondAttribute="trailing" constant="4" id="AoY-z1-yCg"/>
                                         <constraint firstItem="8JC-i1-Syq" firstAttribute="top" secondItem="ofr-6C-s2M" secondAttribute="topMargin" id="Jjb-lN-FE3"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="KjM-No-BaW" secondAttribute="bottom" constant="-1.5" id="JvA-V3-MHn"/>
-                                        <constraint firstItem="N5g-ga-Zhu" firstAttribute="leading" secondItem="8A9-7u-MqR" secondAttribute="trailing" id="L4B-7p-ee3"/>
-                                        <constraint firstItem="N5g-ga-Zhu" firstAttribute="top" secondItem="7pJ-sd-4bi" secondAttribute="bottom" constant="1" id="OLd-hb-Pnh"/>
+                                        <constraint firstItem="N5g-ga-Zhu" firstAttribute="top" secondItem="7pJ-sd-4bi" secondAttribute="bottom" id="OLd-hb-Pnh"/>
                                         <constraint firstItem="N5g-ga-Zhu" firstAttribute="trailing" secondItem="ofr-6C-s2M" secondAttribute="trailingMargin" id="Sxz-rz-Lda"/>
                                         <constraint firstItem="8JC-i1-Syq" firstAttribute="leading" secondItem="ofr-6C-s2M" secondAttribute="leadingMargin" id="TI0-9u-ZNx"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="N5g-ga-Zhu" secondAttribute="bottom" constant="-1" id="aoy-aP-92o"/>
-                                        <constraint firstItem="7pJ-sd-4bi" firstAttribute="trailing" secondItem="ofr-6C-s2M" secondAttribute="trailingMargin" id="cuR-ZN-NN6"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="N5g-ga-Zhu" secondAttribute="bottom" constant="3" id="aoy-aP-92o"/>
+                                        <constraint firstItem="7pJ-sd-4bi" firstAttribute="trailing" secondItem="ofr-6C-s2M" secondAttribute="trailingMargin" constant="-30" id="cuR-ZN-NN6"/>
+                                        <constraint firstAttribute="trailing" secondItem="Rcg-tw-RSn" secondAttribute="trailing" constant="8" id="hRU-ya-E5y"/>
                                         <constraint firstItem="3pC-1c-3O2" firstAttribute="bottom" secondItem="ofr-6C-s2M" secondAttribute="bottomMargin" id="nGJ-Hk-waY"/>
                                         <constraint firstItem="7pJ-sd-4bi" firstAttribute="leading" secondItem="3pC-1c-3O2" secondAttribute="trailing" constant="8" id="pvy-5j-X8N"/>
                                         <constraint firstItem="KjM-No-BaW" firstAttribute="leading" secondItem="ofr-6C-s2M" secondAttribute="leadingMargin" id="rLC-Sc-bg5"/>
@@ -245,6 +252,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="auditory" destination="8A9-7u-MqR" id="scc-n1-wEm"/>
+                                    <outlet property="customEventImage" destination="Rcg-tw-RSn" id="NdR-wS-Oka"/>
                                     <outlet property="endTime" destination="KjM-No-BaW" id="9CI-j8-JcW"/>
                                     <outlet property="startTime" destination="8JC-i1-Syq" id="nnU-1C-zqd"/>
                                     <outlet property="statusImage" destination="N5g-ga-Zhu" id="hxk-QJ-eVW"/>
@@ -253,10 +261,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmptyTableSheduleCell" rowHeight="60" id="MfJ-oN-6Q5" customClass="LabelCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <frame key="frameInset" minY="88" width="414" height="60"/>
+                                <frame key="frameInset" minY="88" width="768" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MfJ-oN-6Q5" id="yoZ-xZ-wG6">
-                                    <frame key="frameInset" width="414" height="60"/>
+                                    <frame key="frameInset" width="768" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заняття відсутні" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqG-Zp-xCa">
@@ -285,22 +293,22 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LDb-Sq-tsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2969" y="107"/>
+            <point key="canvasLocation" x="2968.75" y="106.640625"/>
         </scene>
         <!--Directing Table View Controller-->
         <scene sceneID="Rux-wP-Pik">
             <objects>
                 <tableViewController storyboardIdentifier="ScheduletypesTableViewControler" id="lDx-nq-M6J" customClass="DirectingTableViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="EVb-er-C3D">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTypesCell" rowHeight="70" id="BLJ-jE-KGz" customClass="SchedulesTypesCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <frame key="frameInset" minY="28" width="414" height="70"/>
+                                <frame key="frameInset" minY="28" width="768" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BLJ-jE-KGz" id="k4X-WZ-qID">
-                                    <frame key="frameInset" width="414" height="69.5"/>
+                                    <frame key="frameInset" width="768" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ojm-lC-8Lj">
@@ -347,15 +355,15 @@
             <objects>
                 <tableViewController id="62q-pQ-VHb" customClass="SchedulesDownoalTableView" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="40" sectionHeaderHeight="18" sectionFooterHeight="18" id="72m-2i-Zb4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewScheduleCellId" id="mrO-07-D84" customClass="NewScheduleCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <frame key="frameInset" minY="55.5" width="414" height="40"/>
+                                <frame key="frameInset" minY="56" width="768" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mrO-07-D84" id="78h-Qe-eFt">
-                                    <frame key="frameInset" width="414" height="39.5"/>
+                                    <frame key="frameInset" width="768" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNJ-uG-bEg">
@@ -401,15 +409,15 @@
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="09u-hg-GyR" customClass="EventDetailViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ymc-KJ-zBy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventDetailInfoTitleCell" rowHeight="100" id="a8o-Ps-ojb" customClass="EventDetailInfoTitleCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <frame key="frameInset" minY="119.5" width="414" height="100"/>
+                                <frame key="frameInset" minY="120" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a8o-Ps-ojb" id="Uvl-dv-Rf8">
-                                    <frame key="frameInset" width="414" height="99.5"/>
+                                    <frame key="frameInset" width="768" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-cR-rlB" customClass="NoteTextView" customModule="NureTimeTable" customModuleProvider="target">
@@ -441,6 +449,87 @@
             </objects>
             <point key="canvasLocation" x="4429" y="917"/>
         </scene>
+        <!--Custom Event Table View Controller-->
+        <scene sceneID="MHm-Eh-c53">
+            <objects>
+                <tableViewController id="Dth-et-o67" customClass="CustomEventTableViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="1" id="dOJ-K5-hk4">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventTableViewController" rowHeight="60" id="fOQ-wj-OF0" customClass="CustomEventTableViewControllerCell" customModule="NureTimeTable" customModuleProvider="target">
+                                <frame key="frameInset" minY="120" width="768" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fOQ-wj-OF0" id="f9L-1C-g9J">
+                                    <frame key="frameInset" width="768" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIq-So-9eV">
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" red="0.023120734390000001" green="0.48946648170000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Преподаватель" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-Dj-npn">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="130" id="IUi-6N-7Zy"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="5bw-Dj-npn" firstAttribute="bottom" secondItem="f9L-1C-g9J" secondAttribute="bottomMargin" id="P8r-jM-Ir3"/>
+                                        <constraint firstItem="5bw-Dj-npn" firstAttribute="top" secondItem="f9L-1C-g9J" secondAttribute="topMargin" id="dfK-S2-3dQ"/>
+                                        <constraint firstItem="5bw-Dj-npn" firstAttribute="leading" secondItem="f9L-1C-g9J" secondAttribute="leadingMargin" id="e2Y-Mf-0z5"/>
+                                        <constraint firstItem="mIq-So-9eV" firstAttribute="leading" secondItem="5bw-Dj-npn" secondAttribute="trailing" constant="14" id="fCg-fd-bvj"/>
+                                        <constraint firstItem="mIq-So-9eV" firstAttribute="bottom" secondItem="f9L-1C-g9J" secondAttribute="bottomMargin" id="ixP-0O-XZH"/>
+                                        <constraint firstItem="mIq-So-9eV" firstAttribute="top" secondItem="f9L-1C-g9J" secondAttribute="topMargin" id="nE6-Sv-caH"/>
+                                        <constraint firstItem="mIq-So-9eV" firstAttribute="trailing" secondItem="f9L-1C-g9J" secondAttribute="trailingMargin" id="roF-10-axl"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="DisplayedChoiseLabel" destination="mIq-So-9eV" id="sIx-Zq-n9s"/>
+                                    <outlet property="titleLabel" destination="5bw-Dj-npn" id="k8c-XV-Zko"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventTableViewControllerNoteCell" rowHeight="100" id="ldK-TF-7Vt" customClass="CusomEventTableVIewControllerNoteCell" customModule="NureTimeTable" customModuleProvider="target">
+                                <frame key="frameInset" minY="180" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ldK-TF-7Vt" id="2uj-DO-7dh">
+                                    <frame key="frameInset" width="768" height="99"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KBU-OF-p7z" customClass="NoteTextView" customModule="NureTimeTable" customModuleProvider="target">
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="KBU-OF-p7z" firstAttribute="top" secondItem="2uj-DO-7dh" secondAttribute="topMargin" id="39P-K7-UPd"/>
+                                        <constraint firstItem="KBU-OF-p7z" firstAttribute="trailing" secondItem="2uj-DO-7dh" secondAttribute="trailingMargin" id="844-lb-Gvf"/>
+                                        <constraint firstItem="KBU-OF-p7z" firstAttribute="bottom" secondItem="2uj-DO-7dh" secondAttribute="bottomMargin" id="RTw-XV-mKi"/>
+                                        <constraint firstItem="KBU-OF-p7z" firstAttribute="leading" secondItem="2uj-DO-7dh" secondAttribute="leadingMargin" id="vxP-SL-M7q"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="noteTextView" destination="KBU-OF-p7z" id="I60-3M-crY"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Dth-et-o67" id="dKL-UE-Af0"/>
+                            <outlet property="delegate" destination="Dth-et-o67" id="kFS-4T-IY5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="a2I-Vw-5dd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ipo-SR-G3q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4428.90625" y="1670.5078125"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="YBt-h4-hU0">
             <objects>
@@ -462,7 +551,7 @@
             <objects>
                 <collectionViewController id="9sK-F6-Qsy" customClass="CollectionScheduleViewController" customModule="NureTimeTable" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="73E-po-Cxg" customClass="ScheduleCollectionView" customModule="NureTimeTable" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewLayout key="collectionViewLayout" id="wR7-LZ-VJx" customClass="ScheduleCollectionLayout" customModule="NureTimeTable" customModuleProvider="target"/>
@@ -478,6 +567,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ItR-Uf-Vwi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2969" y="867"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rqo-oz-egu">
+            <objects>
+                <navigationController storyboardIdentifier="CustomEventNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="chG-KU-8Vm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r60-rF-KxA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Dth-et-o67" kind="relationship" relationship="rootViewController" id="QR2-E8-gcR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WzS-6d-mrH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3690" y="1671"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

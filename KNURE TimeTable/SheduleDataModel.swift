@@ -276,6 +276,77 @@ class NoteGroup: NSObject, NSCoding {
     }
 }
 
+/// All user defined ( custom ) data are saved in this class
+class CustomData: NSObject, NSCoding {
+    
+    // Properties:
+    var groups = [String: String]()
+    var teachers = [String: Teacher]()
+    var subjects = [String: Subject]()
+    var types = [String: NureType]()
+    var events = [Event]()
+    
+    // initialization:
+    init(groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], events: [Event]) {
+        self.groups = groups
+        self.teachers = teachers
+        self.subjects = subjects
+        self.types = types
+        self.events = events
+    }
+    
+    convenience override init() {
+        self.init(groups: [:], teachers: [:], subjects: [:], types: [:], events: [])
+    }
+    
+    // NCCoding:
+    required convenience init?(coder aDecoder: NSCoder) {
+        // groups:
+        var groups = aDecoder.decodeObject(forKey: Key.groupsKey) as? [String: String]
+        if groups == nil {
+            groups = [String: String]()
+        }
+        // teachers:
+        var teachers = aDecoder.decodeObject(forKey: Key.teachersKey) as? [String: Teacher]
+        if teachers == nil {
+            teachers = [String: Teacher]()
+        }
+        //subjects:
+        var subjects = aDecoder.decodeObject(forKey: Key.subjectsKey) as? [String: Subject]
+        if subjects == nil {
+            subjects = [String: Subject]()
+        }
+        //types:
+        var types = aDecoder.decodeObject(forKey: Key.typesKey) as? [String: NureType]
+        if types == nil {
+            types = [String: NureType]()
+        }
+        //events:
+        var events = aDecoder.decodeObject(forKey: Key.eventsKey) as? [Event]
+        if events == nil {
+            events = [Event]()
+        }
+        
+        self.init(groups: groups!, teachers: teachers!, subjects: subjects!, types: types!, events: events!)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(groups, forKey: Key.groupsKey)
+        aCoder.encode(teachers, forKey: Key.teachersKey)
+        aCoder.encode(subjects, forKey: Key.subjectsKey)
+        aCoder.encode(types, forKey: Key.typesKey)
+        aCoder.encode(events, forKey: Key.eventsKey)
+    }
+    
+    struct Key {
+        static let groupsKey = "CUSGroupsKey"
+        static let teachersKey = "CUSTeachersKey"
+        static let subjectsKey = "CUSSubjectsKey"
+        static let typesKey = "CUSSTypesKeyKey"
+        static let eventsKey = "CUSEventsKey"
+    }
+}
+
 // data-sctuct for eventsCahce:
 struct EventCache {
     var events = [Event]()
@@ -302,7 +373,8 @@ class Shedule: NSObject, NSCoding {
     static let DocumentsDirectory = FileManager().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask).first!
     let urlPath = DocumentsDirectory
     
-    // Properties:
+    // MARK: Properties:
+    
     var eventsCache = [String: EventCache]() // cache with data for collectionvView
     var startDayTime = Int()
     var endDayTime = Int()
@@ -314,10 +386,14 @@ class Shedule: NSObject, NSCoding {
     var teachers = [String: Teacher]()
     var subjects = [String: Subject]()
     var types = [String: NureType]()
+    // syncronizable:
     var notes = [NoteGroup]()
+    var customData = CustomData()
     
-    // Initialization:
-    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup], lastRefreshDate: String) {
+    // MARK: Initialization:
+    
+    //main initializer:
+    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup], lastRefreshDate: String, customData: CustomData) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -329,11 +405,13 @@ class Shedule: NSObject, NSCoding {
         self.scheduleIdentifier = scheduleIdentifier
         self.notes = notes
         self.lastRefreshDate = lastRefreshDate
+        self.customData = customData
         super.init()
     }
     
+    // default initializer:
     convenience override init() {
-        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup](), lastRefreshDate: String())
+        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup](), lastRefreshDate: String(), customData: CustomData())
     }
     
     // MARK: - NSCoding:
@@ -347,16 +425,26 @@ class Shedule: NSObject, NSCoding {
         let teachers = aDecoder.decodeObject(forKey: Key.teachers) as! [String: Teacher]
         let subjects = aDecoder.decodeObject(forKey: Key.subjects) as! [String: Subject]
         let types = aDecoder.decodeObject(forKey: Key.types) as! [String: NureType]
+        //schedule identifier:
         var scheduleIdentifier = aDecoder.decodeObject(forKey: Key.scheduleIdentifier) as? String
         if scheduleIdentifier == nil {
             scheduleIdentifier = ""
         }
+        //last refresh:
         var lastRefreshDate = aDecoder.decodeObject(forKey: Key.lastRefreshDateKey) as? String
         if lastRefreshDate == nil {
             lastRefreshDate = AppStrings.notRefreshed
         }
+        
         let notes = aDecoder.decodeObject(forKey: Key.notesKey) as! [NoteGroup]
-        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes, lastRefreshDate: lastRefreshDate!)
+        
+        //customData:
+        var customData = aDecoder.decodeObject(forKey: Key.customDataKey) as? CustomData
+        if customData == nil {
+            customData = CustomData()
+        }
+        
+        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes, lastRefreshDate: lastRefreshDate!, customData: customData!)
     }
     
     func encode(with aCoder: NSCoder) {
@@ -371,6 +459,7 @@ class Shedule: NSObject, NSCoding {
         aCoder.encode(scheduleIdentifier, forKey: Key.scheduleIdentifier)
         aCoder.encode(notes, forKey: Key.notesKey)
         aCoder.encode(lastRefreshDate, forKey: Key.lastRefreshDateKey)
+        aCoder.encode(customData, forKey: Key.customDataKey)
     }
     
     // Keyes - constants:
@@ -386,12 +475,13 @@ class Shedule: NSObject, NSCoding {
         static let scheduleIdentifier = "scheduleIdentifier"
         static let notesKey = "SHNotesKey"
         static let lastRefreshDateKey = "SHlastRefreshDate"
+        static let customDataKey = "SHCustomDataKey"
     }
 }
 
 
 
-    // MARK: - Methods: (Data - logic)
+    // MARK: - Methods: (Data logic)
 
 
 
@@ -430,7 +520,7 @@ extension Shedule {
     
     func eventsInDay(_ date: Date) -> [Event] {
         let formatter = DateFormatter()
-        formatter.dateStyle = .shortStyle
+        formatter.dateStyle = .short
         let dayStrId = formatter.string(from: date)
         if let resultEvents = days[dayStrId]?.events {
             return resultEvents
@@ -441,7 +531,7 @@ extension Shedule {
     
     func eventInDayWithNumberOfPair(_ day: Date, numberOFPair: Int) -> [Event] {
         let formatter = DateFormatter()
-        formatter.dateStyle = .shortStyle
+        formatter.dateStyle = .short
         let dayStrId = formatter.string(from: day)
         if let events = days[dayStrId]?.events {
         var resultEvents = [Event]()
@@ -495,6 +585,68 @@ extension Shedule {
         // create new group:
         let newGroup = NoteGroup(groupTitle: note.coupledEventTitle, notes: [note])
         self.notes.append(newGroup)
+    }
+    
+    func insertEvent(_ event: Event, in day: Date) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        // check for persistance of day:
+        if days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))] == nil {
+            //add a day to schedule:
+            days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))] = Day(events: [event])
+            // change start time of shcedule if needed:
+            if event.start_time < self.startDayTime {
+                self.startDayTime = event.start_time
+            }
+            // change end time of schedule if needed:
+            if event.end_time > self.endDayTime {
+                self.endDayTime = event.end_time
+            }
+            return
+        }
+        
+        let events = days[formatter.string(from: day)]!.events
+        // push stack below
+        for i in 0..<events.count {
+            if events[i].numberOf_pair > event.numberOf_pair {
+                days[formatter.string(from: day)]!.events.insert(event, at: i)
+                return
+            }
+        }
+        // push stack below
+        for i in 0..<events.count {
+            if events[i].numberOf_pair == event.numberOf_pair {
+                days[formatter.string(from: day)]!.events.insert(event, at: i)
+                 return
+            }
+        }
+        // append on top of stack:
+        days[formatter.string(from: day)]!.events.append(event)
+    }
+    
+    func mergeData() {
+        // merge events:
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        for event in self.customData.events {
+            self.insertEvent(event, in: Date(timeIntervalSince1970: TimeInterval(event.start_time)))
+        }
+        // merge groups:
+        for (key, value) in self.customData.groups {
+            self.groups[key] = value
+        }
+        // merge teachers:
+        for (key, value) in self.customData.teachers {
+            self.teachers[key] = value
+        }
+        // merge subjects:
+        for (key, value) in self.customData.subjects {
+            self.subjects[key] = value
+        }
+        // merge types:
+        for (key, value) in self.customData.types {
+            self.types[key] = value
+        }
     }
     
      func saveShedule() {

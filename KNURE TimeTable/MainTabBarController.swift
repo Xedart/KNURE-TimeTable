@@ -48,7 +48,7 @@ class MainTabBarController: UITabBarController {
 extension MainTabBarController: SheduleControllersInitializer {
     
     func initWithDefaultSchedule() {
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         if let defaultKey = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let newSchedule = loadShedule(defaultKey)
             scheduleTableController.shedule = newSchedule
@@ -78,7 +78,7 @@ extension MainTabBarController: SheduleControllersInitializer {
     }
     
     func updateCurrentSchedule() {
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         if let timeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
@@ -105,6 +105,9 @@ extension MainTabBarController: SheduleControllersInitializer {
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
                     data.notes = self.scheduleTableController.shedule.notes
+                    // copy custom data from old schedule:
+                    data.customData = self.scheduleCollectionController.shedule.customData
+                    data.mergeData()
                     if data.days.isEmpty {
                         self.scheduleTableController?.refresher?.endRefreshing()
                         return
@@ -126,7 +129,7 @@ extension MainTabBarController: SheduleControllersInitializer {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
                                      DispatchQueue.main.after(when: .now() + 0.1) {
-                                        NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
+                                        NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refresher?.endRefreshing()
                                 })
@@ -160,10 +163,10 @@ extension MainTabBarController: SheduleControllersInitializer {
 
 extension MainTabBarController {
     func setObservers() {
-        NotificationCenter.default().addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: AppData.initNotification, object: nil)
-         NotificationCenter.default().addObserver(self, selector: #selector(MainTabBarController.reloadViewController), name: AppData.reloadNotification, object: nil)
-         NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
-         NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainTabBarController.getNewSchedule), name: NSNotification.Name(rawValue: AppData.initNotification), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(MainTabBarController.reloadViewController), name: NSNotification.Name(rawValue: AppData.reloadNotification), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: NSNotification.Name(rawValue: didEnterToActive), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification" as NSNotification.Name, object: nil)
     }
 }
 

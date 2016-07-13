@@ -108,7 +108,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         } else {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableSheduleCell", for: indexPath) as! TableSheduleCell
             cell.delegate = self
-        cell.configure(shedule, event: events[(indexPath as NSIndexPath).row])
+        cell.configure(shedule, event: events[indexPath.row])
         return cell
         }
     }
@@ -130,7 +130,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     
     func refreshContent() {
         
-        NotificationCenter.default().post(name: Notification.Name(rawValue: "UpDateNotification"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "UpDateNotification"), object: nil)
     }
 }
 

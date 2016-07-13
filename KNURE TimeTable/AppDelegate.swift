@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        NotificationCenter.default().post(name: Notification.Name(rawValue: didEnterToActive), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: didEnterToActive), object: nil)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

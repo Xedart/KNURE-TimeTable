@@ -14,12 +14,14 @@ class TableSheduleCell: UITableViewCell {
     
     //MARK: - IBOutlets:
 
+    @IBOutlet weak var customEventImage: UIImageView!
     @IBOutlet weak var startTime: UILabel!
     @IBOutlet weak var endTime: UILabel!
     @IBOutlet weak var subjectTitle: UILabel!
     @IBOutlet weak var subjectType: UILabel!
     @IBOutlet weak var auditory: UILabel!
     @IBOutlet weak var statusImage: UIImageView!
+
     var tapGestureRecognizer: UITapGestureRecognizer!
     let node = ASDisplayNode()
     let timeNode = ASDisplayNode()
@@ -39,20 +41,22 @@ class TableSheduleCell: UITableViewCell {
             self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.1)
             
             // time widget:
-
-            let now = Int(Date().timeIntervalSince1970)
             
-            if now >= event.start_time && now <= event.end_time {
-                let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
-                let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
-                self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
-                self.timeNode.backgroundColor = UIColor.red()
-                DispatchQueue.main.async {
-                    self.node.view.addSubview(self.timeNode.view)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.timeNode.view.removeFromSuperview()
+            if !event.isCustom {
+                let now = Int(Date().timeIntervalSince1970)
+                
+                if now >= event.start_time && now <= event.end_time {
+                    let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
+                    let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
+                    self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
+                    self.timeNode.backgroundColor = UIColor.red()
+                    DispatchQueue.main.async {
+                        self.node.view.addSubview(self.timeNode.view)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.timeNode.view.removeFromSuperview()
+                    }
                 }
             }
             })
@@ -74,6 +78,13 @@ class TableSheduleCell: UITableViewCell {
             statusImage.image = UIImage(named: "tableBookmark")
         } else {
             statusImage.image = nil
+        }
+        
+        // custom image:
+        if event.isCustom {
+            customEventImage.image = UIImage(named: "DoneImage")
+        } else {
+            customEventImage.image = nil
         }
 
     }

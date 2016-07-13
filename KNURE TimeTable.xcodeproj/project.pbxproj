@@ -12,6 +12,7 @@
 		84247C951CD3F5C3000654F9 /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
 		84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C961CD51B4A000654F9 /* LabelCell.swift */; };
 		842CB8561CB9186000292170 /* LeftMenuVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CB8551CB9186000292170 /* LeftMenuVIewController.swift */; };
+		8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
 		8477762C1C63945C000776B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8477762B1C63945C000776B9 /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceStrings.swift; sourceTree = "<group>"; };
 		84247C961CD51B4A000654F9 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		842CB8551CB9186000292170 /* LeftMenuVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuVIewController.swift; sourceTree = "<group>"; };
+		8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewController.swift; sourceTree = "<group>"; };
 		847776211C63945C000776B9 /* NureTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NureTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,6 +129,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8446C99B1D2A884B00E89254 /* CustomEventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */,
+			);
+			name = CustomEventViewController;
+			sourceTree = "<group>";
+		};
 		847776181C63945C000776B9 = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +238,7 @@
 				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
 				848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */,
 				8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */,
+				8446C99B1D2A884B00E89254 /* CustomEventViewController */,
 			);
 			name = SheduleControllers;
 			sourceTree = "<group>";
@@ -487,6 +498,7 @@
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,
+				8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,

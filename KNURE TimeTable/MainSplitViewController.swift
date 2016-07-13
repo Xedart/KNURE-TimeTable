@@ -24,7 +24,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     var rightSideInfoButton: UIBarButtonItem!
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
-    let defaults = UserDefaults.standard()
+    let defaults = UserDefaults.standard
     
     // MARK: - ViewController lifecycle:
 
@@ -117,7 +117,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
     
     func initWithDefaultSchedule() {
         
-        print(UserDefaults.standard().dictionaryRepresentation())
+        print(UserDefaults.standard.dictionaryRepresentation())
         
         if let defaultKey = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let newSchedule = loadShedule(defaultKey)
@@ -167,12 +167,15 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     data.shedule_id = timeTableId
                     data.scheduleIdentifier = self.scheduleTableController.shedule.scheduleIdentifier
                     data.notes = self.scheduleTableController.shedule.notes
+                    // copy custom data from old schedule:
+                    data.customData = self.scheduleCollectionController.shedule.customData
+                    data.mergeData()
                     if data.days.isEmpty {
                         self.scheduleTableController?.refresher?.endRefreshing()
                         return
                     }
                     
-                    NotificationCenter.default().post(name: NSNotification.Name(rawValue: AppData.blockNoteTextView), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppData.blockNoteTextView), object: nil)
                     // Updating table schedule controller:
                     DispatchQueue.main.async(execute: {
                         self.scheduleTableController.shedule = data
@@ -190,7 +193,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
                                     DispatchQueue.main.after(when: .now() + 0.1) {
-                                        NotificationCenter.default().post(name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
+                                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refresher?.endRefreshing()
                                 })
@@ -230,10 +233,10 @@ extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
 
 extension MainSplitViewController {
     func setObservers() {
-        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: AppData.initNotification, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: AppData.reloadNotification, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: didEnterToActive, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: NSNotification.Name(rawValue: AppData.initNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: NSNotification.Name(rawValue: AppData.reloadNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: NSNotification.Name(rawValue: didEnterToActive), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification" as NSNotification.Name, object: nil)
     }
 }
 

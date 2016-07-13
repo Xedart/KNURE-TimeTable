@@ -25,7 +25,7 @@ class SheduleLIstCell: UITableViewCell {
         titleLbl.text = ""
         titleLbl.text = title
         // append a mark to already choosen cell:
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         if let defaultsKey = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             if title == defaultsKey {
                 titleLbl.text?.append(" ✓")

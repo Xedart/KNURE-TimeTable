@@ -82,7 +82,7 @@ struct AppData {
 extension Date {
     
     func differenceInDaysWithDate(_ date: Date) -> Int {
-        let calendar: Calendar = Calendar.current()
+        let calendar: Calendar = Calendar.current
         
         let date1 = calendar.startOfDay(for: self)
         let date2 = calendar.startOfDay(for: date)

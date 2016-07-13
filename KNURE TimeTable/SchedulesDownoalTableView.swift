@@ -58,7 +58,7 @@ class SchedulesDownoalTableView: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults = UserDefaults.standard()
+        let defaults = UserDefaults.standard
         if let groups = defaults.object(forKey: AppData.savedGroupsShedulesKey) as? [String] {
             groupsData = groups
         }
@@ -250,7 +250,7 @@ extension SchedulesDownoalTableView {
                 data.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title
                 data.scheduleIdentifier = self.dataSource[indexPath.section].rows[indexPath.row].row_id
                 // saving new schedule to the defaults:
-                let defaults = UserDefaults.standard()
+                let defaults = UserDefaults.standard
                 if self.initMetod == .getGroups {
                     self.groupsData.append(self.dataSource[indexPath.section].rows[indexPath.row].row_title)
                 defaults.set(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
@@ -268,7 +268,7 @@ extension SchedulesDownoalTableView {
                 // save just-dowloaded schedule object to the file appending by schedule's title:
                 data.saveShedule()
                 // reloading schedules view with new schedule object:
-                NotificationCenter.default().post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
              })
           })
        })
