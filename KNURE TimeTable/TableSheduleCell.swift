@@ -8,7 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
-import ChameleonFramework
+//import ChameleonFramework
 
 class TableSheduleCell: UITableViewCell {
     

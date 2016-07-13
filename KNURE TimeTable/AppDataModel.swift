@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ChameleonFramework
+//import ChameleonFramework
 
   // Container structure for app global functionality:
 

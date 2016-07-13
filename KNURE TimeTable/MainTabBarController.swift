@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 //import SwiftyJSON
-import ChameleonFramework
+//import ChameleonFramework
 
 class MainTabBarController: UITabBarController {
     
@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.barTintColor = FlatWhite()
+        tabBar.barTintColor = UIColor.white() //FlatWhite()
         
         let firsNavigationController = viewControllers![0] as! UINavigationController
         let secondNavigationController = viewControllers![1] as! UINavigationController

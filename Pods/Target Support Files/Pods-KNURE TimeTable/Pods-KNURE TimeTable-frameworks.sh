@@ -85,7 +85,6 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-KNURE TimeTable/AsyncDisplayKit.framework"
-  install_framework "Pods-KNURE TimeTable/ChameleonFramework.framework"
   install_framework "Pods-KNURE TimeTable/FZAccordionTableView.framework"
   install_framework "Pods-KNURE TimeTable/PINCache.framework"
   install_framework "Pods-KNURE TimeTable/PINRemoteImage.framework"
@@ -94,7 +93,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-KNURE TimeTable/AsyncDisplayKit.framework"
-  install_framework "Pods-KNURE TimeTable/ChameleonFramework.framework"
   install_framework "Pods-KNURE TimeTable/FZAccordionTableView.framework"
   install_framework "Pods-KNURE TimeTable/PINCache.framework"
   install_framework "Pods-KNURE TimeTable/PINRemoteImage.framework"

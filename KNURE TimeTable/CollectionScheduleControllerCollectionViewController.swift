@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ChameleonFramework
+//import ChameleonFramework
 
 private let cellReuseIdentifier = "CollectionViewCell"
 private let emptyCellReuseIndentifier = "emptyCellReuseIndentifier"
@@ -56,7 +56,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barTintColor = FlatWhite()
+        navigationController?.navigationBar.barTintColor = UIColor.white() //FlatWhite()
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
@@ -130,7 +130,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             shedulesListController.delegate = parent
         }
         let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
-        menuNavigationController.navigationBar.barTintColor = FlatWhite()
+        menuNavigationController.navigationBar.barTintColor = UIColor.white() // FlatWhite()
         self.present(menuNavigationController, animated: true, completion: nil)
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
-import ChameleonFramework
+//import ChameleonFramework
 import SVProgressHUD
 
 class CollectionHeaderView: UIView {
@@ -55,9 +55,9 @@ class CollectionHeaderView: UIView {
             var labelText = formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)
             let todayDate = formatter.string(from: NSDate() as Date)
             if todayDate == labelText {
-                txtColor = FlatSkyBlue()
+                txtColor = UIColor.blue() // FlatSkyBlue()
             } else {
-                txtColor = FlatGrayDark()
+                txtColor = UIColor.gray() //FlatGrayDark()
             }
             // add week:
             labelText.append(", \(AppData.getDayOfWeek(formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)))")
@@ -100,7 +100,7 @@ class CollectionDecorationView: UIView {
             timeLabel.isEditable = false
             timeLabel.textAlignment = .center
             timeLabel.backgroundColor = self.backgroundColor
-            timeLabel.textColor = FlatGrayDark()
+            timeLabel.textColor = UIColor.gray() //FlatGrayDark()
             self.addSubview(timeLabel)
         }
     }
@@ -114,7 +114,7 @@ class lineView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = FlatGrayDark().withAlphaComponent(0.2)
+        self.backgroundColor = UIColor.gray().withAlphaComponent(0.2) //FlatGrayDark().withAlphaComponent(0.2)
     }
     
     convenience init() {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ChameleonFramework
+//import ChameleonFramework
 
 protocol TableSheduleControllerDelegate {
     func performScrollToToday()

@@ -7,9 +7,6 @@ PODS:
   - AsyncDisplayKit/PINRemoteImage (1.9.81):
     - AsyncDisplayKit/Core
     - PINRemoteImage/iOS (>= 3.0.0-beta.2)
-  - ChameleonFramework/Default (2.1.0)
-  - ChameleonFramework/Swift (2.1.0):
-    - ChameleonFramework/Default
   - FZAccordionTableView (0.1.3)
   - PINCache (2.2.2)
   - PINRemoteImage/Core (3.0.0-beta.2):
@@ -21,14 +18,12 @@ PODS:
 
 DEPENDENCIES:
   - AsyncDisplayKit
-  - ChameleonFramework/Swift
   - FZAccordionTableView (~> 0.1.3)
   - RESideMenu (~> 4.0.7)
   - SVProgressHUD
 
 SPEC CHECKSUMS:
   AsyncDisplayKit: 011ea22a76a79a5bbfc14501fede6e0196a3c2f0
-  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   FZAccordionTableView: 028b53ea3a208a5b3591650edb055444749c530b
   PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
   PINRemoteImage: 197554c5ba57a6ae90f5db441651180039fc9062

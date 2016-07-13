@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ChameleonFramework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FZAccordionTableView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,7 +42,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
+		<key>06245C175C5328423FDF8E5CE644E8F4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6DC5CDAA04FABB6FE6625843A9E113CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,22 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCF4F1150886EE7C81A3E60817B6D6FC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C01FE7E13549AC092F0033867F11E6C6</key>
+		<key>C55C5FB19C5E317A90D568335EB97886</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C7F6FAAD727A801367AE31C1C65F1E3D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D674EF9E7CEEA84B56B88C7666CAF28F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

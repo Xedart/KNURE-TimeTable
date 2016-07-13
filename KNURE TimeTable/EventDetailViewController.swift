@@ -8,7 +8,7 @@
 
 import UIKit
 import SVProgressHUD
-import ChameleonFramework
+//import ChameleonFramework
 
 class NoteTextView: UITextView {
     
