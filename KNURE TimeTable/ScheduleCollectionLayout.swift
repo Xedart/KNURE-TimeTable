@@ -28,8 +28,8 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
             cellHeight = 90
             contentHeight = 890
         } else if UIDevice.current().userInterfaceIdiom == .phone {
-            cellHeight = 65
-            contentHeight = 570
+            cellHeight = 72
+            contentHeight = 634 // contentHeight = cellHeight * 8 + headerHeight + 8 ( 8 line view)
         }
         
         self.register(lineView.self, forDecorationViewOfKind: "lineView")

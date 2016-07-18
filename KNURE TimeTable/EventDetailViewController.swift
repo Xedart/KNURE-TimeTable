@@ -172,6 +172,7 @@ class EventDetailViewController: UITableViewController {
             return nil
         }
         sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeader(inSection: section))
+        sectionHeader.saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
         sectionHeader.configure(section)
         return sectionHeader
     }

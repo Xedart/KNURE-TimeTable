@@ -55,9 +55,9 @@ class CollectionHeaderView: UIView {
             var labelText = formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)
             let todayDate = formatter.string(from: NSDate() as Date)
             if todayDate == labelText {
-                txtColor = UIColor.blue() // FlatSkyBlue()
+                txtColor = FlatSkyBlue()
             } else {
-                txtColor = UIColor.gray() //FlatGrayDark()
+                txtColor = FlatGrayDark()
             }
             // add week:
             labelText.append(", \(AppData.getDayOfWeek(formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)))")
@@ -87,7 +87,7 @@ class CollectionDecorationView: UIView {
             extraSpacePlaceholder = "\n"
         } else if UIDevice.current().userInterfaceIdiom == .phone {
             extraSpacePlaceholder = ""
-            cellHeight = 65
+            cellHeight = 72
         }
     }
     
@@ -100,7 +100,7 @@ class CollectionDecorationView: UIView {
             timeLabel.isEditable = false
             timeLabel.textAlignment = .center
             timeLabel.backgroundColor = self.backgroundColor
-            timeLabel.textColor = UIColor.gray() //FlatGrayDark()
+            timeLabel.textColor = FlatGrayDark()
             self.addSubview(timeLabel)
         }
     }
@@ -114,7 +114,7 @@ class lineView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.gray().withAlphaComponent(0.2) //FlatGrayDark().withAlphaComponent(0.2)
+        self.backgroundColor = FlatGrayDark().withAlphaComponent(0.2)
     }
     
     convenience init() {

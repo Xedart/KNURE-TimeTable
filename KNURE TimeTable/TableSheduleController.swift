@@ -57,6 +57,9 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
         tableView.backgroundView = refresher
+        
+        // Reload notification:
+        NotificationCenter.default.addObserver(self, selector: #selector(TableSheduleController.reloadSelf), name: NSNotification.Name(rawValue: AppData.reloadTableView), object: nil)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -79,7 +82,6 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
         self.present(menuNavigationController, animated: true, completion: nil)
-
     }
    
     // MARK: - Table view data source
@@ -131,6 +133,10 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     func refreshContent() {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "UpDateNotification"), object: nil)
+    }
+    
+    func reloadSelf() {
+        tableView.reloadData()
     }
 }
 

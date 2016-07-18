@@ -22,6 +22,7 @@
 		840D44611D3655C4003AD734 /* UINavigationController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44531D3655C4003AD734 /* UINavigationController+Chameleon.m */; };
 		840D44621D3655C4003AD734 /* UIView+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44551D3655C4003AD734 /* UIView+ChameleonPrivate.m */; };
 		840D44631D3655C4003AD734 /* UIViewController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44571D3655C4003AD734 /* UIViewController+Chameleon.m */; };
+		840D44781D3A4373003AD734 /* CustomEventConfiguratorTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D44771D3A4373003AD734 /* CustomEventConfiguratorTableView.swift */; };
 		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
 		84247C951CD3F5C3000654F9 /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
 		84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C961CD51B4A000654F9 /* LabelCell.swift */; };
@@ -106,6 +107,7 @@
 		840D44551D3655C4003AD734 /* UIView+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ChameleonPrivate.m"; sourceTree = "<group>"; };
 		840D44561D3655C4003AD734 /* UIViewController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Chameleon.h"; sourceTree = "<group>"; };
 		840D44571D3655C4003AD734 /* UIViewController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Chameleon.m"; sourceTree = "<group>"; };
+		840D44771D3A4373003AD734 /* CustomEventConfiguratorTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventConfiguratorTableView.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
 		84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceStrings.swift; sourceTree = "<group>"; };
 		84247C961CD51B4A000654F9 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */,
+				840D44771D3A4373003AD734 /* CustomEventConfiguratorTableView.swift */,
 			);
 			name = CustomEventViewController;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */,
 				8477765B1C6D2043000776B9 /* AppDataModel.swift in Sources */,
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
+				840D44781D3A4373003AD734 /* CustomEventConfiguratorTableView.swift in Sources */,
 				840D445F1D3655C4003AD734 /* UIImage+ChameleonPrivate.m in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,

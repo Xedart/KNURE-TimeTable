@@ -9,6 +9,16 @@
 import UIKit
 //import ChameleonFramework
 
+protocol CustomEventTableViewControllerDelegate {
+    var customEvent: Event! {get}
+    var shedule: Shedule {get}
+    var isTeacherAdded: Bool {get set}
+    var isTypeAdded: Bool {get set}
+    var isAuditoryAdded: Bool {get set}
+    var isSubjectAdded: Bool {get set}
+    var isGroupAdded: Bool {get set}
+}
+
 class CustomEventTableViewControllerCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -21,18 +31,27 @@ class CusomEventTableVIewControllerNoteCell: UITableViewCell {
     
 }
 
-class CustomEventTableViewController: UITableViewController {
+class CustomEventTableViewController: UITableViewController, CustomEventTableViewControllerDelegate {
     
     // MARK: Properties:
     
     var delegate: CollectionScheduleViewControllerDelegate!
     var indexPath: IndexPath!
     var customEvent: Event!
+    var shedule: Shedule {
+        return delegate.shedule
+    }
     
     var closeButton: UIBarButtonItem!
     var saveButton: UIBarButtonItem!
     var noteTextView: NoteTextView!
 
+    var isTeacherAdded = false
+    var isTypeAdded = false
+    var isAuditoryAdded = false
+    var isSubjectAdded = false
+    var isGroupAdded = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,12 +86,36 @@ class CustomEventTableViewController: UITableViewController {
         
         
         //default customEvent setup:
-        customEvent = Event(subject_id: "-1", start_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + indexPath.row, end_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + 5700, type: "-1", numberOfPair: indexPath.row + 1, auditory: "-", teachers: [-1], groups: [-1], isCustom: true)
+        customEvent = Event(subject_id: "-1", start_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + indexPath.row + delegate.shedule.customData.events.count, end_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + 5700, type: "-1", numberOfPair: indexPath.row + 1, auditory: "-", teachers: [-1], groups: [-1], isCustom: true)
     }
     
     // MARK: - Methods:
     
     func close() {
+        
+        //Clean the data if dusmiss:
+        
+        if isTeacherAdded {
+            let id = shedule.customData.teachers.count
+            shedule.teachers[String(-id)] = nil
+            shedule.customData.teachers[String(-id)] = nil
+        }
+        if isTypeAdded {
+            let id = shedule.customData.types.count
+            shedule.types[String(-id)] = nil
+            shedule.customData.types[String(-id)] = nil
+        }
+        if isSubjectAdded {
+            let id = shedule.customData.subjects.count
+            shedule.subjects[String(-id)] = nil
+            shedule.customData.subjects[String(-id)] = nil
+        }
+        if isGroupAdded {
+            let id = shedule.customData.groups.count
+            shedule.groups[String(-id)] = nil
+            shedule.customData.groups[String(-id)] = nil
+        }
+        delegate.collectionView!?.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -81,8 +124,13 @@ class CustomEventTableViewController: UITableViewController {
         formatter.dateStyle = .short
         delegate.shedule.insertEvent(customEvent, in: Date(timeIntervalSince1970: TimeInterval(customEvent!.start_time)))
         delegate.shedule.customData.events.append(customEvent)
-        //
-        delegate.shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] = EventCache(events: [customEvent])
+        
+        //add changes to events cache:
+        if delegate.shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] != nil {
+            delegate.shedule.eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.append(customEvent)
+        } else {
+            delegate.shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] = EventCache(events: [customEvent])
+        }
         
         // save note:
         if noteTextView!.text != AppStrings.AddNote && noteTextView!.text != "" {
@@ -93,7 +141,9 @@ class CustomEventTableViewController: UITableViewController {
         delegate.shedule.saveShedule()
         delegate.passScheduleToLeftController()
         
+        //reload view:
         delegate.collectionView!?.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(AppData.reloadTableView), object: nil)
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -135,7 +185,7 @@ class CustomEventTableViewController: UITableViewController {
             cell.titleLabel.text = AppStrings.group
             cell.DisplayedChoiseLabel.text = delegate.shedule.groups[String(customEvent.groups.first!)]
         default:
-            cell.titleLabel.text = "lksdjf"
+            cell.titleLabel.text = "default"
         }
 
         return cell
@@ -180,7 +230,16 @@ class CustomEventTableViewController: UITableViewController {
         }
     }
  
+    // MARK: - Navigation:
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destionation = segue.destinationViewController as! CustomEventConfiguratorTableView
+        destionation.delegate = self
+        destionation.field = CustomField(rawValue: tableView.indexPathForSelectedRow!.row)
+    }
 }
+
+   //MARK: - TExtViewDelegate:
 
 extension CustomEventTableViewController: UITextViewDelegate {
     

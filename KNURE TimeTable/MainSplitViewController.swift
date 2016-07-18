@@ -139,7 +139,6 @@ extension MainSplitViewController: SheduleControllersInitializer {
         // pass schedule to sideMenu:
         let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
         leftSideMenu.schedule = scheduleTableController.shedule
-
     }
     
     func updateCurrentSchedule() {
@@ -182,7 +181,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         self.scheduleTableController.tableView.reloadData()
                     })
                     
-                    //Updating collection schedule controller:
+                    //Update collection schedule controller:
                     DispatchQueue.main.async(execute: {
                         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
                             

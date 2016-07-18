@@ -27,7 +27,7 @@ class Server {
         
         // This code is for test only: {
         if method == .getSchedule {
-            apiRoot = "http://192.168.0.106:8081"
+            apiRoot = "http://xedartbackend-xedart.rhcloud.com"
         } else {
             apiRoot = "http://cist.nure.ua/ias/app/tt/"
         }
@@ -35,11 +35,15 @@ class Server {
         
         // url making:
         var urlStr = "\(apiRoot)\(method.rawValue)"
+        
+        // TODO: Uncomment after beck to production mode:
+        /*
         if parameters != nil {
             for parameter in parameters! {
                 urlStr.append(parameter)
             }
-        }
+        } */
+        
         let URL = Foundation.URL(string: urlStr)
         let request = URLRequest(url: URL!)
         let session = URLSession.shared

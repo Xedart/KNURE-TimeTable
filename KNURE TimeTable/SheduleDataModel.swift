@@ -46,11 +46,36 @@ class Event: NSObject, NSCoding  {
     
     // NCCoding:
     required convenience init?(coder aDecoder: NSCoder) {
-        let start_time = aDecoder.decodeInteger(forKey: Key.start_time)
-        let end_time = aDecoder.decodeInteger(forKey: Key.end_time)
+        
+        /* This workaround with decoding Integers is necessary in order to prevent lunch crach after updating app from version 1.0
+        */
+        var start_time = Int()
+        var end_time = Int()
+        var numberOfPair = Int()
+        
+        //start_time:
+        if aDecoder.decodeObject(forKey: Key.start_time) != nil {
+            start_time = aDecoder.decodeObject(forKey: Key.start_time) as! Int
+        } else {
+            start_time = aDecoder.decodeInteger(forKey: Key.start_time)
+        }
+        
+        //end_time:
+        if aDecoder.decodeObject(forKey: Key.end_time) != nil {
+            end_time = aDecoder.decodeObject(forKey: Key.end_time) as! Int
+        } else {
+            end_time = aDecoder.decodeInteger(forKey: Key.end_time)
+        }
+        
+        //numberOfPair:
+        if aDecoder.decodeObject(forKey: Key.numberOFPair) != nil {
+            numberOfPair = aDecoder.decodeObject(forKey: Key.numberOFPair) as! Int
+        } else {
+            numberOfPair = aDecoder.decodeInteger(forKey: Key.numberOFPair)
+        }
+        //
         let subject_id = aDecoder.decodeObject(forKey: Key.subject_id) as! String
         let type = aDecoder.decodeObject(forKey: Key.type) as! String
-        let numberOfPair = aDecoder.decodeInteger(forKey: Key.numberOFPair)
         let auditory = aDecoder.decodeObject(forKey: Key.auditory) as! String
         let teachers = aDecoder.decodeObject(forKey: Key.teachers) as! [Int]
         let groups = aDecoder.decodeObject(forKey: Key.groups) as! [Int]
@@ -417,8 +442,24 @@ class Shedule: NSObject, NSCoding {
     // MARK: - NSCoding:
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let startDayTime = aDecoder.decodeInteger(forKey: Key.startDayTime)
-        let endDayTime = aDecoder.decodeInteger(forKey: Key.endDayTime)
+        
+        /* This workaround with decoding Integers is necessary in order to prevent lunch crach after updating app from version 1.0
+        */
+        
+        var startDayTime = Int()
+        var endDayTime = Int()
+        //startDayTime:
+        if aDecoder.decodeObject(forKey: Key.startDayTime) != nil {
+            startDayTime = aDecoder.decodeObject(forKey: Key.startDayTime) as! Int
+        } else {
+            startDayTime = aDecoder.decodeInteger(forKey: Key.startDayTime)
+        }
+        //endDayTime:
+        if aDecoder.decodeObject(forKey: Key.endDayTime) != nil {
+            endDayTime = aDecoder.decodeObject(forKey: Key.endDayTime) as! Int
+        } else {
+            endDayTime = aDecoder.decodeInteger(forKey: Key.endDayTime)
+        }
         let shedule_id = aDecoder.decodeObject(forKey: Key.shedule_id) as! String
         let days = aDecoder.decodeObject(forKey: Key.days) as! [String: Day]
         let groups = aDecoder.decodeObject(forKey: Key.groups) as! [String: String]
@@ -479,12 +520,11 @@ class Shedule: NSObject, NSCoding {
     }
 }
 
-
+// ----------------------------------------------------------------------------------------
 
     // MARK: - Methods: (Data logic)
 
-
-
+// ----------------------------------------------------------------------------------------
 extension Shedule {
     
     func performCache() {
@@ -592,7 +632,7 @@ extension Shedule {
         formatter.dateStyle = .short
         // check for persistance of day:
         if days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))] == nil {
-            //add a day to schedule:
+            //add a day to schedule if needed:
             days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))] = Day(events: [event])
             // change start time of shcedule if needed:
             if event.start_time < self.startDayTime {

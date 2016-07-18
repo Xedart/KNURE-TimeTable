@@ -56,7 +56,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barTintColor = UIColor.white() //FlatWhite()
+        navigationController?.navigationBar.barTintColor = FlatWhite()
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
@@ -130,7 +130,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             shedulesListController.delegate = parent
         }
         let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
-        menuNavigationController.navigationBar.barTintColor = UIColor.white() // FlatWhite()
+        menuNavigationController.navigationBar.barTintColor = FlatWhite()
         self.present(menuNavigationController, animated: true, completion: nil)
     }
     
@@ -171,6 +171,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         if events.count > 1 {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multiCellReuseIndentifier, for: indexPath) as! CollectionScheduleMultiCell
             cell.delegate = self
+            cell.indexPath = indexPath
             cell.configure(events, shedule: shedule)
             return cell
             
@@ -178,6 +179,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CollectionScheduleCell
             cell.delegate = self
+            cell.indexPath = indexPath
         cell.configure(events, shedule: shedule)
         return cell
         }
@@ -206,7 +208,7 @@ extension CollectionScheduleViewController {
         }
     }
     
-     func doubleTapGestureDetected(_ sender: UITapGestureRecognizer) {
+    func doubleTapGestureDetected(_ sender: UITapGestureRecognizer) {
         performScrollToToday()
     }
     
@@ -216,7 +218,7 @@ extension CollectionScheduleViewController {
         let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
         
         // check for scrolling possibility.
-        if numberOfdays > collectionView!.numberOfSections() || numberOfdays < 0 {
+        if numberOfdays >= collectionView!.numberOfSections() || numberOfdays < 0 {
             return
         }
         collectionView!.scrollToItem(at: IndexPath(item: 0, section: numberOfdays), at: UICollectionViewScrollPosition.left, animated: true)

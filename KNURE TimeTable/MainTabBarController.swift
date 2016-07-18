@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.barTintColor = UIColor.white() //FlatWhite()
+        tabBar.barTintColor = FlatWhite()
         
         let firsNavigationController = viewControllers![0] as! UINavigationController
         let secondNavigationController = viewControllers![1] as! UINavigationController
@@ -88,6 +88,8 @@ extension MainTabBarController: SheduleControllersInitializer {
             Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
+                    print("responce")
+                    print(error)
                     self.scheduleTableController?.refresher?.endRefreshing()
                     return
                 }

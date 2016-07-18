@@ -35,7 +35,6 @@ class EventDetailHeaderView: UIView {
         saveNoteButton.setTitle(AppStrings.Save, for: UIControlState())
         saveNoteButton.setTitleColor(AppData.appleButtonDefault, for: UIControlState())
         saveNoteButton.setTitleColor(AppData.appleButtonDefault.withAlphaComponent(0.6), for: .highlighted)
-        saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
     }
     
     func configure(_ section: Int) {
@@ -48,6 +47,8 @@ class EventDetailHeaderView: UIView {
             title.text = AppStrings.Groups
         case 3:
             title.text = AppStrings.Notes
+        case 4:
+            title.text = AppStrings.Add
         default:
             title.text = ""
         }

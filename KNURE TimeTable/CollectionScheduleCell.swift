@@ -17,10 +17,12 @@ class CollectionScheduleCell: UICollectionViewCell {
     let backgroundNode = ASDisplayNode()
     var tapGestureRecognizer: UITapGestureRecognizer!
     var delegate: CollectionScheduleViewControllerDelegate!
-    let bookmarkImage = ASImageNode()
-    let isCustomImage = ASImageNode()
+    let leftImageNode = ASImageNode()
+    let rightImageNode = ASImageNode()
     var displayedEvent: Event!
     var extraTopSpace = CGFloat()
+    var indexPath: IndexPath!
+    var gestureRecognizer: UILongPressGestureRecognizer!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,14 +31,22 @@ class CollectionScheduleCell: UICollectionViewCell {
             self.node.isUserInteractionEnabled = true
             self.addSubview(self.node.view)
             self.addSubview(self.backgroundNode.view)
+            self.addSubview(self.leftImageNode.view)
+            self.addSubview(self.rightImageNode.view)
             self.sendSubview(toBack: self.backgroundNode.view)
 
         })
-        self.bookmarkImage.frame = CGRect(x: 105, y: 1, width: 10, height: 40)
-        self.bookmarkImage.image = UIImage(named: "DoneImage")
-        // touch gesture recognizer:
+        
+        // configure the status images:
+        self.leftImageNode.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
+        self.rightImageNode.frame = CGRect(x: 20, y: self.frame.height - 18, width: 14, height: 14)
+        
+        // touch gesture recognizers:
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentInfoMenu(_:)))
         self.node.view.addGestureRecognizer(self.tapGestureRecognizer)
+        
+        gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentCusomEventMenu(sender:)))
+        self.node.view.addGestureRecognizer(gestureRecognizer)
         
         if UIDevice.current().userInterfaceIdiom == .pad {
             extraTopSpace = 17.0
@@ -62,20 +72,42 @@ class CollectionScheduleCell: UICollectionViewCell {
             // text attributes:
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
-            self.node.attributedString = AttributedString(string: "\(shedule.subjects[events[0].subject_id]!.briefTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            
+            //truncate subject title if it's too long:
+            let subjectTitle = shedule.subjects[events[0].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[0].subject_id]!.briefTitle : shedule.subjects[events[0].subject_id]!.briefTitle.substring(to: shedule.subjects[events[0].subject_id]!.briefTitle.index(shedule.subjects[events[0].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
+            
+            //set text node content:
+            self.node.attributedString = AttributedString(string: "\(subjectTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray(), NSParagraphStyleAttributeName: titleParagraphStyle])
             self.node.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace)
             self.node.backgroundColor = UIColor.clear()
             
-            // bookmark:
-            if shedule.getNoteWithTokenId(events[0].getEventId) != nil {
-                DispatchQueue.main.async(execute: {
-                    self.addSubview(self.bookmarkImage.view)
-                })
-            } else {
-                DispatchQueue.main.async(execute: {
-                   self.bookmarkImage.view.removeFromSuperview()
-                })
-            }
+            // Status images configuring:
+            
+            DispatchQueue.main.async(execute: {
+                // event is custom and has a note:
+                if events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+                    self.leftImageNode.image = UIImage.init(named: "DoneImage")
+                    self.rightImageNode.image = UIImage.init(named: "tableBookmark")
+                }
+                
+                // event is custom and doesn't have note:
+                else if events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) == nil {
+                    self.leftImageNode.image = UIImage.init(named: "DoneImage")
+                    self.rightImageNode.image = nil
+                }
+                
+                // event isn't custom and has a note:
+                else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+                    self.leftImageNode.image = UIImage.init(named: "tableBookmark")
+                    self.rightImageNode.image = nil
+                }
+                
+                // event hasn't note and isn't custom:
+                else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) == nil {
+                    self.leftImageNode.image = nil
+                    self.rightImageNode.image = nil
+                }
+            })
         })
     }
     
@@ -92,4 +124,30 @@ class CollectionScheduleCell: UICollectionViewCell {
         destionationController.displayedEvent = displayedEvent
         destionationController.currentSchedule = delegate.shedule
     }
+    
+    // MARK: - Custom event menu:
+    
+    func presentCusomEventMenu(sender: UILongPressGestureRecognizer) {
+        
+        guard !displayedEvent.isCustom else {
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let customEventViewController = storyboard.instantiateViewController(withIdentifier: "CustomEventNavigationViewController") as! UINavigationController
+        customEventViewController.modalPresentationStyle = .formSheet
+        customEventViewController.modalTransitionStyle = .crossDissolve
+        delegate.presentViewController(customEventViewController, animated: true, completion: nil)
+        let destionationController = customEventViewController.viewControllers[0] as! CustomEventTableViewController
+        destionationController.delegate = self.delegate
+        destionationController.indexPath = self.indexPath
+        
+    }
 }
+
+
+
+
+
+
+
