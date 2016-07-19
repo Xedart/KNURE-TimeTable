@@ -63,9 +63,9 @@ class CollectionScheduleCell: UICollectionViewCell {
         displayedEvent = events[0]
         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
             self.backgroundNode.frame = self.bounds
-            self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.3)
+            self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.25)
             self.backgroundNode.borderWidth = 1.0
-            self.backgroundNode.borderColor =  AppData.colorsForPairOfType(Int(events[0].type)).cgColor
+            self.backgroundNode.borderColor =  AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.7).cgColor
             self.backgroundNode.clipsToBounds = true
             self.backgroundNode.cornerRadius = 5.0
             

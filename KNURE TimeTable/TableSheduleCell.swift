@@ -36,9 +36,9 @@ class TableSheduleCell: UITableViewCell {
             self.node.frame = self.bounds
             self.node.clipsToBounds = true
             self.node.cornerRadius = 15.0
-            self.node.borderWidth = 0.5
+            self.node.borderWidth = 0.3
             self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.8).cgColor
-            self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.1)
+            self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.13)
             
             // time widget:
             
