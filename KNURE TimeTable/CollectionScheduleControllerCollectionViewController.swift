@@ -84,6 +84,9 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         // Timescale:
         scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
         scale.configure(height: collectionView!.bounds.height)
+        
+        //notification:
+        NotificationCenter.default.addObserver(self, selector: #selector(CollectionScheduleViewController.reloadSelf), name: NSNotification.Name(rawValue: AppData.reloadCollectionView), object: nil)
     }
     
     func configureDateScale() {
@@ -188,6 +191,11 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     func passScheduleToLeftController() {
         let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
         leftSideMenu.schedule = shedule
+    }
+    
+    // Sub methods:
+    func reloadSelf() {
+        collectionView?.reloadData()
     }
 }
 

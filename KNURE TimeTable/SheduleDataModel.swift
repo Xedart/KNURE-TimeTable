@@ -597,7 +597,7 @@ extension Shedule {
         return nil
     }
     
-    func deleteNoteWithId(_ noteId: String) {
+    func deleteNoteWithId(_ noteId: String) -> Bool {
         var groupeIndex = 0
         for groupe in self.notes {
             var noteIndex = 0
@@ -606,13 +606,15 @@ extension Shedule {
                 self.notes[groupeIndex].notes.remove(at: noteIndex)
                     if self.notes[groupeIndex].notes.isEmpty {
                         notes.remove(at: groupeIndex)
+                        return true
                     }
-                    return
+                    return false
                 }
                 noteIndex += 1
             }
             groupeIndex += 1
         }
+        return false
     }
     
     func addNewNote(_ note: Note) {

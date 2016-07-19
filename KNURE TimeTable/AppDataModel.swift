@@ -27,6 +27,7 @@ struct AppData {
     static let blockNoteTextView = "blockNoteTextView"
     static let openNoteTextView = "openNoteTextView"
     static let reloadTableView = "reloadTableViewNotification"
+    static let reloadCollectionView = "reloadCollectionViewNotification"
     
     // some global methods:
     

@@ -38,6 +38,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
     var refresher: UIRefreshControl!
+    var openSideMenuGesture: UISwipeGestureRecognizer!
 
     //MARK: - LifeCycle:
     
@@ -52,6 +53,10 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
         navigationItem.leftBarButtonItem = sideInfoButton
         tableView.emptyDataSetSource = self
+        
+        // gesture:
+        openSideMenuGesture = UISwipeGestureRecognizer(target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
+        tableView.addGestureRecognizer(openSideMenuGesture)
         
         //Refrecher:
         refresher = UIRefreshControl()

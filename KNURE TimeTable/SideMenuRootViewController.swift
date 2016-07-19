@@ -19,6 +19,8 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     
     override func awakeFromNib() {
         
+        panGestureEnabled = false
+        
         if UIDevice.current().userInterfaceIdiom == .phone {
             contentViewInPortraitOffsetCenterX = 70
             contentViewInLandscapeOffsetCenterX = 170
@@ -54,10 +56,8 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
         leftController.infoTableView.reloadData()
     }
     
-    
     func sideMenu(_ sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {
-    }
-    
-    func sideMenu(_ sideMenu: RESideMenu!, didHideMenuViewController menuViewController: UIViewController!) {
+         NotificationCenter.default.post(name: NSNotification.Name(AppData.reloadTableView), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(AppData.reloadCollectionView), object: nil)
     }
 }

@@ -117,8 +117,6 @@ extension MainSplitViewController: SheduleControllersInitializer {
     
     func initWithDefaultSchedule() {
         
-        print(UserDefaults.standard.dictionaryRepresentation())
-        
         if let defaultKey = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let newSchedule = loadShedule(defaultKey)
             scheduleTableController.shedule = newSchedule

@@ -175,6 +175,37 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
     func toggleSection(_ sender: UITapGestureRecognizer) {
         infoTableView.toggleSection(sender.view!.tag)
     }
+    
+    // TableView Actions:
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
+        
+        let deleteAction = UITableViewRowAction(style: .normal, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
+            
+            // delete note from data model:
+            
+            /* deleteNoteWithId returns true is deletes a section */
+            
+            if self.schedule.deleteNoteWithId(self.schedule.notes[indexPath.section].notes[indexPath.row].idToken) {
+                
+                self.schedule.saveShedule()
+                tableView.reloadData()
+                return
+            } else {
+                
+                //row closing animation:
+                DispatchQueue.main.async(execute: { () -> Void in
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    tableView.endUpdates()
+                })
+                self.schedule.saveShedule()
+            }
+        })
+        deleteAction.backgroundColor = UIColor.clear()
+        return [deleteAction]
+    }
+        
 }
 
 
