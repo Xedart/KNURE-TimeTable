@@ -27,12 +27,14 @@ protocol EventDetailInfoProvider {
 class EventDetailViewController: UITableViewController {
     
     var closeButton: UIBarButtonItem!
+    var deleteButton: UIBarButtonItem!
     var delegate: CollectionScheduleViewControllerDelegate!
     var sectionHeader: EventDetailHeaderView!
     var noteTextView: NoteTextView!
     var noteText = String()
     var displayedEvent: Event!
     var currentSchedule: Shedule!
+    var indexPath: IndexPath!
     
 
     override func viewDidLoad() {
@@ -40,8 +42,15 @@ class EventDetailViewController: UITableViewController {
         navigationItem.title = AppStrings.Information
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: FlatSkyBlue()]
         
+        // NAvigatiob bar:
         closeButton = UIBarButtonItem(title: AppStrings.Done, style: .plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
         navigationItem.leftBarButtonItem = closeButton
+        if displayedEvent.isCustom {
+            deleteButton = UIBarButtonItem(title: AppStrings.Delete, style: .plain, target: self, action: #selector(EventDetailViewController.deleteEvent))
+            deleteButton.tintColor = UIColor.red()
+            navigationItem.rightBarButtonItem = deleteButton
+        }
+        
         
         // adding observer notification for schedule:
         NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: NSNotification.Name(rawValue: AppData.scheduleDidReload), object: nil)
@@ -240,6 +249,39 @@ class EventDetailViewController: UITableViewController {
             SVProgressHUD.dismiss()
         }
         noteTextView.textColor = UIColor.darkGray()
+    }
+    
+    func deleteEvent() {
+        
+        //delete note:
+        _ = currentSchedule.deleteNoteWithId(displayedEvent.getEventId)
+        
+        //delete event from shedule.days /
+        //delete event from custom data:
+        currentSchedule.deleteCustomEvent(event: displayedEvent)
+        
+        // delete event from eventcache:
+        currentSchedule.deleteEventFromCache(indexPath: indexPath, event: displayedEvent)
+        
+        // delete teacher/ type/ subject/ group/ from shedule if needed:
+        
+        //teacher:
+        currentSchedule.deleteTeacherIfUnused(id: String(displayedEvent.teachers[0]))
+        
+        //type:
+        currentSchedule.deleteTypeIfUnused(id: displayedEvent.type)
+        
+        //subject:
+        currentSchedule.deleteSubjectIfUnused(id: displayedEvent.subject_id)
+        
+        //groups:
+        currentSchedule.deleteGroupIfUnused(id: String(displayedEvent.groups[0]))
+        
+        // save schedule:
+        currentSchedule.saveShedule()
+        NotificationCenter.default.post(name: NSNotification.Name(AppData.reloadTableView), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(AppData.reloadCollectionView), object: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

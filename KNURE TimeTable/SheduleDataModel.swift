@@ -629,6 +629,42 @@ extension Shedule {
         self.notes.append(newGroup)
     }
     
+    func deleteCustomEvent(event: Event) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        
+        // find the corresponding day:
+        let day = self.days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))]
+        // delete event from corresponding day:
+        for i in 0..<day!.events.count {
+            if day!.events[i].start_time == event.start_time {
+                day!.events.remove(at: i)
+                break
+            }
+        }
+        // delete day if there are no more events:
+        if day!.events.isEmpty {
+            self.days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))] = nil
+        }
+        
+        // delete event from customData.events:
+        for i in 0..<customData.events.count {
+            if customData.events[i].start_time == event.start_time {
+                customData.events.remove(at: i)
+                return
+            }
+        }
+        
+    }
+    
+    func deleteEventFromCache(indexPath: IndexPath, event: Event) {
+        for i in 0..<eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.count {
+            if eventsCache["\(indexPath.section)\(indexPath.row)"]!.events[i].start_time == event.start_time {
+                eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.remove(at: i)
+            }
+        }
+    }
+    
     func insertEvent(_ event: Event, in day: Date) {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -689,6 +725,71 @@ extension Shedule {
         for (key, value) in self.customData.types {
             self.types[key] = value
         }
+    }
+    
+    func deleteTeacherIfUnused(id: String) {
+        
+        guard Int(id) < -1 else {
+            return
+        }
+        
+        for event in customData.events {
+            if event.teachers[0] == Int(id) {
+                return
+            }
+        }
+        
+        //if there are no more events that use such teacher delete it:
+        customData.teachers[id] = nil
+        teachers[id] = nil
+    }
+    
+    func deleteTypeIfUnused(id: String) {
+        guard Int(id) < -1 else {
+            return
+        }
+        
+        for event in customData.events {
+            if event.type == id {
+                return
+            }
+        }
+        
+        //if there are no more events that use such type delete it:
+        customData.types[id] = nil
+        types[id] = nil
+    }
+    
+    func deleteSubjectIfUnused(id: String) {
+        guard Int(id) < -1 else {
+            return
+        }
+        
+        for event in customData.events {
+            if event.subject_id == id {
+                return
+            }
+        }
+        
+        //if there are no more events that use such subject, delete it:
+        customData.subjects[id] = nil
+        subjects[id] = nil
+    }
+    
+    func deleteGroupIfUnused(id: String) {
+        guard Int(id) < -1 else {
+            return
+        }
+        
+        for event in customData.events {
+            if event.groups[0] == Int(id) {
+                return
+            }
+        }
+        
+        //if there are not more events that use such group, delete it:
+        customData.groups[id] = nil
+        groups[id] = nil
     }
     
      func saveShedule() {

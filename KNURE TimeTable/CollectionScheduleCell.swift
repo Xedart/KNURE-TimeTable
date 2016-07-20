@@ -123,6 +123,7 @@ class CollectionScheduleCell: UICollectionViewCell {
         destionationController.delegate = delegate
         destionationController.displayedEvent = displayedEvent
         destionationController.currentSchedule = delegate.shedule
+        destionationController.indexPath = indexPath
     }
     
     // MARK: - Custom event menu:

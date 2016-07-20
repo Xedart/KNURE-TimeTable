@@ -141,6 +141,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         destionationController.delegate = delegate
         destionationController.currentSchedule = delegate.shedule
         destionationController.displayedEvent = displayedEvent
+        destionationController.indexPath = indexPath
     }
     
     func presentCusomEventMenu(sender: UILongPressGestureRecognizer) {

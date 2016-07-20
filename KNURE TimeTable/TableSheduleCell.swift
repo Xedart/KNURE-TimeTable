@@ -27,6 +27,7 @@ class TableSheduleCell: UITableViewCell {
     let timeNode = ASDisplayNode()
     var displayedEvent: Event!
     var delegate: CollectionScheduleViewControllerDelegate!
+    var indexPath: IndexPath!
     
 // configuring:
     
@@ -99,5 +100,12 @@ class TableSheduleCell: UITableViewCell {
         destionationController.delegate = delegate
         destionationController.displayedEvent = displayedEvent
         destionationController.currentSchedule = delegate.shedule
+        
+        // calculate indexPath:
+        let startDate = Date(timeIntervalSince1970: TimeInterval(delegate.shedule.startDayTime))
+        let section = startDate.differenceInDaysWithDate(Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time)))
+        indexPath = IndexPath(row: displayedEvent.numberOf_pair - 1, section: section)
+        
+        destionationController.indexPath = self.indexPath
     }
 }

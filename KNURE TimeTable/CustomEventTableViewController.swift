@@ -87,7 +87,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         
         
         //default customEvent setup:
-        customEvent = Event(subject_id: "-1", start_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + indexPath.row + delegate.shedule.customData.events.count, end_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + 5700, type: "-1", numberOfPair: indexPath.row + 1, auditory: "-", teachers: [-1], groups: [-1], isCustom: true)
+        customEvent = Event(subject_id: "-1", start_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + indexPath.row  + 1, end_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + 5700, type: "-1", numberOfPair: indexPath.row + 1, auditory: "-", teachers: [-1], groups: [-1], isCustom: true)
     }
     
     // MARK: - Methods:
@@ -135,7 +135,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         
         // save note:
         if noteTextView!.text != AppStrings.AddNote && noteTextView!.text != "" {
-            let newNote = Note(idToken: "\(customEvent.subject_id)\(customEvent.start_time)", coupledEventTitle: delegate.shedule.subjects[customEvent.subject_id]!.briefTitle, creationDate: formatter.string(from: Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))), updatedDate: formatter.string(from: Date()), text: noteTextView.text!)
+            let newNote = Note(idToken: customEvent.getEventId, coupledEventTitle: delegate.shedule.subjects[customEvent.subject_id]!.briefTitle, creationDate: formatter.string(from: Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))), updatedDate: formatter.string(from: Date()), text: noteTextView.text!)
             delegate.shedule.addNewNote(newNote)
         }
         
