@@ -27,6 +27,10 @@
 		84247C951CD3F5C3000654F9 /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
 		84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C961CD51B4A000654F9 /* LabelCell.swift */; };
 		842CB8561CB9186000292170 /* LeftMenuVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CB8551CB9186000292170 /* LeftMenuVIewController.swift */; };
+		842DD2BA1D410A7F00E802B0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842DD2B91D410A7F00E802B0 /* NotificationCenter.framework */; };
+		842DD2BD1D410A7F00E802B0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DD2BC1D410A7F00E802B0 /* TodayViewController.swift */; };
+		842DD2C01D410A7F00E802B0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842DD2BE1D410A7F00E802B0 /* MainInterface.storyboard */; };
+		842DD2C41D410A8000E802B0 /* Today schedule.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 842DD2B81D410A7F00E802B0 /* Today schedule.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
@@ -65,6 +69,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		842DD2C21D410A8000E802B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 847776191C63945C000776B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 842DD2B71D410A7F00E802B0;
+			remoteInfo = "Today schedule";
+		};
 		847776361C63945D000776B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 847776191C63945C000776B9 /* Project object */;
@@ -73,6 +84,20 @@
 			remoteInfo = "KNURE TimeTable";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		842DD2C81D410A8000E802B0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				842DD2C41D410A8000E802B0 /* Today schedule.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KNURE_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +137,11 @@
 		84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceStrings.swift; sourceTree = "<group>"; };
 		84247C961CD51B4A000654F9 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		842CB8551CB9186000292170 /* LeftMenuVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuVIewController.swift; sourceTree = "<group>"; };
+		842DD2B81D410A7F00E802B0 /* Today schedule.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Today schedule.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		842DD2B91D410A7F00E802B0 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		842DD2BC1D410A7F00E802B0 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		842DD2BF1D410A7F00E802B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		842DD2C11D410A7F00E802B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewController.swift; sourceTree = "<group>"; };
 		847776211C63945C000776B9 /* NureTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NureTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +186,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		842DD2B51D410A7F00E802B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842DD2BA1D410A7F00E802B0 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8477761E1C63945C000776B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +248,16 @@
 			path = Chameleon;
 			sourceTree = "<group>";
 		};
+		842DD2BB1D410A7F00E802B0 /* Today schedule */ = {
+			isa = PBXGroup;
+			children = (
+				842DD2BC1D410A7F00E802B0 /* TodayViewController.swift */,
+				842DD2BE1D410A7F00E802B0 /* MainInterface.storyboard */,
+				842DD2C11D410A7F00E802B0 /* Info.plist */,
+			);
+			path = "Today schedule";
+			sourceTree = "<group>";
+		};
 		8446C99B1D2A884B00E89254 /* CustomEventViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +272,7 @@
 			children = (
 				847776231C63945C000776B9 /* KNURE TimeTable */,
 				847776381C63945D000776B9 /* KNURE TimeTableTests */,
+				842DD2BB1D410A7F00E802B0 /* Today schedule */,
 				847776221C63945C000776B9 /* Products */,
 				CEBCD79CDB67043BF4DD36D6 /* Pods */,
 				B3010365F28E68BED05A4580 /* Frameworks */,
@@ -235,6 +284,7 @@
 			children = (
 				847776211C63945C000776B9 /* NureTimeTable.app */,
 				847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */,
+				842DD2B81D410A7F00E802B0 /* Today schedule.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -389,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */,
+				842DD2B91D410A7F00E802B0 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -405,6 +456,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		842DD2B71D410A7F00E802B0 /* Today schedule */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 842DD2C71D410A8000E802B0 /* Build configuration list for PBXNativeTarget "Today schedule" */;
+			buildPhases = (
+				842DD2B41D410A7F00E802B0 /* Sources */,
+				842DD2B51D410A7F00E802B0 /* Frameworks */,
+				842DD2B61D410A7F00E802B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Today schedule";
+			productName = "Today schedule";
+			productReference = 842DD2B81D410A7F00E802B0 /* Today schedule.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		847776201C63945C000776B9 /* KNURE TimeTable */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8477763E1C63945D000776B9 /* Build configuration list for PBXNativeTarget "KNURE TimeTable" */;
@@ -415,10 +483,12 @@
 				8477761F1C63945C000776B9 /* Resources */,
 				F25B0B1366A10C265A8CE472 /* Embed Pods Frameworks */,
 				0E8399D6910543CA769ED437 /* Copy Pods Resources */,
+				842DD2C81D410A8000E802B0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				842DD2C31D410A8000E802B0 /* PBXTargetDependency */,
 			);
 			name = "KNURE TimeTable";
 			productName = "KNURE TimeTable";
@@ -449,10 +519,16 @@
 		847776191C63945C000776B9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Shkil Artur";
 				TargetAttributes = {
+					842DD2B71D410A7F00E802B0 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 34L9FK5K5X;
+						DevelopmentTeamName = "Artur Shkil";
+						ProvisioningStyle = Automatic;
+					};
 					847776201C63945C000776B9 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 34L9FK5K5X;
@@ -481,11 +557,20 @@
 			targets = (
 				847776201C63945C000776B9 /* KNURE TimeTable */,
 				847776341C63945D000776B9 /* KNURE TimeTableTests */,
+				842DD2B71D410A7F00E802B0 /* Today schedule */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		842DD2B61D410A7F00E802B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842DD2C01D410A7F00E802B0 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8477761F1C63945C000776B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,6 +640,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		842DD2B41D410A7F00E802B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842DD2BD1D410A7F00E802B0 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8477761D1C63945C000776B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -622,6 +715,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		842DD2C31D410A8000E802B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 842DD2B71D410A7F00E802B0 /* Today schedule */;
+			targetProxy = 842DD2C21D410A8000E802B0 /* PBXContainerItemProxy */;
+		};
 		847776371C63945D000776B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 847776201C63945C000776B9 /* KNURE TimeTable */;
@@ -630,6 +728,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		842DD2BE1D410A7F00E802B0 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				842DD2BF1D410A7F00E802B0 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		847776281C63945C000776B9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -649,6 +755,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		842DD2C51D410A8000E802B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Today schedule/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable.Today-schedule";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		842DD2C61D410A8000E802B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Today schedule/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable.Today-schedule";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		8477763C1C63945D000776B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -814,6 +956,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		842DD2C71D410A8000E802B0 /* Build configuration list for PBXNativeTarget "Today schedule" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				842DD2C51D410A8000E802B0 /* Debug */,
+				842DD2C61D410A8000E802B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8477761C1C63945C000776B9 /* Build configuration list for PBXProject "KNURE TimeTable" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
