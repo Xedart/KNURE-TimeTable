@@ -23,7 +23,7 @@ class Server {
         case getAudytories = "P_API_AUDITORIES_JSON"
     }
     
-    static func makeRequest(_ method: Method, parameters: [String]?, callback: (data: Data?, responce: URLResponse?, error: NSError?) -> Void ) {
+    static func makeRequest(_ method: Method, parameters: [String]?, callback: (data: Data?, responce: URLResponse?, error: Error?) -> Void ) {
         
         // This code is for test only: {
         if method == .getSchedule {

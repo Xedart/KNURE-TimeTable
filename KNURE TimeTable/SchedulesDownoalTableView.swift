@@ -81,7 +81,7 @@ class SchedulesDownoalTableView: UITableViewController {
         tableView.reloadData()
     }
     
-    override func canBecomeFirstResponder() -> Bool {
+    override func becomeFirstResponder() -> Bool {
         return true
     }
     

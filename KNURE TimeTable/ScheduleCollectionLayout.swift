@@ -17,29 +17,29 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     let headerHeight: CGFloat = 50
     let offset: CGFloat = 1
     let scaleOffset: CGFloat = 50
-    var contentHeight: CGFloat! // need to left 40px extra space
+    var contentHeight = CGFloat() // need to left 40px extra space
     var contentWidth = CGFloat()
     var cache = [UICollectionViewLayoutAttributes]()
+    override var collectionViewContentSize: CGSize {
+        return CGSize(width: contentWidth, height: contentHeight)
+    }
     
     override func prepare() {
         
         // defining height:
-        if UIDevice.current().userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             cellHeight = 90
             contentHeight = 890
-        } else if UIDevice.current().userInterfaceIdiom == .phone {
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
             cellHeight = 72
             contentHeight = 634 // contentHeight = cellHeight * 8 + headerHeight + 8 ( 8 line view)
         }
         
         self.register(lineView.self, forDecorationViewOfKind: "lineView")
         // compute contentWidth:
-        contentWidth = (CGFloat(collectionView!.numberOfSections()) * cellWidth) + (CGFloat(collectionView!.numberOfSections()) * (offset)) + cellWidth / 2
+        contentWidth = (CGFloat(collectionView!.numberOfSections) * cellWidth) + (CGFloat(collectionView!.numberOfSections) * (offset)) + cellWidth / 2
         self.computeLayoutAttributes()
-    }
-    
-    override func collectionViewContentSize() -> CGSize {
-        return CGSize(width: contentWidth, height: contentHeight)
+        
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -70,7 +70,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     func computeLayoutAttributes() {
         cache.removeAll()
         computeDecorationAttributes()
-        for section in 0..<collectionView!.numberOfSections() {
+        for section in 0..<collectionView!.numberOfSections {
             for item in 0..<collectionView!.numberOfItems(inSection: section) {
                 let cellAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: item, section: section))
                 cellAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(section) + scaleOffset, y: (cellHeight + offset) * CGFloat(item) + (headerHeight + offset), width: cellWidth, height: cellHeight)
@@ -80,7 +80,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     }
     
     func computeDecorationAttributes() {
-        if collectionView?.numberOfSections() > 0 {
+        if collectionView?.numberOfSections > 0 {
         for i in 1...8 {
             let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "lineView", with: IndexPath(item: i, section: 0))
             attributes.frame = CGRect(x: 50, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: contentWidth, height: 0.6)

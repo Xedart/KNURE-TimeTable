@@ -16,7 +16,7 @@ class CollectionScheduleEmptyCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        gestureRecognizer.addTarget(self, action: #selector(CollectionScheduleEmptyCell.presentCusomEventMenu(sender:)))
+        gestureRecognizer.addTarget(self, action: #selector(CollectionScheduleEmptyCell.presentCusomEventMenu(_:)))
         self.addGestureRecognizer(gestureRecognizer)
     }
     
@@ -31,7 +31,7 @@ class CollectionScheduleEmptyCell: UICollectionViewCell {
     // MARK: - Methods:
     
     // presenation:
-    func presentCusomEventMenu(sender: UILongPressGestureRecognizer) {
+    func presentCusomEventMenu(_ sender: UILongPressGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let customEventViewController = storyboard.instantiateViewController(withIdentifier: "CustomEventNavigationViewController") as! UINavigationController
         customEventViewController.modalPresentationStyle = .formSheet

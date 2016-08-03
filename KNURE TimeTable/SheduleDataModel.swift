@@ -395,9 +395,8 @@ struct EventCache {
 class Shedule: NSObject, NSCoding {
     
     // Static properties (File path ):
-    static let DocumentsDirectory = FileManager().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask).first!
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     let urlPath = DocumentsDirectory
-    
     // MARK: Properties:
     
     var eventsCache = [String: EventCache]() // cache with data for collectionvView
@@ -629,7 +628,7 @@ extension Shedule {
         self.notes.append(newGroup)
     }
     
-    func deleteCustomEvent(event: Event) {
+    func deleteCustomEvent(_ event: Event) {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         
@@ -657,10 +656,11 @@ extension Shedule {
         
     }
     
-    func deleteEventFromCache(indexPath: IndexPath, event: Event) {
+    func deleteEventFromCache(_ indexPath: IndexPath, event: Event) {
         for i in 0..<eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.count {
             if eventsCache["\(indexPath.section)\(indexPath.row)"]!.events[i].start_time == event.start_time {
                 eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.remove(at: i)
+                return
             }
         }
     }
@@ -727,7 +727,7 @@ extension Shedule {
         }
     }
     
-    func deleteTeacherIfUnused(id: String) {
+    func deleteTeacherIfUnused(_ id: String) {
         
         guard Int(id) < -1 else {
             return
@@ -744,7 +744,7 @@ extension Shedule {
         teachers[id] = nil
     }
     
-    func deleteTypeIfUnused(id: String) {
+    func deleteTypeIfUnused(_ id: String) {
         guard Int(id) < -1 else {
             return
         }
@@ -760,7 +760,7 @@ extension Shedule {
         types[id] = nil
     }
     
-    func deleteSubjectIfUnused(id: String) {
+    func deleteSubjectIfUnused(_ id: String) {
         guard Int(id) < -1 else {
             return
         }
@@ -776,7 +776,7 @@ extension Shedule {
         subjects[id] = nil
     }
     
-    func deleteGroupIfUnused(id: String) {
+    func deleteGroupIfUnused(_ id: String) {
         guard Int(id) < -1 else {
             return
         }
@@ -794,7 +794,7 @@ extension Shedule {
     
      func saveShedule() {
     
-        let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path!)/\(self.shedule_id)")
+        let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path)/\(self.shedule_id)")
         if !save {
             print("Error when saving")
         }

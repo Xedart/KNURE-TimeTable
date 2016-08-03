@@ -21,11 +21,11 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
         
         panGestureEnabled = false
         
-        if UIDevice.current().userInterfaceIdiom == .phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             contentViewInPortraitOffsetCenterX = 70
             contentViewInLandscapeOffsetCenterX = 170
             contentViewScaleValue = 0.8
-        } else if UIDevice.current().userInterfaceIdiom == .pad {
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
             contentViewInPortraitOffsetCenterX = 0
             contentViewInLandscapeOffsetCenterX = 50
             contentViewScaleValue = 0.8
@@ -38,9 +38,9 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
         
         var contentViewControllerID = String()
         
-        if UIDevice.current().userInterfaceIdiom == .phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             contentViewControllerID = "IPhoneRootViewController"
-        } else if UIDevice.current().userInterfaceIdiom == .pad {
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
             contentViewControllerID = "IPadRootViewController"
         }
         

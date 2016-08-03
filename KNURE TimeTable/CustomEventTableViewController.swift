@@ -164,7 +164,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventTableViewController", for: indexPath) as! CustomEventTableViewControllerCell
-            if UIDevice.current().userInterfaceIdiom == .pad {
+            if UIDevice.current.userInterfaceIdiom == .pad {
                 cell.titleLabel.font = UIFont.systemFont(ofSize: 18.0)
                 let widthConstraint = NSLayoutConstraint(item: cell.titleLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 180)
                 view.addConstraint(widthConstraint)
@@ -193,7 +193,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventTableViewControllerNoteCell", for: indexPath) as! CusomEventTableVIewControllerNoteCell
             cell.noteTextView.text = AppStrings.AddNote
-            cell.noteTextView.textColor = UIColor.darkGray()
+            cell.noteTextView.textColor = UIColor.darkGray
             cell.noteTextView.delegate = self
             noteTextView = cell.noteTextView
             return cell
@@ -234,7 +234,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     // MARK: - Navigation:
     
     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destionation = segue.destinationViewController as! CustomEventConfiguratorTableView
+        let destionation = segue.destination as! CustomEventConfiguratorTableView
         destionation.delegate = self
         destionation.field = CustomField(rawValue: tableView.indexPathForSelectedRow!.row)
     }
@@ -249,7 +249,7 @@ extension CustomEventTableViewController: UITextViewDelegate {
         if textView.text == placeHolderTeext {
             textView.text = ""
         }
-        textView.textColor = UIColor.black()
+        textView.textColor = UIColor.black
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -257,7 +257,7 @@ extension CustomEventTableViewController: UITextViewDelegate {
         textView.resignFirstResponder()
         if textView.text.isEmpty {
             textView.text = AppStrings.AddNote
-            textView.textColor = UIColor.lightGray()
+            textView.textColor = UIColor.lightGray
         }
     }
     

@@ -21,7 +21,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         didSet {
             if !shedule.shedule_id.isEmpty {
                 DispatchQueue.main.async(execute: {
-                    self.refresher.attributedTitle = AttributedString(string: "\(AppStrings.lastRefresh)\(self.shedule.lastRefreshDate)")
+                    self.refresher.attributedTitle = NSAttributedString(string: "\(AppStrings.lastRefresh)\(self.shedule.lastRefreshDate)")
                     self.button.setTitle(self.shedule.shedule_id, for: UIControlState())
                 })
             } else {
@@ -69,7 +69,8 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: delayTime) {
+        
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
             self.tableView?.reloadData()
         }
     }
@@ -148,9 +149,9 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     // MARK: - DZNEmptyDataSetSource
 
 extension TableSheduleController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> AttributedString! {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         tableView.tableFooterView = UIView()
-        return AttributedString(string: AppStrings.NotChoosenSchedule, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: 1)])
+        return NSAttributedString(string: AppStrings.NotChoosenSchedule, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: 1)])
     }
 }
 

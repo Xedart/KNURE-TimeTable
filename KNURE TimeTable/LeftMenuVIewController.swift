@@ -20,7 +20,7 @@ class noteHeader: FZAccordionTableViewHeaderView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        titleView.textColor = UIColor.white()
+        titleView.textColor = UIColor.white
         titleView.font = UIFont(name: "HelveticaNeue", size: 22)
         self.contentView.addSubview(titleView)
         self.addSubview(lineView)
@@ -34,7 +34,7 @@ class noteHeader: FZAccordionTableViewHeaderView {
     func configure(_ groupTitle: String, frame: CGRect) {
         // frames setup:
         lineView.frame = CGRect(x: 16, y: frame.height, width: frame.width - 16, height: 0.3)
-        lineView.backgroundColor = UIColor.lightGray()
+        lineView.backgroundColor = UIColor.lightGray
         titleView.frame = CGRect(x: 16, y: 8, width: frame.width - 16, height: frame.height - 8)
         titleView.text = groupTitle
     }
@@ -49,12 +49,12 @@ class noteCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: UITableViewCellStyle.default, reuseIdentifier: reuseIdentifier)
         self.addSubview(textView)
-        textView.textColor = UIColor.clear()
+        textView.textColor = UIColor.clear
     }
     
     func configure(_ note: Note, frame: CGRect) {
         textView.frame = CGRect(x: 8, y: 0, width: frame.width - 16, height: frame.height)
-        textView.backgroundColor = UIColor.clear()
+        textView.backgroundColor = UIColor.clear
         textView.font = UIFont.systemFont(ofSize: 17)
         textView.text = "\(note.creationDate)\n\(note.text)"
         textView.isEditable = false
@@ -72,17 +72,17 @@ class LeftMenuVIewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.clear()
+        view.backgroundColor = UIColor.clear
         var tableViewHeight = CGFloat()
         
         //defining tableViewHeight
-        if UIDevice.current().userInterfaceIdiom == .phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             tableViewHeight = 54.0
-        } else if UIDevice.current().userInterfaceIdiom == .pad {
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
             tableViewHeight = 84.0
         }
         var width: CGFloat = 0
-        if UIDevice.current().userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             width = view.frame.width / 2
         } else {
             width = view.frame.width - 100
@@ -92,7 +92,7 @@ class LeftMenuVIewController: UIViewController {
         infoTableView.delegate = self;
         infoTableView.dataSource = self;
         infoTableView.isOpaque = false;
-        infoTableView.backgroundColor = UIColor.clear();
+        infoTableView.backgroundColor = UIColor.clear;
         infoTableView.backgroundView = nil;
         infoTableView.separatorStyle = .none;
         infoTableView.bounces = false;
@@ -130,11 +130,11 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: noteCell.kAccordionCellViewReuseIdentifier) as! noteCell
         cell.configure(schedule.notes[(indexPath as NSIndexPath).section].notes[(indexPath as NSIndexPath).row], frame: tableView.rectForRow(at: indexPath))
-        cell.backgroundColor = UIColor.clear()
+        cell.backgroundColor = UIColor.clear
         
         let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: delayTime) {
-            cell.textView.textColor = UIColor.white()
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+            cell.textView.textColor = UIColor.white
         }
         return cell
     }
@@ -145,7 +145,7 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
         let coverView = UIView(frame: header.frame)
         coverView.addSubview(header)
         coverView.tag = section
-        coverView.backgroundColor = UIColor.clear()
+        coverView.backgroundColor = UIColor.clear
         coverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LeftMenuVIewController.toggleSection(_:))))
         return coverView
     }
@@ -202,7 +202,7 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
                 self.schedule.saveShedule()
             }
         })
-        deleteAction.backgroundColor = UIColor.clear()
+        deleteAction.backgroundColor = UIColor.clear
         return [deleteAction]
     }
         
@@ -213,18 +213,18 @@ extension LeftMenuVIewController: FZAccordionTableViewDelegate {
     func tableView(_ tableView: FZAccordionTableView, willCloseSection section: Int, withHeader header: UITableViewHeaderFooterView) {
         for row in 0..<schedule.notes[section].notes.count {
             let row = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? noteCell
-            row?.textView.textColor = UIColor.clear()
+            row?.textView.textColor = UIColor.clear
             
         }
     }
 }
 
 extension LeftMenuVIewController: DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> AttributedString! {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if !schedule.notes.isEmpty {
-            return AttributedString(string: "", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray()])
+            return NSAttributedString(string: "", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray])
         }
-        return AttributedString(string: AppStrings.NoNotes, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: 1), NSForegroundColorAttributeName: UIColor.white()])
+        return NSAttributedString(string: AppStrings.NoNotes, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: 1), NSForegroundColorAttributeName: UIColor.white])
     }
 }
 

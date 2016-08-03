@@ -48,7 +48,10 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         self.updateCurrentSchedule()
         // setnavigation items:
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
-        navigationItem.setLeftBarButtonItems([sideInfoButton, self.displayModeButtonItem()], animated: true)
+        let displayModeButton = UIBarButtonItem(image: UIImage(named: "displayModeButton"), style: UIBarButtonItemStyle.plain, target: super.displayModeButtonItem.target, action: super.displayModeButtonItem.action)
+        // set buttons:
+        navigationItem.setLeftBarButtonItems([sideInfoButton, displayModeButton], animated: true)
+        
         
         // displaying:
         maximumPrimaryColumnWidth = CGFloat.greatestFiniteMagnitude
@@ -64,11 +67,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         }
     }
     
-    override func displayModeButtonItem() -> UIBarButtonItem {
-        let defaultButton = super.displayModeButtonItem()
-        let button = UIBarButtonItem(image: UIImage(named: "displayModeButton"), style: UIBarButtonItemStyle.plain, target: defaultButton.target, action: defaultButton.action)
-        return button
-    }
+    
     
     // MARK: - Methods:
     
@@ -82,7 +81,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         popoverMenuViewController?.delegate = self
         popoverMenuViewController?.permittedArrowDirections = .up
         popoverMenuViewController?.sourceView = navigationItem.titleView
-        popoverMenuViewController?.backgroundColor = UIColor.white()
+        popoverMenuViewController?.backgroundColor = UIColor.white
         popoverMenuViewController?.sourceRect = CGRect(
             x: 0,
             y: 8,
@@ -93,7 +92,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     
     // load schedule with specified id from the fiile:
     func loadShedule(_ sheduleId: String) -> Shedule {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
+        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path)/\(sheduleId)") as! Shedule
     }
 }
 
@@ -181,7 +180,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     
                     //Update collection schedule controller:
                     DispatchQueue.main.async(execute: {
-                        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
+                        DispatchQueue.global(qos: .default).async(execute: {
                             
                             data.performCache()
                             
@@ -189,7 +188,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                 DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                                    DispatchQueue.main.after(when: .now() + 0.1) {
+                
+                                    // unlock the keyBoard:
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refresher?.endRefreshing()

@@ -35,8 +35,11 @@ struct AppData {
         let formatter  = DateFormatter()
         formatter.dateFormat = "dd.MM"
         let todayDate = formatter.date(from: today)!
-        let myCalendar = Calendar(calendarIdentifier: Calendar.Identifier.gregorian)!
-        let myComponents = myCalendar.components(.weekday, from: todayDate)
+        let myCalendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let myComponents = myCalendar.dateComponents([.weekday], from: todayDate)
+        
+        
+        
         let weekDay = myComponents.weekday
         switch weekDay! {
         case 1:
@@ -61,7 +64,7 @@ struct AppData {
     
     static func colorsForPairOfType(_ type: Int?) -> UIColor {
         if type == nil {
-        return UIColor.lightGray()
+        return UIColor.lightGray
         } else if type >= 0 && type < 10 {
             return FlatYellowDark()
         } else if type >= 10 && type < 20 {
@@ -76,7 +79,7 @@ struct AppData {
             return FlatSkyBlue()
         }
         else {
-            return UIColor.lightGray()
+            return UIColor.lightGray
         }
     }
 }
@@ -89,7 +92,8 @@ extension Date {
         let date1 = calendar.startOfDay(for: self)
         let date2 = calendar.startOfDay(for: date)
         
-        let components = calendar.components(.day, from: date1, to: date2, options: [])
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        
         return components.day!
     }
 }

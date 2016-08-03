@@ -83,7 +83,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         
         // Timescale:
         scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
-        scale.configure(height: collectionView!.bounds.height)
+        scale.configure(collectionView!.bounds.height)
         
         //notification:
         NotificationCenter.default.addObserver(self, selector: #selector(CollectionScheduleViewController.reloadSelf), name: NSNotification.Name(rawValue: AppData.reloadCollectionView), object: nil)
@@ -92,7 +92,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     func configureDateScale() {
         //Date scale:
         headerScale.delegate = self
-        headerScale.configure(schedule: shedule)
+        headerScale.configure(shedule)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,7 +120,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         if !initialScrollDone {
             let firstEventDay = Date(timeIntervalSince1970: TimeInterval(shedule.startDayTime))
             let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
-            let offset = numberOfdays < collectionView!.numberOfSections() ? numberOfdays : collectionView!.numberOfSections() - 1
+            let offset = numberOfdays < collectionView!.numberOfSections ? numberOfdays : collectionView!.numberOfSections - 1
             collectionView?.contentOffset = CGPoint(x: 126 * offset, y: 0)
             configureDateScale()
             initialScrollDone = true
@@ -203,7 +203,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
 extension CollectionScheduleViewController {
     
-    override func canBecomeFirstResponder() -> Bool {
+    override func becomeFirstResponder() -> Bool {
         return true
     }
     
@@ -226,7 +226,7 @@ extension CollectionScheduleViewController {
         let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
         
         // check for scrolling possibility.
-        if numberOfdays >= collectionView!.numberOfSections() || numberOfdays < 0 {
+        if numberOfdays >= collectionView!.numberOfSections || numberOfdays < 0 {
             return
         }
         collectionView!.scrollToItem(at: IndexPath(item: 0, section: numberOfdays), at: UICollectionViewScrollPosition.left, animated: true)
@@ -239,8 +239,8 @@ extension CollectionScheduleViewController {
     // MARK: - DZNEmptyDataSetSource
 
 extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> AttributedString! {
-        return AttributedString(string: "NureTimeTable", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray()])
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "NureTimeTable", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray])
     }
 }
 

@@ -9,6 +9,7 @@
 import UIKit
 import NotificationCenter
 
+
 class TodayViewController: UIViewController, NCWidgetProviding {
         
     override func viewDidLoad() {
@@ -18,7 +19,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
     }
     
-    func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
+    func widgetPerformUpdate(_ completionHandler: ((NCUpdateResult) -> Void)) {
         
         
         

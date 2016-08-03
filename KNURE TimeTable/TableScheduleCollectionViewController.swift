@@ -15,13 +15,15 @@ class exampleLayout: UICollectionViewLayout {
     override func prepare() {
         
     }
-    
+    /*
     override func collectionViewContentSize() -> CGSize {
         var size = CGSize()
         size.width = collectionView!.frame.width
         size.height = collectionView!.frame.height
         return size
     }
+    */
+    
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attr = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: 0))
@@ -49,8 +51,7 @@ class TableScheduleCollectionViewController: UICollectionViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: delayTime) {
-            
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
             self.collectionView?.reloadData()
         }
         
@@ -84,8 +85,8 @@ class TableScheduleCollectionViewController: UICollectionViewController {
         // Configure the cel
         let label = UILabel()
         label.frame = cell.bounds
-        label.backgroundColor = UIColor.red()
-        cell.backgroundColor = UIColor.green()
+        label.backgroundColor = UIColor.red
+        cell.backgroundColor = UIColor.green
         for subView in cell.subviews {
             subView.removeFromSuperview()
         }

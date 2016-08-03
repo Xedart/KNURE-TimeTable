@@ -14,7 +14,7 @@ class NoteTextView: UITextView {
     
     var shouldResignFirstResponder = true
     
-    override func canResignFirstResponder() -> Bool {
+    override func resignFirstResponder() -> Bool {
         return shouldResignFirstResponder
     }
 }
@@ -47,7 +47,7 @@ class EventDetailViewController: UITableViewController {
         navigationItem.leftBarButtonItem = closeButton
         if displayedEvent.isCustom {
             deleteButton = UIBarButtonItem(title: AppStrings.Delete, style: .plain, target: self, action: #selector(EventDetailViewController.deleteEvent))
-            deleteButton.tintColor = UIColor.red()
+            deleteButton.tintColor = UIColor.red
             navigationItem.rightBarButtonItem = deleteButton
         }
         
@@ -141,13 +141,13 @@ class EventDetailViewController: UITableViewController {
         } else {
             if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
                 cell.eventTitleView.text = AppStrings.AddNote
-                cell.eventTitleView.textColor = UIColor.lightGray()
+                cell.eventTitleView.textColor = UIColor.lightGray
             } else {
                 cell.eventTitleView.text = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId)!.text
             }
             cell.eventTitleView.isEditable = true
             cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
-            cell.eventTitleView.textColor = UIColor.darkGray()
+            cell.eventTitleView.textColor = UIColor.darkGray
             cell.eventTitleView.delegate = self
             noteTextView = cell.eventTitleView
         }
@@ -245,10 +245,11 @@ class EventDetailViewController: UITableViewController {
         })
         
         let delayTime = DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: delayTime) {
+        
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
             SVProgressHUD.dismiss()
         }
-        noteTextView.textColor = UIColor.darkGray()
+        noteTextView.textColor = UIColor.darkGray
     }
     
     func deleteEvent() {
@@ -258,24 +259,24 @@ class EventDetailViewController: UITableViewController {
         
         //delete event from shedule.days /
         //delete event from custom data:
-        currentSchedule.deleteCustomEvent(event: displayedEvent)
+        currentSchedule.deleteCustomEvent(displayedEvent)
         
         // delete event from eventcache:
-        currentSchedule.deleteEventFromCache(indexPath: indexPath, event: displayedEvent)
+        currentSchedule.deleteEventFromCache(indexPath, event: displayedEvent)
         
         // delete teacher/ type/ subject/ group/ from shedule if needed:
         
         //teacher:
-        currentSchedule.deleteTeacherIfUnused(id: String(displayedEvent.teachers[0]))
+        currentSchedule.deleteTeacherIfUnused(String(displayedEvent.teachers[0]))
         
         //type:
-        currentSchedule.deleteTypeIfUnused(id: displayedEvent.type)
+        currentSchedule.deleteTypeIfUnused(displayedEvent.type)
         
         //subject:
-        currentSchedule.deleteSubjectIfUnused(id: displayedEvent.subject_id)
+        currentSchedule.deleteSubjectIfUnused(displayedEvent.subject_id)
         
         //groups:
-        currentSchedule.deleteGroupIfUnused(id: String(displayedEvent.groups[0]))
+        currentSchedule.deleteGroupIfUnused(String(displayedEvent.groups[0]))
         
         // save schedule:
         currentSchedule.saveShedule()
@@ -297,7 +298,7 @@ extension EventDetailViewController: UITextViewDelegate {
         if textView.text == placeHolderTeext {
             textView.text = ""
         }
-        textView.textColor = UIColor.black()
+        textView.textColor = UIColor.black
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -305,7 +306,7 @@ extension EventDetailViewController: UITextViewDelegate {
         textView.resignFirstResponder()
         if textView.text.isEmpty {
             textView.text = AppStrings.AddNote
-            textView.textColor = UIColor.lightGray()
+            textView.textColor = UIColor.lightGray
         }
     }
     

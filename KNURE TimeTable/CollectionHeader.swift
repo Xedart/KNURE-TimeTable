@@ -33,17 +33,17 @@ class CollectionHeaderView: UIView {
         self.init(frame: CGRect())
     }
     
-    func configure(schedule: Shedule) {
+    func configure(_ schedule: Shedule) {
         
         // frame configuring:
-        let contentWidth = (CGFloat(delegate.collectionView!!.numberOfSections()) * cellWidth) + (CGFloat(delegate.collectionView!!.numberOfSections()) * (offset)) + cellWidth / 2
+        let contentWidth = (CGFloat(delegate.collectionView!!.numberOfSections) * cellWidth) + (CGFloat(delegate.collectionView!!.numberOfSections) * (offset)) + cellWidth / 2
         self.frame = CGRect(x: 50, y: 0, width: contentWidth, height: cellHeight)
         // delete old subViews:
         for view in self.subviews {
             view.removeFromSuperview()
         }
         // 
-        for i in 0..<delegate.collectionView!!.numberOfSections() {
+        for i in 0..<delegate.collectionView!!.numberOfSections {
             let dateLabel = UILabel(frame: CGRect(x: (cellWidth + offset) * CGFloat(i), y: 0, width: cellWidth, height: cellHeight))
             
             // text attributes:
@@ -53,7 +53,7 @@ class CollectionHeaderView: UIView {
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
             var labelText = formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)
-            let todayDate = formatter.string(from: NSDate() as Date)
+            let todayDate = formatter.string(from: Date() as Date)
             if todayDate == labelText {
                 txtColor = FlatSkyBlue()
             } else {
@@ -82,16 +82,16 @@ class CollectionDecorationView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         
-        if UIDevice.current().userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             cellHeight = 90
             extraSpacePlaceholder = "\n"
-        } else if UIDevice.current().userInterfaceIdiom == .phone {
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
             extraSpacePlaceholder = ""
             cellHeight = 72
         }
     }
     
-    func configure(height: CGFloat) {
+    func configure(_ height: CGFloat) {
         for i in 0 ..< 8 {
             let timeLabel = UITextView(frame: CGRect(x: 0, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: 50, height: cellHeight))
             timeLabel.text = "\n\(AppData.pairsStartTime[i+1]!)\n\(extraSpacePlaceholder)\(AppData.pairsEndTime[i+1]!)"

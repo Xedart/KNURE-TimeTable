@@ -45,12 +45,12 @@ class CollectionScheduleCell: UICollectionViewCell {
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentInfoMenu(_:)))
         self.node.view.addGestureRecognizer(self.tapGestureRecognizer)
         
-        gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentCusomEventMenu(sender:)))
+        gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleCell.presentCusomEventMenu))
         self.node.view.addGestureRecognizer(gestureRecognizer)
         
-        if UIDevice.current().userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             extraTopSpace = 17.0
-        } else if UIDevice.current().userInterfaceIdiom == .phone {
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
             extraTopSpace = 10.0
         }
     }
@@ -61,7 +61,7 @@ class CollectionScheduleCell: UICollectionViewCell {
     
     func configure(_ events: [Event], shedule: Shedule) {
         displayedEvent = events[0]
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
+            DispatchQueue.global(qos: .default).async(execute: {
             self.backgroundNode.frame = self.bounds
             self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.25)
             self.backgroundNode.borderWidth = 1.0
@@ -77,9 +77,9 @@ class CollectionScheduleCell: UICollectionViewCell {
             let subjectTitle = shedule.subjects[events[0].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[0].subject_id]!.briefTitle : shedule.subjects[events[0].subject_id]!.briefTitle.substring(to: shedule.subjects[events[0].subject_id]!.briefTitle.index(shedule.subjects[events[0].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
             
             //set text node content:
-            self.node.attributedString = AttributedString(string: "\(subjectTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray(), NSParagraphStyleAttributeName: titleParagraphStyle])
+            self.node.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
             self.node.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace)
-            self.node.backgroundColor = UIColor.clear()
+            self.node.backgroundColor = UIColor.clear
             
             // Status images configuring:
             
@@ -128,7 +128,7 @@ class CollectionScheduleCell: UICollectionViewCell {
     
     // MARK: - Custom event menu:
     
-    func presentCusomEventMenu(sender: UILongPressGestureRecognizer) {
+    func presentCusomEventMenu() {
         
         guard !displayedEvent.isCustom else {
             return

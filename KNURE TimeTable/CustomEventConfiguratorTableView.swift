@@ -55,7 +55,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
             dataSource.removeAll()
             dataSource.append(SheduleData(id: "-1", value: "-"))
             for (key, value) in delegate.shedule.teachers {
-                if !dataSourceContains(value: value.short_name) {
+                if !dataSourceContains(value.short_name) {
                     dataSource.insert(SheduleData(id: key, value: value.short_name), at: 0)
                 }
             }
@@ -68,7 +68,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
             dataSource.removeAll()
             dataSource.append(SheduleData(id: "-1", value: AppStrings.customType))
             for (key, value) in delegate.shedule.types {
-                if !dataSourceContains(value: value.full_name) {
+                if !dataSourceContains(value.full_name) {
                     dataSource.insert(SheduleData(id: key, value: value.full_name), at: 0)
                 }
             }
@@ -88,7 +88,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
             dataSource.removeAll()
             dataSource.append(SheduleData(id: "-1", value: AppStrings.customEvent))
             for (key, value) in delegate.shedule.subjects {
-                if !dataSourceContains(value: value.fullTitle) {
+                if !dataSourceContains(value.fullTitle) {
                     dataSource.insert(SheduleData(id: key, value: value.fullTitle), at: 0)
                 }
             }
@@ -101,7 +101,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
             dataSource.removeAll()
             dataSource.append(SheduleData(id: "-1", value: "-"))
             for (key, value) in delegate.shedule.groups {
-                if !dataSourceContains(value: value) {
+                if !dataSourceContains(value) {
                     dataSource.insert(SheduleData(id: key, value: value), at: 0)
                 }
             }
@@ -131,7 +131,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventFieldCustomCell") as! CustomEventFieldCustomCell
-            cell.titleTextView.textColor = UIColor.darkGray()
+            cell.titleTextView.textColor = UIColor.darkGray
             cell.titleTextView.text = placeholderText
             cell.titleTextView.delegate = self
             return cell
@@ -250,7 +250,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func dataSourceContains(value: String) -> Bool {
+    func dataSourceContains(_ value: String) -> Bool {
         for data in dataSource {
             if value == data.value {
                 return true
@@ -267,14 +267,14 @@ extension CustomEventConfiguratorTableView: UITextViewDelegate {
         if textView.text == placeholderText {
             textView.text = ""
         }
-        textView.textColor = UIColor.black()
+        textView.textColor = UIColor.black
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.resignFirstResponder()
         if textView.text.isEmpty {
             textView.text = AppStrings.AddNote
-            textView.textColor = UIColor.lightGray()
+            textView.textColor = UIColor.lightGray
         }
     }
     

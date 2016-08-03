@@ -20,9 +20,9 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        if UIDevice.current().userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             extraTopSpace = 17.0
-        } else if UIDevice.current().userInterfaceIdiom == .phone {
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
             extraTopSpace = 10.0
         }
     }
@@ -37,7 +37,8 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         
         let scrollNode = ASScrollNode()
         scrollNode.isUserInteractionEnabled = true
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
+        
+        DispatchQueue.global(qos: .default).async(execute: {
         scrollNode.frame = self.bounds
             
         for i in 0..<events.count {
@@ -50,9 +51,9 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             //truncate subject title if it's too long:
             let subjectTitle = shedule.subjects[events[i].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[i].subject_id]!.briefTitle : shedule.subjects[events[i].subject_id]!.briefTitle.substring(to: shedule.subjects[events[i].subject_id]!.briefTitle.index(shedule.subjects[events[i].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
             
-            textNode.attributedString = AttributedString(string: "\(subjectTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray(), NSParagraphStyleAttributeName: titleParagraphStyle])
-            textNode.backgroundColor = UIColor.clear()
-            
+            textNode.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
+            textNode.backgroundColor = UIColor.clear
+        
             // backGroundNode:
             let backgroundNode = ASDisplayNode()
             backgroundNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
@@ -115,7 +116,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 var counter = 0
                 for textNode in scrollNode.subnodes {
                     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentInfoMenu(_:)))
-                    let longGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentCusomEventMenu(sender:)))
+                    let longGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentCusomEventMenu(_:)))
                     textNode.isUserInteractionEnabled = true
                     textNode.view.addGestureRecognizer(tapGestureRecognizer)
                     textNode.view.addGestureRecognizer(longGestureRecognizer)
@@ -144,7 +145,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         destionationController.indexPath = indexPath
     }
     
-    func presentCusomEventMenu(sender: UILongPressGestureRecognizer) {
+    func presentCusomEventMenu(_ sender: UILongPressGestureRecognizer) {
         
         if isThereCustomPair() {
             return

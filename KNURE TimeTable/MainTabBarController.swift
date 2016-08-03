@@ -41,7 +41,7 @@ class MainTabBarController: UITabBarController {
     // MARK: - Methods:
     
     func loadShedule(_ sheduleId: String) -> Shedule {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path!)/\(sheduleId)") as! Shedule
+        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path)/\(sheduleId)") as! Shedule
     }
 }
 
@@ -122,7 +122,8 @@ extension MainTabBarController: SheduleControllersInitializer {
                     
                     //Updating collection schedule controller:
                     DispatchQueue.main.async(execute: {
-                         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
+
+                        DispatchQueue.global(qos: .default).async(execute: {
                         
                             data.performCache()
                             
@@ -130,7 +131,8 @@ extension MainTabBarController: SheduleControllersInitializer {
                                 DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                                     DispatchQueue.main.after(when: .now() + 0.1) {
+                                
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refresher?.endRefreshing()

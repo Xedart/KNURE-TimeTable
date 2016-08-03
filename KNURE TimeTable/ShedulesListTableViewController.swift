@@ -200,7 +200,7 @@ class ShedulesListTableViewController: UITableViewController {
             }
             
             if (indexPath as NSIndexPath).section == 0 {
-                self.deleteFile("\(Shedule().urlPath.path!)/\(self.groupsData[(indexPath as NSIndexPath).row])")
+                self.deleteFile("\(Shedule().urlPath.path)/\(self.groupsData[(indexPath as NSIndexPath).row])")
                 if self.groupsData[(indexPath as NSIndexPath).row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.groupsData[(indexPath as NSIndexPath).row]) {
@@ -215,7 +215,7 @@ class ShedulesListTableViewController: UITableViewController {
                     return
                 }
             } else if (indexPath as NSIndexPath).section == 1 {
-                self.deleteFile("\(Shedule().urlPath.path!)/\(self.teachersData[(indexPath as NSIndexPath).row])")
+                self.deleteFile("\(Shedule().urlPath.path)/\(self.teachersData[(indexPath as NSIndexPath).row])")
                 if self.teachersData[(indexPath as NSIndexPath).row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.teachersData[(indexPath as NSIndexPath).row]) {
@@ -230,7 +230,7 @@ class ShedulesListTableViewController: UITableViewController {
                     return
                 }
             } else if (indexPath as NSIndexPath).section == 2 {
-                self.deleteFile("\(Shedule().urlPath.path!)/\(self.auditoryiesData[(indexPath as NSIndexPath).row])")
+                self.deleteFile("\(Shedule().urlPath.path)/\(self.auditoryiesData[(indexPath as NSIndexPath).row])")
                 if self.auditoryiesData[(indexPath as NSIndexPath).row] == defaultSchedule {
                     if !self.chooseProperSchedule(self.auditoryiesData[(indexPath as NSIndexPath).row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
@@ -342,13 +342,13 @@ class ShedulesListTableViewController: UITableViewController {
 
 extension ShedulesListTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> AttributedString! {
-        return AttributedString(string: AppStrings.NoSchedule, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray()])
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: AppStrings.NoSchedule, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray])
     }
     
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> AttributedString! {
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
         tableView.tableFooterView = UIView()
-        return AttributedString(string: AppStrings.Add, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17, weight: 1), NSForegroundColorAttributeName: AppData.appleButtonDefault.withAlphaComponent(0.9)])
+        return NSAttributedString(string: AppStrings.Add, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17, weight: 1), NSForegroundColorAttributeName: AppData.appleButtonDefault.withAlphaComponent(0.9)])
     }
     
     func emptyDataSetDidTapButton(_ scrollView: UIScrollView!) {

@@ -33,7 +33,7 @@ class TableSheduleCell: UITableViewCell {
     
     func configure(_ shedule: Shedule, event: Event) {
         displayedEvent = event
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async(execute: {
+            DispatchQueue.global(qos: .default).async(execute: {
             self.node.frame = self.bounds
             self.node.clipsToBounds = true
             self.node.cornerRadius = 15.0
@@ -50,7 +50,7 @@ class TableSheduleCell: UITableViewCell {
                     let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
                     let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
                     self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
-                    self.timeNode.backgroundColor = UIColor.red()
+                    self.timeNode.backgroundColor = UIColor.red
                     DispatchQueue.main.async {
                         self.node.view.addSubview(self.timeNode.view)
                     }
