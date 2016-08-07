@@ -94,11 +94,9 @@ extension MainTabBarController: SheduleControllersInitializer {
                     return
                 }
                 
-                
-                // TODO: uncomment after end testing:
-                //let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
-                //let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
-                let json = JSON(data: data!) // use dataFromString instead of fata after end of teting
+                let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
+                let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
+                let json = JSON(data: dataFromString!)
                 
                 
                 

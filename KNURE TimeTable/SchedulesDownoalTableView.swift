@@ -241,10 +241,9 @@ extension SchedulesDownoalTableView {
                 return
             }
             
-            // TODO: uncomment after end testing:
-            //let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
-            //let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
-            let json = JSON(data: data!) // use dataFromString instead of fata after end of teting
+            let jsonStr = String(data: data!, encoding: String.Encoding.windowsCP1251)
+            let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
+            let json = JSON(data: dataFromString!)
             
             Parser.parseSchedule(json, callback: { data in
                 data.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title

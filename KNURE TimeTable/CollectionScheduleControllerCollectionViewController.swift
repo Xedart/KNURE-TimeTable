@@ -118,11 +118,18 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         
         // performing initil scroll:
         if !initialScrollDone {
+            configureDateScale()
             let firstEventDay = Date(timeIntervalSince1970: TimeInterval(shedule.startDayTime))
+            
+            // if semester isn't started yet:
+            if firstEventDay > Date() {
+                collectionView?.contentOffset = CGPoint(x: 0, y: 0)
+                initialScrollDone = true
+                return
+            }
             let numberOfdays = firstEventDay.differenceInDaysWithDate(Date())
             let offset = numberOfdays < collectionView!.numberOfSections ? numberOfdays : collectionView!.numberOfSections - 1
             collectionView?.contentOffset = CGPoint(x: 126 * offset, y: 0)
-            configureDateScale()
             initialScrollDone = true
         }
     }

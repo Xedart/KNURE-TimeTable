@@ -25,24 +25,14 @@ class Server {
     
     static func makeRequest(_ method: Method, parameters: [String]?, callback: (data: Data?, responce: URLResponse?, error: Error?) -> Void ) {
         
-        // This code is for test only: {
-        if method == .getSchedule {
-            apiRoot = "http://xedartbackend-xedart.rhcloud.com"
-        } else {
-            apiRoot = "http://cist.nure.ua/ias/app/tt/"
-        }
-        // }
-        
         // url making:
         var urlStr = "\(apiRoot)\(method.rawValue)"
         
-        // TODO: Uncomment after beck to production mode:
-        /*
         if parameters != nil {
             for parameter in parameters! {
                 urlStr.append(parameter)
             }
-        } */
+        }
         
         let URL = Foundation.URL(string: urlStr)
         let request = URLRequest(url: URL!)

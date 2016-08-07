@@ -93,9 +93,11 @@ extension Date {
         let date2 = calendar.startOfDay(for: date)
         
         let components = calendar.dateComponents([.day], from: date1, to: date2)
-        
         return components.day!
     }
+    
+    
+
 }
 
 
