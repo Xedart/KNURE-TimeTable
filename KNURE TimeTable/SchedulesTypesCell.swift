@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DataModel
 
 class SchedulesTypesCell: UITableViewCell {
     

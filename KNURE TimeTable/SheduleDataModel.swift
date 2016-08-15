@@ -12,24 +12,24 @@ import UIKit
 
 //"subject_id":2045902,"start_time":1454910300,"end_time":1454916000,"type":0,"number_pair":1,"auditory":"259","teachers":[4554758],"groups":[4801980 ,4802018 ,4801950 ]}
 
-class Event: NSObject, NSCoding  {
-    var subject_id: String
-    var start_time: Int
-    var end_time: Int
-    var type: String
-    var numberOf_pair: Int
-    var auditory: String
-    var teachers: [Int]
-    var groups: [Int]
-    var isCustom: Bool
-    var getEventId: String {
+public class Event: NSObject, NSCoding  {
+    public var subject_id: String
+    public var start_time: Int
+    public var end_time: Int
+    public var type: String
+    public var numberOf_pair: Int
+    public var auditory: String
+    public var teachers: [Int]
+    public var groups: [Int]
+    public var isCustom: Bool
+    public var getEventId: String {
         get {
             return "\(subject_id)\(start_time)" // composed event token
         }
     }
     
     //initialiation:
-    init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int], isCustom: Bool) {
+    public init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int], isCustom: Bool) {
         self.subject_id = subject_id
         self.start_time = start_time
         self.end_time = end_time
@@ -40,15 +40,15 @@ class Event: NSObject, NSCoding  {
         self.groups = groups
         self.isCustom = isCustom
     }
-    convenience override init() {
+    public convenience override init() {
         self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int](), isCustom: Bool())
     }
     
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    required convenience public init?(coder aDecoder: NSCoder) {
         
         /* This workaround with decoding Integers is necessary in order to prevent lunch crach after updating app from version 1.0
-        */
+         */
         var start_time = Int()
         var end_time = Int()
         var numberOfPair = Int()
@@ -82,7 +82,7 @@ class Event: NSObject, NSCoding  {
         let isCustom = aDecoder.decodeBool(forKey: Key.isCustomKey)
         self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: isCustom)
     }
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(subject_id, forKey: Key.subject_id)
         aCoder.encode(start_time, forKey: Key.start_time)
         aCoder.encode(end_time, forKey: Key.end_time)
@@ -108,21 +108,21 @@ class Event: NSObject, NSCoding  {
 
 // Wrapper class for incapsulating events within one day:
 
-class Day: NSObject, NSCoding {
-    var events: [Event]
-    init(events: [Event]) {
+public class Day: NSObject, NSCoding {
+    public var events: [Event]
+    public init(events: [Event]) {
         self.events = events
     }
-    override init() {
+    override public init() {
         self.events = [Event]()
     }
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    required convenience public init?(coder aDecoder: NSCoder) {
         let events = aDecoder.decodeObject(forKey: Key.events) as! [Event]
         self.init(events: events)
     }
     
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(events, forKey: Key.events)
     }
     struct Key {
@@ -132,25 +132,25 @@ class Day: NSObject, NSCoding {
 
 //{"id":5335711,"full_name":"Дейнеко Анастасія Олександрівна","short_name":"Дейнеко А. О."}
 
-class Teacher: NSObject, NSCoding {
-    var full_name: String
-    var short_name: String
-    init(full_name: String, short_name: String) {
+public class Teacher: NSObject, NSCoding {
+    public var full_name: String
+    public var short_name: String
+    public init(full_name: String, short_name: String) {
         self.full_name = full_name
         self.short_name = short_name
     }
-    convenience override init() {
+    convenience override public init() {
         self.init(full_name: String(), short_name: String())
     }
     
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    public required convenience init?(coder aDecoder: NSCoder) {
         let full_name = aDecoder.decodeObject(forKey: Key.fullName) as! String
         let short_name = aDecoder.decodeObject(forKey: Key.shortName) as! String
         self.init(full_name: full_name, short_name: short_name)
     }
     
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(full_name, forKey: Key.fullName)
         aCoder.encode(short_name, forKey: Key.shortName)
     }
@@ -162,23 +162,23 @@ class Teacher: NSObject, NSCoding {
 
 //{"id":1021252,"brief":"МодС","title":"Моделювання систем","hours":[ {"type":10,"val":18,"teachers":[ 412 ]} , {"type":0,"val":30,"teachers":[ 245 ]} ]}
 
-class Subject: NSObject, NSCoding {
-    var briefTitle: String
-    var fullTitle: String
-    init(briefTitle: String, fullTitle: String) {
+public class Subject: NSObject, NSCoding {
+    public var briefTitle: String
+    public var fullTitle: String
+    public init(briefTitle: String, fullTitle: String) {
         self.briefTitle = briefTitle
         self.fullTitle = fullTitle
     }
-    convenience override init() {
+    public convenience override init() {
         self.init(briefTitle: String(), fullTitle: String())
     }
-// NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    // NCCoding:
+    public required convenience init?(coder aDecoder: NSCoder) {
         let briefTitle = aDecoder.decodeObject(forKey: Key.briefTitle) as! String
         let fullTitle = aDecoder.decodeObject(forKey: Key.fullTitle) as! String
         self.init(briefTitle: briefTitle, fullTitle: fullTitle)
     }
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(briefTitle, forKey: Key.briefTitle)
         aCoder.encode(fullTitle, forKey: Key.fullTitle)
     }
@@ -190,27 +190,27 @@ class Subject: NSObject, NSCoding {
 
 // {"id":0,"short_name":"Лк","full_name":"Лекція", "id_base":0, "type":"lecture"}
 
-class NureType: NSObject, NSCoding {
-    var id: String
-    var short_name: String
-    var full_name: String
-    init(short_name: String, full_name: String, id: String) {
+public class NureType: NSObject, NSCoding {
+    public var id: String
+    public var short_name: String
+    public var full_name: String
+    public init(short_name: String, full_name: String, id: String) {
         self.id = id
         self.short_name = short_name
         self.full_name = full_name
     }
-    convenience override init() {
+    public convenience override init() {
         self.init(short_name: String(), full_name: String(), id: String())
     }
     
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    public required convenience init?(coder aDecoder: NSCoder) {
         let short_name = aDecoder.decodeObject(forKey: Key.short_name) as! String
         let full_name = aDecoder.decodeObject(forKey: Key.full_name) as! String
         let id = aDecoder.decodeObject(forKey: Key.id_key) as! String
         self.init(short_name: short_name, full_name: full_name, id: id)
     }
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(short_name, forKey: Key.short_name)
         aCoder.encode(full_name, forKey: Key.full_name)
         aCoder.encode(id, forKey: Key.id_key)
@@ -224,14 +224,14 @@ class NureType: NSObject, NSCoding {
 
 // Notes:
 
-class Note: NSObject, NSCoding {
-    let idToken: String
-    let coupledEventTitle: String
-    let creationDate: String
-    var updateDate: String
-    var text: String
+public class Note: NSObject, NSCoding {
+    public let idToken: String
+    public let coupledEventTitle: String
+    public let creationDate: String
+    public var updateDate: String
+    public var text: String
     
-    init(idToken: String, coupledEventTitle: String, creationDate: String, updatedDate: String, text: String) {
+    public init(idToken: String, coupledEventTitle: String, creationDate: String, updatedDate: String, text: String) {
         self.idToken = idToken
         self.coupledEventTitle = coupledEventTitle
         self.creationDate = creationDate
@@ -239,12 +239,12 @@ class Note: NSObject, NSCoding {
         self.text = text
     }
     
-    convenience override init() {
+    public convenience override init() {
         self.init(idToken: String(), coupledEventTitle: String(), creationDate: String(), updatedDate: String(), text: String())
     }
     
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    public required convenience init?(coder aDecoder: NSCoder) {
         let idToken = aDecoder.decodeObject(forKey: Key.idTokenKey) as! String
         let coupledEventTitle = aDecoder.decodeObject(forKey: Key.coupledEventTitleKey) as! String
         let creationDate = aDecoder.decodeObject(forKey: Key.creationDateKey) as! String
@@ -253,7 +253,7 @@ class Note: NSObject, NSCoding {
         self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text)
     }
     
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.idToken, forKey: Key.idTokenKey)
         aCoder.encode(self.coupledEventTitle, forKey: Key.coupledEventTitleKey)
         aCoder.encode(self.creationDate, forKey: Key.creationDateKey)
@@ -270,27 +270,27 @@ class Note: NSObject, NSCoding {
     }
 }
 
-class NoteGroup: NSObject, NSCoding {
-    var groupTitle: String
-    var notes: [Note]
+public class NoteGroup: NSObject, NSCoding {
+    public var groupTitle: String
+    public var notes: [Note]
     
-    init(groupTitle: String, notes: [Note]) {
+    public init(groupTitle: String, notes: [Note]) {
         self.groupTitle = groupTitle
         self.notes = notes
     }
     
-    convenience override init() {
+    public convenience override init() {
         self.init(groupTitle: "", notes: [Note]())
     }
     
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    public required convenience init?(coder aDecoder: NSCoder) {
         let groupTitle = aDecoder.decodeObject(forKey: Key.groupTitleKey) as! String
         let notes = aDecoder.decodeObject(forKey: Key.notesKey) as! [Note]
         self.init(groupTitle: groupTitle, notes: notes)
     }
     
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.groupTitle, forKey: Key.groupTitleKey)
         aCoder.encode(self.notes, forKey: Key.notesKey)
     }
@@ -302,17 +302,17 @@ class NoteGroup: NSObject, NSCoding {
 }
 
 /// All user defined ( custom ) data are saved in this class
-class CustomData: NSObject, NSCoding {
+public class CustomData: NSObject, NSCoding {
     
     // Properties:
-    var groups = [String: String]()
-    var teachers = [String: Teacher]()
-    var subjects = [String: Subject]()
-    var types = [String: NureType]()
-    var events = [Event]()
+    public var groups = [String: String]()
+    public var teachers = [String: Teacher]()
+    public var subjects = [String: Subject]()
+    public var types = [String: NureType]()
+    public var events = [Event]()
     
     // initialization:
-    init(groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], events: [Event]) {
+    public init(groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], events: [Event]) {
         self.groups = groups
         self.teachers = teachers
         self.subjects = subjects
@@ -320,12 +320,12 @@ class CustomData: NSObject, NSCoding {
         self.events = events
     }
     
-    convenience override init() {
+    public convenience override init() {
         self.init(groups: [:], teachers: [:], subjects: [:], types: [:], events: [])
     }
     
     // NCCoding:
-    required convenience init?(coder aDecoder: NSCoder) {
+    public required convenience init?(coder aDecoder: NSCoder) {
         // groups:
         var groups = aDecoder.decodeObject(forKey: Key.groupsKey) as? [String: String]
         if groups == nil {
@@ -355,7 +355,7 @@ class CustomData: NSObject, NSCoding {
         self.init(groups: groups!, teachers: teachers!, subjects: subjects!, types: types!, events: events!)
     }
     
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(groups, forKey: Key.groupsKey)
         aCoder.encode(teachers, forKey: Key.teachersKey)
         aCoder.encode(subjects, forKey: Key.subjectsKey)
@@ -373,9 +373,9 @@ class CustomData: NSObject, NSCoding {
 }
 
 // data-sctuct for eventsCahce:
-struct EventCache {
-    var events = [Event]()
-    init(events: [Event]) {
+public struct EventCache {
+    public var events = [Event]()
+    public init(events: [Event]) {
         self.events = events
     }
 }
@@ -392,36 +392,33 @@ struct EventCache {
 //                                                                                        //
 //----------------------------------------------------------------------------------------//
 
-class Shedule: NSObject, NSCoding {
+public class Shedule: NSObject, NSCoding {
     
     // Static properties (File path ):
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let urlPath = DocumentsDirectory
-    //Shared container:
-    static let SharedContainerDirectory = FileManager().containerURL(forSecurityApplicationGroupIdentifier: AppData.groupdEntitlements)
-    
+    public static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    public static let urlPath = DocumentsDirectory
     
     // MARK: Properties:
     
-    var eventsCache = [String: EventCache]() // cache with data for collectionvView
-    var startDayTime = Int()
-    var endDayTime = Int()
-    var shedule_id: String
-    var scheduleIdentifier: String
-    var lastRefreshDate: String
-    var days = [String: Day]()
-    var groups = [String: String]()
-    var teachers = [String: Teacher]()
-    var subjects = [String: Subject]()
-    var types = [String: NureType]()
+    public var eventsCache = [String: EventCache]() // cache with data for collectionvView
+    public var startDayTime = Int()
+    public var endDayTime = Int()
+    public var shedule_id: String
+    public var scheduleIdentifier: String
+    public var lastRefreshDate: String
+    public var days = [String: Day]()
+    public var groups = [String: String]()
+    public var teachers = [String: Teacher]()
+    public var subjects = [String: Subject]()
+    public var types = [String: NureType]()
     // syncronizable:
-    var notes = [NoteGroup]()
-    var customData = CustomData()
+    public var notes = [NoteGroup]()
+    public var customData = CustomData()
     
     // MARK: Initialization:
     
     //main initializer:
-    init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup], lastRefreshDate: String, customData: CustomData) {
+    public init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup], lastRefreshDate: String, customData: CustomData) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -438,16 +435,16 @@ class Shedule: NSObject, NSCoding {
     }
     
     // default initializer:
-    convenience override init() {
+    public convenience override init() {
         self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup](), lastRefreshDate: String(), customData: CustomData())
     }
     
     // MARK: - NSCoding:
     
-    required convenience init?(coder aDecoder: NSCoder) {
+    required convenience public init?(coder aDecoder: NSCoder) {
         
         /* This workaround with decoding Integers is necessary in order to prevent lunch crach after updating app from version 1.0
-        */
+         */
         
         var startDayTime = Int()
         var endDayTime = Int()
@@ -491,7 +488,7 @@ class Shedule: NSObject, NSCoding {
         self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes, lastRefreshDate: lastRefreshDate!, customData: customData!)
     }
     
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(startDayTime, forKey: Key.startDayTime)
         aCoder.encode(endDayTime, forKey: Key.endDayTime)
         aCoder.encode(shedule_id, forKey: Key.shedule_id)
@@ -528,7 +525,7 @@ class Shedule: NSObject, NSCoding {
     // MARK: - Methods: (Data logic)
 
 // ----------------------------------------------------------------------------------------
-extension Shedule {
+public extension Shedule {
     
     func performCache() {
         eventsCache.removeAll()
@@ -796,6 +793,13 @@ extension Shedule {
         groups[id] = nil
     }
     
+    static func urlForSharedScheduleContainer() -> String {
+
+        let directoryURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: AppData.sharedContainerIdentifier)
+        let fileURL = directoryURL?.appendingPathComponent("SharedSchedule.plist")
+        return fileURL!.path
+    }
+    
     // Data saving methods:
     
      func saveShedule() {
@@ -808,10 +812,10 @@ extension Shedule {
     
     func saveScheduleToSharedContainer() {
         
-        
-        let save = NSKeyedArchiver.archiveRootObject(self, toFile: Shedule.SharedContainerDirectory!.path)
+        let filePath = Shedule.urlForSharedScheduleContainer()
+        let save = NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
         if !save {
-            print("ERROR when saving to shared directory")
+            print("Error when saving to shared container!")
         }
     }
     

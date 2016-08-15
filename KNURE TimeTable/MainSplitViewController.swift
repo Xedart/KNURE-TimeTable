@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import RESideMenu
+import DataModel
 
 protocol SheduleControllersInitializer {
     func initializeWithNewShedule()

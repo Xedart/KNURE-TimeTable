@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DataModel
 
 class AlertView {
     static func getAlert(_ title: String, message: String, handler: ((UIAlertAction) -> Void)? ) -> UIAlertController {

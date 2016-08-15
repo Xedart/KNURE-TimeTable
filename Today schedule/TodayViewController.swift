@@ -8,19 +8,20 @@
 
 import UIKit
 import NotificationCenter
+import DataModel
 
 class TodayViewController: UIViewController, NCWidgetProviding {
         
     @IBOutlet weak var todayEventsTableView: UITableView!
     
     var fontColor = UIColor.black
-    var schedule: Shedule!
-    var object = String()
+    var schedule: Shedule?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        //get shared shedule:
+        schedule = loadSharedSchedule()
         
         todayEventsTableView.dataSource = self
         todayEventsTableView.delegate = self
@@ -30,7 +31,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         } else {
             // set fontColor to the white on older version of iOS (9)
             fontColor = UIColor.white
-           preferredContentSize = CGSize(width: 0, height: 237.5)
+            let height = contentHeight()
+           preferredContentSize = CGSize(width: 0, height: height)
         }
         
         
@@ -53,11 +55,33 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.preferredContentSize = maxSize;
         }
         else {
-            self.preferredContentSize = CGSize(width: 0, height: 237.5);
+            let height = contentHeight()
+            preferredContentSize = CGSize(width: 0, height: height)
         }
     }
     
+    // Sub methods:
     
+    func loadSharedSchedule() -> Shedule? {
+        
+        let path = Shedule.urlForSharedScheduleContainer()
+        let shedule = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Shedule
+        return shedule
+    }
+    
+    func contentHeight() -> CGFloat {
+        
+        // 42.5  - tableview row height
+        //25.0 - table view header height
+        //200.0 - standart minimum size
+        
+        if schedule == nil {
+            return 200.0
+        }
+        
+        let day = Date(timeIntervalSince1970: TimeInterval(1472728500))
+        return 42.5 * CGFloat(schedule!.eventsInDay(day).count) + 25.0
+    }
 }
 
 
@@ -78,7 +102,7 @@ class TodayTbaleViewCell: UITableViewCell {
     
     @IBOutlet weak var additionalInfoLabel: UILabel!
     
-    func configure(fontColor: UIColor) {
+    func configure(fontColor: UIColor, event: Event, schedule: Shedule) {
         
         // set apropriate color to the label depends on version of notification center:
         
@@ -96,6 +120,19 @@ class TodayTbaleViewCell: UITableViewCell {
             additionalInfoLabel.layer.borderColor = UIColor.darkGray.cgColor
             separatorLineView.backgroundColor = UIColor.darkGray
         }
+        
+        // Set content to labels:
+        
+        //start time/ end time:
+        startTimeLabel.text = AppData.pairsStartTime[event.numberOf_pair]
+        endTimeLabel.text = AppData.pairsEndTime[event.numberOf_pair]
+        
+        //subject label:
+        subjectTitleLabel.text = schedule.subjects[event.subject_id]!.briefTitle
+        
+        //type and auditory label:
+        additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.3)
+        additionalInfoLabel.text = " \(schedule.types[event.type]!.short_name), \(event.auditory)"
     }
 }
 
@@ -106,18 +143,28 @@ class TodayTbaleViewCell: UITableViewCell {
 extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if schedule == nil {
+            return 0
+        }
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if schedule == nil {
+            return 0
+        }
+        let day = Date(timeIntervalSince1970: TimeInterval(1472728500))
+        return schedule!.eventsInDay(day).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodayTbaleViewCell", for: indexPath) as! TodayTbaleViewCell
-        cell.subjectTitleLabel.text = object
-        cell.configure(fontColor: fontColor)
+        
+        let day = Date(timeIntervalSince1970: TimeInterval(1472728500))
+        let events = schedule!.eventsInDay(day)
+        
+        cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
         return cell
         
     }
@@ -127,8 +174,16 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if schedule == nil {
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        
         let label = UILabel()
-        label.text = "КН-14-5, сегодня, 14.08"
+        label.text = "\(schedule!.shedule_id), сегодня, \(formatter.string(from: Date()))"
         if fontColor == UIColor.white {
             label.textColor = UIColor.lightGray
         } else {
@@ -137,7 +192,6 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         label.textAlignment = .center
         return label
     }
-    
 }
 
 

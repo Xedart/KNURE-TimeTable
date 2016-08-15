@@ -8,6 +8,7 @@
 
 import UIKit
 //import ChameleonFramework
+import DataModel
 //
 
 protocol CustomEventTableViewControllerDelegate {

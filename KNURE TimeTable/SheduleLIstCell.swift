@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DataModel
 //import ChameleonFramework
 
 class SheduleLIstCell: UITableViewCell {

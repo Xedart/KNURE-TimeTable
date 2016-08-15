@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DataModel
 
 struct SheduleData {
     var id: String

@@ -8,6 +8,7 @@
 
 import Foundation
 import RESideMenu
+import DataModel
 
 class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     

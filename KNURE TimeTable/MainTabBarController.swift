@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 //import SwiftyJSON
 //import ChameleonFramework
+import DataModel
 
 class MainTabBarController: UITabBarController {
     

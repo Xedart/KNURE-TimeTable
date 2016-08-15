@@ -8,6 +8,7 @@
 
 import UIKit
 //import ChameleonFramework
+import DataModel
 
 class TableSheduleHeader: UILabel {
     

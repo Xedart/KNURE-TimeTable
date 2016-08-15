@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 //import ChameleonFramework
+import DataModel
 
 class NoteTextView: UITextView {
     

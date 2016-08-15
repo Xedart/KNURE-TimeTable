@@ -8,6 +8,7 @@
 
 import UIKit
 import FZAccordionTableView
+import DataModel
 
 class noteHeader: FZAccordionTableViewHeaderView {
     
