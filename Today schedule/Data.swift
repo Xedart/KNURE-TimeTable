@@ -19,8 +19,7 @@ struct AppData {
     static let savedGroupsShedulesKey = "savedGroupsShedulesKey"
     static let savedTeachersShedulesKey = "savedTeachersShedulesKey"
     static let savedAuditoriesShedulesKey = "savedAuditoriesShedulesKey"
-    static let groupdEntitlements = "group.nureTimeTableSharedData"
-    
+     static let groupdEntitlements = "group.nureTimeTableSharedData"
     //
     static let appleButtonDefault = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1)
     static let initNotification = "initNotification"
@@ -64,26 +63,7 @@ struct AppData {
         }
     }
     
-    static func colorsForPairOfType(_ type: Int?) -> UIColor {
-        if type == nil {
-        return UIColor.lightGray
-        } else if type >= 0 && type < 10 {
-            return FlatYellowDark()
-        } else if type >= 10 && type < 20 {
-            return FlatMint()
-        } else if type >= 20 && type < 30 {
-            return FlatPurpleDark()
-        } else if type >= 30 && type < 40 {
-            return FlatGray()
-        } else if type >= 40 && type < 50 {
-            return FlatGray()
-        } else if type >= 50 && type <= 60 {
-            return FlatSkyBlue()
-        }
-        else {
-            return UIColor.lightGray
-        }
-    }
+  
 }
 
 extension Date {

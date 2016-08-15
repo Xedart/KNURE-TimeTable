@@ -200,37 +200,37 @@ class ShedulesListTableViewController: UITableViewController {
             }
             
             if (indexPath as NSIndexPath).section == 0 {
-                self.deleteFile("\(Shedule().urlPath.path)/\(self.groupsData[(indexPath as NSIndexPath).row])")
+                _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.groupsData[indexPath.row])")
                 if self.groupsData[(indexPath as NSIndexPath).row] == defaultSchedule {
                     
-                    if !self.chooseProperSchedule(self.groupsData[(indexPath as NSIndexPath).row]) {
+                    if !self.chooseProperSchedule(self.groupsData[indexPath.row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
-                self.groupsData.remove(at: (indexPath as NSIndexPath).row)
+                self.groupsData.remove(at: indexPath.row)
                 defaults.set(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
                 if self.groupsData.isEmpty {
                     tableView.reloadData()
                     return
                 }
             } else if (indexPath as NSIndexPath).section == 1 {
-                self.deleteFile("\(Shedule().urlPath.path)/\(self.teachersData[(indexPath as NSIndexPath).row])")
-                if self.teachersData[(indexPath as NSIndexPath).row] == defaultSchedule {
+                _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.teachersData[indexPath.row])")
+                if self.teachersData[indexPath.row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.teachersData[(indexPath as NSIndexPath).row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
-                self.teachersData.remove(at: (indexPath as NSIndexPath).row)
+                self.teachersData.remove(at: indexPath.row)
                 defaults.set(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
                 if self.teachersData.isEmpty {
                     tableView.reloadData()
                     return
                 }
             } else if (indexPath as NSIndexPath).section == 2 {
-                self.deleteFile("\(Shedule().urlPath.path)/\(self.auditoryiesData[(indexPath as NSIndexPath).row])")
+                _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.auditoryiesData[indexPath.row])")
                 if self.auditoryiesData[(indexPath as NSIndexPath).row] == defaultSchedule {
                     if !self.chooseProperSchedule(self.auditoryiesData[(indexPath as NSIndexPath).row]) {
                         defaults.set(nil, forKey: AppData.defaultScheduleKey)
@@ -285,23 +285,23 @@ class ShedulesListTableViewController: UITableViewController {
         
         // get default schedule:
         var newScheduleId = ""
-        if (indexPath as NSIndexPath).section == 0 {
+        if indexPath.section == 0 {
             guard !groupsData.isEmpty else {
                 return
             }
-           newScheduleId = groupsData[(indexPath as NSIndexPath).row]
+           newScheduleId = groupsData[indexPath.row]
         }
-        if (indexPath as NSIndexPath).section == 1 {
+        if indexPath.section == 1 {
             guard !teachersData.isEmpty else {
                 return
             }
-            newScheduleId = teachersData[(indexPath as NSIndexPath).row]
+            newScheduleId = teachersData[indexPath.row]
         }
-        if (indexPath as NSIndexPath).section == 2 {
+        if indexPath.section == 2 {
             guard !auditoryiesData.isEmpty else {
                 return
             }
-            newScheduleId = auditoryiesData[(indexPath as NSIndexPath).row]
+            newScheduleId = auditoryiesData[indexPath.row]
         }
         
         // set the new default schedule:

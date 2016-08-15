@@ -31,6 +31,9 @@
 		842DD2BD1D410A7F00E802B0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DD2BC1D410A7F00E802B0 /* TodayViewController.swift */; };
 		842DD2C01D410A7F00E802B0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842DD2BE1D410A7F00E802B0 /* MainInterface.storyboard */; };
 		842DD2C41D410A8000E802B0 /* Today schedule.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 842DD2B81D410A7F00E802B0 /* Today schedule.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		842F543A1D61E29F004A6FAB /* SheduleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776561C6BA1E2000776B9 /* SheduleDataModel.swift */; };
+		842F543C1D61E2D4004A6FAB /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
+		842F543E1D61E31B004A6FAB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F543D1D61E31B004A6FAB /* Data.swift */; };
 		843D1F761D52022900D6A9E0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D1F751D52022900D6A9E0 /* SwiftyJSON.swift */; };
 		8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
@@ -142,8 +145,11 @@
 		842DD2BC1D410A7F00E802B0 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		842DD2BF1D410A7F00E802B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		842DD2C11D410A7F00E802B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842F543D1D61E31B004A6FAB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		843D1F751D52022900D6A9E0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewController.swift; sourceTree = "<group>"; };
+		844D7ACB1D611855006076C4 /* NureTimeTable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NureTimeTable.entitlements; sourceTree = "<group>"; };
+		844D7ACC1D611927006076C4 /* Today schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today schedule.entitlements"; sourceTree = "<group>"; };
 		847776211C63945C000776B9 /* NureTimeTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NureTimeTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847776241C63945C000776B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847776291C63945C000776B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -251,7 +257,9 @@
 		842DD2BB1D410A7F00E802B0 /* Today schedule */ = {
 			isa = PBXGroup;
 			children = (
+				844D7ACC1D611927006076C4 /* Today schedule.entitlements */,
 				842DD2BC1D410A7F00E802B0 /* TodayViewController.swift */,
+				842F543D1D61E31B004A6FAB /* Data.swift */,
 				842DD2BE1D410A7F00E802B0 /* MainInterface.storyboard */,
 				842DD2C11D410A7F00E802B0 /* Info.plist */,
 			);
@@ -292,6 +300,7 @@
 		847776231C63945C000776B9 /* KNURE TimeTable */ = {
 			isa = PBXGroup;
 			children = (
+				844D7ACB1D611855006076C4 /* NureTimeTable.entitlements */,
 				8477764A1C6A47C7000776B9 /* Resources */,
 				8477764B1C6A4813000776B9 /* Data */,
 				847776241C63945C000776B9 /* AppDelegate.swift */,
@@ -529,11 +538,21 @@
 						DevelopmentTeamName = "Artur Shkil";
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					847776201C63945C000776B9 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 34L9FK5K5X;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					847776341C63945D000776B9 = {
 						CreatedOnToolsVersion = 7.2;
@@ -645,7 +664,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842F543C1D61E2D4004A6FAB /* InterfaceStrings.swift in Sources */,
+				842F543A1D61E29F004A6FAB /* SheduleDataModel.swift in Sources */,
 				842DD2BD1D410A7F00E802B0 /* TodayViewController.swift in Sources */,
+				842F543E1D61E31B004A6FAB /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,10 +783,12 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = "Today schedule/Today schedule.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 34L9FK5K5X;
 				INFOPLIST_FILE = "Today schedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable.Today-schedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -779,10 +803,12 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = "Today schedule/Today schedule.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 34L9FK5K5X;
 				INFOPLIST_FILE = "Today schedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable.Today-schedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -882,6 +908,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "KNURE TimeTable/NureTimeTable.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";
@@ -908,6 +935,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "KNURE TimeTable/NureTimeTable.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "KNURE TimeTable/Info.plist";

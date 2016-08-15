@@ -15,7 +15,11 @@ class NoteTextView: UITextView {
     var shouldResignFirstResponder = true
     
     override func resignFirstResponder() -> Bool {
-        return shouldResignFirstResponder
+        if shouldResignFirstResponder {
+            super.resignFirstResponder()
+            return true
+        }
+        return false
     }
 }
 
@@ -202,7 +206,7 @@ class EventDetailViewController: UITableViewController {
     func closeController(_ sender: UIBarButtonItem) {
         if noteTextView != nil {
         noteTextView.shouldResignFirstResponder = true
-        noteTextView.resignFirstResponder()
+        _ = noteTextView.resignFirstResponder()
         }
         
         self.dismiss(animated: true, completion: nil)
@@ -224,7 +228,7 @@ class EventDetailViewController: UITableViewController {
         } else {
            let updatedNote = currentSchedule.getNoteWithTokenId("\(displayedEvent.subject_id)\(displayedEvent.start_time)")
             if noteText.isEmpty {
-                currentSchedule.deleteNoteWithId(updatedNote!.idToken)
+               _ = currentSchedule.deleteNoteWithId(updatedNote!.idToken)
             } else {
                 updatedNote!.text = noteText
                 updatedNote!.updateDate = converter.string(from: Date())
@@ -235,7 +239,7 @@ class EventDetailViewController: UITableViewController {
         delegate.passScheduleToLeftController()
 
         
-        noteTextView.resignFirstResponder()
+        _ = noteTextView.resignFirstResponder()
         sectionHeader.hideSaveButton()
         NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.reloadNotification), object: nil)
         // done animation:

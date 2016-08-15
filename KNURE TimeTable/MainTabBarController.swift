@@ -22,6 +22,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         tabBar.barTintColor = FlatWhite()
         
+        
         let firsNavigationController = viewControllers![0] as! UINavigationController
         let secondNavigationController = viewControllers![1] as! UINavigationController
         scheduleTableController = firsNavigationController.viewControllers[0] as! TableSheduleController
@@ -41,7 +42,7 @@ class MainTabBarController: UITabBarController {
     // MARK: - Methods:
     
     func loadShedule(_ sheduleId: String) -> Shedule {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path)/\(sheduleId)") as! Shedule
+        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule.urlPath.path)/\(sheduleId)") as! Shedule
     }
 }
 
@@ -54,6 +55,9 @@ extension MainTabBarController: SheduleControllersInitializer {
             scheduleTableController.shedule = newSchedule
             self.scheduleCollectionController.initialScrollDone = false
             scheduleCollectionController.shedule = newSchedule
+            
+            //set schedule object to shared container:
+            newSchedule.saveScheduleToSharedContainer()
         } else {
             scheduleTableController.shedule = Shedule()
             self.scheduleCollectionController.initialScrollDone = false

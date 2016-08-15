@@ -121,6 +121,10 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     }
     
     func save() {
+        
+        //hide thekeyboard:
+        _ = noteTextView.resignFirstResponder()
+        
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         delegate.shedule.insertEvent(customEvent, in: Date(timeIntervalSince1970: TimeInterval(customEvent!.start_time)))

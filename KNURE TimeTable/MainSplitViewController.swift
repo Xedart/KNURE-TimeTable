@@ -92,7 +92,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     
     // load schedule with specified id from the fiile:
     func loadShedule(_ sheduleId: String) -> Shedule {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule().urlPath.path)/\(sheduleId)") as! Shedule
+        return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule.urlPath.path)/\(sheduleId)") as! Shedule
     }
 }
 
@@ -125,6 +125,9 @@ extension MainSplitViewController: SheduleControllersInitializer {
             DispatchQueue.main.async(execute: {
                 self.button.setTitle(defaultKey, for: UIControlState())
             })
+            
+            //set schedule object to shared container:
+            newSchedule.saveScheduleToSharedContainer()
         } else {
             DispatchQueue.main.async(execute: {
                 self.button.setTitle(AppStrings.ChooseSchedule, for: UIControlState())

@@ -396,7 +396,11 @@ class Shedule: NSObject, NSCoding {
     
     // Static properties (File path ):
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    let urlPath = DocumentsDirectory
+    static let urlPath = DocumentsDirectory
+    //Shared container:
+    static let SharedContainerDirectory = FileManager().containerURL(forSecurityApplicationGroupIdentifier: AppData.groupdEntitlements)
+    
+    
     // MARK: Properties:
     
     var eventsCache = [String: EventCache]() // cache with data for collectionvView
@@ -792,11 +796,36 @@ extension Shedule {
         groups[id] = nil
     }
     
+    // Data saving methods:
+    
      func saveShedule() {
     
-        let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule().urlPath.path)/\(self.shedule_id)")
+        let save = NSKeyedArchiver.archiveRootObject(self, toFile: "\(Shedule.urlPath.path)/\(self.shedule_id)")
         if !save {
             print("Error when saving")
         }
     }
+    
+    func saveScheduleToSharedContainer() {
+        
+        
+        let save = NSKeyedArchiver.archiveRootObject(self, toFile: Shedule.SharedContainerDirectory!.path)
+        if !save {
+            print("ERROR when saving to shared directory")
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
