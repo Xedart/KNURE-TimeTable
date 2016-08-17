@@ -238,7 +238,8 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
  
     // MARK: - Navigation:
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destionation = segue.destination as! CustomEventConfiguratorTableView
         destionation.delegate = self
         destionation.field = CustomField(rawValue: tableView.indexPathForSelectedRow!.row)

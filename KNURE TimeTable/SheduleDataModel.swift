@@ -730,7 +730,7 @@ public extension Shedule {
     
     func deleteTeacherIfUnused(_ id: String) {
         
-        guard Int(id) < -1 else {
+        guard Int(id)! < -1 else {
             return
         }
         
@@ -746,7 +746,7 @@ public extension Shedule {
     }
     
     func deleteTypeIfUnused(_ id: String) {
-        guard Int(id) < -1 else {
+        guard Int(id)! < -1 else {
             return
         }
         
@@ -762,7 +762,7 @@ public extension Shedule {
     }
     
     func deleteSubjectIfUnused(_ id: String) {
-        guard Int(id) < -1 else {
+        guard Int(id)! < -1 else {
             return
         }
         
@@ -778,7 +778,7 @@ public extension Shedule {
     }
     
     func deleteGroupIfUnused(_ id: String) {
-        guard Int(id) < -1 else {
+        guard Int(id)! < -1 else {
             return
         }
         
@@ -814,6 +814,12 @@ public extension Shedule {
         
         let filePath = Shedule.urlForSharedScheduleContainer()
         let save = NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
+        
+        // Set mark for app extension to notify that schedule has been changed:
+        let sharedDefaults = UserDefaults(suiteName: AppData.sharedContainerIdentifier)
+        sharedDefaults?.set(true, forKey: AppData.isScheduleUpdated)
+        sharedDefaults?.synchronize()
+
         if !save {
             print("Error when saving to shared container!")
         }

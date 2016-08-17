@@ -12,7 +12,7 @@ import DataModel
 
 class Parser {
     
-    static func parseAuditoriesList(_ data: JSON, callback: (data: [ListSection]) -> Void) {
+    static func parseAuditoriesList(_ data: JSON, callback: (_ data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
         let buildings = data["university"]["buildings"].arrayValue
         
@@ -30,10 +30,10 @@ class Parser {
             }
             resultList.append(resultRow)
         }
-        callback(data: resultList)
+        callback(resultList)
     }
     
-    static func parseTeachersList(_ data: JSON, callback: (data: [ListSection]) -> Void) {
+    static func parseTeachersList(_ data: JSON, callback: (_ data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
         let faculties = data["university"]["faculties"].arrayValue
         
@@ -55,10 +55,10 @@ class Parser {
             }
             resultList.append(resultRow)
         }
-        callback(data: resultList)
+        callback(resultList)
     }
     
-    static func parseGroupsLst(_ data: JSON, callback: (data: [ListSection]) -> Void) {
+    static func parseGroupsLst(_ data: JSON, callback: (_ data: [ListSection]) -> Void) {
         var resultList = [ListSection]()
         
         let faculties = data["university"]["faculties"].arrayValue
@@ -93,11 +93,11 @@ class Parser {
             }
             resultList.append(resultRow)
         }
-        callback(data: resultList)
+        callback(resultList)
     }
     
     
-    static func parseSchedule(_ data: JSON, callback: (data: Shedule) -> Void) {
+    static func parseSchedule(_ data: JSON, callback: (_ data: Shedule) -> Void) {
         
         // perform data arrays for filling:
         var result_types = [String: NureType]()
@@ -194,6 +194,6 @@ class Parser {
         let refreshDate = formatter.string(from: Date())
         
         let result = Shedule(startDayTime: firstDayTime, endDayTime: lastDayTime, shedule_id: "", days: result_days, groups: result_groups, teachers: result_teachers, subjects: result_subjects, types: result_types, scheduleIdentifier: "", notes: [NoteGroup](), lastRefreshDate: refreshDate, customData: CustomData())
-        callback(data: result)
+        callback(result)
     }
 }

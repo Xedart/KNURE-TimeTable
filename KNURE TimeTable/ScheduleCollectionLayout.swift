@@ -80,7 +80,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     }
     
     func computeDecorationAttributes() {
-        if collectionView?.numberOfSections > 0 {
+        if (collectionView?.numberOfSections)! > 0 {
         for i in 1...8 {
             let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "lineView", with: IndexPath(item: i, section: 0))
             attributes.frame = CGRect(x: 50, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: contentWidth, height: 0.6)

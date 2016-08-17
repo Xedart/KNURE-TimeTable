@@ -40,12 +40,23 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetPerformUpdate(_ completionHandler: ((NCUpdateResult) -> Void)) {
         
+        let sharedDefaults = UserDefaults(suiteName: AppData.sharedContainerIdentifier)
         
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
+        if let isScheduleUpdated = sharedDefaults?.bool(forKey: AppData.isScheduleUpdated) {
+            if isScheduleUpdated {
+                // load updated schedule, and redraw widget's content before iOS will take snapshot:
+                schedule = loadSharedSchedule()
+                let height = contentHeight()
+                preferredContentSize = CGSize(width: 0, height: height)
+                todayEventsTableView.reloadData()
+                // set mark no notify that schedule is up to date:
+                sharedDefaults?.set(false, forKey: AppData.isScheduleUpdated)
+                sharedDefaults?.synchronize()
+                completionHandler(NCUpdateResult.newData)
+                return
+            }
+            completionHandler(NCUpdateResult.noData)
+        }
         completionHandler(NCUpdateResult.noData)
     }
     

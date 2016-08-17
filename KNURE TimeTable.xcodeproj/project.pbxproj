@@ -36,7 +36,6 @@
 		842F54811D6271FB004A6FAB /* UIView+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44551D3655C4003AD734 /* UIView+ChameleonPrivate.m */; };
 		842F54821D6271FE004A6FAB /* UIViewController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44571D3655C4003AD734 /* UIViewController+Chameleon.m */; };
 		842F54831D627201004A6FAB /* ChameleonShorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D443B1D36557B003AD734 /* ChameleonShorthand.swift */; };
-		843D1F761D52022900D6A9E0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D1F751D52022900D6A9E0 /* SwiftyJSON.swift */; };
 		8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
@@ -62,6 +61,7 @@
 		849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832771C737B0C00727E74 /* NewScheduleCell.swift */; };
 		84A1F6731C83292500A7C05C /* CollectionScheduleMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */; };
 		84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */; };
+		84B808F71D6339DF009149E8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B808F61D6339DF009149E8 /* SwiftyJSON.swift */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
 		84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */; };
 		84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */; };
@@ -166,7 +166,6 @@
 		842F54451D620108004A6FAB /* DataModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		842F54471D620108004A6FAB /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		842F54481D620108004A6FAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		843D1F751D52022900D6A9E0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewController.swift; sourceTree = "<group>"; };
 		844D7ACB1D611855006076C4 /* NureTimeTable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NureTimeTable.entitlements; sourceTree = "<group>"; };
 		844D7ACC1D611927006076C4 /* Today schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today schedule.entitlements"; sourceTree = "<group>"; };
@@ -200,6 +199,7 @@
 		849832771C737B0C00727E74 /* NewScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScheduleCell.swift; sourceTree = "<group>"; };
 		84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleMultiCell.swift; sourceTree = "<group>"; };
 		84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleEmptyCell.swift; sourceTree = "<group>"; };
+		84B808F61D6339DF009149E8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
 		84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewButton.swift; sourceTree = "<group>"; };
 		84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleLIstCell.swift; sourceTree = "<group>"; };
@@ -390,7 +390,7 @@
 				84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */,
 				84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */,
 				84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */,
-				843D1F751D52022900D6A9E0 /* SwiftyJSON.swift */,
+				84B808F61D6339DF009149E8 /* SwiftyJSON.swift */,
 				840D44371D365569003AD734 /* Chameleon */,
 			);
 			name = Resources;
@@ -786,8 +786,8 @@
 				842F54801D6271F9004A6FAB /* UINavigationController+Chameleon.m in Sources */,
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
 				840D44781D3A4373003AD734 /* CustomEventConfiguratorTableView.swift in Sources */,
-				843D1F761D52022900D6A9E0 /* SwiftyJSON.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
+				84B808F71D6339DF009149E8 /* SwiftyJSON.swift in Sources */,
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,
 				842F547C1D6271ED004A6FAB /* UIColor+Chameleon.m in Sources */,
 				8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */,
@@ -1140,6 +1140,7 @@
 				842F54501D620108004A6FAB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8477761C1C63945C000776B9 /* Build configuration list for PBXProject "KNURE TimeTable" */ = {
 			isa = XCConfigurationList;

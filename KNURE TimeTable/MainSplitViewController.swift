@@ -212,6 +212,8 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         return
                     }
                     data.saveShedule()
+                    data.saveScheduleToSharedContainer()
+                    
                     // pass schedule to sideMenu:
                     let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController
                     leftSideMenu.schedule = self.scheduleTableController.shedule
@@ -236,7 +238,7 @@ extension MainSplitViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.getNewSchedule), name: NSNotification.Name(rawValue: AppData.initNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.reloadViewController), name: NSNotification.Name(rawValue: AppData.reloadNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.relodAfetrBecameActive), name: NSNotification.Name(rawValue: didEnterToActive), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: "UpDateNotification" as NSNotification.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainSplitViewController.updateCurrentSchedule), name: NSNotification.Name(rawValue: "UpDateNotification"), object: nil)
     }
 }
 

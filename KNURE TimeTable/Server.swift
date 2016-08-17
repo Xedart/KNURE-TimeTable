@@ -23,7 +23,7 @@ class Server {
         case getAudytories = "P_API_AUDITORIES_JSON"
     }
     
-    static func makeRequest(_ method: Method, parameters: [String]?, callback: (data: Data?, responce: URLResponse?, error: Error?) -> Void ) {
+    static func makeRequest(_ method: Method, parameters: [String]?, callback: @escaping (_ data: Data?, _ responce: URLResponse?, _ error: Error?) -> Void ) {
         
         // url making:
         var urlStr = "\(apiRoot)\(method.rawValue)"

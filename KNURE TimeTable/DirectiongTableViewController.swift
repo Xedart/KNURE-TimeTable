@@ -38,7 +38,7 @@ class DirectingTableViewController: UITableViewController {
 
     // MARK: - Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationController = segue.destination as! SchedulesDownoalTableView
         let cell = sender as! SchedulesTypesCell
         if cell.tag == 0 {
