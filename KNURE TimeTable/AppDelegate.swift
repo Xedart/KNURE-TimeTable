@@ -8,6 +8,8 @@
 
 import UIKit
 import QuartzCore
+import DataModel
+import SVProgressHUD
 
 let didEnterToActive = "didEnterToActive"
 
@@ -17,6 +19,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        
+        // Clean up workflow in order to prevent crash when old app is updated to new version.
+        let defaults = UserDefaults.standard
+        
+        if (defaults.object(forKey: AppData.cleanUpMark) as? Bool) == nil {
+            if (defaults.object(forKey: AppData.defaultScheduleKey) as? String) != nil {
+                
+                // perform the cleanUp:
+                defaults.set(nil, forKey: AppData.defaultScheduleKey)
+                defaults.set(nil, forKey: AppData.savedGroupsShedulesKey)
+                defaults.set(nil, forKey: AppData.savedTeachersShedulesKey)
+                defaults.set(nil, forKey: AppData.savedAuditoriesShedulesKey)
+            }
+            
+            //set the clean up mark to indicate that clening up was done:
+            defaults.set(true, forKey: AppData.cleanUpMark)
+            
+            let alert = UIAlertController(title: AppStrings.Information, message: AppStrings.cleanUpInfo, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: AppStrings.Done, style: .cancel, handler: nil))
+            DispatchQueue.main.async {
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
+        
         return true
     }
 

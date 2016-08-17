@@ -127,9 +127,11 @@ class TodayTbaleViewCell: UITableViewCell {
         if fontColor == UIColor.white {
             additionalInfoLabel.layer.borderColor = UIColor.lightGray.cgColor
             separatorLineView.backgroundColor = UIColor.lightGray
+            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.9)
         } else {
             additionalInfoLabel.layer.borderColor = UIColor.darkGray.cgColor
             separatorLineView.backgroundColor = UIColor.darkGray
+            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.55)
         }
         
         // Set content to labels:
@@ -142,8 +144,7 @@ class TodayTbaleViewCell: UITableViewCell {
         subjectTitleLabel.text = schedule.subjects[event.subject_id]!.briefTitle
         
         //type and auditory label:
-        additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.3)
-        additionalInfoLabel.text = " \(schedule.types[event.type]!.short_name), \(event.auditory)"
+        additionalInfoLabel.text = "\(schedule.types[event.type]!.short_name), \(event.auditory)"
     }
 }
 
@@ -176,6 +177,7 @@ extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
         let events = schedule!.eventsInDay(day)
         
         cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
+        
         return cell
         
     }

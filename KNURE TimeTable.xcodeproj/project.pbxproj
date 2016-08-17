@@ -23,19 +23,6 @@
 		842F54531D62014A004A6FAB /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		842F54541D620151004A6FAB /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
 		842F54551D620534004A6FAB /* DataModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842F54451D620108004A6FAB /* DataModel.framework */; };
-		842F54771D6271D6004A6FAB /* Chameleon_.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D443E1D3655C4003AD734 /* Chameleon_.m */; };
-		842F54781D6271E2004A6FAB /* ChameleonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44411D3655C4003AD734 /* ChameleonConstants.m */; };
-		842F54791D6271E6004A6FAB /* NSArray+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44451D3655C4003AD734 /* NSArray+Chameleon.m */; };
-		842F547A1D6271E8004A6FAB /* UIAppearance+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44471D3655C4003AD734 /* UIAppearance+Swift.m */; };
-		842F547B1D6271EB004A6FAB /* UIButton+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44491D3655C4003AD734 /* UIButton+Chameleon.m */; };
-		842F547C1D6271ED004A6FAB /* UIColor+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D444B1D3655C4003AD734 /* UIColor+Chameleon.m */; };
-		842F547D1D6271F1004A6FAB /* UIColor+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D444D1D3655C4003AD734 /* UIColor+ChameleonPrivate.m */; };
-		842F547E1D6271F4004A6FAB /* UIImage+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D444F1D3655C4003AD734 /* UIImage+ChameleonPrivate.m */; };
-		842F547F1D6271F6004A6FAB /* UILabel+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44511D3655C4003AD734 /* UILabel+Chameleon.m */; };
-		842F54801D6271F9004A6FAB /* UINavigationController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44531D3655C4003AD734 /* UINavigationController+Chameleon.m */; };
-		842F54811D6271FB004A6FAB /* UIView+ChameleonPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44551D3655C4003AD734 /* UIView+ChameleonPrivate.m */; };
-		842F54821D6271FE004A6FAB /* UIViewController+Chameleon.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D44571D3655C4003AD734 /* UIViewController+Chameleon.m */; };
-		842F54831D627201004A6FAB /* ChameleonShorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D443B1D36557B003AD734 /* ChameleonShorthand.swift */; };
 		8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
@@ -62,6 +49,7 @@
 		84A1F6731C83292500A7C05C /* CollectionScheduleMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */; };
 		84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */; };
 		84B808F71D6339DF009149E8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B808F61D6339DF009149E8 /* SwiftyJSON.swift */; };
+		84B809471D648A8B009149E8 /* ColorsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B809461D648A8B009149E8 /* ColorsConstants.swift */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
 		84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */; };
 		84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */; };
@@ -124,35 +112,6 @@
 		1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KNURE_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE976CFB648CBAA61D0F5A7 /* Pods-KNURE TimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KNURE TimeTable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable.debug.xcconfig"; sourceTree = "<group>"; };
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
-		840D44391D365569003AD734 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		840D443B1D36557B003AD734 /* ChameleonShorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChameleonShorthand.swift; sourceTree = "<group>"; };
-		840D443D1D3655C4003AD734 /* Chameleon_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chameleon_.h; sourceTree = "<group>"; };
-		840D443E1D3655C4003AD734 /* Chameleon_.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chameleon_.m; sourceTree = "<group>"; };
-		840D443F1D3655C4003AD734 /* Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chameleon.h; sourceTree = "<group>"; };
-		840D44401D3655C4003AD734 /* ChameleonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonConstants.h; sourceTree = "<group>"; };
-		840D44411D3655C4003AD734 /* ChameleonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChameleonConstants.m; sourceTree = "<group>"; };
-		840D44421D3655C4003AD734 /* ChameleonEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonEnums.h; sourceTree = "<group>"; };
-		840D44431D3655C4003AD734 /* ChameleonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChameleonMacros.h; sourceTree = "<group>"; };
-		840D44441D3655C4003AD734 /* NSArray+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chameleon.h"; sourceTree = "<group>"; };
-		840D44451D3655C4003AD734 /* NSArray+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chameleon.m"; sourceTree = "<group>"; };
-		840D44461D3655C4003AD734 /* UIAppearance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAppearance+Swift.h"; sourceTree = "<group>"; };
-		840D44471D3655C4003AD734 /* UIAppearance+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAppearance+Swift.m"; sourceTree = "<group>"; };
-		840D44481D3655C4003AD734 /* UIButton+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Chameleon.h"; sourceTree = "<group>"; };
-		840D44491D3655C4003AD734 /* UIButton+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Chameleon.m"; sourceTree = "<group>"; };
-		840D444A1D3655C4003AD734 /* UIColor+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Chameleon.h"; sourceTree = "<group>"; };
-		840D444B1D3655C4003AD734 /* UIColor+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Chameleon.m"; sourceTree = "<group>"; };
-		840D444C1D3655C4003AD734 /* UIColor+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		840D444D1D3655C4003AD734 /* UIColor+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		840D444E1D3655C4003AD734 /* UIImage+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		840D444F1D3655C4003AD734 /* UIImage+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		840D44501D3655C4003AD734 /* UILabel+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Chameleon.h"; sourceTree = "<group>"; };
-		840D44511D3655C4003AD734 /* UILabel+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Chameleon.m"; sourceTree = "<group>"; };
-		840D44521D3655C4003AD734 /* UINavigationController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Chameleon.h"; sourceTree = "<group>"; };
-		840D44531D3655C4003AD734 /* UINavigationController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Chameleon.m"; sourceTree = "<group>"; };
-		840D44541D3655C4003AD734 /* UIView+ChameleonPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		840D44551D3655C4003AD734 /* UIView+ChameleonPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		840D44561D3655C4003AD734 /* UIViewController+Chameleon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Chameleon.h"; sourceTree = "<group>"; };
-		840D44571D3655C4003AD734 /* UIViewController+Chameleon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Chameleon.m"; sourceTree = "<group>"; };
 		840D44771D3A4373003AD734 /* CustomEventConfiguratorTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventConfiguratorTableView.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
 		84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterfaceStrings.swift; path = "../KNURE TimeTable/InterfaceStrings.swift"; sourceTree = "<group>"; };
@@ -200,6 +159,7 @@
 		84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleMultiCell.swift; sourceTree = "<group>"; };
 		84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleEmptyCell.swift; sourceTree = "<group>"; };
 		84B808F61D6339DF009149E8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		84B809461D648A8B009149E8 /* ColorsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsConstants.swift; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
 		84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewButton.swift; sourceTree = "<group>"; };
 		84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleLIstCell.swift; sourceTree = "<group>"; };
@@ -247,42 +207,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		840D44371D365569003AD734 /* Chameleon */ = {
-			isa = PBXGroup;
-			children = (
-				840D443D1D3655C4003AD734 /* Chameleon_.h */,
-				840D443E1D3655C4003AD734 /* Chameleon_.m */,
-				840D443F1D3655C4003AD734 /* Chameleon.h */,
-				840D44401D3655C4003AD734 /* ChameleonConstants.h */,
-				840D44411D3655C4003AD734 /* ChameleonConstants.m */,
-				840D44421D3655C4003AD734 /* ChameleonEnums.h */,
-				840D44431D3655C4003AD734 /* ChameleonMacros.h */,
-				840D44441D3655C4003AD734 /* NSArray+Chameleon.h */,
-				840D44451D3655C4003AD734 /* NSArray+Chameleon.m */,
-				840D44461D3655C4003AD734 /* UIAppearance+Swift.h */,
-				840D44471D3655C4003AD734 /* UIAppearance+Swift.m */,
-				840D44481D3655C4003AD734 /* UIButton+Chameleon.h */,
-				840D44491D3655C4003AD734 /* UIButton+Chameleon.m */,
-				840D444A1D3655C4003AD734 /* UIColor+Chameleon.h */,
-				840D444B1D3655C4003AD734 /* UIColor+Chameleon.m */,
-				840D444C1D3655C4003AD734 /* UIColor+ChameleonPrivate.h */,
-				840D444D1D3655C4003AD734 /* UIColor+ChameleonPrivate.m */,
-				840D444E1D3655C4003AD734 /* UIImage+ChameleonPrivate.h */,
-				840D444F1D3655C4003AD734 /* UIImage+ChameleonPrivate.m */,
-				840D44501D3655C4003AD734 /* UILabel+Chameleon.h */,
-				840D44511D3655C4003AD734 /* UILabel+Chameleon.m */,
-				840D44521D3655C4003AD734 /* UINavigationController+Chameleon.h */,
-				840D44531D3655C4003AD734 /* UINavigationController+Chameleon.m */,
-				840D44541D3655C4003AD734 /* UIView+ChameleonPrivate.h */,
-				840D44551D3655C4003AD734 /* UIView+ChameleonPrivate.m */,
-				840D44561D3655C4003AD734 /* UIViewController+Chameleon.h */,
-				840D44571D3655C4003AD734 /* UIViewController+Chameleon.m */,
-				840D443B1D36557B003AD734 /* ChameleonShorthand.swift */,
-				840D44391D365569003AD734 /* Info.plist */,
-			);
-			path = Chameleon;
-			sourceTree = "<group>";
-		};
 		842DD2BB1D410A7F00E802B0 /* Today schedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +225,7 @@
 				847776561C6BA1E2000776B9 /* SheduleDataModel.swift */,
 				8477765A1C6D2043000776B9 /* AppDataModel.swift */,
 				84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */,
+				84B809461D648A8B009149E8 /* ColorsConstants.swift */,
 				842F54481D620108004A6FAB /* Info.plist */,
 			);
 			name = DataModel;
@@ -391,7 +316,6 @@
 				84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */,
 				84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */,
 				84B808F61D6339DF009149E8 /* SwiftyJSON.swift */,
-				840D44371D365569003AD734 /* Chameleon */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -749,6 +673,7 @@
 				842F54521D62013B004A6FAB /* SheduleDataModel.swift in Sources */,
 				842F54541D620151004A6FAB /* InterfaceStrings.swift in Sources */,
 				842F54531D62014A004A6FAB /* AppDataModel.swift in Sources */,
+				84B809471D648A8B009149E8 /* ColorsConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,46 +681,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				842F54821D6271FE004A6FAB /* UIViewController+Chameleon.m in Sources */,
 				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
 				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
-				842F54831D627201004A6FAB /* ChameleonShorthand.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
 				8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */,
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
-				842F54791D6271E6004A6FAB /* NSArray+Chameleon.m in Sources */,
 				8498326D1C72862F00727E74 /* Server.swift in Sources */,
-				842F54771D6271D6004A6FAB /* Chameleon_.m in Sources */,
 				84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */,
 				8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */,
 				848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */,
 				84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */,
-				842F547A1D6271E8004A6FAB /* UIAppearance+Swift.m in Sources */,
-				842F547E1D6271F4004A6FAB /* UIImage+ChameleonPrivate.m in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */,
 				84F6F18C1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift in Sources */,
-				842F547D1D6271F1004A6FAB /* UIColor+ChameleonPrivate.m in Sources */,
-				842F547B1D6271EB004A6FAB /* UIButton+Chameleon.m in Sources */,
-				842F54811D6271FB004A6FAB /* UIView+ChameleonPrivate.m in Sources */,
 				84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */,
-				842F54801D6271F9004A6FAB /* UINavigationController+Chameleon.m in Sources */,
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
 				840D44781D3A4373003AD734 /* CustomEventConfiguratorTableView.swift in Sources */,
 				84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */,
 				84B808F71D6339DF009149E8 /* SwiftyJSON.swift in Sources */,
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,
-				842F547C1D6271ED004A6FAB /* UIColor+Chameleon.m in Sources */,
 				8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
-				842F54781D6271E2004A6FAB /* ChameleonConstants.m in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
-				842F547F1D6271F6004A6FAB /* UILabel+Chameleon.m in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
 				84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */,
 				848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */,
