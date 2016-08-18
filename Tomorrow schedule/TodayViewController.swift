@@ -1,8 +1,8 @@
 //
 //  TodayViewController.swift
-//  Today schedule
+//  Tomorrow schedule
 //
-//  Created by Shkil Artur on 7/21/16.
+//  Created by Shkil Artur on 8/18/16.
 //  Copyright © 2016 Shkil Artur. All rights reserved.
 //
 
@@ -10,9 +10,9 @@ import UIKit
 import NotificationCenter
 import DataModel
 
-class TodayWidgetViewController: UIViewController, NCWidgetProviding {
-    
-    @IBOutlet weak var todayEventsTableView: UITableView!
+class TomorrowViewController: UIViewController, NCWidgetProviding {
+        
+    @IBOutlet weak var tomorrowScheduleTableView: UITableView!
     
     var fontColor = UIColor.black
     var schedule: Shedule?
@@ -23,11 +23,10 @@ class TodayWidgetViewController: UIViewController, NCWidgetProviding {
         //get shared shedule:
         schedule = loadSharedSchedule()
         
-        todayEventsTableView.dataSource = self
-        todayEventsTableView.delegate = self
+        tomorrowScheduleTableView.dataSource = self
+        tomorrowScheduleTableView.delegate = self
         
         if #available(iOSApplicationExtension 10.0, *) {
-            
             if contentHeight() > 110.0 {
                 self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
             } else {
@@ -50,7 +49,6 @@ class TodayWidgetViewController: UIViewController, NCWidgetProviding {
             if isScheduleUpdated {
                 // load updated schedule, and redraw widget's content before iOS will take snapshot:
                 schedule = loadSharedSchedule()
-                
                 // set proper largest content height:
                 if contentHeight() > 110.0 {
                     if #available(iOSApplicationExtension 10.0, *) {
@@ -65,10 +63,9 @@ class TodayWidgetViewController: UIViewController, NCWidgetProviding {
                         // Fallback on earlier versions
                     }
                 }
-                
                 let height = contentHeight()
                 preferredContentSize = CGSize(width: 0, height: height)
-                todayEventsTableView.reloadData()
+                tomorrowScheduleTableView.reloadData()
                 // set mark no notify that schedule is up to date:
                 sharedDefaults?.set(false, forKey: AppData.isScheduleUpdated)
                 sharedDefaults?.synchronize()
@@ -111,15 +108,15 @@ class TodayWidgetViewController: UIViewController, NCWidgetProviding {
             return 110.0
         }
         
-        let today = Date()
-        return 42.5 * CGFloat(schedule!.eventsInDay(today).count) + 25.0
+        let tomorrow = Date(timeInterval: TimeInterval(AppData.unixDay), since: Date())
+        return 42.5 * CGFloat(schedule!.eventsInDay(tomorrow).count) + 25.0
     }
 }
 
 // MARK: UITableViewDataSource delegate and dataSource:
 
 
-extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate {
+extension TomorrowViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if schedule == nil {
@@ -132,16 +129,16 @@ extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate 
         if schedule == nil {
             return 0
         }
-        let today = Date()
-        return schedule!.eventsInDay(today).count
+        let tomorrow = Date(timeInterval: TimeInterval(AppData.unixDay), since: Date())
+        return schedule!.eventsInDay(tomorrow).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodayTbaleViewCell", for: indexPath) as! TodayTbaleViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TomorrowTableViewCell", for: indexPath) as! TodayTbaleViewCell
         
-        let today = Date()
-        let events = schedule!.eventsInDay(today)
+        let tomorrow = Date(timeInterval: TimeInterval(AppData.unixDay), since: Date())
+        let events = schedule!.eventsInDay(tomorrow)
         
         cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
         
@@ -163,7 +160,8 @@ extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate 
         formatter.dateStyle = .short
         
         let label = UILabel()
-        label.text = "\(schedule!.shedule_id), \(AppStrings.Today), \(formatter.string(from: Date()))"
+        let tomorrow = Date(timeInterval: TimeInterval(AppData.unixDay), since: Date())
+        label.text = "\(schedule!.shedule_id), \(AppStrings.Tomorrow), \(formatter.string(from: tomorrow))"
         if fontColor == UIColor.white {
             label.textColor = UIColor.lightGray
         } else {
@@ -172,4 +170,23 @@ extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate 
         label.textAlignment = .center
         return label
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

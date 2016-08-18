@@ -50,14 +50,15 @@
 		84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */; };
 		84B808F71D6339DF009149E8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B808F61D6339DF009149E8 /* SwiftyJSON.swift */; };
 		84B809471D648A8B009149E8 /* ColorsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B809461D648A8B009149E8 /* ColorsConstants.swift */; };
-		84B809861D64AC08009149E8 /* WidgetSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B809851D64AC08009149E8 /* WidgetSchedule.swift */; };
-		84B8098C1D64D768009149E8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842DD2B91D410A7F00E802B0 /* NotificationCenter.framework */; };
-		84B809921D64D768009149E8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B809901D64D768009149E8 /* MainInterface.storyboard */; };
-		84B809961D64D768009149E8 /* Tomorrow schedule.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84B8098B1D64D768009149E8 /* Tomorrow schedule.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		84B8099C1D64DB49009149E8 /* TomorrowSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8099B1D64DB49009149E8 /* TomorrowSchedule.swift */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
 		84F0ABCF1C70CFB6006E2F40 /* TitleViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */; };
 		84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */; };
+		84F3059F1D65BC1F009C1F45 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842DD2B91D410A7F00E802B0 /* NotificationCenter.framework */; };
+		84F305A21D65BC1F009C1F45 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F305A11D65BC1F009C1F45 /* TodayViewController.swift */; };
+		84F305A51D65BC1F009C1F45 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F305A31D65BC1F009C1F45 /* MainInterface.storyboard */; };
+		84F305A91D65BC1F009C1F45 /* Tomorrow schedule.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84F3059E1D65BC1F009C1F45 /* Tomorrow schedule.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		84F305AD1D65BC63009C1F45 /* DataModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842F54451D620108004A6FAB /* DataModel.framework */; };
+		84F305B01D65C059009C1F45 /* WidgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F305AF1D65C059009C1F45 /* WidgetTableViewCell.swift */; };
 		84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */; };
 		84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F1891CB8435900CC8C36 /* SideMenuRootViewController.swift */; };
 		84F6F18C1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F18B1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift */; };
@@ -86,11 +87,11 @@
 			remoteGlobalIDString = 847776201C63945C000776B9;
 			remoteInfo = "KNURE TimeTable";
 		};
-		84B809941D64D768009149E8 /* PBXContainerItemProxy */ = {
+		84F305A71D65BC1F009C1F45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 847776191C63945C000776B9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 84B8098A1D64D768009149E8;
+			remoteGlobalIDString = 84F3059D1D65BC1F009C1F45;
 			remoteInfo = "Tomorrow schedule";
 		};
 /* End PBXContainerItemProxy section */
@@ -103,7 +104,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				842DD2C41D410A8000E802B0 /* Today schedule.appex in Embed App Extensions */,
-				84B809961D64D768009149E8 /* Tomorrow schedule.appex in Embed App Extensions */,
+				84F305A91D65BC1F009C1F45 /* Tomorrow schedule.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,15 +174,15 @@
 		84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleEmptyCell.swift; sourceTree = "<group>"; };
 		84B808F61D6339DF009149E8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		84B809461D648A8B009149E8 /* ColorsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsConstants.swift; sourceTree = "<group>"; };
-		84B809851D64AC08009149E8 /* WidgetSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSchedule.swift; sourceTree = "<group>"; };
-		84B8098B1D64D768009149E8 /* Tomorrow schedule.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Tomorrow schedule.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		84B809911D64D768009149E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		84B809931D64D768009149E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84B8099A1D64D804009149E8 /* Tomorrow schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tomorrow schedule.entitlements"; sourceTree = "<group>"; };
-		84B8099B1D64DB49009149E8 /* TomorrowSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TomorrowSchedule.swift; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
 		84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewButton.swift; sourceTree = "<group>"; };
 		84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheduleLIstCell.swift; sourceTree = "<group>"; };
+		84F3059E1D65BC1F009C1F45 /* Tomorrow schedule.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Tomorrow schedule.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F305A11D65BC1F009C1F45 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		84F305A41D65BC1F009C1F45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		84F305A61D65BC1F009C1F45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84F305AE1D65BD93009C1F45 /* Tomorrow schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tomorrow schedule.entitlements"; sourceTree = "<group>"; };
+		84F305AF1D65C059009C1F45 /* WidgetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTableViewCell.swift; sourceTree = "<group>"; };
 		84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KNURE TimeTable-Bridging-Header.h"; sourceTree = "<group>"; };
 		84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
@@ -223,11 +224,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84B809881D64D768009149E8 /* Frameworks */ = {
+		84F3059B1D65BC1F009C1F45 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B8098C1D64D768009149E8 /* NotificationCenter.framework in Frameworks */,
+				84F305AD1D65BC63009C1F45 /* DataModel.framework in Frameworks */,
+				84F3059F1D65BC1F009C1F45 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +255,7 @@
 				8477765A1C6D2043000776B9 /* AppDataModel.swift */,
 				84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */,
 				84B809461D648A8B009149E8 /* ColorsConstants.swift */,
-				84B809851D64AC08009149E8 /* WidgetSchedule.swift */,
+				84F305AF1D65C059009C1F45 /* WidgetTableViewCell.swift */,
 				842F54481D620108004A6FAB /* Info.plist */,
 			);
 			name = DataModel;
@@ -275,7 +277,7 @@
 				847776231C63945C000776B9 /* KNURE TimeTable */,
 				847776381C63945D000776B9 /* KNURE TimeTableTests */,
 				842DD2BB1D410A7F00E802B0 /* Today schedule */,
-				84B8098D1D64D768009149E8 /* Tomorrow schedule */,
+				84F305A01D65BC1F009C1F45 /* Tomorrow schedule */,
 				847776221C63945C000776B9 /* Products */,
 				CEBCD79CDB67043BF4DD36D6 /* Pods */,
 				B3010365F28E68BED05A4580 /* Frameworks */,
@@ -289,7 +291,7 @@
 				847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */,
 				842DD2B81D410A7F00E802B0 /* Today schedule.appex */,
 				842F54451D620108004A6FAB /* DataModel.framework */,
-				84B8098B1D64D768009149E8 /* Tomorrow schedule.appex */,
+				84F3059E1D65BC1F009C1F45 /* Tomorrow schedule.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -401,17 +403,6 @@
 			name = CustomView;
 			sourceTree = "<group>";
 		};
-		84B8098D1D64D768009149E8 /* Tomorrow schedule */ = {
-			isa = PBXGroup;
-			children = (
-				84B8099A1D64D804009149E8 /* Tomorrow schedule.entitlements */,
-				84B8099B1D64DB49009149E8 /* TomorrowSchedule.swift */,
-				84B809901D64D768009149E8 /* MainInterface.storyboard */,
-				84B809931D64D768009149E8 /* Info.plist */,
-			);
-			path = "Tomorrow schedule";
-			sourceTree = "<group>";
-		};
 		84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +430,17 @@
 				84247C961CD51B4A000654F9 /* LabelCell.swift */,
 			);
 			name = CustomCellsView;
+			sourceTree = "<group>";
+		};
+		84F305A01D65BC1F009C1F45 /* Tomorrow schedule */ = {
+			isa = PBXGroup;
+			children = (
+				84F305AE1D65BD93009C1F45 /* Tomorrow schedule.entitlements */,
+				84F305A11D65BC1F009C1F45 /* TodayViewController.swift */,
+				84F305A31D65BC1F009C1F45 /* MainInterface.storyboard */,
+				84F305A61D65BC1F009C1F45 /* Info.plist */,
+			);
+			path = "Tomorrow schedule";
 			sourceTree = "<group>";
 		};
 		B3010365F28E68BED05A4580 /* Frameworks */ = {
@@ -526,7 +528,7 @@
 			dependencies = (
 				842DD2C31D410A8000E802B0 /* PBXTargetDependency */,
 				842F544B1D620108004A6FAB /* PBXTargetDependency */,
-				84B809951D64D768009149E8 /* PBXTargetDependency */,
+				84F305A81D65BC1F009C1F45 /* PBXTargetDependency */,
 			);
 			name = "KNURE TimeTable";
 			productName = "KNURE TimeTable";
@@ -551,13 +553,13 @@
 			productReference = 847776351C63945D000776B9 /* KNURE TimeTableTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		84B8098A1D64D768009149E8 /* Tomorrow schedule */ = {
+		84F3059D1D65BC1F009C1F45 /* Tomorrow schedule */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84B809971D64D768009149E8 /* Build configuration list for PBXNativeTarget "Tomorrow schedule" */;
+			buildConfigurationList = 84F305AA1D65BC1F009C1F45 /* Build configuration list for PBXNativeTarget "Tomorrow schedule" */;
 			buildPhases = (
-				84B809871D64D768009149E8 /* Sources */,
-				84B809881D64D768009149E8 /* Frameworks */,
-				84B809891D64D768009149E8 /* Resources */,
+				84F3059A1D65BC1F009C1F45 /* Sources */,
+				84F3059B1D65BC1F009C1F45 /* Frameworks */,
+				84F3059C1D65BC1F009C1F45 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -565,7 +567,7 @@
 			);
 			name = "Tomorrow schedule";
 			productName = "Tomorrow schedule";
-			productReference = 84B8098B1D64D768009149E8 /* Tomorrow schedule.appex */;
+			productReference = 84F3059E1D65BC1F009C1F45 /* Tomorrow schedule.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -610,10 +612,9 @@
 						LastSwiftMigration = 0800;
 						TestTargetID = 847776201C63945C000776B9;
 					};
-					84B8098A1D64D768009149E8 = {
+					84F3059D1D65BC1F009C1F45 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 34L9FK5K5X;
-						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -640,7 +641,7 @@
 				847776341C63945D000776B9 /* KNURE TimeTableTests */,
 				842F54441D620108004A6FAB /* DataModel */,
 				842DD2B71D410A7F00E802B0 /* Today schedule */,
-				84B8098A1D64D768009149E8 /* Tomorrow schedule */,
+				84F3059D1D65BC1F009C1F45 /* Tomorrow schedule */,
 			);
 		};
 /* End PBXProject section */
@@ -678,11 +679,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84B809891D64D768009149E8 /* Resources */ = {
+		84F3059C1D65BC1F009C1F45 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B809921D64D768009149E8 /* MainInterface.storyboard in Resources */,
+				84F305A51D65BC1F009C1F45 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,8 +751,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				842F54521D62013B004A6FAB /* SheduleDataModel.swift in Sources */,
-				84B809861D64AC08009149E8 /* WidgetSchedule.swift in Sources */,
 				842F54541D620151004A6FAB /* InterfaceStrings.swift in Sources */,
+				84F305B01D65C059009C1F45 /* WidgetTableViewCell.swift in Sources */,
 				842F54531D62014A004A6FAB /* AppDataModel.swift in Sources */,
 				84B809471D648A8B009149E8 /* ColorsConstants.swift in Sources */,
 			);
@@ -805,11 +806,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84B809871D64D768009149E8 /* Sources */ = {
+		84F3059A1D65BC1F009C1F45 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B8099C1D64DB49009149E8 /* TomorrowSchedule.swift in Sources */,
+				84F305A21D65BC1F009C1F45 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -831,10 +832,10 @@
 			target = 847776201C63945C000776B9 /* KNURE TimeTable */;
 			targetProxy = 847776361C63945D000776B9 /* PBXContainerItemProxy */;
 		};
-		84B809951D64D768009149E8 /* PBXTargetDependency */ = {
+		84F305A81D65BC1F009C1F45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 84B8098A1D64D768009149E8 /* Tomorrow schedule */;
-			targetProxy = 84B809941D64D768009149E8 /* PBXContainerItemProxy */;
+			target = 84F3059D1D65BC1F009C1F45 /* Tomorrow schedule */;
+			targetProxy = 84F305A71D65BC1F009C1F45 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -863,10 +864,10 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		84B809901D64D768009149E8 /* MainInterface.storyboard */ = {
+		84F305A31D65BC1F009C1F45 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				84B809911D64D768009149E8 /* Base */,
+				84F305A41D65BC1F009C1F45 /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -1134,11 +1135,10 @@
 			};
 			name = Release;
 		};
-		84B809981D64D768009149E8 /* Debug */ = {
+		84F305AB1D65BC1F009C1F45 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -1147,22 +1147,20 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 34L9FK5K5X;
 				INFOPLIST_FILE = "Tomorrow schedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable.Tomorrow-schedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		84B809991D64D768009149E8 /* Release */ = {
+		84F305AC1D65BC1F009C1F45 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -1171,7 +1169,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 34L9FK5K5X;
 				INFOPLIST_FILE = "Tomorrow schedule/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.KNURE-TimeTable.Tomorrow-schedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1229,11 +1227,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84B809971D64D768009149E8 /* Build configuration list for PBXNativeTarget "Tomorrow schedule" */ = {
+		84F305AA1D65BC1F009C1F45 /* Build configuration list for PBXNativeTarget "Tomorrow schedule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				84B809981D64D768009149E8 /* Debug */,
-				84B809991D64D768009149E8 /* Release */,
+				84F305AB1D65BC1F009C1F45 /* Debug */,
+				84F305AC1D65BC1F009C1F45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

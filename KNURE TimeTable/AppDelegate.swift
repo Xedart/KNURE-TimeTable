@@ -32,18 +32,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 defaults.set(nil, forKey: AppData.savedGroupsShedulesKey)
                 defaults.set(nil, forKey: AppData.savedTeachersShedulesKey)
                 defaults.set(nil, forKey: AppData.savedAuditoriesShedulesKey)
+                
+                let alert = UIAlertController(title: AppStrings.Information, message: AppStrings.cleanUpInfo, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: AppStrings.Done, style: .cancel, handler: nil))
+                DispatchQueue.main.async {
+                    self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+                
             }
-            
-            //set the clean up mark to indicate that clening up was done:
+            //set the clean up mark to indicate that cleaning up was done:
             defaults.set(true, forKey: AppData.cleanUpMark)
-            
-            let alert = UIAlertController(title: AppStrings.Information, message: AppStrings.cleanUpInfo, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: AppStrings.Done, style: .cancel, handler: nil))
-            DispatchQueue.main.async {
-                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
         }
-        
         return true
     }
 

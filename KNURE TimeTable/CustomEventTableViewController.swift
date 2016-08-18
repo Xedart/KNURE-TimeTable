@@ -7,9 +7,8 @@
 //
 
 import UIKit
-//import ChameleonFramework
 import DataModel
-//
+
 
 protocol CustomEventTableViewControllerDelegate {
     var customEvent: Event! {get}
@@ -145,6 +144,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         }
         
         delegate.shedule.saveShedule()
+        delegate.shedule.saveScheduleToSharedContainer()
         delegate.passScheduleToLeftController()
         
         //reload view:

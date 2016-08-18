@@ -285,6 +285,8 @@ class EventDetailViewController: UITableViewController {
         
         // save schedule:
         currentSchedule.saveShedule()
+        currentSchedule.saveScheduleToSharedContainer()
+        
         NotificationCenter.default.post(name: NSNotification.Name(AppData.reloadTableView), object: nil)
         NotificationCenter.default.post(name: Notification.Name(AppData.reloadCollectionView), object: nil)
         self.dismiss(animated: true, completion: nil)
