@@ -43,22 +43,47 @@ class noteHeader: FZAccordionTableViewHeaderView {
 }
 
 class noteCell: UITableViewCell {
+    
     static let kAccordionCellViewReuseIdentifier = "AccordionCellViewReuseIdentifier";
     
+    var headerDateLabel = UILabel()
     var textView = UITextView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: UITableViewCellStyle.default, reuseIdentifier: reuseIdentifier)
+        
         self.addSubview(textView)
+        self.addSubview(headerDateLabel)
+        
+        //teavtView:
         textView.textColor = UIColor.clear
+        textView.backgroundColor = UIColor.clear
+        textView.isUserInteractionEnabled = false
+        textView.isEditable = false
+        textView.layer.cornerRadius = 10.0
+        textView.clipsToBounds = true
+        textView.font = UIFont.systemFont(ofSize: 17)
+        
+        // Hedare Label:
+        headerDateLabel.textColor = UIColor.clear
+        headerDateLabel.backgroundColor = UIColor.clear
+        headerDateLabel.isUserInteractionEnabled = false
+        headerDateLabel.layer.cornerRadius = 10.0
+        headerDateLabel.clipsToBounds = true
+        headerDateLabel.font = UIFont.systemFont(ofSize: 17)
+        headerDateLabel.textAlignment = .center
     }
     
     func configure(_ note: Note, frame: CGRect) {
-        textView.frame = CGRect(x: 8, y: 0, width: frame.width - 16, height: frame.height)
-        textView.backgroundColor = UIColor.clear
-        textView.font = UIFont.systemFont(ofSize: 17)
-        textView.text = "\(note.creationDate)\n\(note.text)"
-        textView.isEditable = false
+        
+        //HeaderLabel:
+        headerDateLabel.frame = CGRect(x: 8, y: 0, width: frame.width - 8, height: 25)
+        
+        //teatvView:
+        textView.frame = CGRect(x: 8, y: 0, width: frame.width - 8, height: frame.height - 8)
+        
+        headerDateLabel.text = note.creationDate
+        textView.text = "\n\(note.text)"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,7 +113,7 @@ class LeftMenuVIewController: UIViewController {
         } else {
             width = view.frame.width - 100
         }
-        infoTableView = FZAccordionTableView(frame: CGRect(x: 0, y: (self.view.frame.size.height - tableViewHeight * 5) / 2.0, width: width, height: tableViewHeight * 5), style: UITableViewStyle.grouped)
+        infoTableView = FZAccordionTableView(frame: CGRect(x: 0, y: 50.0, width: width, height: self.view.frame.size.height - 100.0), style: UITableViewStyle.grouped)
         infoTableView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
         infoTableView.delegate = self;
         infoTableView.dataSource = self;
@@ -100,6 +125,7 @@ class LeftMenuVIewController: UIViewController {
         infoTableView.scrollsToTop = false;
         infoTableView.allowMultipleSectionsOpen = true
         infoTableView.emptyDataSetSource = self
+        infoTableView.allowsSelection = false
         
         // registering cell classes:
         infoTableView.register(noteHeader.self, forHeaderFooterViewReuseIdentifier: noteHeader.kAccordionHeaderViewReuseIdentifier)
@@ -110,8 +136,23 @@ class LeftMenuVIewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        infoTableView.reloadData()
+        
+        var width: CGFloat = 0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            width = size.width / 2
+        } else {
+            width = size.width - 100 // 100 - width of content controllers
+        }
+        
+        let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+            UIView.animate(withDuration: TimeInterval(0.3)) {
+                self.infoTableView.frame = CGRect(x: 0, y: 50.0, width: width, height: size.height - 100.0)
+            }
+        }
+         self.infoTableView.reloadData()
     }
+    
 }
 
 extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
@@ -130,12 +171,17 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: noteCell.kAccordionCellViewReuseIdentifier) as! noteCell
-        cell.configure(schedule.notes[(indexPath as NSIndexPath).section].notes[(indexPath as NSIndexPath).row], frame: tableView.rectForRow(at: indexPath))
+        cell.configure(schedule.notes[indexPath.section].notes[(indexPath as NSIndexPath).row], frame: tableView.rectForRow(at: indexPath))
         cell.backgroundColor = UIColor.clear
         
+        // set some delay time ( 0.25 second ) after showing text in order to prevent lag effect:
+        // (not elegant workaraund but it works )
         let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
-            cell.textView.textColor = UIColor.white
+            cell.textView.textColor = UIColor.black
+            cell.headerDateLabel.textColor = UIColor.darkGray
+            cell.textView.backgroundColor = UIColor.white.withAlphaComponent(0.65)
+            cell.headerDateLabel.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         }
         return cell
     }
@@ -154,10 +200,10 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let metrix = UITextView()
         metrix.font = UIFont.systemFont(ofSize: 17)
-        metrix.frame = CGRect(x: 8, y: 0, width: tableView.frame.width - 16, height: 100)
+        metrix.frame = CGRect(x: 8, y: 0, width: tableView.frame.width - 8, height: 100)
         let note = schedule.notes[(indexPath as NSIndexPath).section].notes[(indexPath as NSIndexPath).row]
         metrix.text = "\(note.creationDate)\n\(note.text)"
-        return metrix.contentSize.height
+        return metrix.contentSize.height + 8
 
     }
     
@@ -204,6 +250,7 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
             }
         })
         deleteAction.backgroundColor = UIColor.clear
+        
         return [deleteAction]
     }
         
@@ -215,6 +262,9 @@ extension LeftMenuVIewController: FZAccordionTableViewDelegate {
         for row in 0..<schedule.notes[section].notes.count {
             let row = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? noteCell
             row?.textView.textColor = UIColor.clear
+            row?.textView.backgroundColor = UIColor.clear
+            row?.headerDateLabel.backgroundColor = UIColor.clear
+            row?.headerDateLabel.textColor = UIColor.clear
             
         }
     }
