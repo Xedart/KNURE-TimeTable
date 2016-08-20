@@ -119,9 +119,6 @@ class TomorrowViewController: UIViewController, NCWidgetProviding {
 extension TomorrowViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if schedule == nil {
-            return 0
-        }
         return 1
     }
     
@@ -153,8 +150,18 @@ extension TomorrowViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if schedule == nil {
-            return nil
+            let label = UILabel()
+            //label textstyle:
+            if fontColor == UIColor.white {
+                label.textColor = UIColor.lightGray
+            } else {
+                label.textColor = UIColor.darkGray
+            }
+            label.textAlignment = .center
+            label.text = AppStrings.NotChoosenSchedule
+            return label
         }
+
         
         let formatter = DateFormatter()
         formatter.dateStyle = .short

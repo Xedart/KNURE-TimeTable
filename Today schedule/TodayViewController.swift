@@ -122,9 +122,6 @@ class TodayWidgetViewController: UIViewController, NCWidgetProviding {
 extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if schedule == nil {
-            return 0
-        }
         return 1
     }
     
@@ -156,7 +153,16 @@ extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if schedule == nil {
-            return nil
+            let label = UILabel()
+            //label textstyle:
+            label.text = AppStrings.NotChoosenSchedule
+            if fontColor == UIColor.white {
+                label.textColor = UIColor.lightGray
+            } else {
+                label.textColor = UIColor.darkGray
+            }
+            label.textAlignment = .center
+            return label
         }
         
         let formatter = DateFormatter()

@@ -54,7 +54,8 @@ class SideMenuViewController: RESideMenu, RESideMenuDelegate {
     
     func sideMenu(_ sideMenu: RESideMenu!, willShowMenuViewController menuViewController: UIViewController!) {
         let leftController = self.leftMenuViewController as! LeftMenuVIewController
-        leftController.infoTableView.reloadData()
+        leftController.setFrame()
+        
     }
     
     func sideMenu(_ sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {

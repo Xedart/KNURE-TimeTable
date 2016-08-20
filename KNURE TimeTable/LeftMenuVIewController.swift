@@ -95,25 +95,21 @@ class LeftMenuVIewController: UIViewController {
     
     var schedule: Shedule!
     var infoTableView: FZAccordionTableView!
+    var infoLavelView: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
-        var tableViewHeight = CGFloat()
         
-        //defining tableViewHeight
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            tableViewHeight = 54.0
-        } else if UIDevice.current.userInterfaceIdiom == .pad {
-            tableViewHeight = 84.0
-        }
+        let tableViewYOrigin = CGFloat((view.frame.height - (view.frame.height * 0.8)) / 2).rounded()
+        
         var width: CGFloat = 0
         if UIDevice.current.userInterfaceIdiom == .pad {
             width = view.frame.width / 2
         } else {
             width = view.frame.width - 100
         }
-        infoTableView = FZAccordionTableView(frame: CGRect(x: 0, y: 50.0, width: width, height: self.view.frame.size.height - 100.0), style: UITableViewStyle.grouped)
+        infoTableView = FZAccordionTableView(frame: CGRect(x: 0, y: tableViewYOrigin, width: width, height: self.view.frame.size.height - (tableViewYOrigin * 2)), style: UITableViewStyle.grouped)
         infoTableView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
         infoTableView.delegate = self;
         infoTableView.dataSource = self;
@@ -131,11 +127,51 @@ class LeftMenuVIewController: UIViewController {
         infoTableView.register(noteHeader.self, forHeaderFooterViewReuseIdentifier: noteHeader.kAccordionHeaderViewReuseIdentifier)
         infoTableView.register(noteCell.self, forCellReuseIdentifier: noteCell.kAccordionCellViewReuseIdentifier)
         
+        //Info label:
+        infoLavelView = UILabel(frame: CGRect(x: (view.frame.width - 200) / 2, y: view.frame.height - 50, width: 200, height: 30))
+        infoLavelView.textColor = UIColor.white
+        infoLavelView.textAlignment = .center
+        infoLavelView.font = UIFont.boldSystemFont(ofSize: 17)
+        
+        self.view.addSubview(infoLavelView)
         self.view.addSubview(infoTableView)
         
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        setFrame(size: size)
+    }
+    
+    
+    func setFrame() {
+        
+         let tableViewYOrigin = CGFloat((view.frame.height - (view.frame.height * 0.8)) / 2).rounded()
+        
+        var width: CGFloat = 0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            width = view.frame.width / 2
+        } else {
+            width = view.frame.width - 100
+        }
+        
+        infoTableView.frame = CGRect(x: 0, y: tableViewYOrigin, width: width, height: self.view.frame.size.height - (tableViewYOrigin * 2))
+        infoTableView.reloadData()
+        
+        // InfoLabel:
+        infoLavelView.frame = CGRect(x: 0, y: (view.frame.height - tableViewYOrigin) + ((tableViewYOrigin - 30) / 2), width: view.frame.width, height: 30)
+        
+        //set infotable text"
+        if !self.schedule.shedule_id.isEmpty {
+            self.infoLavelView.text = "\(self.schedule!.shedule_id). \(AppStrings.numberOfNotes) \(self.schedule!.numberOfNotesInSchedule())"
+        } else {
+            self.infoLavelView.text = ""
+        }
+    }
+    
+    func setFrame(size: CGSize) {
+        
+        let tableViewYOrigin = CGFloat((size.height - (size.height * 0.8)) / 2).rounded()
         
         var width: CGFloat = 0
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -144,15 +180,25 @@ class LeftMenuVIewController: UIViewController {
             width = size.width - 100 // 100 - width of content controllers
         }
         
-        let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        let delayTime = DispatchTime.now() + Double(Int64(0.2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
-            UIView.animate(withDuration: TimeInterval(0.3)) {
-                self.infoTableView.frame = CGRect(x: 0, y: 50.0, width: width, height: size.height - 100.0)
+            
+            //infoTableView:
+            self.infoTableView.frame = CGRect(x: 0, y: tableViewYOrigin, width: width, height: size.height - (tableViewYOrigin * 2))
+            
+            // InfoLabel:
+            self.infoLavelView.frame = CGRect(x: 0, y: (size.height - tableViewYOrigin) + ((tableViewYOrigin - 30) / 2), width: size.width, height: 30)
+            self.infoTableView.reloadData()
+            
+            //set infotable text"
+            if !self.schedule.shedule_id.isEmpty {
+                self.infoLavelView.text = "\(self.schedule!.shedule_id). \(AppStrings.numberOfNotes) \(self.schedule!.numberOfNotesInSchedule())"
+            } else {
+                self.infoLavelView.text = ""
             }
         }
-         self.infoTableView.reloadData()
+       
     }
-    
 }
 
 extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
@@ -231,12 +277,19 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
             
             // delete note from data model:
             
-            /* deleteNoteWithId returns true is deletes a section */
+            /* deleteNoteWithId returns true if there are no more notes in note group. i. e. note group is going to be deleted. */
             
             if self.schedule.deleteNoteWithId(self.schedule.notes[indexPath.section].notes[indexPath.row].idToken) {
                 
                 self.schedule.saveShedule()
                 tableView.reloadData()
+                
+                //set infolabel text:
+                if !self.schedule.shedule_id.isEmpty {
+                    self.infoLavelView.text = "\(self.schedule!.shedule_id). \(AppStrings.numberOfNotes) \(self.schedule!.numberOfNotesInSchedule())"
+                } else {
+                    self.infoLavelView.text = ""
+                }
                 return
             } else {
                 
@@ -247,6 +300,13 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
                     tableView.endUpdates()
                 })
                 self.schedule.saveShedule()
+                
+                // set infotable text:
+                if !self.schedule.shedule_id.isEmpty {
+                    self.infoLavelView.text = "\(self.schedule!.shedule_id). \(AppStrings.numberOfNotes) \(self.schedule!.numberOfNotesInSchedule())"
+                } else {
+                    self.infoLavelView.text = ""
+                }
             }
         })
         deleteAction.backgroundColor = UIColor.clear
@@ -278,15 +338,3 @@ extension LeftMenuVIewController: DZNEmptyDataSetSource {
         return NSAttributedString(string: AppStrings.NoNotes, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: 1), NSForegroundColorAttributeName: UIColor.white])
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

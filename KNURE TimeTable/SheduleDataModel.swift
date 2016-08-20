@@ -558,6 +558,16 @@ public extension Shedule {
         return 8
     }
     
+    func numberOfNotesInSchedule() -> Int {
+        
+        var numberOfNotes = 0
+        
+        for noteGroup in self.notes {
+            numberOfNotes += noteGroup.notes.count
+        }
+        return numberOfNotes
+    }
+    
     func eventsInDay(_ date: Date) -> [Event] {
         let formatter = DateFormatter()
         formatter.dateStyle = .short

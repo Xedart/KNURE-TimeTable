@@ -52,5 +52,6 @@ public struct AppStrings {
     public static let type = "Тип"
     public static let subject = "Предмет"
     public static let group = "Группа"
-    public static let cleanUpInfo = "В связи с обновление, сохраненные расписания были удалены."
+    public static let cleanUpInfo = "В связи с обновлением, сохраненные расписания были удалены."
+    public static let numberOfNotes = "Заметок:"
 }
