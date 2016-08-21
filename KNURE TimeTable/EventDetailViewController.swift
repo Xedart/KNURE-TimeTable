@@ -48,7 +48,7 @@ class EventDetailViewController: UITableViewController {
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: FlatSkyBlue()]
         
         // NAvigatiob bar:
-        closeButton = UIBarButtonItem(title: AppStrings.Done, style: .plain, target: self, action: #selector(EventDetailViewController.closeController(_:)))
+        closeButton = UIBarButtonItem(title: AppStrings.Done, style: .done, target: self, action: #selector(EventDetailViewController.closeController(_:)))
         navigationItem.leftBarButtonItem = closeButton
         if displayedEvent.isCustom {
             deleteButton = UIBarButtonItem(title: AppStrings.Delete, style: .plain, target: self, action: #selector(EventDetailViewController.deleteEvent))
@@ -219,22 +219,39 @@ class EventDetailViewController: UITableViewController {
     
     func saveNoteButtonTaped(_ sender: UIButton) {
         noteTextView.shouldResignFirstResponder = true
-        // add new note:
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        // Add new note:
         let converter = DateFormatter()
         converter.dateStyle = .short
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
               let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText)
+            
+            // Sync with calendar:
+            let startDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))
+            let endDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.end_time))
+            // if userpermission == true...
+            appDelegate.eventsManager.addEvent(startTime: startDate, endTime: endDate, title: noteText)
+            
             currentSchedule.addNewNote(newNote)
-            //update existing note:
+            
+        // Update existing note:
         } else {
            let updatedNote = currentSchedule.getNoteWithTokenId("\(displayedEvent.subject_id)\(displayedEvent.start_time)")
+            
+            //delete note:
             if noteText.isEmpty {
                _ = currentSchedule.deleteNoteWithId(updatedNote!.idToken)
+                
+            //update note:
             } else {
                 updatedNote!.text = noteText
                 updatedNote!.updateDate = converter.string(from: Date())
             }
         }
+        
+        
         
         currentSchedule.saveShedule()
         delegate.passScheduleToLeftController()

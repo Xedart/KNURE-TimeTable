@@ -46,6 +46,7 @@ public struct AppStrings {
     public static let addEvent = "Новая пара"
     public static let cancel = "Отмена"
     public static let customEvent = "Доп.пара"
+    public static let customEvents = "Добавленные пары"
     public static let customType = "Консультація"
     public static let customTypeShort = "Конс"
     public static let notChusen = "Не выбрано"
@@ -54,4 +55,6 @@ public struct AppStrings {
     public static let group = "Группа"
     public static let cleanUpInfo = "В связи с обновлением, сохраненные расписания были удалены."
     public static let numberOfNotes = "Заметок:"
+    public static let preferences = "Предпочтения"
+    public static let syncWithCalendar = "Синхронизировать с календарем"
 }

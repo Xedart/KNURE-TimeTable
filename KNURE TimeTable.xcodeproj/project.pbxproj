@@ -39,6 +39,9 @@
 		848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */; };
 		848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */; };
 		848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */; };
+		8497F6861D69B42D00B04E63 /* PreferenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497F6851D69B42D00B04E63 /* PreferenceTableViewController.swift */; };
+		8497F6881D69D4FA00B04E63 /* PreferencesSwitcherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497F6871D69D4FA00B04E63 /* PreferencesSwitcherCell.swift */; };
+		8497F68C1D69E96E00B04E63 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497F68B1D69E96E00B04E63 /* CalendarManager.swift */; };
 		849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832641C72169300727E74 /* DirectiongTableViewController.swift */; };
 		849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832661C72186C00727E74 /* SchedulesTypesCell.swift */; };
 		8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */; };
@@ -163,6 +166,9 @@
 		848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleControllerCollectionViewController.swift; sourceTree = "<group>"; };
 		848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleCell.swift; sourceTree = "<group>"; };
 		848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionLayout.swift; sourceTree = "<group>"; };
+		8497F6851D69B42D00B04E63 /* PreferenceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceTableViewController.swift; sourceTree = "<group>"; };
+		8497F6871D69D4FA00B04E63 /* PreferencesSwitcherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesSwitcherCell.swift; sourceTree = "<group>"; };
+		8497F68B1D69E96E00B04E63 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		849832641C72169300727E74 /* DirectiongTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectiongTableViewController.swift; sourceTree = "<group>"; };
 		849832661C72186C00727E74 /* SchedulesTypesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesTypesCell.swift; sourceTree = "<group>"; };
 		8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesDownoalTableView.swift; sourceTree = "<group>"; };
@@ -256,6 +262,7 @@
 				84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */,
 				84B809461D648A8B009149E8 /* ColorsConstants.swift */,
 				84F305AF1D65C059009C1F45 /* WidgetTableViewCell.swift */,
+				8497F68B1D69E96E00B04E63 /* CalendarManager.swift */,
 				842F54481D620108004A6FAB /* Info.plist */,
 			);
 			name = DataModel;
@@ -368,6 +375,7 @@
 				842CB8551CB9186000292170 /* LeftMenuVIewController.swift */,
 				8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */,
 				847776441C639FB5000776B9 /* MainSplitViewController.swift */,
+				8497F6851D69B42D00B04E63 /* PreferenceTableViewController.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -428,6 +436,7 @@
 				84098D471C79092200BF1087 /* CollectionHeader.swift */,
 				8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */,
 				84247C961CD51B4A000654F9 /* LabelCell.swift */,
+				8497F6871D69D4FA00B04E63 /* PreferencesSwitcherCell.swift */,
 			);
 			name = CustomCellsView;
 			sourceTree = "<group>";
@@ -753,6 +762,7 @@
 				842F54521D62013B004A6FAB /* SheduleDataModel.swift in Sources */,
 				842F54541D620151004A6FAB /* InterfaceStrings.swift in Sources */,
 				84F305B01D65C059009C1F45 /* WidgetTableViewCell.swift in Sources */,
+				8497F68C1D69E96E00B04E63 /* CalendarManager.swift in Sources */,
 				842F54531D62014A004A6FAB /* AppDataModel.swift in Sources */,
 				84B809471D648A8B009149E8 /* ColorsConstants.swift in Sources */,
 			);
@@ -766,6 +776,7 @@
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
 				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
+				8497F6861D69B42D00B04E63 /* PreferenceTableViewController.swift in Sources */,
 				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
 				8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */,
@@ -779,6 +790,7 @@
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */,
 				84F6F18C1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift in Sources */,
+				8497F6881D69D4FA00B04E63 /* PreferencesSwitcherCell.swift in Sources */,
 				84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */,
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,
 				840D44781D3A4373003AD734 /* CustomEventConfiguratorTableView.swift in Sources */,
@@ -1234,6 +1246,7 @@
 				84F305AC1D65BC1F009C1F45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

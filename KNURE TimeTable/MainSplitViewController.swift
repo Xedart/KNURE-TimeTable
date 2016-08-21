@@ -22,7 +22,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     var sheduleNavigationController: UINavigationController!
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
-    var rightSideInfoButton: UIBarButtonItem!
+    var preferencesBarButton: UIBarButtonItem!
     var scheduleTableController: TableSheduleController!
     var scheduleCollectionController: CollectionScheduleViewController!
     let defaults = UserDefaults.standard
@@ -47,11 +47,16 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         
         // updating schedule after default schedule was showed:
         self.updateCurrentSchedule()
+        
         // setnavigation items:
         sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainSplitViewController.presentLeftMenuViewController(_:)))
         let displayModeButton = UIBarButtonItem(image: UIImage(named: "displayModeButton"), style: UIBarButtonItemStyle.plain, target: super.displayModeButtonItem.target, action: super.displayModeButtonItem.action)
+        
+        preferencesBarButton = UIBarButtonItem(image: UIImage(named: "PreferencesButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainSplitViewController.showPreferencesMenu))
+        
         // set buttons:
         navigationItem.setLeftBarButtonItems([sideInfoButton, displayModeButton], animated: true)
+        navigationItem.setRightBarButton(preferencesBarButton, animated: true)
         
         
         // displaying:
@@ -89,6 +94,14 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
             width: button.bounds.width,
             height: button.bounds.height)
             present(sheduleNavigationController, animated: true, completion: nil)
+    }
+    
+    func showPreferencesMenu() {
+        let preferencesController = storyboard?.instantiateViewController(withIdentifier: "PreferenceTableViewController") as! PreferenceTableViewController
+        let preferenceNavigationController = UINavigationController(rootViewController: preferencesController)
+        preferenceNavigationController.modalPresentationStyle = .formSheet
+        preferenceNavigationController.modalTransitionStyle = .coverVertical
+        self.present(preferenceNavigationController, animated: true, completion: nil)
     }
     
     // load schedule with specified id from the fiile:
@@ -227,7 +240,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
 
 extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        sheduleNavigationController.popToRootViewController(animated: false)
+        sheduleNavigationController?.popToRootViewController(animated: false)
     }
 }
 

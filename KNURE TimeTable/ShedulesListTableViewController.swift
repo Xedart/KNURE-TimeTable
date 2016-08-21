@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import ChameleonFramework
 import DataModel
 
 class ShedulesListTableViewController: UITableViewController {
@@ -263,7 +262,7 @@ class ShedulesListTableViewController: UITableViewController {
         headerView.textAlignment = .center
         headerView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         if section == 0 {
-            headerView.text = AppStrings.Schedules
+            headerView.text = AppStrings.Groups
         }
         if section == 1 {
             headerView.text = AppStrings.Teachers

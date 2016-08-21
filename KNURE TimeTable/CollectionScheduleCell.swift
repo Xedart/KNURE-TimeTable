@@ -83,33 +83,33 @@ class CollectionScheduleCell: UICollectionViewCell {
             self.node.backgroundColor = UIColor.clear
             
             // Status images configuring:
-            
-            DispatchQueue.main.async(execute: {
-                // event is custom and has a note:
-                if events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
-                    self.leftImageNode.image = UIImage.init(named: "DoneImage")
-                    self.rightImageNode.image = UIImage.init(named: "tableBookmark")
-                }
-                
-                // event is custom and doesn't have note:
-                else if events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) == nil {
-                    self.leftImageNode.image = UIImage.init(named: "DoneImage")
-                    self.rightImageNode.image = nil
-                }
-                
-                // event isn't custom and has a note:
-                else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
-                    self.leftImageNode.image = UIImage.init(named: "tableBookmark")
-                    self.rightImageNode.image = nil
-                }
-                
-                // event hasn't note and isn't custom:
-                else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) == nil {
-                    self.leftImageNode.image = nil
-                    self.rightImageNode.image = nil
-                }
-            })
         })
+        
+        // status images:
+        
+        // event is custom and has a note:
+        if events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+            self.leftImageNode.image = UIImage(named: "DoneImage")
+            self.rightImageNode.image = UIImage(named: "tableBookmark")
+        }
+            
+            // event is custom and doesn't have note:
+        else if events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) == nil {
+            self.leftImageNode.image = UIImage(named: "DoneImage")
+            self.rightImageNode.image = nil
+        }
+            
+            // event isn't custom and has a note:
+        else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+            self.leftImageNode.image = UIImage(named: "tableBookmark")
+            self.rightImageNode.image = nil
+        }
+            
+            // event hasn't note and isn't custom:
+        else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) == nil {
+            self.leftImageNode.image = nil
+            self.rightImageNode.image = nil
+        }
     }
     
     // MARK: - Info menu

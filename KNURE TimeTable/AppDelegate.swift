@@ -17,6 +17,7 @@ let didEnterToActive = "didEnterToActive"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var eventsManager: CalendarManager!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -61,7 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        
         NotificationCenter.default.post(name: Notification.Name(rawValue: didEnterToActive), object: nil)
+        eventsManager = CalendarManager()
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

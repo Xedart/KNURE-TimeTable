@@ -46,6 +46,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     let shedulesListController = ShedulesListTableViewController()
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
+    var preferencesBarButton: UIBarButtonItem!
     let scale = CollectionDecorationView()
     let headerScale = CollectionHeaderView()
     var initialScrollDone = false
@@ -62,6 +63,20 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
         
+        //navigationController will be nil on iPad and won't be nil on iPhone:
+        if navigationController != nil {
+            
+            button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
+            button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), for: .touchUpInside)
+            navigationItem.titleView = button
+            
+            sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
+            preferencesBarButton = UIBarButtonItem(image: UIImage(named: "PreferencesButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.showPreferencesMenu))
+            
+            navigationItem.rightBarButtonItem = preferencesBarButton
+            navigationItem.leftBarButtonItem = sideInfoButton
+        }
+        
         // gesture-recognizers:
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.addTarget(self, action: #selector(CollectionScheduleViewController.doubleTapGestureDetected(_:)))
@@ -74,13 +89,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         self.collectionView?.register(CollectionScheduleCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         self.collectionView?.register(CollectionScheduleEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuseIndentifier)
         self.collectionView?.register(CollectionScheduleMultiCell.self, forCellWithReuseIdentifier: multiCellReuseIndentifier)
-       
-        //navigationItem setUp:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
-        navigationItem.leftBarButtonItem = sideInfoButton
-        button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        button.addTarget(self, action: #selector(CollectionScheduleViewController.showMenu(_:)), for: .touchUpInside)
-        navigationItem.titleView = button
+        
         
         // Timescale:
         scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
@@ -144,6 +153,13 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
         self.present(menuNavigationController, animated: true, completion: nil)
     }
+    
+    func showPreferencesMenu() {
+        let preferencesController = storyboard?.instantiateViewController(withIdentifier: "PreferenceTableViewController") as! PreferenceTableViewController
+        let preferenceNavigationController = UINavigationController(rootViewController: preferencesController)
+        self.present(preferenceNavigationController, animated: true, completion: nil)
+    }
+
     
 
     // MARK: UICollectionViewDataSource

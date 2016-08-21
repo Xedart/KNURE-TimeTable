@@ -38,6 +38,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     let shedulesListController = ShedulesListTableViewController()
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
+    var preferencesBarButton: UIBarButtonItem!
     var refresher: UIRefreshControl!
     var openSideMenuGesture: UISwipeGestureRecognizer!
 
@@ -45,14 +46,25 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), for: .touchUpInside)
-        navigationItem.titleView = button
-        navigationController?.navigationBar.barTintColor = FlatWhite()
+       
         
-        // setnavigation items:
-        sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
-        navigationItem.leftBarButtonItem = sideInfoButton
+        //navigationController will be nil on iPad and won't be nil on iPhone:
+        if navigationController != nil {
+            
+            button.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
+            button.addTarget(self, action: #selector(TableSheduleController.showMenu(_:)), for: .touchUpInside)
+            
+            navigationItem.titleView = button
+            navigationController?.navigationBar.barTintColor = FlatWhite()
+            
+            // setnavigation items:
+            sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainTabBarController.presentLeftMenuViewController(_:)))
+            preferencesBarButton = UIBarButtonItem(image: UIImage(named: "PreferencesButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(TableSheduleController.showPreferencesMenu))
+            
+            navigationItem.leftBarButtonItem = sideInfoButton
+            navigationItem.rightBarButtonItem = preferencesBarButton
+        }
+        
         tableView.emptyDataSetSource = self
         
         // gesture:
@@ -89,6 +101,12 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         let menuNavigationController = UINavigationController(rootViewController: shedulesListController)
         menuNavigationController.navigationBar.barTintColor = FlatWhite()
         self.present(menuNavigationController, animated: true, completion: nil)
+    }
+    
+    func showPreferencesMenu() {
+        let preferencesController = storyboard?.instantiateViewController(withIdentifier: "PreferenceTableViewController") as! PreferenceTableViewController
+        let preferenceNavigationController = UINavigationController(rootViewController: preferencesController)
+        self.present(preferenceNavigationController, animated: true, completion: nil)
     }
    
     // MARK: - Table view data source

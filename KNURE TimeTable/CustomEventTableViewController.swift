@@ -61,7 +61,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: FlatSkyBlue()]
         
         // cancel button:
-        closeButton = UIBarButtonItem(title: AppStrings.cancel, style: .plain, target: self, action: #selector(CustomEventTableViewController.close))
+        closeButton = UIBarButtonItem(title: AppStrings.cancel, style: .done, target: self, action: #selector(CustomEventTableViewController.close))
         navigationItem.leftBarButtonItem = closeButton
         
         //save button:
