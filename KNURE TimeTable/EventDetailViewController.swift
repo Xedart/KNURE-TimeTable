@@ -229,9 +229,10 @@ class EventDetailViewController: UITableViewController {
               let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText)
             
             // Sync with calendar:
+            // if userprefenreces.shouldSync == true...
             let startDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))
             let endDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.end_time))
-            // if userpermission == true...
+            
             appDelegate.eventsManager.addEvent(startTime: startDate, endTime: endDate, title: noteText)
             
             currentSchedule.addNewNote(newNote)
