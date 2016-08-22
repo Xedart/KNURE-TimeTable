@@ -51,6 +51,7 @@
 		849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849832771C737B0C00727E74 /* NewScheduleCell.swift */; };
 		84A1F6731C83292500A7C05C /* CollectionScheduleMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */; };
 		84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */; };
+		84A7D7101D6B96A4001923A7 /* NotificationPreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A7D70F1D6B96A4001923A7 /* NotificationPreferencesTableViewController.swift */; };
 		84B808F71D6339DF009149E8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B808F61D6339DF009149E8 /* SwiftyJSON.swift */; };
 		84B809471D648A8B009149E8 /* ColorsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B809461D648A8B009149E8 /* ColorsConstants.swift */; };
 		84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */; };
@@ -178,6 +179,7 @@
 		849832771C737B0C00727E74 /* NewScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScheduleCell.swift; sourceTree = "<group>"; };
 		84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleMultiCell.swift; sourceTree = "<group>"; };
 		84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleEmptyCell.swift; sourceTree = "<group>"; };
+		84A7D70F1D6B96A4001923A7 /* NotificationPreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPreferencesTableViewController.swift; sourceTree = "<group>"; };
 		84B808F61D6339DF009149E8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		84B809461D648A8B009149E8 /* ColorsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsConstants.swift; sourceTree = "<group>"; };
 		84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShedulesListTableViewController.swift; sourceTree = "<group>"; };
@@ -385,7 +387,7 @@
 			children = (
 				847776481C63C4C2000776B9 /* TableSheduleController.swift */,
 				848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */,
-				8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */,
+				84A7D70E1D6B965D001923A7 /* EventDetailViewControllers */,
 				8446C99B1D2A884B00E89254 /* CustomEventViewController */,
 			);
 			name = SheduleControllers;
@@ -409,6 +411,15 @@
 				842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */,
 			);
 			name = CustomView;
+			sourceTree = "<group>";
+		};
+		84A7D70E1D6B965D001923A7 /* EventDetailViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */,
+				84A7D70F1D6B96A4001923A7 /* NotificationPreferencesTableViewController.swift */,
+			);
+			name = EventDetailViewControllers;
 			sourceTree = "<group>";
 		};
 		84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */ = {
@@ -799,6 +810,7 @@
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,
 				8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
+				84A7D7101D6B96A4001923A7 /* NotificationPreferencesTableViewController.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,

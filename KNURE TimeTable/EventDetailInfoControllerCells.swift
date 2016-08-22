@@ -8,11 +8,167 @@
 
 import UIKit
 import DataModel
-//import ChameleonFramework
 
+
+/// Cell for Notification time preferences where user can choose proper alarm time from list
+class NotificationPreferencesCell: UITableViewCell {
+    
+    @IBOutlet weak var alarmTimeLabel: UILabel!
+    
+    
+}
+
+/// Class for EventDetailViewController where displayed current preferred alarm time
+class EvenatDetailNotificationPreferenceCell: UITableViewCell {
+    
+    @IBOutlet weak var notificationLabel: UILabel!
+    
+    @IBOutlet weak var notificationTimePreferences: UILabel!
+    
+    func configure(preferences: alarmTime) {
+        
+        if preferences == .fifteenMinutes {
+            notificationTimePreferences.text = "\(AppStrings.before) 15 \(AppStrings.minutes)"
+        } else if preferences == .oneHour {
+            notificationTimePreferences.text = "\(AppStrings.before) 1 \(AppStrings.hour)"
+        } else if preferences == .oneDay {
+            notificationTimePreferences.text = "\(AppStrings.before) 1 \(AppStrings.day)"
+        } else {
+            notificationTimePreferences.text = AppStrings.dontRecall
+        }
+    }
+    
+    
+}
+
+/// Cell for EventTableViewController. Used by user to type note's text.
 class EventDetailInfoTitleCell: UITableViewCell {
 
     @IBOutlet weak var eventTitleView: NoteTextView!
+    
+    func configure(schedule: Shedule, event: Event) {
+        
+        //set style:
+        eventTitleView.isEditable = true
+        eventTitleView.font = UIFont.systemFont(ofSize: 18)
+        eventTitleView.textColor = UIColor.darkGray
+        selectionStyle = .none
+        
+        // set content:
+        if schedule.getNoteWithTokenId(event.getEventId) == nil {
+            eventTitleView.text = AppStrings.AddNote
+            eventTitleView.textColor = UIColor.lightGray
+        } else {
+            eventTitleView.text = schedule.getNoteWithTokenId(event.getEventId)!.text
+        }
+    }
+    
+}
+
+/// Cells of this class are user by EventDetailViewController to display information about event.
+class EventDetailTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var titleTextView: UITextView!
+    
+    func configureFor(indexPath: IndexPath, schedule: Shedule, event: Event) {
+        
+        selectionStyle = .none
+        
+        switch indexPath.section {
+        case 0:
+            
+            if indexPath.row == 0 {
+                configureForSubject(schedule: schedule, event: event)
+            }
+            else if indexPath.row == 1 {
+                configureForType(schedule: schedule, event: event)
+            }
+            else if indexPath.row == 2 {
+                configureForAuditory(schedule: schedule, event: event)
+            }
+            
+        case 1:
+            
+            configureForTeacher(schedule: schedule, event: event)
+            
+        case 2:
+            
+            configureForGroups(schedule: schedule, event: event)
+            
+        default:
+            print("Unexpected behavior")
+        }
+        
+    }
+    
+    func configureForSubject(schedule: Shedule, event: Event) {
+        
+        // set style:
+        titleTextView.font = UIFont.systemFont(ofSize: 22)
+        titleTextView.textAlignment = .center
+        if titleTextView.contentSize.height > titleTextView.frame.height {
+            titleTextView.isScrollEnabled = true
+        } else {
+            titleTextView.isScrollEnabled = false
+        }
+        
+        //set content:
+        titleTextView.text = schedule.subjects[event.subject_id]?.fullTitle
+    }
+    
+    func configureForType(schedule: Shedule, event: Event) {
+        
+        // set style:
+        titleTextView.textAlignment = .center
+        titleTextView.font = UIFont.systemFont(ofSize: 18)
+        titleTextView.isScrollEnabled = false
+        
+        //set content:
+        titleTextView.text = schedule.types[event.type]?.full_name
+    }
+    
+    func configureForAuditory(schedule: Shedule, event: Event) {
+        
+        // set style:
+        titleTextView.font = UIFont.systemFont(ofSize: 18)
+        titleTextView.textAlignment = .center
+        titleTextView.isScrollEnabled = false
+        
+        // set content:
+        titleTextView.text = "\(AppStrings.Audytori) \(event.auditory)"
+    }
+    
+    func configureForTeacher(schedule: Shedule, event: Event) {
+        
+        // set content:
+        if !event.teachers.isEmpty {
+            titleTextView.text = schedule.teachers[String(event.teachers[0])]?.full_name
+        }
+        
+        // set style:
+        titleTextView.font = UIFont.systemFont(ofSize: 18)
+        titleTextView.textAlignment = .center
+    }
+    
+    func configureForGroups(schedule: Shedule, event: Event) {
+        
+        // set content:
+        var groupsText = String()
+        
+        for groupId in event.groups {
+            groupsText.append(schedule.groups[String(groupId)]!)
+            groupsText.append(", ")
+        }
+        for _ in 0...1 {
+            groupsText.remove(at: groupsText.index(before: groupsText.endIndex))
+        }
+        
+        // set style:
+        titleTextView.text = groupsText
+        titleTextView.font = UIFont.systemFont(ofSize: 18)
+        titleTextView.textAlignment = .center
+        titleTextView.isScrollEnabled = true
+    }
     
 }
 

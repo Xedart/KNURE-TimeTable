@@ -24,12 +24,14 @@ class NoteTextView: UITextView {
     }
 }
 
-protocol EventDetailInfoProvider {
-    func passScheduleToLeftController() -> Void
-    func reloadSchedule() -> Void
+protocol EventDetailViewControllerDelegate {
+    var alarmTimePreferences: alarmTime {get set}
+    var tableView: UITableView! {get set}
 }
 
-class EventDetailViewController: UITableViewController {
+class EventDetailViewController: UITableViewController, EventDetailViewControllerDelegate {
+    
+    // MARK: - Properties:
     
     var closeButton: UIBarButtonItem!
     var deleteButton: UIBarButtonItem!
@@ -40,7 +42,7 @@ class EventDetailViewController: UITableViewController {
     var displayedEvent: Event!
     var currentSchedule: Shedule!
     var indexPath: IndexPath!
-    
+    var alarmTimePreferences = alarmTime.fifteenMinutes
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,7 @@ class EventDetailViewController: UITableViewController {
         // noteTextViewNotifications:
         NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.openNoteTextView), name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.closeNoteTextView), name: NSNotification.Name(rawValue: AppData.blockNoteTextView), object: nil)
+        
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -77,6 +80,8 @@ class EventDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 3
+        } else if section == 3 {
+            return 2
         } else {
             return 1
         }
@@ -84,80 +89,40 @@ class EventDetailViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailInfoTitleCell", for: indexPath) as! EventDetailInfoTitleCell
-        
-        // displaying subject, subject's type and auditory:
-        if (indexPath as NSIndexPath).section == 0 {
+        switch indexPath.section {
             
-            switch (indexPath as NSIndexPath).row {
-                
-            case 0:
-                cell.eventTitleView.text = currentSchedule.subjects[displayedEvent.subject_id]?.fullTitle
-                cell.eventTitleView.font = UIFont.systemFont(ofSize: 22)
-                cell.eventTitleView.textAlignment = .center
-                if cell.eventTitleView.contentSize.height > cell.eventTitleView.frame.height {
-                    cell.eventTitleView.isScrollEnabled = true
-                } else {
-                    cell.eventTitleView.isScrollEnabled = false
-                }
-                return cell
-            case 1:
-                cell.eventTitleView.text = currentSchedule.types[displayedEvent.type]?.full_name
-                cell.eventTitleView.textAlignment = .center
-                cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
-                cell.eventTitleView.isScrollEnabled = false
-            case 2:
-                cell.eventTitleView.text = "\(AppStrings.Audytori) \(displayedEvent.auditory)"
-                cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
-                cell.eventTitleView.textAlignment = .center
-                cell.eventTitleView.isScrollEnabled = false
-            default: let cell = UITableViewCell()
-                return cell
-            }
-        }
+            // Sections 0,1,2 display information about event
+        case 0...2:
             
-            // displaying teacher:
-        else if (indexPath as NSIndexPath).section == 1 {
-            if !displayedEvent.teachers.isEmpty {
-                cell.eventTitleView.text = currentSchedule.teachers[String(displayedEvent.teachers[0])]?.full_name
-            }
-            cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
-            cell.eventTitleView.textAlignment = .center
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailTableViewCell", for: indexPath) as! EventDetailTableViewCell
+            
+            cell.configureFor(indexPath: indexPath, schedule: currentSchedule, event: displayedEvent)
             return cell
             
-            // displaying groups:
-        } else if (indexPath as NSIndexPath).section == 2 {
+            // Section 3 displayes noteTextView and alarm preferences cell:
+        case 3:
             
-            var groupsText = String()
-            
-            for groupId in displayedEvent.groups {
-                groupsText.append(currentSchedule.groups[String(groupId)]!)
-                groupsText.append(", ")
-            }
-            for _ in 0...1 {
-                groupsText.remove(at: groupsText.index(before: groupsText.endIndex))
-            }
-            
-            cell.eventTitleView.text = groupsText
-            cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
-            cell.eventTitleView.textAlignment = .center
-            
-            // notes' textView:
-        } else {
-            if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-                cell.eventTitleView.text = AppStrings.AddNote
-                cell.eventTitleView.textColor = UIColor.lightGray
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailInfoTitleCell", for: indexPath) as! EventDetailInfoTitleCell
+                
+                cell.configure(schedule: currentSchedule, event: displayedEvent)
+                
+                cell.eventTitleView.delegate = self
+                noteTextView = cell.eventTitleView
+                return cell
+                
             } else {
-                cell.eventTitleView.text = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId)!.text
+                let cell = tableView.dequeueReusableCell(withIdentifier: "EvenatDetailNotificationPreferenceCell", for: indexPath) as! EvenatDetailNotificationPreferenceCell
+                cell.configure(preferences: alarmTimePreferences)
+                return cell
             }
-            cell.eventTitleView.isEditable = true
-            cell.eventTitleView.font = UIFont.systemFont(ofSize: 18)
-            cell.eventTitleView.textColor = UIColor.darkGray
-            cell.eventTitleView.delegate = self
-            noteTextView = cell.eventTitleView
+            
+        default:
+            return UITableViewCell()
         }
-        return cell
     }
+    
+    
     
     // MARK: - UITableViewDelegate:
     
@@ -175,7 +140,11 @@ class EventDetailViewController: UITableViewController {
         } else if (indexPath as NSIndexPath).section == 2 {
             return 60
         } else if (indexPath as NSIndexPath).section == 3 {
-            return 100
+            if indexPath.row == 0 {
+                return 100
+            } else {
+                return 60
+            }
         } else {
             return 0
         }
@@ -200,6 +169,13 @@ class EventDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
+    }
+    
+    // MARK: Navigation:
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destionationViewController = segue.destination as! NotificationPreferencesTableViewController
+        destionationViewController.delegate = self
     }
     
     // MARK: Sub-methods:

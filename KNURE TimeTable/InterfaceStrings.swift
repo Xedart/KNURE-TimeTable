@@ -56,5 +56,11 @@ public struct AppStrings {
     public static let cleanUpInfo = "В связи с обновлением, сохраненные расписания были удалены."
     public static let numberOfNotes = "Заметок:"
     public static let preferences = "Предпочтения"
-    public static let syncWithCalendar = "Синхронизировать с календарем"
+    public static let syncWithCalendar = "Синхронизация с календарем"
+    public static let recall = "Напоминние"
+    public static let minutes = "Минут"
+    public static let hour = "Час"
+    public static let day = "День"
+    public static let dontRecall = "Не напоминать"
+    public static let before = "за"
 }
