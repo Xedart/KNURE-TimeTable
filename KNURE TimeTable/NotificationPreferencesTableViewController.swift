@@ -9,13 +9,6 @@
 import UIKit
 import DataModel
 
-enum alarmTime: Int {
-    case fifteenMinutes = 0
-    case oneHour = 1
-    case oneDay = 2
-    case never = 3
-}
-
 class NotificationPreferencesTableViewController: UITableViewController {
     
     var delegate: EventDetailViewControllerDelegate!

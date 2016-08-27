@@ -7,14 +7,49 @@
 //
 
 import UIKit
-//import ChameleonFramework
 
   // Container structure for app global functionality:
 
 public struct AppData {
+    
+    // MARK: - Global app-specific constants:
+    
     public static let unixDay = 86400
+    public static let pairTime = 5700
     public static let pairsStartTime = [1: "7:45", 2: "9:30", 3: "11:15", 4: "13:10", 5: "14:55", 6: "16:40", 7: "18:25", 8: "20:10"]
     public static let pairsEndTime = [1: "9:20", 2: "11:05", 3: "12:50", 4: "14:45", 5: "16:30", 6: "18:15", 7: "20:00", 8: "21:45"]
+    
+    /// Returns the number of seconds from 00:00 to the start of the pair.
+    public static func secondsFromDayBeginToPair(numberOfPair: Int?) -> Int {
+        
+        if numberOfPair == nil {
+            return 0
+        }
+        
+        switch numberOfPair! {
+        case 1:
+            return 27900
+        case 2:
+            return 34200
+        case 3:
+            return 40500
+        case 4:
+            return 47400
+        case 5:
+            return 53700
+        case 6:
+            return 60000
+        case 7:
+            return 66300
+        case 8:
+            return 72600
+        default:
+            return 0
+        }
+    }
+    
+    // MARK: - UserDefaults' keys:
+    
     public static let defaultScheduleKey = "DefauldScheduleKey"
     public static let savedGroupsShedulesKey = "savedGroupsShedulesKey"
     public static let savedTeachersShedulesKey = "savedTeachersShedulesKey"
@@ -22,8 +57,11 @@ public struct AppData {
     public static let cleanUpMark = "CleanUpMarkKey"
     public static let sharedContainerIdentifier = "group.nureTimeTableSharedData"
     public static let isScheduleUpdated = "isScheduleUpdatedMArk"
-    //
-    public static let appleButtonDefault = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1)
+    public static let shouldSuncNotesKey = "shouldSyncNotesKey"
+    public static let shouldSyncEventsKey = "ShouldSyncEventsKey"
+    
+    // MARK: - Notifications' names:
+    
     public static let initNotification = "initNotification"
     public static let reloadNotification = "ReloadNotification"
     public static let scheduleDidReload = "scheduleDidReload"
@@ -31,6 +69,10 @@ public struct AppData {
     public static let openNoteTextView = "openNoteTextView"
     public static let reloadTableView = "reloadTableViewNotification"
     public static let reloadCollectionView = "reloadCollectionViewNotification"
+    
+    // MARK: - Other:
+    
+    public static let appleButtonDefault = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1)
     
     // some global methods:
     

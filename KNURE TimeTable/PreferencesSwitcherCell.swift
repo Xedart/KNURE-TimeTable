@@ -30,14 +30,43 @@ class PreferencesSwitcherCell: UITableViewCell {
     func configure(row: Int) {
         cellTitleLabel.textColor = FlatTeal()
         cellSwitcher.tag = row
+        
+        let defaults = UserDefaults.standard
+        
         if row == 0 {
             cellTitleLabel.text = AppStrings.Notes
+            
+            if let notesControlState = defaults.object(forKey: AppData.shouldSuncNotesKey) as? Bool {
+                cellSwitcher.isOn = notesControlState
+            } else {
+                defaults.set(true, forKey: AppData.shouldSuncNotesKey)
+                cellSwitcher.isOn = true
+            }
+            
         } else if row == 1 {
             cellTitleLabel.text = AppStrings.customEvents
+            
+            if let eventsControlState = defaults.object(forKey: AppData.shouldSyncEventsKey) as? Bool {
+                cellSwitcher.isOn = eventsControlState
+            } else {
+                defaults.set(true, forKey: AppData.shouldSyncEventsKey)
+                cellSwitcher.isOn = true
+            }
         }
     }
     
     @IBAction func triggerSwitch(_ sender: UISwitch) {
-        print(sender.tag)
+        
+        let defaults = UserDefaults.standard
+        
+        // Note synchronization
+        if sender.tag == 0 {
+            defaults.set(sender.isOn, forKey: AppData.shouldSuncNotesKey)
+        }
+        
+        // Events synchronization
+        if sender.tag == 1 {
+            defaults.set(sender.isOn, forKey: AppData.shouldSyncEventsKey)
+        }
     }
 }

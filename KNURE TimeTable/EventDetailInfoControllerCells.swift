@@ -27,6 +27,8 @@ class EvenatDetailNotificationPreferenceCell: UITableViewCell {
     
     func configure(preferences: alarmTime) {
         
+        notificationLabel.text = AppStrings.recall
+        
         if preferences == .fifteenMinutes {
             notificationTimePreferences.text = "\(AppStrings.before) 15 \(AppStrings.minutes)"
         } else if preferences == .oneHour {
@@ -37,8 +39,6 @@ class EvenatDetailNotificationPreferenceCell: UITableViewCell {
             notificationTimePreferences.text = AppStrings.dontRecall
         }
     }
-    
-    
 }
 
 /// Cell for EventTableViewController. Used by user to type note's text.

@@ -8,7 +8,6 @@
 
 import UIKit
 import SVProgressHUD
-//import ChameleonFramework
 import DataModel
 
 class NoteTextView: UITextView {
@@ -25,7 +24,7 @@ class NoteTextView: UITextView {
 }
 
 protocol EventDetailViewControllerDelegate {
-    var alarmTimePreferences: alarmTime {get set}
+    var alarmTimePreferences: alarmTime! {get set}
     var tableView: UITableView! {get set}
 }
 
@@ -38,18 +37,20 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     var delegate: CollectionScheduleViewControllerDelegate!
     var sectionHeader: EventDetailHeaderView!
     var noteTextView: NoteTextView!
-    var noteText = String()
     var displayedEvent: Event!
     var currentSchedule: Shedule!
     var indexPath: IndexPath!
-    var alarmTimePreferences = alarmTime.fifteenMinutes
+    var noteText = String()
+    var alarmTimePreferences: alarmTime!
+    
+    // MARK: ViewController lifecycle:
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = AppStrings.Information
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: FlatSkyBlue()]
         
-        // NAvigatiob bar:
+        // Navigation bar:
         closeButton = UIBarButtonItem(title: AppStrings.Done, style: .done, target: self, action: #selector(EventDetailViewController.closeController(_:)))
         navigationItem.leftBarButtonItem = closeButton
         if displayedEvent.isCustom {
@@ -58,6 +59,10 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
             navigationItem.rightBarButtonItem = deleteButton
         }
         
+        //initialize alarmTimePreferences:
+        if !displayedEvent.isCustom {
+            alarmTimePreferences = alarmTime(rawValue: displayedEvent.alarmPreference)
+        }
         
         // adding observer notification for schedule:
         NotificationCenter.default.addObserver(self, selector: #selector(EventDetailViewController.getNewSchedule), name: NSNotification.Name(rawValue: AppData.scheduleDidReload), object: nil)
@@ -81,7 +86,11 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
         if section == 0 {
             return 3
         } else if section == 3 {
-            return 2
+            if CalendarManager.shouldSycNotes() && !displayedEvent.isCustom {
+                return 2
+            } else {
+                return 1
+            }
         } else {
             return 1
         }
@@ -194,41 +203,88 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     }
     
     func saveNoteButtonTaped(_ sender: UIButton) {
+        
         noteTextView.shouldResignFirstResponder = true
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let startDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))
+        let endDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.end_time))
         
         // Add new note:
         let converter = DateFormatter()
         converter.dateStyle = .short
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-              let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText)
+            let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText, isCoupledEventCustom: displayedEvent.isCustom, calendarEventId: String())
             
             // Sync with calendar:
-            // if userprefenreces.shouldSync == true...
-            let startDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))
-            let endDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.end_time))
+            // We add to the calendar only notes from non-custom events. Custom events notes are going to "Notes" field of custom event's calendar event.
+            //
+            // Non custom event:
+            if !displayedEvent.isCustom {
+                if CalendarManager.shouldSycNotes() {
+                    appDelegate.eventsManager.addEvent(startTime: startDate, endTime: endDate, title: noteText, eventNoteText: nil, alarmTime: alarmTimePreferences, linkedEvent: displayedEvent)
+                    newNote.calendarEventId = displayedEvent.calendarEventId
+                }
+            }
             
-            appDelegate.eventsManager.addEvent(startTime: startDate, endTime: endDate, title: noteText)
-            
+            // Custom event:
+            else if displayedEvent.isCustom {
+                if CalendarManager.shouldSycNotes() {
+                    appDelegate.eventsManager.updateEventNotes(eventId: displayedEvent.calendarEventId, notesText: noteText)
+                }
+            }
+            //save note:
             currentSchedule.addNewNote(newNote)
             
-        // Update existing note:
+        // Update an existing note:
         } else {
-           let updatedNote = currentSchedule.getNoteWithTokenId("\(displayedEvent.subject_id)\(displayedEvent.start_time)")
+           let updatedNote = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId)
             
-            //delete note:
+            // Delete:
             if noteText.isEmpty {
+                
+                // Sync with calendar:
+                // Non custom event:
+                if !displayedEvent.isCustom {
+                    if CalendarManager.shouldSycNotes() {
+                        appDelegate.eventsManager.deleteEvent(eventId: displayedEvent.calendarEventId)
+                    }
+                }
+                
+                // Custom event:
+                else if displayedEvent.isCustom {
+                    if CalendarManager.shouldSycNotes() {
+                        appDelegate.eventsManager.updateEventNotes(eventId: displayedEvent.calendarEventId, notesText: nil)
+                    }
+                }
+                // delete note from schedule:
                _ = currentSchedule.deleteNoteWithId(updatedNote!.idToken)
                 
-            //update note:
+            //Update:
             } else {
+                
+                // Sync with calendar:
+                // Non custom event:
+                if !displayedEvent.isCustom {
+                    if CalendarManager.shouldSycNotes() {
+                        appDelegate.eventsManager.updateEvent(startTime: startDate, endTime: endDate, newTitle: noteText, alarmTime: alarmTimePreferences, linkedEvent: displayedEvent)
+                        updatedNote?.calendarEventId = displayedEvent.calendarEventId
+                    }
+                }
+                
+                // Custom event:
+                else if displayedEvent.isCustom {
+                    if CalendarManager.shouldSycNotes() {
+                        appDelegate.eventsManager.updateEventNotes(eventId: displayedEvent.calendarEventId, notesText: noteText)
+                    }
+                }
+                
+                // Update note:
                 updatedNote!.text = noteText
                 updatedNote!.updateDate = converter.string(from: Date())
+                
             }
         }
-        
-        
         
         currentSchedule.saveShedule()
         delegate.passScheduleToLeftController()
@@ -252,6 +308,12 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     }
     
     func deleteEvent() {
+        
+        //Sync with calendar:
+        if CalendarManager.shouldSyncEvents() {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.eventsManager.deleteEvent(eventId: displayedEvent.calendarEventId)
+        }
         
         //delete note:
         _ = currentSchedule.deleteNoteWithId(displayedEvent.getEventId)

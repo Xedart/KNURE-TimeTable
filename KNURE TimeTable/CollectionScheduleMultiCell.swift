@@ -90,7 +90,7 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
             }
             
             // event isn't custom and has a note:
-            else if !events[0].isCustom && shedule.getNoteWithTokenId(events[0].getEventId) != nil {
+            else if !events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) != nil {
                 let leftStatusImage = ASImageNode()
                 leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
                 leftStatusImage.image = UIImage.init(named: "tableBookmark")

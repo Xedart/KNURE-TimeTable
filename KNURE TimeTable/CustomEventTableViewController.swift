@@ -32,7 +32,7 @@ class CusomEventTableVIewControllerNoteCell: UITableViewCell {
     
 }
 
-class CustomEventTableViewController: UITableViewController, CustomEventTableViewControllerDelegate {
+class CustomEventTableViewController: UITableViewController, CustomEventTableViewControllerDelegate, EventDetailViewControllerDelegate {
     
     // MARK: Properties:
     
@@ -46,6 +46,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     var closeButton: UIBarButtonItem!
     var saveButton: UIBarButtonItem!
     var noteTextView: NoteTextView!
+    var alarmTimePreferences: alarmTime!
 
     var isTeacherAdded = false
     var isTypeAdded = false
@@ -84,10 +85,16 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         delegate.shedule.customData.groups[String(-1)] = "-"
         delegate.shedule.customData.subjects.updateValue(Subject(briefTitle: AppStrings.customEvent, fullTitle: AppStrings.customEvent), forKey: String(-1))
         
+        //alarm time preferences initialization:
+        alarmTimePreferences = .fifteenMinutes
         
         
         //default customEvent setup:
-        customEvent = Event(subject_id: "-1", start_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + indexPath.row  + 1, end_time: delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + 5700, type: "-1", numberOfPair: indexPath.row + 1, auditory: "-", teachers: [-1], groups: [-1], isCustom: true)
+        
+        let pairStartTime = delegate.shedule.startDayTime + (indexPath.section * AppData.unixDay) + AppData.secondsFromDayBeginToPair(numberOfPair: indexPath.row + 1)
+        let pairEndTime = pairStartTime + AppData.pairTime
+        
+        customEvent = Event(subject_id: "-1", start_time: pairStartTime, end_time: pairEndTime, type: "-1", numberOfPair: indexPath.row + 1, auditory: "-", teachers: [-1], groups: [-1], isCustom: true, alarmTime: alarmTime.fifteenMinutes.rawValue, calendarEventId: String())
     }
     
     // MARK: - Methods:
@@ -137,10 +144,24 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
             delegate.shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] = EventCache(events: [customEvent])
         }
         
+        var newNote: Note?
+        
         // save note:
         if noteTextView!.text != AppStrings.AddNote && noteTextView!.text != "" {
-            let newNote = Note(idToken: customEvent.getEventId, coupledEventTitle: delegate.shedule.subjects[customEvent.subject_id]!.briefTitle, creationDate: formatter.string(from: Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))), updatedDate: formatter.string(from: Date()), text: noteTextView.text!)
-            delegate.shedule.addNewNote(newNote)
+            newNote = Note(idToken: customEvent.getEventId, coupledEventTitle: delegate.shedule.subjects[customEvent.subject_id]!.briefTitle, creationDate: formatter.string(from: Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))), updatedDate: formatter.string(from: Date()), text: noteTextView.text!, isCoupledEventCustom: true, calendarEventId: String())
+        }
+        
+        // Sync with calendar:
+        if CalendarManager.shouldSyncEvents() {
+            let noteText = noteTextView!.text != AppStrings.AddNote && noteTextView!.text != "" ? noteTextView!.text : nil
+            syncWithCalendar(noteText: noteText)
+            newNote?.calendarEventId = customEvent.calendarEventId
+        }
+       
+        
+        //save note:
+        if newNote != nil {
+            delegate.shedule.addNewNote(newNote!)
         }
         
         delegate.shedule.saveShedule()
@@ -153,6 +174,21 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         self.dismiss(animated: true, completion: nil)
     }
 
+    func syncWithCalendar(noteText: String?) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let startTime = Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))
+        let endTime = Date(timeIntervalSince1970: TimeInterval(customEvent.end_time))
+        let title = shedule.subjects[customEvent.subject_id]?.fullTitle
+        
+        appDelegate.eventsManager.addEvent(startTime: startTime,
+                                           endTime: endTime,
+                                           title: title!,
+                                           eventNoteText: noteText,
+                                           alarmTime: alarmTimePreferences,
+                                           linkedEvent: customEvent)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -161,41 +197,57 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 5
+            return 6
         }
         return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // Custom event info configuring cells:
+        
         if indexPath.section == 0 {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventTableViewController", for: indexPath) as! CustomEventTableViewControllerCell
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                cell.titleLabel.font = UIFont.systemFont(ofSize: 18.0)
-                let widthConstraint = NSLayoutConstraint(item: cell.titleLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 180)
-                view.addConstraint(widthConstraint)
+            
+            switch indexPath.row {
+            case 0...4:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventTableViewController", for: indexPath) as! CustomEventTableViewControllerCell
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    cell.titleLabel.font = UIFont.systemFont(ofSize: 18.0)
+                    let widthConstraint = NSLayoutConstraint(item: cell.titleLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 180)
+                    view.addConstraint(widthConstraint)
+                }
+                
+                if indexPath.row == 0 {
+                    cell.titleLabel.text = AppStrings.Teacher
+                    cell.DisplayedChoiseLabel.text = delegate.shedule.teachers[String(customEvent.teachers[0])]!.short_name
+                    return cell
+                } else if indexPath.row == 1 {
+                    cell.titleLabel.text = AppStrings.type
+                    cell.DisplayedChoiseLabel.text = delegate.shedule.types[customEvent.type]!.full_name
+                    return cell
+                } else if indexPath.row == 2 {
+                    cell.titleLabel.text = AppStrings.Audytori
+                    cell.DisplayedChoiseLabel.text = customEvent.auditory
+                    return cell
+                } else if indexPath.row == 3 {
+                    cell.titleLabel.text = AppStrings.subject
+                    cell.DisplayedChoiseLabel.text = delegate.shedule.subjects[customEvent.subject_id]?.fullTitle
+                    return cell
+                } else if indexPath.row == 4 {
+                    cell.titleLabel.text = AppStrings.group
+                    cell.DisplayedChoiseLabel.text = delegate.shedule.groups[String(customEvent.groups.first!)]
+                    return cell
+                }
+            case 5:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationPreferenceCellCustomEvent", for: indexPath) as! EvenatDetailNotificationPreferenceCell
+                cell.configure(preferences: alarmTimePreferences)
+                return cell
+            default:
+                print("Unexpected behavior")
             }
-        switch indexPath.row {
-        case 0:
-            cell.titleLabel.text = AppStrings.Teacher
-            cell.DisplayedChoiseLabel.text = delegate.shedule.teachers[String(customEvent.teachers[0])]!.short_name
-        case 1:
-            cell.titleLabel.text = AppStrings.type
-            cell.DisplayedChoiseLabel.text = delegate.shedule.types[customEvent.type]!.full_name
-        case 2:
-            cell.titleLabel.text = AppStrings.Audytori
-            cell.DisplayedChoiseLabel.text = customEvent.auditory
-        case 3:
-            cell.titleLabel.text = AppStrings.subject
-            cell.DisplayedChoiseLabel.text = delegate.shedule.subjects[customEvent.subject_id]?.fullTitle
-        case 4:
-            cell.titleLabel.text = AppStrings.group
-            cell.DisplayedChoiseLabel.text = delegate.shedule.groups[String(customEvent.groups.first!)]
-        default:
-            cell.titleLabel.text = "default"
-        }
-
-        return cell
-        } else {
+            
+            // Note cell:
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventTableViewControllerNoteCell", for: indexPath) as! CusomEventTableVIewControllerNoteCell
             cell.noteTextView.text = AppStrings.AddNote
             cell.noteTextView.textColor = UIColor.darkGray
@@ -204,6 +256,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
             return cell
             
         }
+        return UITableViewCell()
     }
     
     //MARK: - TableViewDelegate:
@@ -240,9 +293,15 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destionation = segue.destination as! CustomEventConfiguratorTableView
-        destionation.delegate = self
-        destionation.field = CustomField(rawValue: tableView.indexPathForSelectedRow!.row)
+        
+        if sender as? CustomEventTableViewControllerCell != nil {
+            let destionation = segue.destination as! CustomEventConfiguratorTableView
+            destionation.delegate = self
+            destionation.field = CustomField(rawValue: tableView.indexPathForSelectedRow!.row)
+        } else {
+            let destionation = segue.destination as! NotificationPreferencesTableViewController
+            destionation.delegate = self
+        }
     }
 }
 

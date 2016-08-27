@@ -275,6 +275,25 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
         
         let deleteAction = UITableViewRowAction(style: .normal, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
             
+            // delete linked event from calendar:
+            let deletingNote = self.schedule.notes[indexPath.section].notes[indexPath.row]
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            //Sync with calendar:
+            // Non custom events:
+            if !deletingNote.isCoupledEventCustom {
+                if CalendarManager.shouldSycNotes() {
+                    appDelegate.eventsManager.deleteEvent(eventId: deletingNote.calendarEventId)
+                }
+            }
+            
+            // Custom events:
+            if deletingNote.isCoupledEventCustom {
+                if CalendarManager.shouldSycNotes() {
+                    appDelegate.eventsManager.updateEventNotes(eventId: deletingNote.calendarEventId, notesText: nil)
+                }
+            }
+            
             // delete note from data model:
             
             /* deleteNoteWithId returns true if there are no more notes in note group. i. e. note group is going to be deleted. */

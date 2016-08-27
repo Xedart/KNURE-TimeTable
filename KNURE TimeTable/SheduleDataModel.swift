@@ -22,14 +22,26 @@ public class Event: NSObject, NSCoding  {
     public var teachers: [Int]
     public var groups: [Int]
     public var isCustom: Bool
+    public var alarmPreference: Int
+    public var calendarEventId: String
     public var getEventId: String {
         get {
             return "\(subject_id)\(start_time)" // composed event token
         }
     }
     
-    //initialiation:
-    public init(subject_id: String, start_time: Int, end_time: Int, type: String, numberOfPair: Int, auditory: String, teachers: [Int], groups: [Int], isCustom: Bool) {
+    // Initialiation:
+    public init(subject_id: String,
+                start_time: Int,
+                end_time: Int,
+                type: String,
+                numberOfPair: Int,
+                auditory: String,
+                teachers: [Int],
+                groups: [Int],
+                isCustom: Bool,
+                alarmTime: Int,
+                calendarEventId: String) {
         self.subject_id = subject_id
         self.start_time = start_time
         self.end_time = end_time
@@ -39,9 +51,22 @@ public class Event: NSObject, NSCoding  {
         self.teachers = teachers
         self.groups = groups
         self.isCustom = isCustom
+        self.alarmPreference = alarmTime
+        self.calendarEventId = calendarEventId
     }
     public convenience override init() {
-        self.init(subject_id: String(), start_time: Int(), end_time: Int(), type: String(), numberOfPair: Int(), auditory: String(), teachers: [Int](), groups: [Int](), isCustom: Bool())
+        self.init(subject_id: String(),
+                  start_time: Int(),
+                  end_time: Int(),
+                  type: String(),
+                  numberOfPair: Int(),
+                  auditory: String(),
+                  teachers: [Int](),
+                  groups: [Int](),
+                  isCustom: Bool(),
+                  alarmTime: alarmTime.fifteenMinutes.rawValue,
+                  calendarEventId: String()
+                  )
     }
     
     // NCCoding:
@@ -80,7 +105,20 @@ public class Event: NSObject, NSCoding  {
         let teachers = aDecoder.decodeObject(forKey: Key.teachers) as! [Int]
         let groups = aDecoder.decodeObject(forKey: Key.groups) as! [Int]
         let isCustom = aDecoder.decodeBool(forKey: Key.isCustomKey)
-        self.init(subject_id: subject_id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberOfPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: isCustom)
+        let alarmPreference = aDecoder.decodeInteger(forKey: Key.alarmPreferenceKey)
+        let calendarEventId = aDecoder.decodeObject(forKey: Key.calendarEventIdKey) as! String
+        
+        self.init(subject_id: subject_id,
+                  start_time: start_time,
+                  end_time: end_time,
+                  type: type,
+                  numberOfPair: numberOfPair,
+                  auditory: auditory,
+                  teachers: teachers,
+                  groups: groups,
+                  isCustom: isCustom,
+                  alarmTime: alarmPreference,
+                  calendarEventId: calendarEventId)
     }
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(subject_id, forKey: Key.subject_id)
@@ -92,6 +130,8 @@ public class Event: NSObject, NSCoding  {
         aCoder.encode(teachers, forKey: Key.teachers)
         aCoder.encode(groups, forKey: Key.groups)
         aCoder.encode(isCustom, forKey: Key.isCustomKey)
+        aCoder.encode(alarmPreference, forKey: Key.alarmPreferenceKey)
+        aCoder.encode(calendarEventId, forKey: Key.calendarEventIdKey)
     }
     struct Key {
         static let subject_id = "EVSubjectId"
@@ -103,6 +143,8 @@ public class Event: NSObject, NSCoding  {
         static let teachers = "EVTeachers"
         static let groups = "EVGroups"
         static let isCustomKey = "EXISCustomKey"
+        static let alarmPreferenceKey = "EVAlarmPreferenceKey"
+        static let calendarEventIdKey = "EVCalendarEventIdKey"
     }
 }
 
@@ -224,23 +266,34 @@ public class NureType: NSObject, NSCoding {
 
 // Notes:
 
+public enum alarmTime: Int {
+    case fifteenMinutes = 0
+    case oneHour = 1
+    case oneDay = 2
+    case never = 3
+}
+
 public class Note: NSObject, NSCoding {
     public let idToken: String
     public let coupledEventTitle: String
     public let creationDate: String
     public var updateDate: String
     public var text: String
+    public var isCoupledEventCustom: Bool
+    public var calendarEventId: String
     
-    public init(idToken: String, coupledEventTitle: String, creationDate: String, updatedDate: String, text: String) {
+    public init(idToken: String, coupledEventTitle: String, creationDate: String, updatedDate: String, text: String, isCoupledEventCustom: Bool, calendarEventId: String) {
         self.idToken = idToken
         self.coupledEventTitle = coupledEventTitle
         self.creationDate = creationDate
         self.updateDate = updatedDate
         self.text = text
+        self.isCoupledEventCustom = isCoupledEventCustom
+        self.calendarEventId = calendarEventId
     }
     
     public convenience override init() {
-        self.init(idToken: String(), coupledEventTitle: String(), creationDate: String(), updatedDate: String(), text: String())
+        self.init(idToken: String(), coupledEventTitle: String(), creationDate: String(), updatedDate: String(), text: String(), isCoupledEventCustom: Bool(), calendarEventId: String())
     }
     
     // NCCoding:
@@ -250,7 +303,9 @@ public class Note: NSObject, NSCoding {
         let creationDate = aDecoder.decodeObject(forKey: Key.creationDateKey) as! String
         let updatedDate = aDecoder.decodeObject(forKey: Key.updatedDateKey) as! String
         let text = aDecoder.decodeObject(forKey: Key.textKey) as! String
-        self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text)
+        let isCoupleEventCustom = aDecoder.decodeBool(forKey: Key.isCoupledEventCustomKey)
+        let calendarEventId = aDecoder.decodeObject(forKey: Key.calendarEventIdKey) as! String
+        self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text, isCoupledEventCustom: isCoupleEventCustom, calendarEventId: calendarEventId)
     }
     
     public func encode(with aCoder: NSCoder) {
@@ -259,6 +314,8 @@ public class Note: NSObject, NSCoding {
         aCoder.encode(self.creationDate, forKey: Key.creationDateKey)
         aCoder.encode(self.updateDate, forKey: Key.updatedDateKey)
         aCoder.encode(self.text, forKey: Key.textKey)
+        aCoder.encode(self.isCoupledEventCustom, forKey: Key.isCoupledEventCustomKey)
+        aCoder.encode(self.calendarEventId, forKey: Key.calendarEventIdKey)
     }
     
     struct Key {
@@ -267,6 +324,8 @@ public class Note: NSObject, NSCoding {
         static let creationDateKey = "NTcreationDate"
         static let updatedDateKey = "NTupdatedDate"
         static let textKey = "NTTextKEy"
+        static let isCoupledEventCustomKey = "NTIscoupledEventCustomKey"
+        static let calendarEventIdKey = "NTCalendarEcentIdKey"
     }
 }
 
@@ -834,18 +893,4 @@ public extension Shedule {
             print("Error when saving to shared container!")
         }
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

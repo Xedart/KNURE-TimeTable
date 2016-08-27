@@ -153,7 +153,11 @@ class Parser {
         // grab events:
         let jsEvents = data["events"].arrayValue
         if let startTime = jsEvents.first?["start_time"].intValue {
-            firstDayTime = startTime
+            
+            //calculate first day start time:
+            let secondsFromBeginToPair = AppData.secondsFromDayBeginToPair(numberOfPair: jsEvents.first?["number_pair"].intValue)
+            firstDayTime = startTime - secondsFromBeginToPair
+            
         }
         if let lastTime = jsEvents.last?["start_time"].intValue {
             lastDayTime = lastTime
@@ -176,7 +180,8 @@ class Parser {
             for jgroup in event["groups"].arrayValue {
                 groups.append(jgroup.intValue)
             }
-            let event = Event(subject_id: id, start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: Bool())
+            let event = Event(subject_id: id,
+                              start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: Bool(), alarmTime: alarmTime.fifteenMinutes.rawValue, calendarEventId: String())
             let eventDateStringId = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(start_time)))
             if currentDateStr == eventDateStringId {
                 daysBuffer.events.append(event)

@@ -57,7 +57,7 @@ public struct AppStrings {
     public static let numberOfNotes = "Заметок:"
     public static let preferences = "Предпочтения"
     public static let syncWithCalendar = "Синхронизация с календарем"
-    public static let recall = "Напоминние"
+    public static let recall = "Напоминaние"
     public static let minutes = "Минут"
     public static let hour = "Час"
     public static let day = "День"

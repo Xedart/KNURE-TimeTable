@@ -142,7 +142,7 @@
 		842DD2C11D410A7F00E802B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842F54451D620108004A6FAB /* DataModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		842F54471D620108004A6FAB /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
-		842F54481D620108004A6FAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842F54481D620108004A6FAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../DataModel/Info.plist; sourceTree = "<group>"; };
 		8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewController.swift; sourceTree = "<group>"; };
 		844D7ACB1D611855006076C4 /* NureTimeTable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NureTimeTable.entitlements; sourceTree = "<group>"; };
 		844D7ACC1D611927006076C4 /* Today schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today schedule.entitlements"; sourceTree = "<group>"; };
@@ -265,7 +265,6 @@
 				84B809461D648A8B009149E8 /* ColorsConstants.swift */,
 				84F305AF1D65C059009C1F45 /* WidgetTableViewCell.swift */,
 				8497F68B1D69E96E00B04E63 /* CalendarManager.swift */,
-				842F54481D620108004A6FAB /* Info.plist */,
 			);
 			name = DataModel;
 			path = ../DataModel;
@@ -311,6 +310,7 @@
 				844D7ACB1D611855006076C4 /* NureTimeTable.entitlements */,
 				8477764A1C6A47C7000776B9 /* Resources */,
 				8477764B1C6A4813000776B9 /* Data */,
+				842F54481D620108004A6FAB /* Info.plist */,
 				847776241C63945C000776B9 /* AppDelegate.swift */,
 				847776461C639FDD000776B9 /* View */,
 				847776471C639FF3000776B9 /* Controllers */,
