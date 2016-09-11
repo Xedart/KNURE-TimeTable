@@ -65,7 +65,6 @@
 		84F305B01D65C059009C1F45 /* WidgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F305AF1D65C059009C1F45 /* WidgetTableViewCell.swift */; };
 		84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */; };
 		84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F1891CB8435900CC8C36 /* SideMenuRootViewController.swift */; };
-		84F6F18C1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6F18B1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift */; };
 		CAD3ECF9FC1566BD0BB3A5BE /* Pods_KNURE_TimeTable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */; };
 /* End PBXBuildFile section */
 
@@ -195,7 +194,6 @@
 		84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		84F6F1891CB8435900CC8C36 /* SideMenuRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuRootViewController.swift; sourceTree = "<group>"; };
-		84F6F18B1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScheduleCollectionViewController.swift; sourceTree = "<group>"; };
 		AA4C342CFBD5753438C27568 /* Pods-KNURE TimeTable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KNURE TimeTable.release.xcconfig"; path = "Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,7 +288,9 @@
 				CEBCD79CDB67043BF4DD36D6 /* Pods */,
 				B3010365F28E68BED05A4580 /* Frameworks */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		847776221C63945C000776B9 /* Products */ = {
 			isa = PBXGroup;
@@ -426,7 +426,6 @@
 			isa = PBXGroup;
 			children = (
 				84F0AAF71C6FD4F9006E2F40 /* ShedulesListTableViewController.swift */,
-				84F6F18B1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift */,
 				849832641C72169300727E74 /* DirectiongTableViewController.swift */,
 				8498326A1C72633700727E74 /* SchedulesDownoalTableView.swift */,
 			);
@@ -624,6 +623,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					847776341C63945D000776B9 = {
@@ -800,7 +802,6 @@
 				84F6F1821CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m in Sources */,
 				8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */,
 				84247C971CD51B4A000654F9 /* LabelCell.swift in Sources */,
-				84F6F18C1CB9010F00CC8C36 /* TableScheduleCollectionViewController.swift in Sources */,
 				8497F6881D69D4FA00B04E63 /* PreferencesSwitcherCell.swift in Sources */,
 				84F6F18A1CB8435900CC8C36 /* SideMenuRootViewController.swift in Sources */,
 				848E90811C78D62F006D4E9D /* CollectionScheduleCell.swift in Sources */,

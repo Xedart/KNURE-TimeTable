@@ -46,7 +46,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     var closeButton: UIBarButtonItem!
     var saveButton: UIBarButtonItem!
     var noteTextView: NoteTextView!
-    var alarmTimePreferences: alarmTime!
+    var alarmTimePreferences = alarmTime.fifteenMinutes
 
     var isTeacherAdded = false
     var isTypeAdded = false
@@ -84,10 +84,6 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         delegate.shedule.customData.teachers[String(-1)] = Teacher(full_name: "-", short_name: "-")
         delegate.shedule.customData.groups[String(-1)] = "-"
         delegate.shedule.customData.subjects.updateValue(Subject(briefTitle: AppStrings.customEvent, fullTitle: AppStrings.customEvent), forKey: String(-1))
-        
-        //alarm time preferences initialization:
-        alarmTimePreferences = .fifteenMinutes
-        
         
         //default customEvent setup:
         
@@ -148,7 +144,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
         
         // save note:
         if noteTextView!.text != AppStrings.AddNote && noteTextView!.text != "" {
-            newNote = Note(idToken: customEvent.getEventId, coupledEventTitle: delegate.shedule.subjects[customEvent.subject_id]!.briefTitle, creationDate: formatter.string(from: Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))), updatedDate: formatter.string(from: Date()), text: noteTextView.text!, isCoupledEventCustom: true, calendarEventId: String())
+            newNote = Note(idToken: customEvent.getEventId, coupledEventTitle: delegate.shedule.subjects[customEvent.subject_id]!.briefTitle, creationDate: formatter.string(from: Date(timeIntervalSince1970: TimeInterval(customEvent.start_time))), updatedDate: formatter.string(from: Date()), text: noteTextView.text!, isCoupledEventCustom: true, calendarEventId: String(), alarmTimePreferneces: alarmTimePreferences.rawValue)
         }
         
         // Sync with calendar:

@@ -281,8 +281,16 @@ public class Note: NSObject, NSCoding {
     public var text: String
     public var isCoupledEventCustom: Bool
     public var calendarEventId: String
+    public var alarmTimePreferneces: Int
     
-    public init(idToken: String, coupledEventTitle: String, creationDate: String, updatedDate: String, text: String, isCoupledEventCustom: Bool, calendarEventId: String) {
+    public init(idToken: String,
+                coupledEventTitle: String,
+                creationDate: String,
+                updatedDate: String,
+                text: String,
+                isCoupledEventCustom: Bool,
+                calendarEventId: String,
+                alarmTimePreferneces: Int) {
         self.idToken = idToken
         self.coupledEventTitle = coupledEventTitle
         self.creationDate = creationDate
@@ -290,10 +298,18 @@ public class Note: NSObject, NSCoding {
         self.text = text
         self.isCoupledEventCustom = isCoupledEventCustom
         self.calendarEventId = calendarEventId
+        self.alarmTimePreferneces = alarmTimePreferneces
     }
     
     public convenience override init() {
-        self.init(idToken: String(), coupledEventTitle: String(), creationDate: String(), updatedDate: String(), text: String(), isCoupledEventCustom: Bool(), calendarEventId: String())
+        self.init(idToken: String(),
+                  coupledEventTitle: String(),
+                  creationDate: String(),
+                  updatedDate: String(),
+                  text: String(),
+                  isCoupledEventCustom: Bool(),
+                  calendarEventId: String(),
+                  alarmTimePreferneces: Int())
     }
     
     // NCCoding:
@@ -305,7 +321,15 @@ public class Note: NSObject, NSCoding {
         let text = aDecoder.decodeObject(forKey: Key.textKey) as! String
         let isCoupleEventCustom = aDecoder.decodeBool(forKey: Key.isCoupledEventCustomKey)
         let calendarEventId = aDecoder.decodeObject(forKey: Key.calendarEventIdKey) as! String
-        self.init(idToken: idToken, coupledEventTitle: coupledEventTitle, creationDate: creationDate, updatedDate: updatedDate, text: text, isCoupledEventCustom: isCoupleEventCustom, calendarEventId: calendarEventId)
+        let alarmTimePreferneces = aDecoder.decodeInteger(forKey: Key.alarmTimePrefernecesKey)
+        self.init(idToken: idToken,
+                  coupledEventTitle: coupledEventTitle,
+                  creationDate: creationDate,
+                  updatedDate: updatedDate,
+                  text: text,
+                  isCoupledEventCustom: isCoupleEventCustom,
+                  calendarEventId: calendarEventId,
+                  alarmTimePreferneces: alarmTimePreferneces)
     }
     
     public func encode(with aCoder: NSCoder) {
@@ -316,6 +340,7 @@ public class Note: NSObject, NSCoding {
         aCoder.encode(self.text, forKey: Key.textKey)
         aCoder.encode(self.isCoupledEventCustom, forKey: Key.isCoupledEventCustomKey)
         aCoder.encode(self.calendarEventId, forKey: Key.calendarEventIdKey)
+        aCoder.encode(self.alarmTimePreferneces, forKey: Key.alarmTimePrefernecesKey)
     }
     
     struct Key {
@@ -326,6 +351,7 @@ public class Note: NSObject, NSCoding {
         static let textKey = "NTTextKEy"
         static let isCoupledEventCustomKey = "NTIscoupledEventCustomKey"
         static let calendarEventIdKey = "NTCalendarEcentIdKey"
+        static let alarmTimePrefernecesKey = "NTalarmTimePrefernecesKey"
     }
 }
 
@@ -371,7 +397,11 @@ public class CustomData: NSObject, NSCoding {
     public var events = [Event]()
     
     // initialization:
-    public init(groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], events: [Event]) {
+    public init(groups: [String: String],
+                teachers: [String: Teacher],
+                subjects: [String: Subject],
+                types: [String: NureType],
+                events: [Event]) {
         self.groups = groups
         self.teachers = teachers
         self.subjects = subjects
@@ -477,7 +507,18 @@ public class Shedule: NSObject, NSCoding {
     // MARK: Initialization:
     
     //main initializer:
-    public init(startDayTime: Int, endDayTime: Int, shedule_id: String, days: [String: Day], groups: [String: String], teachers: [String: Teacher], subjects: [String: Subject], types: [String: NureType], scheduleIdentifier: String, notes: [NoteGroup], lastRefreshDate: String, customData: CustomData) {
+    public init(startDayTime: Int,
+                endDayTime: Int,
+                shedule_id: String,
+                days: [String: Day],
+                groups: [String: String],
+                teachers: [String: Teacher],
+                subjects: [String: Subject],
+                types: [String: NureType],
+                scheduleIdentifier: String,
+                notes: [NoteGroup],
+                lastRefreshDate: String,
+                customData: CustomData) {
         self.startDayTime = startDayTime
         self.endDayTime = endDayTime
         self.shedule_id = shedule_id
@@ -495,7 +536,18 @@ public class Shedule: NSObject, NSCoding {
     
     // default initializer:
     public convenience override init() {
-        self.init(startDayTime: Int(), endDayTime: Int(), shedule_id: String(), days: [:], groups: [:], teachers: [:], subjects: [:], types: [:], scheduleIdentifier: String(), notes: [NoteGroup](), lastRefreshDate: String(), customData: CustomData())
+        self.init(startDayTime: Int(),
+                  endDayTime: Int(),
+                  shedule_id: String(),
+                  days: [:],
+                  groups: [:],
+                  teachers: [:],
+                  subjects: [:],
+                  types: [:],
+                  scheduleIdentifier: String(),
+                  notes: [NoteGroup](),
+                  lastRefreshDate: String(),
+                  customData: CustomData())
     }
     
     // MARK: - NSCoding:
@@ -544,7 +596,18 @@ public class Shedule: NSObject, NSCoding {
             customData = CustomData()
         }
         
-        self.init(startDayTime: startDayTime, endDayTime: endDayTime, shedule_id: shedule_id, days: days, groups: groups, teachers: teachers, subjects: subjects, types: types, scheduleIdentifier: scheduleIdentifier!, notes: notes, lastRefreshDate: lastRefreshDate!, customData: customData!)
+        self.init(startDayTime: startDayTime,
+                  endDayTime: endDayTime,
+                  shedule_id: shedule_id,
+                  days: days,
+                  groups: groups,
+                  teachers: teachers,
+                  subjects: subjects,
+                  types: types,
+                  scheduleIdentifier: scheduleIdentifier!,
+                  notes: notes,
+                  lastRefreshDate: lastRefreshDate!,
+                  customData: customData!)
     }
     
     public func encode(with aCoder: NSCoder) {

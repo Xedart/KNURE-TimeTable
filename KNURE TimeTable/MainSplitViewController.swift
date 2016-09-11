@@ -73,8 +73,6 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
         }
     }
     
-    
-    
     // MARK: - Methods:
     
     func showMenu(_ sender: UIButton) {
@@ -110,7 +108,7 @@ class MainSplitViewController: UISplitViewController, UISplitViewControllerDeleg
     }
 }
 
-    // MARK: - SheduleControllersInitializer conformance:
+    // MARK: - SheduleControllersInitializer:
 
 extension MainSplitViewController: SheduleControllersInitializer {
     
@@ -236,9 +234,11 @@ extension MainSplitViewController: SheduleControllersInitializer {
     }
 }
 
-    // MARK: - Pop all vieewController to root when dissmissing popover:
+    // MARK: - UIPopoverPresentationControllerDelegate
 
 extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
+    
+    //Pop all vieewController to root when dissmissing popover:
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         sheduleNavigationController?.popToRootViewController(animated: false)
     }

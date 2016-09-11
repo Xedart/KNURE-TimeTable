@@ -8,8 +8,6 @@
 
 import UIKit
 import SVProgressHUD
-//import SwiftyJSON
-//import ChameleonFramework
 import DataModel
 
 class MainTabBarController: UITabBarController {
@@ -46,6 +44,8 @@ class MainTabBarController: UITabBarController {
         return NSKeyedUnarchiver.unarchiveObject(withFile: "\(Shedule.urlPath.path)/\(sheduleId)") as! Shedule
     }
 }
+
+    //MARK: - SheduleControllersInitializer:
 
 extension MainTabBarController: SheduleControllersInitializer {
     

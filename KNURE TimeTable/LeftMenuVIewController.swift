@@ -143,7 +143,6 @@ class LeftMenuVIewController: UIViewController {
         setFrame(size: size)
     }
     
-    
     func setFrame() {
         
          let tableViewYOrigin = CGFloat((view.frame.height - (view.frame.height * 0.8)) / 2).rounded()
@@ -197,9 +196,10 @@ class LeftMenuVIewController: UIViewController {
                 self.infoLavelView.text = ""
             }
         }
-       
     }
 }
+
+    //MARK: - TableViewDataSource/Delegate:
 
 extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -335,6 +335,7 @@ extension LeftMenuVIewController: UITableViewDataSource, UITableViewDelegate {
         
 }
 
+    //MARK: - FZAccordionTableViewDelegate
 
 extension LeftMenuVIewController: FZAccordionTableViewDelegate {
     func tableView(_ tableView: FZAccordionTableView, willCloseSection section: Int, withHeader header: UITableViewHeaderFooterView) {
@@ -348,6 +349,8 @@ extension LeftMenuVIewController: FZAccordionTableViewDelegate {
         }
     }
 }
+
+    //MARK: - DZNEmptyDataSetSource
 
 extension LeftMenuVIewController: DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {

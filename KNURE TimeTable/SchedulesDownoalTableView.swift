@@ -7,11 +7,10 @@
 //
 
 import UIKit
-//import SwiftyJSON
 import SVProgressHUD
 import DataModel
 
-    // MARK: - dataSource structures
+    // MARK: - Data Source structures
 
 struct ListRow {
     var row_id: String
@@ -38,19 +37,16 @@ struct ListSection {
     }
 }
 
-//
-
-//
-
 class SchedulesDownoalTableView: UITableViewController {
     
-    // MARK: - dataSource
+    // MARK: - Data Source:
     
     var dataSource = [ListSection]()
     var dataSourceStorage = [ListSection]()
     var initMetod: Server.Method!
     
     // MARK: - Properties:
+    
     var groupsData = [String]()
     var teachersData = [String]()
     var auditoryiesData = [String]()
@@ -123,7 +119,7 @@ class SchedulesDownoalTableView: UITableViewController {
         return 0.1
     }
     
-    // methods:
+    // MARK: - Methods:
     
     func isAlreadyAdded(_ row: String) -> Bool {
         if initMetod == .getGroups {
@@ -283,6 +279,8 @@ extension SchedulesDownoalTableView {
         })
     }
 }
+
+    // MARK: - SearchBarDelegate:
 
 extension SchedulesDownoalTableView: UISearchBarDelegate {
     func searchButtonTapped(_ sender: UIBarButtonItem) {

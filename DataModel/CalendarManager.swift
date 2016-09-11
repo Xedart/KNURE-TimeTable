@@ -118,13 +118,11 @@ public class CalendarManager {
         }
     }
     
-    public func updateEvent(startTime: Date, endTime: Date, newTitle: String, alarmTime: alarmTime, linkedEvent: Event) {
+    public func updateEvent(startTime: Date, endTime: Date, newTitle: String, alarmTime: alarmTime, linkedEvent: Event, calendarEventID: String) {
         
         requestUserPermission {
             
-            let eventId = linkedEvent.calendarEventId
-            
-            if let addedEvent = self.eventStore.event(withIdentifier: eventId) {
+            if let addedEvent = self.eventStore.event(withIdentifier: calendarEventID) {
                 
                 addedEvent.title = newTitle
                 addedEvent.alarms = []
@@ -137,7 +135,7 @@ public class CalendarManager {
                 //save updated event:
                 do {
                     try self.eventStore.save(addedEvent, span: .thisEvent, commit: true)
-                    
+                    linkedEvent.calendarEventId = addedEvent.eventIdentifier
                     linkedEvent.alarmPreference = alarmTime.rawValue
                 } catch {
                     print("Unexpected behavior")
@@ -155,7 +153,7 @@ public class CalendarManager {
         
         // Try to find and update existing event:
         if linkedEvent.calendarEventId != "" {
-            updateEvent(startTime: startTime, endTime: endTime, newTitle: title, alarmTime: alarmTime, linkedEvent: linkedEvent)
+            updateEvent(startTime: startTime, endTime: endTime, newTitle: title, alarmTime: alarmTime, linkedEvent: linkedEvent, calendarEventID: linkedEvent.calendarEventId)
         }
         
         requestUserPermission {

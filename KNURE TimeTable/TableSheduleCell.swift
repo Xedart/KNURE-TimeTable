@@ -8,7 +8,6 @@
 
 import UIKit
 import AsyncDisplayKit
-//import ChameleonFramework
 import DataModel
 
 class TableSheduleCell: UITableViewCell {
@@ -35,7 +34,7 @@ class TableSheduleCell: UITableViewCell {
     func configure(_ shedule: Shedule, event: Event) {
         displayedEvent = event
             DispatchQueue.global(qos: .default).async(execute: {
-            self.node.frame = self.bounds
+            self.node.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height - 1.5)
             self.node.clipsToBounds = true
             self.node.cornerRadius = 15.0
             self.node.borderWidth = 0.3

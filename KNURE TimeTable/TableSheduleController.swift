@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import ChameleonFramework
 import DataModel
 
 protocol TableSheduleControllerDelegate {
@@ -127,7 +126,9 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let events = shedule.eventsInDay((Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * (indexPath as NSIndexPath).section))))
+        
         if events.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyTableSheduleCell", for: indexPath) as! LabelCell
             cell.EmptyLabel.text = AppStrings.NoEvents

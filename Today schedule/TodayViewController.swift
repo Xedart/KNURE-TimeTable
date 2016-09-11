@@ -116,8 +116,7 @@ class TodayWidgetViewController: UIViewController, NCWidgetProviding {
     }
 }
 
-// MARK: UITableViewDataSource delegate and dataSource:
-
+  // MARK: UITableViewDataSource delegate and dataSource:
 
 extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate {
     

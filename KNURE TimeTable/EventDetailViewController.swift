@@ -24,7 +24,7 @@ class NoteTextView: UITextView {
 }
 
 protocol EventDetailViewControllerDelegate {
-    var alarmTimePreferences: alarmTime! {get set}
+    var alarmTimePreferences: alarmTime {get set}
     var tableView: UITableView! {get set}
 }
 
@@ -41,7 +41,7 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     var currentSchedule: Shedule!
     var indexPath: IndexPath!
     var noteText = String()
-    var alarmTimePreferences: alarmTime!
+    var alarmTimePreferences = alarmTime.fifteenMinutes
     
     // MARK: ViewController lifecycle:
 
@@ -61,7 +61,9 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
         
         //initialize alarmTimePreferences:
         if !displayedEvent.isCustom {
-            alarmTimePreferences = alarmTime(rawValue: displayedEvent.alarmPreference)
+            if let note = currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) {
+                alarmTimePreferences = alarmTime(rawValue: note.alarmTimePreferneces)!
+            }
         }
         
         // adding observer notification for schedule:
@@ -74,110 +76,6 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         tableView.reloadData()
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 3
-        } else if section == 3 {
-            if CalendarManager.shouldSycNotes() && !displayedEvent.isCustom {
-                return 2
-            } else {
-                return 1
-            }
-        } else {
-            return 1
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch indexPath.section {
-            
-            // Sections 0,1,2 display information about event
-        case 0...2:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailTableViewCell", for: indexPath) as! EventDetailTableViewCell
-            
-            cell.configureFor(indexPath: indexPath, schedule: currentSchedule, event: displayedEvent)
-            return cell
-            
-            // Section 3 displayes noteTextView and alarm preferences cell:
-        case 3:
-            
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailInfoTitleCell", for: indexPath) as! EventDetailInfoTitleCell
-                
-                cell.configure(schedule: currentSchedule, event: displayedEvent)
-                
-                cell.eventTitleView.delegate = self
-                noteTextView = cell.eventTitleView
-                return cell
-                
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "EvenatDetailNotificationPreferenceCell", for: indexPath) as! EvenatDetailNotificationPreferenceCell
-                cell.configure(preferences: alarmTimePreferences)
-                return cell
-            }
-            
-        default:
-            return UITableViewCell()
-        }
-    }
-    
-    
-    
-    // MARK: - UITableViewDelegate:
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if (indexPath as NSIndexPath).section == 0 {
-            if (indexPath as NSIndexPath).row == 0 {
-                return 100
-            } else {
-                return 50
-            }
-        }
-        else if (indexPath as NSIndexPath).section == 1 {
-            return 60
-        } else if (indexPath as NSIndexPath).section == 2 {
-            return 60
-        } else if (indexPath as NSIndexPath).section == 3 {
-            if indexPath.row == 0 {
-                return 100
-            } else {
-                return 60
-            }
-        } else {
-            return 0
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return nil
-        }
-        sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeader(inSection: section))
-        sectionHeader.saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
-        sectionHeader.configure(section)
-        return sectionHeader
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 20
-        }
-        return 40
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.1
     }
     
     // MARK: Navigation:
@@ -210,11 +108,12 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
         let startDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))
         let endDate = Date(timeIntervalSince1970: TimeInterval(displayedEvent.end_time))
         
-        // Add new note:
         let converter = DateFormatter()
         converter.dateStyle = .short
+        
+        // Add new note:
         if currentSchedule.getNoteWithTokenId(displayedEvent.getEventId) == nil {
-            let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText, isCoupledEventCustom: displayedEvent.isCustom, calendarEventId: String())
+            let newNote = Note(idToken: "\(displayedEvent.subject_id)\(displayedEvent.start_time)", coupledEventTitle: currentSchedule.subjects[displayedEvent.subject_id]!.briefTitle, creationDate: converter.string(from: Date(timeIntervalSince1970: TimeInterval(displayedEvent.start_time))), updatedDate: converter.string(from: Date()), text: noteText, isCoupledEventCustom: displayedEvent.isCustom, calendarEventId: String(), alarmTimePreferneces: alarmTimePreferences.rawValue)
             
             // Sync with calendar:
             // We add to the calendar only notes from non-custom events. Custom events notes are going to "Notes" field of custom event's calendar event.
@@ -231,6 +130,7 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
             else if displayedEvent.isCustom {
                 if CalendarManager.shouldSycNotes() {
                     appDelegate.eventsManager.updateEventNotes(eventId: displayedEvent.calendarEventId, notesText: noteText)
+                    newNote.calendarEventId = displayedEvent.calendarEventId
                 }
             }
             //save note:
@@ -247,7 +147,7 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
                 // Non custom event:
                 if !displayedEvent.isCustom {
                     if CalendarManager.shouldSycNotes() {
-                        appDelegate.eventsManager.deleteEvent(eventId: displayedEvent.calendarEventId)
+                        appDelegate.eventsManager.deleteEvent(eventId: updatedNote!.calendarEventId)
                     }
                 }
                 
@@ -267,8 +167,9 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
                 // Non custom event:
                 if !displayedEvent.isCustom {
                     if CalendarManager.shouldSycNotes() {
-                        appDelegate.eventsManager.updateEvent(startTime: startDate, endTime: endDate, newTitle: noteText, alarmTime: alarmTimePreferences, linkedEvent: displayedEvent)
+                        appDelegate.eventsManager.updateEvent(startTime: startDate, endTime: endDate, newTitle: noteText, alarmTime: alarmTimePreferences, linkedEvent: displayedEvent, calendarEventID: updatedNote!.calendarEventId)
                         updatedNote?.calendarEventId = displayedEvent.calendarEventId
+                        updatedNote?.alarmTimePreferneces = alarmTimePreferences.rawValue
                     }
                 }
                 
@@ -346,6 +247,113 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
         NotificationCenter.default.post(name: NSNotification.Name(AppData.reloadTableView), object: nil)
         NotificationCenter.default.post(name: Notification.Name(AppData.reloadCollectionView), object: nil)
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+    // MARK: - UITableViewDataSourcr/Delegte:
+
+extension EventDetailViewController {
+    
+   // Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 3
+        } else if section == 3 {
+            if CalendarManager.shouldSycNotes() && !displayedEvent.isCustom {
+                return 2
+            } else {
+                return 1
+            }
+        } else {
+            return 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        switch indexPath.section {
+            
+        // Sections 0,1,2 display information about event
+        case 0...2:
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailTableViewCell", for: indexPath) as! EventDetailTableViewCell
+            
+            cell.configureFor(indexPath: indexPath, schedule: currentSchedule, event: displayedEvent)
+            return cell
+            
+        // Section 3 displayes noteTextView and alarm preferences cell:
+        case 3:
+            
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailInfoTitleCell", for: indexPath) as! EventDetailInfoTitleCell
+                
+                cell.configure(schedule: currentSchedule, event: displayedEvent)
+                
+                cell.eventTitleView.delegate = self
+                noteTextView = cell.eventTitleView
+                return cell
+                
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "EvenatDetailNotificationPreferenceCell", for: indexPath) as! EvenatDetailNotificationPreferenceCell
+                cell.configure(preferences: alarmTimePreferences)
+                return cell
+            }
+            
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    //UITableViewDelegate:
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if (indexPath as NSIndexPath).section == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
+                return 100
+            } else {
+                return 50
+            }
+        }
+        else if (indexPath as NSIndexPath).section == 1 {
+            return 60
+        } else if (indexPath as NSIndexPath).section == 2 {
+            return 60
+        } else if (indexPath as NSIndexPath).section == 3 {
+            if indexPath.row == 0 {
+                return 100
+            } else {
+                return 60
+            }
+        } else {
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return nil
+        }
+        sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeader(inSection: section))
+        sectionHeader.saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
+        sectionHeader.configure(section)
+        return sectionHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 20
+        }
+        return 40
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
     }
 }
 

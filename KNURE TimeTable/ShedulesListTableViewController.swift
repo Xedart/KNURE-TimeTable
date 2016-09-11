@@ -143,53 +143,6 @@ class ShedulesListTableViewController: UITableViewController {
         return true
     }
     
-    func chooseProperSchedule(_ scheduleToDelete: String) -> Bool {
-        let defaults = UserDefaults.standard
-        
-        // choosing among groups:
-        if groupsData.count > 0 {
-            var counter = 0
-            for group in groupsData {
-                if scheduleToDelete != group {
-                    defaults.set(group, forKey: AppData.defaultScheduleKey)
-                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
-                    cell.titleLbl.text?.append(" ✓")
-                    return true
-                }
-                counter += 1
-            }
-        }
-        
-        // choosing among teachers:
-        if teachersData.count > 0 {
-            var counter = 0
-            for group in teachersData {
-                if scheduleToDelete != group {
-                    defaults.set(group, forKey: AppData.defaultScheduleKey)
-                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
-                    cell.titleLbl.text?.append(" ✓")
-                    return true
-                }
-                counter += 1
-            }
-        }
-        
-        // choosing among auditories:
-        if auditoryiesData.count > 0 {
-            var counter = 0
-            for group in auditoryiesData {
-                if scheduleToDelete != group {
-                    defaults.set(group, forKey: AppData.defaultScheduleKey)
-                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
-                    cell.titleLbl.text?.append(" ✓")
-                    return true
-                }
-                counter += 1
-            }
-        }
-        return false
-    }
-    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
         let defaults = UserDefaults.standard
         let deleteAction = UITableViewRowAction(style: .default, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
@@ -317,6 +270,54 @@ class ShedulesListTableViewController: UITableViewController {
     }
     
     // MARK: - Methods:
+    
+    func chooseProperSchedule(_ scheduleToDelete: String) -> Bool {
+        
+        let defaults = UserDefaults.standard
+        
+        // choosing among groups:
+        if groupsData.count > 0 {
+            var counter = 0
+            for group in groupsData {
+                if scheduleToDelete != group {
+                    defaults.set(group, forKey: AppData.defaultScheduleKey)
+                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
+                    cell.titleLbl.text?.append(" ✓")
+                    return true
+                }
+                counter += 1
+            }
+        }
+        
+        // choosing among teachers:
+        if teachersData.count > 0 {
+            var counter = 0
+            for group in teachersData {
+                if scheduleToDelete != group {
+                    defaults.set(group, forKey: AppData.defaultScheduleKey)
+                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
+                    cell.titleLbl.text?.append(" ✓")
+                    return true
+                }
+                counter += 1
+            }
+        }
+        
+        // choosing among auditories:
+        if auditoryiesData.count > 0 {
+            var counter = 0
+            for group in auditoryiesData {
+                if scheduleToDelete != group {
+                    defaults.set(group, forKey: AppData.defaultScheduleKey)
+                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
+                    cell.titleLbl.text?.append(" ✓")
+                    return true
+                }
+                counter += 1
+            }
+        }
+        return false
+    }
     
     func addButtonPressed(_ sender: UIBarButtonItem?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
