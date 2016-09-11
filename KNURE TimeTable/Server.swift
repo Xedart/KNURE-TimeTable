@@ -13,7 +13,6 @@ import UIKit
 class Server {
     
     static var apiRoot = "http://cist.nure.ua/ias/app/tt/"
-   // static let testApiRoot =
     
     // methods:
     enum Method: String {
@@ -21,12 +20,19 @@ class Server {
         case getTeachers = "/P_API_PODR_JSON"
         case getSchedule = "/P_API_EVEN_JSON"
         case getAudytories = "P_API_AUDITORIES_JSON"
+        case addRecepient = "http://nuretimetable-xedart.rhcloud.com/addRecepient"
+        case removeRecepient = "http://nuretimetable-xedart.rhcloud.com/removeRecepient"
     }
     
-    static func makeRequest(_ method: Method, parameters: [String]?, callback: @escaping (_ data: Data?, _ responce: URLResponse?, _ error: Error?) -> Void ) {
+    static func makeRequest(_ method: Method, parameters: [String]?, postBody: String?, callback: @escaping (_ data: Data?, _ responce: URLResponse?, _ error: Error?) -> Void ) {
         
         // url making:
-        var urlStr = "\(apiRoot)\(method.rawValue)"
+        var urlStr = String()
+        if method == .addRecepient || method == .removeRecepient {
+            urlStr = method.rawValue
+        } else {
+            urlStr = "\(apiRoot)\(method.rawValue)"
+        }
         
         if parameters != nil {
             for parameter in parameters! {
@@ -35,7 +41,15 @@ class Server {
         }
         
         let URL = Foundation.URL(string: urlStr)
-        let request = URLRequest(url: URL!)
+        var request = URLRequest(url: URL!)
+        
+        if postBody != nil {
+            let encodedPostbody = postBody?.data(using: String.Encoding.utf8)
+            request.httpMethod = "POST"
+            request.httpBody = encodedPostbody
+        }
+        
+        
         let session = URLSession.shared
         
         // make request and callback

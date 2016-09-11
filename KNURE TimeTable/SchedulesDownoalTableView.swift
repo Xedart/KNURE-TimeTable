@@ -50,6 +50,8 @@ class SchedulesDownoalTableView: UITableViewController {
     var groupsData = [String]()
     var teachersData = [String]()
     var auditoryiesData = [String]()
+    var apnEnabledSchedules = [String: String]()
+    var apnDisabledSchedules = [String: String]()
     var searchButton: UIBarButtonItem!
     var searchField = UISearchBar()
     
@@ -151,6 +153,17 @@ extension SchedulesDownoalTableView {
     
     func initializeData() {
         
+        //initialize apnSchedules data:
+        DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            if let apnEnabled = defaults.object(forKey: AppData.apnEnabledSchedulesKey) as? [String: String] {
+                self.apnEnabledSchedules = apnEnabled
+            }
+            if let apnDisabled = defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
+                self.apnDisabledSchedules = apnDisabled
+            }
+        }
+        
         // setDownloading indicator:
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         DispatchQueue.main.async(execute: {
@@ -160,7 +173,7 @@ extension SchedulesDownoalTableView {
             indicator.startAnimating()
         })
         
-        Server.makeRequest(initMetod, parameters: nil, callback: { ( data, responce, error) in
+        Server.makeRequest(initMetod, parameters: nil, postBody: nil, callback: { ( data, responce, error) in
            
             // check for success connection:
             if error != nil {
@@ -228,7 +241,7 @@ extension SchedulesDownoalTableView {
             } else {
                 type_id = 3
             }
-        Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row].row_id)&type_id=\(type_id)"], callback: { (data, responce, error) in
+            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row].row_id)&type_id=\(type_id)"], postBody: nil, callback: { (data, responce, error) in
             // check for success connection:
             if error != nil {
                 
@@ -242,9 +255,42 @@ extension SchedulesDownoalTableView {
             let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
             let json = JSON(data: dataFromString!)
             
-            Parser.parseSchedule(json, callback: { data in
-                data.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title
-                data.scheduleIdentifier = self.dataSource[indexPath.section].rows[indexPath.row].row_id
+            Parser.parseSchedule(json, callback: { schedule in
+                schedule.shedule_id = self.dataSource[indexPath.section].rows[indexPath.row].row_title
+                schedule.scheduleIdentifier = self.dataSource[indexPath.section].rows[indexPath.row].row_id
+                
+                //Make request to APN backend:
+                DispatchQueue.main.async {
+                    
+                    let delegate = UIApplication.shared.delegate as! AppDelegate
+                    if let deviceToken = delegate.deviceAPNToken {
+                        
+                        Server.makeRequest(.addRecepient, parameters: nil, postBody: "scheduleTitle=\(schedule.shedule_id)&scheduleID=\(schedule.scheduleIdentifier)&deviceToken=\(deviceToken)", callback: { (data, responce, error) in
+                            
+                            if error != nil {
+                                //TODO: add to apnDisabled
+                            }
+                            
+                            let serverResponce = JSON(data: data!)
+                            let result = serverResponce["result"].stringValue
+                            
+                            let defaults = UserDefaults.standard
+                            
+                            if result == "success" {
+                                self.apnEnabledSchedules[schedule.shedule_id] = schedule.scheduleIdentifier
+                                defaults.set(self.apnEnabledSchedules, forKey: AppData.apnEnabledSchedulesKey)
+                            } else {
+                                //TODO: add to apnDisabled
+                            }
+                            
+                        })
+                        //if apn disabled, save schedule to apnDisabled dictionary
+                        //from there it can be added to apnEnabled later;
+                    } else {
+                        //TODO: add to apnDisabled
+                    }
+                }
+                
                 // saving new schedule to the defaults:
                 let defaults = UserDefaults.standard
                 if self.initMetod == .getGroups {
@@ -262,12 +308,13 @@ extension SchedulesDownoalTableView {
                 defaults.set(self.dataSource[indexPath.section].rows[indexPath.row].row_title, forKey: AppData.defaultScheduleKey)
                 defaults.synchronize()
                 // save just-dowloaded schedule object to the file appending by schedule's title:
-                data.saveShedule()
+                schedule.saveShedule()
                 // reloading schedules view with new schedule object:
                 NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
              })
           })
        })
+        
         // second thread:
         DispatchQueue.main.async(execute: {
             self.dismiss(animated: true, completion: nil)

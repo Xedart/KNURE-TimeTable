@@ -90,7 +90,7 @@ extension MainTabBarController: SheduleControllersInitializer {
                 self.scheduleTableController?.refresher?.endRefreshing()
                 return
             }
-            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], callback: { (data, responce, error) in
+            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], postBody: nil, callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
                     print("responce")

@@ -34,6 +34,7 @@
 		847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477764F1C6A6279000776B9 /* TableSheduleCell.swift */; };
 		847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776511C6A98D4000776B9 /* TableSheduleHeader.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
+		848163FC1D857AD5002EA704 /* PreferencesPushCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848163FB1D857AD5002EA704 /* PreferencesPushCell.swift */; };
 		8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */; };
 		8484F3471CC6257200E528A7 /* EventDetailInfoControllerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */; };
 		848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */; };
@@ -161,6 +162,7 @@
 		847776561C6BA1E2000776B9 /* SheduleDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SheduleDataModel.swift; path = "../KNURE TimeTable/SheduleDataModel.swift"; sourceTree = "<group>"; };
 		8477765A1C6D2043000776B9 /* AppDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDataModel.swift; path = "../KNURE TimeTable/AppDataModel.swift"; sourceTree = "<group>"; };
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		848163FB1D857AD5002EA704 /* PreferencesPushCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPushCell.swift; sourceTree = "<group>"; };
 		8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailInfoControllerCells.swift; sourceTree = "<group>"; };
 		848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleControllerCollectionViewController.swift; sourceTree = "<group>"; };
@@ -393,6 +395,19 @@
 			name = SheduleControllers;
 			sourceTree = "<group>";
 		};
+		848163FA1D857A2A002EA704 /* ScheduleCells */ = {
+			isa = PBXGroup;
+			children = (
+				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
+				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
+				848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */,
+				84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */,
+				84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */,
+				84098D471C79092200BF1087 /* CollectionHeader.swift */,
+			);
+			name = ScheduleCells;
+			sourceTree = "<group>";
+		};
 		8498326E1C72863500727E74 /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,18 +450,14 @@
 		84F0ABD11C70D9CC006E2F40 /* CustomCellsView */ = {
 			isa = PBXGroup;
 			children = (
-				847776511C6A98D4000776B9 /* TableSheduleHeader.swift */,
+				848163FA1D857A2A002EA704 /* ScheduleCells */,
 				84F0ABD41C70E020006E2F40 /* SheduleLIstCell.swift */,
 				849832661C72186C00727E74 /* SchedulesTypesCell.swift */,
 				849832771C737B0C00727E74 /* NewScheduleCell.swift */,
-				8477764F1C6A6279000776B9 /* TableSheduleCell.swift */,
-				848E90801C78D62F006D4E9D /* CollectionScheduleCell.swift */,
-				84A1F6721C83292500A7C05C /* CollectionScheduleMultiCell.swift */,
-				84A1F6741C832F1300A7C05C /* CollectionScheduleEmptyCell.swift */,
-				84098D471C79092200BF1087 /* CollectionHeader.swift */,
 				8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */,
 				84247C961CD51B4A000654F9 /* LabelCell.swift */,
 				8497F6871D69D4FA00B04E63 /* PreferencesSwitcherCell.swift */,
+				848163FB1D857AD5002EA704 /* PreferencesPushCell.swift */,
 			);
 			name = CustomCellsView;
 			sourceTree = "<group>";
@@ -787,6 +798,7 @@
 			files = (
 				847776451C639FB5000776B9 /* MainSplitViewController.swift in Sources */,
 				84F0AAF81C6FD4F9006E2F40 /* ShedulesListTableViewController.swift in Sources */,
+				848163FC1D857AD5002EA704 /* PreferencesPushCell.swift in Sources */,
 				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
 				8497F6861D69B42D00B04E63 /* PreferenceTableViewController.swift in Sources */,

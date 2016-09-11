@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var eventsManager: CalendarManager!
+    var deviceAPNToken: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -72,8 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
         
-        print(token)
-        
+        deviceAPNToken = token
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -94,7 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: didEnterToActive), object: nil)
         eventsManager = CalendarManager()
-        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

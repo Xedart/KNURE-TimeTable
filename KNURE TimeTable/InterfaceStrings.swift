@@ -63,4 +63,7 @@ public struct AppStrings {
     public static let day = "День"
     public static let dontRecall = "Не напоминать"
     public static let before = "за"
+    public static let pushNotifications = "Push-уведомления"
+    public static let apnDisabledTip = "Включите уведомления в настройках"
+    public static let noSchedulesTip = "Добавте расписание, чтобы получать уведомления об изменениях"
 }

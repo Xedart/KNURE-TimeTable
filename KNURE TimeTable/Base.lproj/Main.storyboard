@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GhB-vC-toC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GhB-vC-toC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -160,6 +160,55 @@
                                 <connections>
                                     <outlet property="cellSwitcher" destination="noZ-WW-5u8" id="6lV-Ub-gCA"/>
                                     <outlet property="cellTitleLabel" destination="0Rq-yZ-pri" id="TVX-o8-rq1"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PreferencesPushEmptyCell" rowHeight="70" id="QFK-hz-iSr" customClass="PreferencesPushEmptyCell" customModule="NureTimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="78" width="375" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QFK-hz-iSr" id="vub-gD-ekW">
+                                    <frame key="frameInset" width="375" height="69"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc8-gF-D2y">
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="leading" secondItem="vub-gD-ekW" secondAttribute="leadingMargin" id="a15-op-sjZ"/>
+                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="bottom" secondItem="vub-gD-ekW" secondAttribute="bottomMargin" id="fYw-xE-T5e"/>
+                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="trailing" secondItem="vub-gD-ekW" secondAttribute="trailingMargin" id="iJo-4d-egH"/>
+                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="top" secondItem="vub-gD-ekW" secondAttribute="topMargin" id="wkZ-Vc-v5T"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tipTextView" destination="kc8-gF-D2y" id="QJn-FL-V9l"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PreferencesPushCell" id="5XA-bY-u7r" customClass="PreferencesPushCell" customModule="NureTimeTable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="148" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5XA-bY-u7r" id="y71-QL-usf">
+                                    <frame key="frameInset" width="375" height="49"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvv-ZH-LpK">
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="textColor" red="0.1803921568627451" green="0.36862745098039218" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uvv-ZH-LpK" firstAttribute="leading" secondItem="y71-QL-usf" secondAttribute="leadingMargin" id="6iJ-bP-FRe"/>
+                                        <constraint firstItem="uvv-ZH-LpK" firstAttribute="bottom" secondItem="y71-QL-usf" secondAttribute="bottomMargin" id="Zrh-Sg-Yee"/>
+                                        <constraint firstItem="uvv-ZH-LpK" firstAttribute="top" secondItem="y71-QL-usf" secondAttribute="topMargin" id="dGm-hF-Igf"/>
+                                        <constraint firstItem="uvv-ZH-LpK" firstAttribute="trailing" secondItem="y71-QL-usf" secondAttribute="trailingMargin" id="nwx-lQ-NI6"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="uvv-ZH-LpK" id="m5R-4j-0yH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -617,7 +666,7 @@
                         <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventTableViewController" rowHeight="60" id="fOQ-wj-OF0" customClass="CustomEventTableViewControllerCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="120" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="119.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fOQ-wj-OF0" id="f9L-1C-g9J">
                                     <frame key="frameInset" width="375" height="59.5"/>
@@ -654,7 +703,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventTableViewControllerNoteCell" rowHeight="100" id="ldK-TF-7Vt" customClass="CusomEventTableVIewControllerNoteCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="180" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="179.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ldK-TF-7Vt" id="2uj-DO-7dh">
                                     <frame key="frameInset" width="375" height="99.5"/>
@@ -678,10 +727,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationPreferenceCellCustomEvent" rowHeight="60" id="12v-YA-mGu" customClass="EvenatDetailNotificationPreferenceCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="280" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="279.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="12v-YA-mGu" id="pG3-ad-BEI">
-                                    <frame key="frameInset" width="375" height="59"/>
+                                    <frame key="frameInset" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wd-0F-bm9">

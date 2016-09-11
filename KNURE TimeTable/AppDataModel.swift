@@ -59,6 +59,8 @@ public struct AppData {
     public static let isScheduleUpdated = "isScheduleUpdatedMArk"
     public static let shouldSuncNotesKey = "shouldSyncNotesKey"
     public static let shouldSyncEventsKey = "ShouldSyncEventsKey"
+    public static let apnEnabledSchedulesKey = "APNEnabledSchedulesKey"
+    public static let apnDisabledSchedulesKey = "APNDisabledSchedulesKey"
     
     // MARK: - Notifications' names:
     
