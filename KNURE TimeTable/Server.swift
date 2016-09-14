@@ -8,6 +8,7 @@
 
 import UIKit
 import DataModel
+import SVProgressHUD
 
 // class server handles http request to the api server ( cist )
 
@@ -60,7 +61,7 @@ class Server {
         })
     }
     
-    static func removeAPNScheduleWith(title: String, handler: ((_ removedScheduleID: String) -> Void)?) {
+    static func removeAPNScheduleWith(title: String, handler: ((_ removedScheduleID: String) -> Void)?, errorHandler: ( () -> Void )?) {
         
         var apnEnabledSchedules = [String: String]()
         var apnDisabledSchedules = [String: String]()
@@ -96,6 +97,9 @@ class Server {
             Server.makeRequest(.removeRecepient, parameters: ["?scheduleID=\(scheduleID)&deviceToken=\(deviceToken)"], postBody: nil) { data, responce, error in
                 
                 if error != nil {
+                    if errorHandler != nil {
+                        errorHandler!()
+                    }
                     return
                 }
                 
@@ -109,6 +113,11 @@ class Server {
                     defaults.set(apnEnabledSchedules, forKey: AppData.apnEnabledSchedulesKey)
                     if handler != nil {
                         handler!(scheduleID)
+                    }
+                } else {
+                    if errorHandler != nil {
+                        errorHandler!()
+                        return
                     }
                 }
             }

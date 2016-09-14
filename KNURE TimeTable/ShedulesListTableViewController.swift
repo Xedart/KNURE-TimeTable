@@ -160,7 +160,7 @@ class ShedulesListTableViewController: UITableViewController {
                 // remove schedule from corresponding apn dictionary:
                 let removedGroupTitle = self.groupsData[indexPath.row]
                 DispatchQueue.main.async {
-                    Server.removeAPNScheduleWith(title: removedGroupTitle, handler: nil)
+                    Server.removeAPNScheduleWith(title: removedGroupTitle, handler: nil, errorHandler: nil)
                 }
                 
                 // remove shcedule from the file and clean up saved groups:
@@ -184,7 +184,7 @@ class ShedulesListTableViewController: UITableViewController {
                 // remove schedule from corresponding apn dictionary:
                 let removedTeacherTitle = self.teachersData[indexPath.row]
                 DispatchQueue.main.async {
-                    Server.removeAPNScheduleWith(title: removedTeacherTitle, handler: nil)
+                    Server.removeAPNScheduleWith(title: removedTeacherTitle, handler: nil, errorHandler: nil)
                 }
                 
                 _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.teachersData[indexPath.row])")
@@ -206,7 +206,7 @@ class ShedulesListTableViewController: UITableViewController {
                 // remove schedule from corresponding apn dictionary:
                 let removedAuditoryTitle = self.auditoryiesData[indexPath.row]
                 DispatchQueue.main.async {
-                    Server.removeAPNScheduleWith(title: removedAuditoryTitle, handler: nil)
+                    Server.removeAPNScheduleWith(title: removedAuditoryTitle, handler: nil, errorHandler: nil)
                 }
                 
                 _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.auditoryiesData[indexPath.row])")

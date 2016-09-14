@@ -8,6 +8,7 @@
 
 import UIKit
 import DataModel
+import SVProgressHUD
 
 class PreferenceTableViewController: UITableViewController {
     
@@ -16,6 +17,7 @@ class PreferenceTableViewController: UITableViewController {
     var apnToken: String?
     var dataSource = [String]()
     var apnEnabledSchedules = [String: String]()
+    var apnDisabledSchedules = [String: String]()
     let defaults = UserDefaults.standard
     
     //MARK: - ViewController life cycle:
@@ -36,7 +38,26 @@ class PreferenceTableViewController: UITableViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         apnToken = appDelegate.deviceAPNToken
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         parseAPNEnabledSchedules()
+        parseAPNDisabledSchedules()
+        
+        tableView.reloadData()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
+    }
+    
+    func parseAPNDisabledSchedules() {
+        
+        if let apnDisabled = defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
+            self.apnDisabledSchedules = apnDisabled
+        }
     }
     
     func parseAPNEnabledSchedules() {
@@ -122,6 +143,12 @@ class PreferenceTableViewController: UITableViewController {
         if indexPath.section == 0 {
             return false
         }
+        if apnToken == nil {
+            return false
+        }
+        if dataSource.isEmpty {
+            return false
+        }
         return true
     }
     
@@ -161,36 +188,48 @@ class PreferenceTableViewController: UITableViewController {
         
         let deleteAction = UITableViewRowAction(style: .default, title: AppStrings.unsubscribe, handler: { (action , indexPath) -> Void in
             
+            DispatchQueue.main.async {
+                SVProgressHUD.show()
+            }
+            
             let removedScheduleTitle = self.dataSource[indexPath.row]
-            Server.removeAPNScheduleWith(title: removedScheduleTitle) { removedScheduleID in
+            Server.removeAPNScheduleWith(title: removedScheduleTitle, handler: { ( removedScheduleID) in
                 
                 //Save unsubscribed schedule to APNDisabled schedules if needed:
-                DispatchQueue.main.async {
-                    if self.shouldAddScheduleToAPNDisabled(title: removedScheduleTitle) {
-                        var apnDisabledSchedules = [String: String]()
-                        if let apnDisabled = self.defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
-                            apnDisabledSchedules = apnDisabled
-                        }
-                        apnDisabledSchedules[removedScheduleTitle] = removedScheduleID
-                        self.defaults.set(apnDisabledSchedules, forKey: AppData.apnDisabledSchedulesKey)
+                if self.shouldAddScheduleToAPNDisabled(title: removedScheduleTitle) {
+                    var apnDisabledSchedules = [String: String]()
+                    if let apnDisabled = self.defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
+                        apnDisabledSchedules = apnDisabled
                     }
+                    apnDisabledSchedules[removedScheduleTitle] = removedScheduleID
+                    self.defaults.set(apnDisabledSchedules, forKey: AppData.apnDisabledSchedulesKey)
                 }
                 
+                
+                self.parseAPNDisabledSchedules()
                 self.parseAPNEnabledSchedules()
                 
                 if self.dataSource.isEmpty {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        SVProgressHUD.dismiss()
                     }
                     return
                 }
                 // closing animation:
                 DispatchQueue.main.async(execute: { () -> Void in
+                    SVProgressHUD.dismiss()
                     tableView.beginUpdates()
                     tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    tableView.reloadSections(IndexSet([1]), with: .automatic)
                     tableView.endUpdates()
                 })
-            }
+                }, errorHandler: { () in
+                    DispatchQueue.main.async {
+                        SVProgressHUD.showError(withStatus: AppStrings.Error)
+                    }
+                    return
+            })
         })
         return [deleteAction]
     }
@@ -201,19 +240,20 @@ class PreferenceTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = UILabel(frame: tableView.rectForHeader(inSection: section))
-        headerView.font = UIFont.systemFont(ofSize: 18)
-        headerView.textColor = FlatGrayDark()
-        headerView.textAlignment = .center
-        headerView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
-        if section == 0 {
-            headerView.text = AppStrings.syncWithCalendar
-        } else if section == 1 {
-            headerView.text = AppStrings.pushNotifications
+        let headerView = PreferencesHeaderView(frame: tableView.rectForHeader(inSection: section))
+        headerView.configure(section: section)
+        
+        if section == 1 {
+            if apnToken != nil && !apnDisabledSchedules.isEmpty {
+                headerView.showPlusButton()
+                headerView.plusButton.addTarget(self, action: #selector(PreferenceTableViewController.showAPNDisabledSchedulesMenu), for: .touchUpInside)
+            }
         }
         return headerView
     }
     
-    
-    
+    func showAPNDisabledSchedulesMenu() {
+        let showedController = APNDisabledSchedulesTableViewController()
+        self.navigationController?.pushViewController(showedController, animated: true)
+    }
 }

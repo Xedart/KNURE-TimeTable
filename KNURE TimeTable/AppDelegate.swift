@@ -96,11 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: didEnterToActive), object: nil)
         eventsManager = CalendarManager()
-        
-        //
-        let defaults = UserDefaults.standard
-        let disabled = defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String]
-        print(disabled)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
