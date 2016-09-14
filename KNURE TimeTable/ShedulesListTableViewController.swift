@@ -16,6 +16,10 @@ class ShedulesListTableViewController: UITableViewController {
     var groupsData = [String]()
     var teachersData = [String]()
     var auditoryiesData = [String]()
+    
+    // MARK: - Properties:
+    
+    let defaults = UserDefaults.standard
     var addButton: UIBarButtonItem!
     var closeButton: UIBarButtonItem!
     
@@ -53,7 +57,6 @@ class ShedulesListTableViewController: UITableViewController {
         super.viewWillAppear(true)
         
         // load the saved shedules identifiers from defaults
-        let defaults = UserDefaults.standard
         if let groups = defaults.object(forKey: AppData.savedGroupsShedulesKey) as? [String] {
             groupsData = groups
         }
@@ -144,54 +147,77 @@ class ShedulesListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
-        let defaults = UserDefaults.standard
+        
         let deleteAction = UITableViewRowAction(style: .default, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
             
-            var defaultSchedule = defaults.object(forKey: AppData.defaultScheduleKey) as? String
+            var defaultSchedule = self.defaults.object(forKey: AppData.defaultScheduleKey) as? String
             if defaultSchedule == nil {
                 defaultSchedule = ""
             }
             
-            if (indexPath as NSIndexPath).section == 0 {
+            if indexPath.section == 0 {
+                
+                // remove schedule from corresponding apn dictionary:
+                let removedGroupTitle = self.groupsData[indexPath.row]
+                DispatchQueue.main.async {
+                    Server.removeAPNScheduleWith(title: removedGroupTitle, handler: nil)
+                }
+                
+                // remove shcedule from the file and clean up saved groups:
                 _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.groupsData[indexPath.row])")
-                if self.groupsData[(indexPath as NSIndexPath).row] == defaultSchedule {
+                if self.groupsData[indexPath.row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.groupsData[indexPath.row]) {
-                        defaults.set(nil, forKey: AppData.defaultScheduleKey)
+                        self.defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.groupsData.remove(at: indexPath.row)
-                defaults.set(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
+                self.defaults.set(self.groupsData, forKey: AppData.savedGroupsShedulesKey)
                 if self.groupsData.isEmpty {
                     tableView.reloadData()
                     return
                 }
-            } else if (indexPath as NSIndexPath).section == 1 {
+                
+            } else if indexPath.section == 1 {
+                
+                // remove schedule from corresponding apn dictionary:
+                let removedTeacherTitle = self.teachersData[indexPath.row]
+                DispatchQueue.main.async {
+                    Server.removeAPNScheduleWith(title: removedTeacherTitle, handler: nil)
+                }
+                
                 _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.teachersData[indexPath.row])")
                 if self.teachersData[indexPath.row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.teachersData[(indexPath as NSIndexPath).row]) {
-                        defaults.set(nil, forKey: AppData.defaultScheduleKey)
+                        self.defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.teachersData.remove(at: indexPath.row)
-                defaults.set(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
+                self.defaults.set(self.teachersData, forKey: AppData.savedTeachersShedulesKey)
                 if self.teachersData.isEmpty {
                     tableView.reloadData()
                     return
                 }
             } else if (indexPath as NSIndexPath).section == 2 {
+                
+                // remove schedule from corresponding apn dictionary:
+                let removedAuditoryTitle = self.auditoryiesData[indexPath.row]
+                DispatchQueue.main.async {
+                    Server.removeAPNScheduleWith(title: removedAuditoryTitle, handler: nil)
+                }
+                
                 _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.auditoryiesData[indexPath.row])")
                 if self.auditoryiesData[(indexPath as NSIndexPath).row] == defaultSchedule {
                     if !self.chooseProperSchedule(self.auditoryiesData[(indexPath as NSIndexPath).row]) {
-                        defaults.set(nil, forKey: AppData.defaultScheduleKey)
+                        self.defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.auditoryiesData.remove(at: (indexPath as NSIndexPath).row)
-                defaults.set(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
+                self.defaults.set(self.auditoryiesData, forKey: AppData.savedAuditoriesShedulesKey)
                 if self.auditoryiesData.isEmpty {
                     tableView.reloadData()
                     return
@@ -258,7 +284,6 @@ class ShedulesListTableViewController: UITableViewController {
         }
         
         // set the new default schedule:
-        let defaults = UserDefaults.standard
         defaults.set(newScheduleId, forKey: AppData.defaultScheduleKey)
         
         // cgange default schedule

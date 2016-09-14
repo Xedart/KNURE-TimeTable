@@ -54,10 +54,10 @@ class SchedulesDownoalTableView: UITableViewController {
     var apnDisabledSchedules = [String: String]()
     var searchButton: UIBarButtonItem!
     var searchField = UISearchBar()
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults = UserDefaults.standard
         if let groups = defaults.object(forKey: AppData.savedGroupsShedulesKey) as? [String] {
             groupsData = groups
         }
@@ -155,11 +155,10 @@ extension SchedulesDownoalTableView {
         
         //initialize apnSchedules data:
         DispatchQueue.main.async {
-            let defaults = UserDefaults.standard
-            if let apnEnabled = defaults.object(forKey: AppData.apnEnabledSchedulesKey) as? [String: String] {
+            if let apnEnabled = self.defaults.object(forKey: AppData.apnEnabledSchedulesKey) as? [String: String] {
                 self.apnEnabledSchedules = apnEnabled
             }
-            if let apnDisabled = defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
+            if let apnDisabled = self.defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
                 self.apnDisabledSchedules = apnDisabled
             }
         }
@@ -212,7 +211,6 @@ extension SchedulesDownoalTableView {
                         self.navigationItem.rightBarButtonItem = self.searchButton
                         self.tableView.reloadData()
                     })
-
                 })
             }
         })
@@ -268,26 +266,21 @@ extension SchedulesDownoalTableView {
                         Server.makeRequest(.addRecepient, parameters: nil, postBody: "scheduleTitle=\(schedule.shedule_id)&scheduleID=\(schedule.scheduleIdentifier)&deviceToken=\(deviceToken)", callback: { (data, responce, error) in
                             
                             if error != nil {
-                                //TODO: add to apnDisabled
+                                self.saveScheduleToAPNDisabled(title: schedule.shedule_id, id: schedule.scheduleIdentifier)
                             }
                             
                             let serverResponce = JSON(data: data!)
                             let result = serverResponce["result"].stringValue
                             
-                            let defaults = UserDefaults.standard
-                            
                             if result == "success" {
                                 self.apnEnabledSchedules[schedule.shedule_id] = schedule.scheduleIdentifier
-                                defaults.set(self.apnEnabledSchedules, forKey: AppData.apnEnabledSchedulesKey)
+                                self.defaults.set(self.apnEnabledSchedules, forKey: AppData.apnEnabledSchedulesKey)
                             } else {
-                                //TODO: add to apnDisabled
+                                self.saveScheduleToAPNDisabled(title: schedule.shedule_id, id: schedule.scheduleIdentifier)
                             }
-                            
                         })
-                        //if apn disabled, save schedule to apnDisabled dictionary
-                        //from there it can be added to apnEnabled later;
                     } else {
-                        //TODO: add to apnDisabled
+                        self.saveScheduleToAPNDisabled(title: schedule.shedule_id, id: schedule.scheduleIdentifier)
                     }
                 }
                 
@@ -324,6 +317,16 @@ extension SchedulesDownoalTableView {
             SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
             SVProgressHUD.show()
         })
+    }
+    
+    // MARK: - helper-method:
+    
+    func saveScheduleToAPNDisabled(title: String, id: String) {
+        
+        //if apn disabled, save schedule to apnDisabled dictionary
+        //from there it can be added to apnEnabled later;
+        self.apnDisabledSchedules[title] = id
+        self.defaults.set(self.apnDisabledSchedules, forKey: AppData.apnDisabledSchedulesKey)
     }
 }
 

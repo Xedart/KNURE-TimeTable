@@ -66,4 +66,5 @@ public struct AppStrings {
     public static let pushNotifications = "Push-уведомления"
     public static let apnDisabledTip = "Включите уведомления в настройках"
     public static let noSchedulesTip = "Добавте расписание, чтобы получать уведомления об изменениях"
+    public static let unsubscribe = "Отписаться"
 }

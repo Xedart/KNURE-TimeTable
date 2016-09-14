@@ -135,7 +135,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
             scheduleCollectionController.shedule.performCache()
             
             DispatchQueue.main.async(execute: {
-                self.button.setTitle(defaultKey, for: UIControlState())
+                self.button.setTitle("\(defaultKey) ▼", for: UIControlState())
             })
             
             //set schedule object to shared container:

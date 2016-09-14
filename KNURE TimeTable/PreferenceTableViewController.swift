@@ -8,11 +8,18 @@
 
 import UIKit
 import DataModel
+//import SVProgressHUD
 
 class PreferenceTableViewController: UITableViewController {
     
+    //MARK: - Properties:
+    
     var apnToken: String?
     var dataSource = [String]()
+    var apnEnabledSchedules = [String: String]()
+    let defaults = UserDefaults.standard
+    
+    //MARK: - ViewController life cycle:
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +27,8 @@ class PreferenceTableViewController: UITableViewController {
         //NavigationItem setup:
         let doneButton = UIBarButtonItem(title: AppStrings.Done, style: .done, target: self, action: #selector(PreferenceTableViewController.close))
         let title = TitleViewLabel(title: AppStrings.preferences)
+        
+        tableView.allowsSelection = false
         
         navigationItem.leftBarButtonItem = doneButton
         navigationItem.titleView = title
@@ -29,7 +38,6 @@ class PreferenceTableViewController: UITableViewController {
         apnToken = appDelegate.deviceAPNToken
         
         parseAPNEnabledSchedules()
-        
     }
     
     func parseAPNEnabledSchedules() {
@@ -37,10 +45,11 @@ class PreferenceTableViewController: UITableViewController {
         //clear dataSource:
         dataSource = [String]()
         
-        let defaults = UserDefaults.standard
-        if let apnEnabledSchedules = defaults.object(forKey: AppData.apnEnabledSchedulesKey) as? [String: String] {
+        if let apnEnabled = defaults.object(forKey: AppData.apnEnabledSchedulesKey) as? [String: String] {
             
-            for(title, _) in apnEnabledSchedules {
+            apnEnabledSchedules = apnEnabled
+            
+            for(title, _) in apnEnabled {
                 dataSource.append(title)
             }
         }
@@ -100,7 +109,7 @@ class PreferenceTableViewController: UITableViewController {
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "PreferencesPushCell", for: indexPath) as! PreferencesPushCell
                     cell.titleLabel.text = dataSource[indexPath.row]
-                    return UITableViewCell()
+                    return cell
                 }
             }
         default:
@@ -109,6 +118,83 @@ class PreferenceTableViewController: UITableViewController {
     }
     
     // MARKL: - TableView delegate
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 {
+            return false
+        }
+        return true
+    }
+    
+    func shouldAddScheduleToAPNDisabled(title: String) -> Bool {
+        
+        // load the saved shedules identifiers from defaults
+        if let groups = defaults.object(forKey: AppData.savedGroupsShedulesKey) as? [String] {
+            
+            for groupTitle in groups {
+                if groupTitle == title {
+                    return true
+                }
+            }
+        }
+        
+        if let teachers = defaults.object(forKey: AppData.savedTeachersShedulesKey) as? [String] {
+            
+            for teachcerTitle in teachers {
+                if teachcerTitle == title {
+                    return true
+                }
+            }
+        }
+        
+        if let auditoryies = defaults.object(forKey: AppData.savedAuditoriesShedulesKey) as? [String] {
+            
+            for auditoryTitle in auditoryies {
+                if auditoryTitle == title {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: AppStrings.unsubscribe, handler: { (action , indexPath) -> Void in
+            
+            let removedScheduleTitle = self.dataSource[indexPath.row]
+            Server.removeAPNScheduleWith(title: removedScheduleTitle) { removedScheduleID in
+                
+                //Save unsubscribed schedule to APNDisabled schedules if needed:
+                DispatchQueue.main.async {
+                    if self.shouldAddScheduleToAPNDisabled(title: removedScheduleTitle) {
+                        var apnDisabledSchedules = [String: String]()
+                        if let apnDisabled = self.defaults.object(forKey: AppData.apnDisabledSchedulesKey) as? [String: String] {
+                            apnDisabledSchedules = apnDisabled
+                        }
+                        apnDisabledSchedules[removedScheduleTitle] = removedScheduleID
+                        self.defaults.set(apnDisabledSchedules, forKey: AppData.apnDisabledSchedulesKey)
+                    }
+                }
+                
+                self.parseAPNEnabledSchedules()
+                
+                if self.dataSource.isEmpty {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    return
+                }
+                // closing animation:
+                DispatchQueue.main.async(execute: { () -> Void in
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    tableView.endUpdates()
+                })
+            }
+        })
+        return [deleteAction]
+    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0

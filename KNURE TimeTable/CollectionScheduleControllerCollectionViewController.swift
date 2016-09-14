@@ -30,7 +30,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.scheduleDidReload), object: nil)
             if !shedule.shedule_id.isEmpty {
                 DispatchQueue.main.async(execute: {
-                    self.button.setTitle(self.shedule.shedule_id, for: UIControlState())
+                    self.button.setTitle("\(self.shedule.shedule_id) ▼", for: UIControlState())
                 })
             } else {
                 DispatchQueue.main.async(execute: {

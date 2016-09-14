@@ -41,7 +41,7 @@ public class TodayTbaleViewCell: UITableViewCell {
         } else {
             additionalInfoLabel.layer.borderColor = UIColor.darkGray.cgColor
             separatorLineView.backgroundColor = UIColor.darkGray
-            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.45)
+            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.8)
         }
         
         // Set content to labels:
