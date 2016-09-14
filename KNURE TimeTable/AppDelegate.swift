@@ -74,6 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         deviceAPNToken = token
+        print(token)
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

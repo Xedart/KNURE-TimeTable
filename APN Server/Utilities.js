@@ -19,8 +19,13 @@ function setDBConnection() {
 	var url = '127.0.0.1:27017/' + process.env.OPENSHIFT_APP_NAME;
 
 	var options = {
+<<<<<<< HEAD
 		user: 'hiden',
         pass: 'hiden'
+=======
+		user: 'hired',
+        pass: 'hired'
+>>>>>>> 2b39836... Some calendar syncronization bugs fixed
 	}
 
 // if OPENSHIFT env variables are present, use the available connection info:
@@ -43,6 +48,29 @@ db.on('error', function(error){
 
 db.on('disconnected', connect);
 
+<<<<<<< HEAD
+=======
+/*
+	var options = {
+		user: 'admin',
+        pass: 'ywZANl4lWwlb'
+	}
+
+	var connectionURL = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT;
+
+	//mongoose.connect('mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/');
+	mongoose.connect(connectionURL, options);
+	var db = mongoose.connection;
+
+	// check for connection:
+	db.on('error', function (err) {
+    console.log('connection error:', err.message);
+	});
+	db.once('open', function callback () {
+    console.log("Connected to DB!");
+	});
+	*/
+>>>>>>> 2b39836... Some calendar syncronization bugs fixed
 }
 
 	//MARK: - Define shcedule schema:

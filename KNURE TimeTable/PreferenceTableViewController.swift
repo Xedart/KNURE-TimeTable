@@ -8,7 +8,6 @@
 
 import UIKit
 import DataModel
-//import SVProgressHUD
 
 class PreferenceTableViewController: UITableViewController {
     
