@@ -87,7 +87,7 @@ extension MainTabBarController: SheduleControllersInitializer {
         if let timeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
-                self.scheduleTableController?.refresher?.endRefreshing()
+                self.scheduleTableController?.refreshControl?.endRefreshing()
                 return
             }
             Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], postBody: nil, callback: { (data, responce, error) in
@@ -95,7 +95,7 @@ extension MainTabBarController: SheduleControllersInitializer {
                 if error != nil {
                     print("responce")
                     print(error)
-                    self.scheduleTableController?.refresher?.endRefreshing()
+                    self.scheduleTableController?.refreshControl?.endRefreshing()
                     return
                 }
                 
@@ -114,7 +114,7 @@ extension MainTabBarController: SheduleControllersInitializer {
                     data.customData = self.scheduleCollectionController.shedule.customData
                     data.mergeData()
                     if data.days.isEmpty {
-                        self.scheduleTableController?.refresher?.endRefreshing()
+                        self.scheduleTableController?.refreshControl?.endRefreshing()
                         return
                     }
                     // Updating table schedule controller:
@@ -138,14 +138,14 @@ extension MainTabBarController: SheduleControllersInitializer {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
-                                    self.scheduleTableController?.refresher?.endRefreshing()
+                                    self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             } else {
                                 DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.reloadData()
                                     self.scheduleCollectionController.configureDateScale()
-                                    self.scheduleTableController?.refresher?.endRefreshing()
+                                    self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             }
                         })
@@ -195,6 +195,5 @@ extension MainTabBarController {
     
     func relodAfetrBecameActive() {
         scheduleTableController.tableView.reloadData()
-        scheduleCollectionController.configureDateScale()
     }
 }

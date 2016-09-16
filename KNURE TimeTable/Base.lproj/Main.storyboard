@@ -133,7 +133,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7TQ-ZO-asL" id="guj-u5-WpR">
-                                    <frame key="frameInset" width="375" height="49"/>
+                                    <frame key="frameInset" width="375" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заметки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rq-yZ-pri">
@@ -169,7 +169,7 @@
                                     <frame key="frameInset" width="375" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc8-gF-D2y">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tS2-mV-Z8v">
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -177,21 +177,21 @@
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="leading" secondItem="vub-gD-ekW" secondAttribute="leadingMargin" id="a15-op-sjZ"/>
-                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="bottom" secondItem="vub-gD-ekW" secondAttribute="bottomMargin" id="fYw-xE-T5e"/>
-                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="trailing" secondItem="vub-gD-ekW" secondAttribute="trailingMargin" id="iJo-4d-egH"/>
-                                        <constraint firstItem="kc8-gF-D2y" firstAttribute="top" secondItem="vub-gD-ekW" secondAttribute="topMargin" id="wkZ-Vc-v5T"/>
+                                        <constraint firstAttribute="trailing" secondItem="tS2-mV-Z8v" secondAttribute="trailing" constant="8" id="0K7-bD-nPl"/>
+                                        <constraint firstItem="tS2-mV-Z8v" firstAttribute="leading" secondItem="vub-gD-ekW" secondAttribute="leading" constant="8" id="5yY-EF-Iqi"/>
+                                        <constraint firstItem="tS2-mV-Z8v" firstAttribute="top" secondItem="vub-gD-ekW" secondAttribute="top" constant="8" id="Pme-tO-xzb"/>
+                                        <constraint firstAttribute="bottom" secondItem="tS2-mV-Z8v" secondAttribute="bottom" constant="7.5" id="bdO-P2-X7I"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="tipTextView" destination="kc8-gF-D2y" id="QJn-FL-V9l"/>
+                                    <outlet property="tipTextView" destination="tS2-mV-Z8v" id="OtF-jk-jRn"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PreferencesPushCell" rowHeight="50" id="5XA-bY-u7r" customClass="PreferencesPushCell" customModule="NureTimeTable" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5XA-bY-u7r" id="y71-QL-usf">
-                                    <frame key="frameInset" width="375" height="49"/>
+                                    <frame key="frameInset" width="375" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvv-ZH-LpK">
@@ -392,6 +392,10 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="6tm-ZX-L6A"/>
                     <navigationItem key="navigationItem" id="tXo-4X-qUS"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="8CQ-MU-oZw">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LDb-Sq-tsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -410,7 +414,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BLJ-jE-KGz" id="k4X-WZ-qID">
-                                    <frame key="frameInset" width="375" height="69"/>
+                                    <frame key="frameInset" width="375" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ojm-lC-8Lj">
@@ -462,10 +466,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewScheduleCellId" id="mrO-07-D84" customClass="NewScheduleCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="56" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mrO-07-D84" id="78h-Qe-eFt">
-                                    <frame key="frameInset" width="375" height="39"/>
+                                    <frame key="frameInset" width="375" height="39.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNJ-uG-bEg">
@@ -516,10 +520,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventDetailInfoTitleCell" rowHeight="100" id="a8o-Ps-ojb" customClass="EventDetailInfoTitleCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="120" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="119.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a8o-Ps-ojb" id="Uvl-dv-Rf8">
-                                    <frame key="frameInset" width="375" height="99"/>
+                                    <frame key="frameInset" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-cR-rlB" customClass="NoteTextView" customModule="NureTimeTable" customModuleProvider="target">
@@ -540,34 +544,34 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventDetailTableViewCell" id="EQp-7G-Rf9" customClass="EventDetailTableViewCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="220" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="219.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EQp-7G-Rf9" id="NC3-y5-Cu6">
                                     <frame key="frameInset" width="375" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKh-km-7iG">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="thu-Ib-78S">
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="aKh-km-7iG" firstAttribute="leading" secondItem="NC3-y5-Cu6" secondAttribute="leadingMargin" id="4Vz-W4-QQD"/>
-                                        <constraint firstItem="aKh-km-7iG" firstAttribute="top" secondItem="NC3-y5-Cu6" secondAttribute="topMargin" id="AE3-ak-bKx"/>
-                                        <constraint firstItem="aKh-km-7iG" firstAttribute="trailing" secondItem="NC3-y5-Cu6" secondAttribute="trailingMargin" id="lDK-ac-Hq3"/>
-                                        <constraint firstItem="aKh-km-7iG" firstAttribute="bottom" secondItem="NC3-y5-Cu6" secondAttribute="bottomMargin" id="m2v-Eb-B4k"/>
+                                        <constraint firstItem="thu-Ib-78S" firstAttribute="bottom" secondItem="NC3-y5-Cu6" secondAttribute="bottomMargin" id="0wE-DP-hNx"/>
+                                        <constraint firstItem="thu-Ib-78S" firstAttribute="leading" secondItem="NC3-y5-Cu6" secondAttribute="leadingMargin" id="b2a-7T-aqc"/>
+                                        <constraint firstItem="thu-Ib-78S" firstAttribute="top" secondItem="NC3-y5-Cu6" secondAttribute="topMargin" id="iMI-7D-ouO"/>
+                                        <constraint firstItem="thu-Ib-78S" firstAttribute="trailing" secondItem="NC3-y5-Cu6" secondAttribute="trailingMargin" id="xpI-7F-D5u"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="titleTextView" destination="aKh-km-7iG" id="sTg-ua-p7H"/>
+                                    <outlet property="titleTextView" destination="thu-Ib-78S" id="epn-ft-LwE"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EvenatDetailNotificationPreferenceCell" rowHeight="60" id="APi-GD-3ok" customClass="EvenatDetailNotificationPreferenceCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="320" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="319.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="APi-GD-3ok" id="4xk-m2-8J9">
-                                    <frame key="frameInset" width="375" height="59"/>
+                                    <frame key="frameInset" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Уведомление:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fzq-Zv-Kf9">
@@ -622,10 +626,10 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationPreferencesCell" rowHeight="50" id="I7M-Bi-Gae" customClass="NotificationPreferencesCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="120" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="119.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I7M-Bi-Gae" id="N6e-J8-54z">
-                                    <frame key="frameInset" width="375" height="49"/>
+                                    <frame key="frameInset" width="375" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pf7-7r-62h">
@@ -666,10 +670,10 @@
                         <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventTableViewController" rowHeight="60" id="fOQ-wj-OF0" customClass="CustomEventTableViewControllerCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="120" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="119.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fOQ-wj-OF0" id="f9L-1C-g9J">
-                                    <frame key="frameInset" width="375" height="59"/>
+                                    <frame key="frameInset" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIq-So-9eV">
@@ -703,10 +707,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventTableViewControllerNoteCell" rowHeight="100" id="ldK-TF-7Vt" customClass="CusomEventTableVIewControllerNoteCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="180" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="179.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ldK-TF-7Vt" id="2uj-DO-7dh">
-                                    <frame key="frameInset" width="375" height="99"/>
+                                    <frame key="frameInset" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KBU-OF-p7z" customClass="NoteTextView" customModule="NureTimeTable" customModuleProvider="target">
@@ -727,10 +731,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationPreferenceCellCustomEvent" rowHeight="60" id="12v-YA-mGu" customClass="EvenatDetailNotificationPreferenceCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="280" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="279.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="12v-YA-mGu" id="pG3-ad-BEI">
-                                    <frame key="frameInset" width="375" height="59"/>
+                                    <frame key="frameInset" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wd-0F-bm9">
@@ -785,10 +789,10 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomEventFieldCell" rowHeight="50" id="ij2-QT-4AT" customClass="CustomEventFieldCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="120" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="119.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ij2-QT-4AT" id="cte-JG-cCw">
-                                    <frame key="frameInset" width="375" height="49"/>
+                                    <frame key="frameInset" width="375" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GX9-cH-v3Y">
@@ -809,10 +813,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CustomEventFieldCustomCell" id="DQ4-oX-gb2" customClass="CustomEventFieldCustomCell" customModule="NureTimeTable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="170" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="169.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DQ4-oX-gb2" id="TG5-Bs-MsI">
-                                    <frame key="frameInset" width="375" height="49"/>
+                                    <frame key="frameInset" width="375" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ho-av-cIq">
@@ -901,7 +905,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="817-C5-pBh"/>
+        <segue reference="oxD-xF-gLf"/>
         <segue reference="lU3-XF-36i"/>
         <segue reference="5gB-Wj-k96"/>
     </inferredMetricsTieBreakers>

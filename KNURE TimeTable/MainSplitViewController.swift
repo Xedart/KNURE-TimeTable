@@ -135,7 +135,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
             scheduleCollectionController.shedule.performCache()
             
             DispatchQueue.main.async(execute: {
-                self.button.setTitle("\(defaultKey) ▼", for: UIControlState())
+                self.button.setTitle("\(defaultKey) ▾", for: UIControlState())
             })
             
             //set schedule object to shared container:
@@ -157,13 +157,13 @@ extension MainSplitViewController: SheduleControllersInitializer {
         if let timeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
-                self.scheduleTableController?.refresher?.endRefreshing()
+                self.scheduleTableController?.refreshControl?.endRefreshing()
                 return
             }
             Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], postBody: nil, callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
-                    self.scheduleTableController?.refresher?.endRefreshing()
+                    self.scheduleTableController?.refreshControl?.endRefreshing()
                     return
                 }
                 
@@ -180,7 +180,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
                     data.customData = self.scheduleCollectionController.shedule.customData
                     data.mergeData()
                     if data.days.isEmpty {
-                        self.scheduleTableController?.refresher?.endRefreshing()
+                        self.scheduleTableController?.refreshControl?.endRefreshing()
                         return
                     }
                     
@@ -206,14 +206,14 @@ extension MainSplitViewController: SheduleControllersInitializer {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
-                                    self.scheduleTableController?.refresher?.endRefreshing()
+                                    self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             } else {
                                 DispatchQueue.main.async(execute: {
                                     self.scheduleCollectionController.shedule = data
                                     self.scheduleCollectionController.collectionView?.reloadData()
                                     self.scheduleCollectionController.configureDateScale()
-                                    self.scheduleTableController?.refresher?.endRefreshing()
+                                    self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             }
                         })
@@ -270,7 +270,6 @@ extension MainSplitViewController {
     
     func relodAfetrBecameActive() {
         scheduleTableController.tableView.reloadData()
-        scheduleCollectionController.configureDateScale()
     }
 }
 

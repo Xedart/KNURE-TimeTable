@@ -127,20 +127,28 @@ extension TomorrowViewController: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
         let tomorrow = Date(timeInterval: TimeInterval(AppData.unixDay), since: Date())
-        return schedule!.eventsInDay(tomorrow).count
+        
+        if schedule!.eventsInDay(tomorrow).isEmpty {
+            return 1
+        } else {
+            return schedule!.eventsInDay(tomorrow).count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TomorrowTableViewCell", for: indexPath) as! TodayTbaleViewCell
-        
         let tomorrow = Date(timeInterval: TimeInterval(AppData.unixDay), since: Date())
         let events = schedule!.eventsInDay(tomorrow)
         
-        cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
-        
-        return cell
-        
+        if events.isEmpty {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WidgetTableViewTomorrowEmptyCell", for: indexPath) as! WidgetTableViewEmptyCell
+            cell.configure(fontColor: fontColor)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TomorrowTableViewCell", for: indexPath) as! TodayTbaleViewCell
+            cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

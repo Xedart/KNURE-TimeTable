@@ -8,7 +8,6 @@
 
 import UIKit
 import AsyncDisplayKit
-//import ChameleonFramework
 import DataModel
 import SVProgressHUD
 
@@ -70,7 +69,6 @@ class CollectionHeaderView: UIView {
             dateLabel.text = labelText
             self.addSubview(dateLabel)
         }
-        
     }
 }
 

@@ -57,3 +57,16 @@ public class TodayTbaleViewCell: UITableViewCell {
         additionalInfoLabel.text = "\(schedule.types[event.type]!.short_name), \(event.auditory)"
     }
 }
+
+public class WidgetTableViewEmptyCell: UITableViewCell {
+    
+    // Interface outlets:
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    public func configure(fontColor: UIColor) {
+        
+        titleLabel.textColor = fontColor
+        titleLabel.text = AppStrings.NoEvents
+    }
+}

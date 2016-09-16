@@ -61,8 +61,10 @@ class CollectionScheduleCell: UICollectionViewCell {
     }
     
     func configure(_ events: [Event], shedule: Shedule) {
+        
         displayedEvent = events[0]
-            DispatchQueue.global(qos: .default).async(execute: {
+        
+        DispatchQueue.global(qos: .default).async(execute: {
             self.backgroundNode.frame = self.bounds
             self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.25)
             self.backgroundNode.borderWidth = 1.0
@@ -81,8 +83,6 @@ class CollectionScheduleCell: UICollectionViewCell {
             self.node.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
             self.node.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace)
             self.node.backgroundColor = UIColor.clear
-            
-            // Status images configuring:
         })
         
         // status images:

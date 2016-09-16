@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -92,6 +91,30 @@
                                             <outlet property="separatorLineView" destination="tfF-sE-oEx" id="aup-Ha-9CH"/>
                                             <outlet property="startTimeLabel" destination="OIE-U4-Cfs" id="axH-UP-Fe9"/>
                                             <outlet property="subjectTitleLabel" destination="cru-Xu-xxk" id="vFO-xP-r5C"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WidgetTableViewTomorrowEmptyCell" id="yPI-mf-ZsV" customClass="WidgetTableViewEmptyCell" customModule="DataModel">
+                                        <rect key="frame" x="0.0" y="67" width="320" height="42.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yPI-mf-ZsV" id="Tey-kN-6Dq">
+                                            <frame key="frameInset" width="320" height="41.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0A-To-dU6">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="i0A-To-dU6" firstAttribute="top" secondItem="Tey-kN-6Dq" secondAttribute="top" constant="8" id="gUj-s4-9xB"/>
+                                                <constraint firstAttribute="trailing" secondItem="i0A-To-dU6" secondAttribute="trailing" constant="8" id="iPT-fu-n6L"/>
+                                                <constraint firstAttribute="bottom" secondItem="i0A-To-dU6" secondAttribute="bottom" constant="8" id="nE9-Ii-Ebj"/>
+                                                <constraint firstItem="i0A-To-dU6" firstAttribute="leading" secondItem="Tey-kN-6Dq" secondAttribute="leading" constant="8" id="yle-g7-Cnw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="i0A-To-dU6" id="E0J-Ge-PSZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

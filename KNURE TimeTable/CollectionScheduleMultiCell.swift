@@ -40,94 +40,93 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
         scrollNode.isUserInteractionEnabled = true
         
         DispatchQueue.global(qos: .default).async(execute: {
-        scrollNode.frame = self.bounds
             
-        for i in 0..<events.count {
+            scrollNode.frame = self.bounds
             
-            // textNode:
-            let textNode = ASTextNode()
-            let titleParagraphStyle = NSMutableParagraphStyle()
-            titleParagraphStyle.alignment = .center
+            for i in 0..<events.count {
             
-            //truncate subject title if it's too long:
-            let subjectTitle = shedule.subjects[events[i].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[i].subject_id]!.briefTitle : shedule.subjects[events[i].subject_id]!.briefTitle.substring(to: shedule.subjects[events[i].subject_id]!.briefTitle.index(shedule.subjects[events[i].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
+                // TextNode:
+                let textNode = ASTextNode()
+                let titleParagraphStyle = NSMutableParagraphStyle()
+                titleParagraphStyle.alignment = .center
             
-            textNode.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
-            textNode.backgroundColor = UIColor.clear
+                //truncate subject title if it's too long:
+                let subjectTitle = shedule.subjects[events[i].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[i].subject_id]!.briefTitle : shedule.subjects[events[i].subject_id]!.briefTitle.substring(to: shedule.subjects[events[i].subject_id]!.briefTitle.index(shedule.subjects[events[i].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
+            
+                textNode.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
+                textNode.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace - 10)
+                textNode.backgroundColor = UIColor.clear
         
-            // backGroundNode:
-            let backgroundNode = ASDisplayNode()
-            backgroundNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
-            backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.25)
-            backgroundNode.borderColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.7).cgColor
-            backgroundNode.clipsToBounds = true
-            backgroundNode.cornerRadius = 5.0
-            backgroundNode.borderWidth = 1.0
-            textNode.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace - 10)
-            backgroundNode.addSubnode(textNode)
+                // BackgroundNode:
+                let backgroundNode = ASDisplayNode()
+                backgroundNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
+                backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.25)
+                backgroundNode.borderColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.7).cgColor
+                backgroundNode.clipsToBounds = true
+                backgroundNode.cornerRadius = 5.0
+                backgroundNode.borderWidth = 1.0
+                backgroundNode.addSubnode(textNode)
             
             
-            // Status images configuring:
+                // Status images:
             
-            // event is custom and has a note:
-            if events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) != nil {
-                let leftStatusImage = ASImageNode()
-                let rightStatusImage = ASImageNode()
-                leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
-                rightStatusImage.frame = CGRect(x: 20, y: self.frame.height - 18, width: 14, height: 14)
-                leftStatusImage.image = UIImage.init(named: "DoneImage")
-                rightStatusImage.image = UIImage.init(named: "tableBookmark")
-                backgroundNode.addSubnode(leftStatusImage)
-                backgroundNode.addSubnode(rightStatusImage)
-            }
+                // event is custom and has a note:
+                if events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) != nil {
+                    let leftStatusImage = ASImageNode()
+                    let rightStatusImage = ASImageNode()
+                    leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
+                    rightStatusImage.frame = CGRect(x: 20, y: self.frame.height - 18, width: 14, height: 14)
+                    leftStatusImage.image = UIImage.init(named: "DoneImage")
+                    rightStatusImage.image = UIImage.init(named: "tableBookmark")
+                    backgroundNode.addSubnode(leftStatusImage)
+                    backgroundNode.addSubnode(rightStatusImage)
+                }
             
-            // event is custom and doesn't have note:
-            else if events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) == nil {
-                let leftStatusImage = ASImageNode()
-                leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
-                leftStatusImage.image = UIImage.init(named: "DoneImage")
-                backgroundNode.addSubnode(leftStatusImage)
-            }
+                    // event is custom and doesn't have note:
+                else if events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) == nil {
+                    let leftStatusImage = ASImageNode()
+                    leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
+                    leftStatusImage.image = UIImage.init(named: "DoneImage")
+                    backgroundNode.addSubnode(leftStatusImage)
+                }
             
-            // event isn't custom and has a note:
-            else if !events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) != nil {
-                let leftStatusImage = ASImageNode()
-                leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
-                leftStatusImage.image = UIImage.init(named: "tableBookmark")
-                backgroundNode.addSubnode(leftStatusImage)
-            }
+                    // event isn't custom and has a note:
+                else if !events[i].isCustom && shedule.getNoteWithTokenId(events[i].getEventId) != nil {
+                    let leftStatusImage = ASImageNode()
+                    leftStatusImage.frame = CGRect(x: 4, y: self.frame.height - 18, width: 14, height: 14)
+                    leftStatusImage.image = UIImage.init(named: "tableBookmark")
+                    backgroundNode.addSubnode(leftStatusImage)
+                }
            
             
-            // scrolling image tip:
-            let scrollingImage = ASImageNode()
-            scrollingImage.frame = CGRect(x: textNode.frame.width - 25, y: textNode.frame.height - 10, width: 20, height: 20)
-            scrollingImage.image = UIImage(named: "ScrollIndicator")
-            textNode.addSubnode(scrollingImage)
-            
-            scrollNode.addSubnode(backgroundNode)
-        }
+                // Scrolling image:
+                let scrollingImage = ASImageNode()
+                scrollingImage.frame = CGRect(x: textNode.frame.width - 25, y: textNode.frame.height - 10, width: 20, height: 20)
+                scrollingImage.image = UIImage(named: "ScrollIndicator")
+                textNode.addSubnode(scrollingImage)
+                
+                // Gesture recognizers:
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentInfoMenu(_:)))
+                let longGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentCusomEventMenu(_:)))
+                DispatchQueue.main.async {
+                    textNode.isUserInteractionEnabled = true
+                    textNode.view.tag = i
+                    textNode.view.addGestureRecognizer(tapGestureRecognizer)
+                    textNode.view.addGestureRecognizer(longGestureRecognizer)
+                }
+                scrollNode.addSubnode(backgroundNode)
+            }
             
             //Configure Scroll view:
+            let contentWidth = (self.bounds.width + 1) * CGFloat(events.count)
             DispatchQueue.main.async {
-                scrollNode.view.contentSize.width = (self.bounds.width + 1) * CGFloat(events.count)
+                scrollNode.view.contentSize.width = contentWidth
                 for subView in self.subviews {
                     subView.removeFromSuperview()
                 }
-                // adding tap gestures to the nodes:
-                var counter = 0
-                for textNode in scrollNode.subnodes {
-                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentInfoMenu(_:)))
-                    let longGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionScheduleMultiCell.presentCusomEventMenu(_:)))
-                    textNode.isUserInteractionEnabled = true
-                    textNode.view.addGestureRecognizer(tapGestureRecognizer)
-                    textNode.view.addGestureRecognizer(longGestureRecognizer)
-                    textNode.view.tag = counter
-                    counter += 1
-                }
                 self.addSubview(scrollNode.view)
-        }
-    })
-        
+            }
+        })
   }
     
     // MARK: - Info menu

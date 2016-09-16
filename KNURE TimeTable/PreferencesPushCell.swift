@@ -22,28 +22,10 @@ class PreferencesPushCell: UITableViewCell {
 
 }
 
-class PreferenceDisabledScheduleCell: UITableViewCell {
-    
-    var titleLabel: UILabel!
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        
-        titleLabel = UILabel()
-        titleLabel.frame = CGRect(x: 15, y: 0, width: self.frame.width, height: self.frame.height)
-        titleLabel.textColor = FlatTeal()
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: 0.3)
-        self.addSubview(titleLabel)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class PreferencesPushEmptyCell: UITableViewCell {
     
     @IBOutlet weak var tipTextView: UITextView!
+    
     
     func setNoSchedulesTip() {
         
@@ -51,10 +33,8 @@ class PreferencesPushEmptyCell: UITableViewCell {
     }
     
     func setAPNDisabledTip() {
-        
         tipTextView.text = AppStrings.apnDisabledTip
     }
-    
 }
 
 
@@ -94,6 +74,26 @@ class PreferencesHeaderView: UIView {
     func showPlusButton() {
         self.addSubview(plusButton)
         self.bringSubview(toFront: plusButton)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+class PreferenceDisabledScheduleCell: UITableViewCell {
+    
+    var titleLabel: UILabel!
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        
+        titleLabel = UILabel()
+        titleLabel.frame = CGRect(x: 15, y: 0, width: self.frame.width, height: self.frame.height)
+        titleLabel.textColor = FlatTeal()
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: 0.3)
+        self.addSubview(titleLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {

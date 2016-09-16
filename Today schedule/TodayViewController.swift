@@ -129,20 +129,28 @@ extension TodayWidgetViewController: UITableViewDataSource, UITableViewDelegate 
             return 0
         }
         let today = Date()
-        return schedule!.eventsInDay(today).count
+        if schedule!.eventsInDay(today).isEmpty {
+            return 1
+        } else {
+            return schedule!.eventsInDay(today).count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodayTbaleViewCell", for: indexPath) as! TodayTbaleViewCell
-        
         let today = Date()
         let events = schedule!.eventsInDay(today)
         
-        cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
-        
-        return cell
-        
+        if events.isEmpty {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WidgetTableViewEmptyCell", for: indexPath) as! WidgetTableViewEmptyCell
+            cell.configure(fontColor: fontColor)
+            return cell
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TodayTbaleViewCell", for: indexPath) as! TodayTbaleViewCell
+            cell.configure(fontColor: fontColor, event: events[indexPath.row], schedule: schedule!)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

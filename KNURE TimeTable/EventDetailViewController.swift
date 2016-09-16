@@ -293,8 +293,10 @@ extension EventDetailViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailInfoTitleCell", for: indexPath) as! EventDetailInfoTitleCell
                 
                 cell.configure(schedule: currentSchedule, event: displayedEvent)
-                
                 cell.eventTitleView.delegate = self
+                if !self.noteText.isEmpty {
+                    cell.eventTitleView.text = self.noteText
+                }
                 noteTextView = cell.eventTitleView
                 return cell
                 
@@ -339,10 +341,16 @@ extension EventDetailViewController {
         if section == 0 {
             return nil
         }
-        sectionHeader = EventDetailHeaderView(frame: tableView.rectForHeader(inSection: section))
-        sectionHeader.saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
-        sectionHeader.configure(section)
-        return sectionHeader
+        let headerView = EventDetailHeaderView(frame: tableView.rectForHeader(inSection: section))
+        headerView.saveNoteButton.addTarget(EventDetailViewController(), action: #selector(EventDetailViewController.saveNoteButtonTaped(_:)), for: .touchUpInside)
+        headerView.configure(section)
+        if section == 3 {
+            self.sectionHeader = headerView
+            if !noteText.isEmpty {
+                self.sectionHeader.showSaveButton()
+            }
+        }
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

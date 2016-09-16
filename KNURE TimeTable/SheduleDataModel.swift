@@ -770,8 +770,10 @@ public extension Shedule {
         // delete event from corresponding day:
         for i in 0..<day!.events.count {
             if day!.events[i].start_time == event.start_time {
-                day!.events.remove(at: i)
-                break
+                if day!.events[i].isCustom {
+                    day!.events.remove(at: i)
+                    break
+                }
             }
         }
         // delete day if there are no more events:
@@ -786,12 +788,13 @@ public extension Shedule {
                 return
             }
         }
-        
     }
     
     func deleteEventFromCache(_ indexPath: IndexPath, event: Event) {
+        //since there can be only one custom event per one IndexPath in collection view,
+        //just find it among others events in eventcache, and remove:
         for i in 0..<eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.count {
-            if eventsCache["\(indexPath.section)\(indexPath.row)"]!.events[i].start_time == event.start_time {
+            if eventsCache["\(indexPath.section)\(indexPath.row)"]!.events[i].isCustom {
                 eventsCache["\(indexPath.section)\(indexPath.row)"]!.events.remove(at: i)
                 return
             }

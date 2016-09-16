@@ -30,7 +30,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.scheduleDidReload), object: nil)
             if !shedule.shedule_id.isEmpty {
                 DispatchQueue.main.async(execute: {
-                    self.button.setTitle("\(self.shedule.shedule_id) ▼", for: UIControlState())
+                    self.button.setTitle("\(self.shedule.shedule_id) ▾", for: UIControlState())
                 })
             } else {
                 DispatchQueue.main.async(execute: {
@@ -38,6 +38,12 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
                 })
             }
         }
+    }
+    
+    // MARK: - Computed properties:
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     //MARK: - Properies:
@@ -57,6 +63,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationController?.navigationBar.barTintColor = FlatWhite()
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
@@ -94,7 +101,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
         
-        //notification:
+        //notification:cl
         NotificationCenter.default.addObserver(self, selector: #selector(CollectionScheduleViewController.reloadSelf), name: NSNotification.Name(rawValue: AppData.reloadCollectionView), object: nil)
     }
     
@@ -180,10 +187,10 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if shedule.eventsCache["\((indexPath as NSIndexPath).section)\((indexPath as NSIndexPath).row)"] == nil {
+        if shedule.eventsCache["\(indexPath.section)\(indexPath.row)"] == nil {
             shedule.performCache()
         }
-        let events = shedule.eventsCache["\((indexPath as NSIndexPath).section)\((indexPath as NSIndexPath).row)"]!.events
+        let events = shedule.eventsCache["\(indexPath.section)\(indexPath.row)"]!.events
         
         // configure empty cell:
         if events.isEmpty {
@@ -193,7 +200,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             return cell
         }
         
-        // configure melti-event cell:
+        // configure multi-event cell:
         if events.count > 1 {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multiCellReuseIndentifier, for: indexPath) as! CollectionScheduleMultiCell
             cell.delegate = self
@@ -226,9 +233,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
 
 extension CollectionScheduleViewController {
     
-    override func becomeFirstResponder() -> Bool {
-        return true
-    }
+    
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == UIEventSubtype.motionShake{

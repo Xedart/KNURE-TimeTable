@@ -70,6 +70,7 @@ class EventDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleTextView: UITextView!
     
+    
     func configureFor(indexPath: IndexPath, schedule: Shedule, event: Event) {
         
         selectionStyle = .none
@@ -216,6 +217,7 @@ class EventDetailHeaderView: UIView {
     }
     
     func showSaveButton() {
+        saveNoteButton.removeFromSuperview()
         self.addSubview(saveNoteButton)
         self.bringSubview(toFront: saveNoteButton)
     }

@@ -21,8 +21,8 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         didSet {
             if !shedule.shedule_id.isEmpty {
                 DispatchQueue.main.async(execute: {
-                    self.refresher.attributedTitle = NSAttributedString(string: "\(AppStrings.lastRefresh)\(self.shedule.lastRefreshDate)")
-                    self.button.setTitle("\(self.shedule.shedule_id) ▼", for: UIControlState())
+                    self.refreshControl?.attributedTitle = NSAttributedString(string: "\(AppStrings.lastRefresh)\(self.shedule.lastRefreshDate)")
+                    self.button.setTitle("\(self.shedule.shedule_id) ▾", for: UIControlState())
                 })
             } else {
                 DispatchQueue.main.async(execute: {
@@ -38,7 +38,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
     var preferencesBarButton: UIBarButtonItem!
-    var refresher: UIRefreshControl!
+   // var refresher: UIRefreshControl!
     var openSideMenuGesture: UISwipeGestureRecognizer!
 
     //MARK: - LifeCycle:
@@ -71,9 +71,10 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         tableView.addGestureRecognizer(openSideMenuGesture)
         
         //Refrecher:
-        refresher = UIRefreshControl()
-        refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
-        tableView.backgroundView = refresher
+       // refresher = UIRefreshControl()
+        //refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
+        //tableView.backgroundView = refresher
+        self.refreshControl?.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
         
         // Reload notification:
         NotificationCenter.default.addObserver(self, selector: #selector(TableSheduleController.reloadSelf), name: NSNotification.Name(rawValue: AppData.reloadTableView), object: nil)
@@ -127,7 +128,7 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let events = shedule.eventsInDay((Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * (indexPath as NSIndexPath).section))))
+        let events = shedule.eventsInDay((Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * indexPath.section))))
         
         if events.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyTableSheduleCell", for: indexPath) as! LabelCell
