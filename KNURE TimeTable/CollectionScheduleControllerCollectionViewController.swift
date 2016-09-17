@@ -31,10 +31,12 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             if !shedule.shedule_id.isEmpty {
                 DispatchQueue.main.async(execute: {
                     self.button.setTitle("\(self.shedule.shedule_id) ▾", for: UIControlState())
+                    self.navigationItem.rightBarButtonItem = self.preferencesBarButton
                 })
             } else {
                 DispatchQueue.main.async(execute: {
                     self.button.setTitle(AppStrings.ChooseSchedule, for: UIControlState())
+                    self.navigationItem.rightBarButtonItem = nil
                 })
             }
         }
@@ -79,8 +81,11 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             sideInfoButton = UIBarButtonItem(image: UIImage(named: "sideInfoButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.presentLeftMenuViewController(_:)))
             preferencesBarButton = UIBarButtonItem(image: UIImage(named: "PreferencesButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.showPreferencesMenu))
             
-            navigationItem.rightBarButtonItem = preferencesBarButton
             navigationItem.leftBarButtonItem = sideInfoButton
+            navigationItem.leftBarButtonItem = sideInfoButton
+            if !shedule.shedule_id.isEmpty {
+                navigationItem.rightBarButtonItem = preferencesBarButton
+            }
         }
         
         // gesture-recognizers:

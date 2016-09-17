@@ -23,10 +23,12 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
                 DispatchQueue.main.async(execute: {
                     self.refreshControl?.attributedTitle = NSAttributedString(string: "\(AppStrings.lastRefresh)\(self.shedule.lastRefreshDate)")
                     self.button.setTitle("\(self.shedule.shedule_id) ▾", for: UIControlState())
+                    self.navigationItem.rightBarButtonItem = self.preferencesBarButton
                 })
             } else {
                 DispatchQueue.main.async(execute: {
                     self.button.setTitle(AppStrings.ChooseSchedule, for: UIControlState())
+                    self.navigationItem.rightBarButtonItem = nil
                 })
             }
         }
@@ -61,7 +63,6 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
             preferencesBarButton = UIBarButtonItem(image: UIImage(named: "PreferencesButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(TableSheduleController.showPreferencesMenu))
             
             navigationItem.leftBarButtonItem = sideInfoButton
-            navigationItem.rightBarButtonItem = preferencesBarButton
         }
         
         tableView.emptyDataSetSource = self
@@ -71,9 +72,6 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
         tableView.addGestureRecognizer(openSideMenuGesture)
         
         //Refrecher:
-       // refresher = UIRefreshControl()
-        //refresher.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
-        //tableView.backgroundView = refresher
         self.refreshControl?.addTarget(self, action: #selector(TableSheduleController.refreshContent), for: UIControlEvents.valueChanged)
         
         // Reload notification:
