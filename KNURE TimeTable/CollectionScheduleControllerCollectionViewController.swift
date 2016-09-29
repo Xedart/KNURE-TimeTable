@@ -82,10 +82,6 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             preferencesBarButton = UIBarButtonItem(image: UIImage(named: "PreferencesButton"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CollectionScheduleViewController.showPreferencesMenu))
             
             navigationItem.leftBarButtonItem = sideInfoButton
-            navigationItem.leftBarButtonItem = sideInfoButton
-            if !shedule.shedule_id.isEmpty {
-                navigationItem.rightBarButtonItem = preferencesBarButton
-            }
         }
         
         // gesture-recognizers:

@@ -40,7 +40,6 @@ class TableSheduleController: UITableViewController, CollectionScheduleViewContr
     let button = TitleViewButton()
     var sideInfoButton: UIBarButtonItem!
     var preferencesBarButton: UIBarButtonItem!
-   // var refresher: UIRefreshControl!
     var openSideMenuGesture: UISwipeGestureRecognizer!
 
     //MARK: - LifeCycle:

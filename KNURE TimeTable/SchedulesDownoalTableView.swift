@@ -263,7 +263,7 @@ extension SchedulesDownoalTableView {
                     let delegate = UIApplication.shared.delegate as! AppDelegate
                     if let deviceToken = delegate.deviceAPNToken {
                         
-                        Server.makeRequest(.addRecepient, parameters: nil, postBody: "scheduleTitle=\(schedule.shedule_id)&scheduleID=\(schedule.scheduleIdentifier)&deviceToken=\(deviceToken)", callback: { (data, responce, error) in
+                        Server.makeRequest(.addRecepient, parameters: nil, postBody: "scheduleTitle=\(schedule.shedule_id)&scheduleID=\(schedule.scheduleIdentifier)&deviceToken=\(deviceToken)&scheduleType=\(type_id)", callback: { (data, responce, error) in
                             
                             if error != nil {
                                 self.saveScheduleToAPNDisabled(title: schedule.shedule_id, id: schedule.scheduleIdentifier)

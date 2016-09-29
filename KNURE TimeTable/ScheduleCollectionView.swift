@@ -15,6 +15,7 @@ class ScheduleCollectionView: UICollectionView {
         self.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
         let controller = dataSource as! CollectionScheduleViewController
         let location = CGPoint(x: contentOffset.x, y: 0)
+        
         let headerLocation = CGPoint(x: 55, y: contentOffset.y)
         let size = controller.scale.frame.size
         controller.scale.frame = CGRect(origin: location, size: size)

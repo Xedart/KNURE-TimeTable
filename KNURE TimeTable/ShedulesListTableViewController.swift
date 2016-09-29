@@ -37,6 +37,10 @@ class ShedulesListTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = closeButton
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
     func dismissSelf() {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -146,7 +150,7 @@ class ShedulesListTableViewController: UITableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .default, title: AppStrings.Delete, handler: { (action , indexPath) -> Void in
             
@@ -306,8 +310,9 @@ class ShedulesListTableViewController: UITableViewController {
             for group in groupsData {
                 if scheduleToDelete != group {
                     defaults.set(group, forKey: AppData.defaultScheduleKey)
-                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
-                    cell.titleLbl.text?.append(" ✓")
+                    if let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as? SheduleLIstCell {
+                        cell.titleLbl.text?.append(" ✓")
+                    }
                     return true
                 }
                 counter += 1
@@ -320,8 +325,9 @@ class ShedulesListTableViewController: UITableViewController {
             for group in teachersData {
                 if scheduleToDelete != group {
                     defaults.set(group, forKey: AppData.defaultScheduleKey)
-                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
-                    cell.titleLbl.text?.append(" ✓")
+                    if let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as? SheduleLIstCell {
+                        cell.titleLbl.text?.append(" ✓")
+                    }
                     return true
                 }
                 counter += 1
@@ -334,8 +340,9 @@ class ShedulesListTableViewController: UITableViewController {
             for group in auditoryiesData {
                 if scheduleToDelete != group {
                     defaults.set(group, forKey: AppData.defaultScheduleKey)
-                    let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as! SheduleLIstCell
-                    cell.titleLbl.text?.append(" ✓")
+                    if let cell = tableView.cellForRow(at: IndexPath(row: counter, section: 0)) as? SheduleLIstCell {
+                        cell.titleLbl.text?.append(" ✓")
+                    }
                     return true
                 }
                 counter += 1

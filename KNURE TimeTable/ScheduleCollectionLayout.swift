@@ -20,6 +20,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     var contentHeight = CGFloat() // need to left 40px extra space
     var contentWidth = CGFloat()
     var cache = [UICollectionViewLayoutAttributes]()
+    
     override var collectionViewContentSize: CGSize {
         return CGSize(width: contentWidth, height: contentHeight)
     }
@@ -39,7 +40,6 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
         // compute contentWidth:
         contentWidth = (CGFloat(collectionView!.numberOfSections) * cellWidth) + (CGFloat(collectionView!.numberOfSections) * (offset)) + cellWidth / 2
         self.computeLayoutAttributes()
-        
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -61,7 +61,7 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let layoutAttributes = UICollectionViewLayoutAttributes()
-        layoutAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat((indexPath as NSIndexPath).section) + scaleOffset, y: (cellHeight + offset) * CGFloat((indexPath as NSIndexPath).item) + (headerHeight + offset), width: cellWidth, height: cellHeight)
+        layoutAttributes.frame = CGRect(x: (cellWidth + offset) * CGFloat(indexPath.section) + scaleOffset, y: (cellHeight + offset) * CGFloat(indexPath.item) + (headerHeight + offset), width: cellWidth, height: cellHeight)
         return layoutAttributes
     }
     
@@ -81,12 +81,12 @@ class ScheduleCollectionLayout: UICollectionViewLayout {
     
     func computeDecorationAttributes() {
         if (collectionView?.numberOfSections)! > 0 {
-        for i in 1...8 {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "lineView", with: IndexPath(item: i, section: 0))
-            attributes.frame = CGRect(x: 50, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: contentWidth, height: 0.6)
-            cache.append(attributes)
+            for i in 1...8 {
+                let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "lineView", with: IndexPath(item: i, section: 0))
+                attributes.frame = CGRect(x: 50, y: CGFloat((cellHeight + 1) * CGFloat(i) + (51)), width: contentWidth, height: 0.6)
+                cache.append(attributes)
+            }
         }
-      }
     }
 }
 

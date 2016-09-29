@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import SwiftyJSON
 import DataModel
 
 class Parser {
@@ -99,61 +98,54 @@ class Parser {
     
     static func parseSchedule(_ data: JSON, callback: (_ data: Shedule) -> Void) {
         
-        // perform data arrays for filling:
+        // perform dictionaries:
         var result_types = [String: NureType]()
         var result_teachers = [String: Teacher]()
         var result_subjects = [String: Subject]()
         var result_groups = [String: String]()
         var result_days = [String: Day]()
+        
         var firstDayTime = Int()
         var lastDayTime = Int()
+        
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         
-        let jsTypes = data["types"].arrayValue
-        
         // grab types:
+        let jsTypes = data["types"].arrayValue
         for type in jsTypes {
             let id = type["id"].stringValue
-            let short_name = type["short_name"].stringValue
-            let full_name = type["full_name"].stringValue
-            let type_id = type["id"].stringValue
-            let nure_type = NureType(short_name: short_name, full_name: full_name, id: id)
-            result_types[type_id] = nure_type
+            let nure_type = NureType(jsonData: type)
+            result_types[id] = nure_type
         }
         
         // grab teachers:
         let jsTeachers = data["teachers"].arrayValue
-        for teacher in jsTeachers {
-            let short_name = teacher["short_name"].stringValue
-            let full_name = teacher["full_name"].stringValue
-            let teacher_id = teacher["id"].stringValue
-            let nure_teacher = Teacher(full_name: full_name, short_name: short_name)
+        for jsTeacher in jsTeachers {
+            let teacher_id = jsTeacher["id"].stringValue
+            let nure_teacher = Teacher(jsonData: jsTeacher)
             result_teachers[teacher_id] = nure_teacher
         }
         
         // grab subjects:
         let jsSubjects = data["subjects"].arrayValue
-        for subject in jsSubjects {
-            let briefTitle = subject["brief"].stringValue
-            let title = subject["title"].stringValue
-            let subject_id = subject["id"].stringValue
-            let nure_subject = Subject(briefTitle: briefTitle, fullTitle: title)
+        for jsSubject in jsSubjects {
+            let subject_id = jsSubject["id"].stringValue
+            let nure_subject = Subject(jsonData: jsSubject)
             result_subjects[subject_id] = nure_subject
         }
         
         // grab groups:
         let jsGroups = data["groups"].arrayValue
-        for jgroup in jsGroups {
-            let groupId = jgroup["id"].stringValue
-            let name = jgroup["name"].stringValue
+        for jsGroup in jsGroups {
+            let groupId = jsGroup["id"].stringValue
+            let name = jsGroup["name"].stringValue
             result_groups[groupId] = name
         }
         
         // grab events:
         let jsEvents = data["events"].arrayValue
         if let startTime = jsEvents.first?["start_time"].intValue {
-            
             //calculate first day start time:
             let secondsFromBeginToPair = AppData.secondsFromDayBeginToPair(numberOfPair: jsEvents.first?["number_pair"].intValue)
             firstDayTime = startTime - secondsFromBeginToPair
@@ -165,23 +157,11 @@ class Parser {
         var daysBuffer = Day()
         var currentDateStr = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(firstDayTime)))
         
-        for event in jsEvents {
-            let id = event["subject_id"].stringValue
-            let start_time = event["start_time"].intValue
-            let end_time = event["end_time"].intValue
-            let type = event["type"].stringValue
-            let numberPair = event["number_pair"].intValue
-            let auditory = event["auditory"].stringValue
-            var teachers = [Int]()
-            var groups = [Int]()
-            for teacher in event["teachers"].arrayValue {
-                teachers.append(teacher.intValue)
-            }
-            for jgroup in event["groups"].arrayValue {
-                groups.append(jgroup.intValue)
-            }
-            let event = Event(subject_id: id,
-                              start_time: start_time, end_time: end_time, type: type, numberOfPair: numberPair, auditory: auditory, teachers: teachers, groups: groups, isCustom: Bool(), alarmTime: alarmTime.fifteenMinutes.rawValue, calendarEventId: String())
+        for jsEvent in jsEvents {
+            
+            let start_time = jsEvent["start_time"].intValue
+            
+            let event = Event(jsonData: jsEvent)
             let eventDateStringId = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(start_time)))
             if currentDateStr == eventDateStringId {
                 daysBuffer.events.append(event)
