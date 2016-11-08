@@ -21,7 +21,6 @@ class APNDisabledSchedulesTableViewController: UITableViewController {
     
     init() {
         super.init(style: .plain)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

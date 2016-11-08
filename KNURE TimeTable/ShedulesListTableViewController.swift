@@ -167,13 +167,15 @@ class ShedulesListTableViewController: UITableViewController {
                     Server.removeAPNScheduleWith(title: removedGroupTitle, handler: nil, errorHandler: nil)
                 }
                 
-                // remove shcedule from the file and clean up saved groups:
-                _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.groupsData[indexPath.row])")
+                //remove shcedule from the file and clean up saved groups:
+                _ = self.deleteFile(at: "\(Shedule.urlPath.path)/\(self.groupsData[indexPath.row])")
+                //if user deleted currently used schedule, pick new one:
                 if self.groupsData[indexPath.row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.groupsData[indexPath.row]) {
                         self.defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
+                    Shedule.removeScheduleFromSharedContainer()
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.groupsData.remove(at: indexPath.row)
@@ -191,12 +193,14 @@ class ShedulesListTableViewController: UITableViewController {
                     Server.removeAPNScheduleWith(title: removedTeacherTitle, handler: nil, errorHandler: nil)
                 }
                 
-                _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.teachersData[indexPath.row])")
+                _ = self.deleteFile(at: "\(Shedule.urlPath.path)/\(self.teachersData[indexPath.row])")
+                //if user deleted currently used schedule, pick new one:
                 if self.teachersData[indexPath.row] == defaultSchedule {
                     
                     if !self.chooseProperSchedule(self.teachersData[(indexPath as NSIndexPath).row]) {
                         self.defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
+                    Shedule.removeScheduleFromSharedContainer()
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.teachersData.remove(at: indexPath.row)
@@ -213,11 +217,14 @@ class ShedulesListTableViewController: UITableViewController {
                     Server.removeAPNScheduleWith(title: removedAuditoryTitle, handler: nil, errorHandler: nil)
                 }
                 
-                _ = self.deleteFile("\(Shedule.urlPath.path)/\(self.auditoryiesData[indexPath.row])")
-                if self.auditoryiesData[(indexPath as NSIndexPath).row] == defaultSchedule {
+                _ = self.deleteFile(at: "\(Shedule.urlPath.path)/\(self.auditoryiesData[indexPath.row])")
+                
+                //if user deleted currently used schedule, pick new one:
+                if self.auditoryiesData[indexPath.row] == defaultSchedule {
                     if !self.chooseProperSchedule(self.auditoryiesData[(indexPath as NSIndexPath).row]) {
                         self.defaults.set(nil, forKey: AppData.defaultScheduleKey)
                     }
+                    Shedule.removeScheduleFromSharedContainer()
                     NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.initNotification), object: nil)
                 }
                 self.auditoryiesData.remove(at: (indexPath as NSIndexPath).row)
@@ -357,7 +364,7 @@ class ShedulesListTableViewController: UITableViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func deleteFile(_ path: String) -> Bool{
+    func deleteFile(at path: String) -> Bool{
         let exists = FileManager.default.fileExists(atPath: path)
         if exists {
             do {

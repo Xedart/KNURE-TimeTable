@@ -23,6 +23,7 @@ class CollectionHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        formatter.dateFormat = "dd.MM"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,33 +43,50 @@ class CollectionHeaderView: UIView {
         for view in self.subviews {
             view.removeFromSuperview()
         }
-        // 
+        //iterate over all days in semester and create label for each:
         for i in 0..<delegate.collectionView!!.numberOfSections {
+            
             let dateLabel = UILabel(frame: CGRect(x: (cellWidth + offset) * CGFloat(i), y: 0, width: cellWidth, height: cellHeight))
             
             // text attributes:
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM"
-            var txtColor = UIColor()
+            
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
-            var labelText = formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)
-            let todayDate = formatter.string(from: Date() as Date)
-            if todayDate == labelText {
-                txtColor = FlatSkyBlue()
-            } else {
-                txtColor = FlatGrayDark()
-            }
+            //textString:
+            let stringifiedDate = getStringifiedDate(for: i, since: schedule.startDayTime)
+            
+            var textLabel = stringifiedDate
+            let textColor = getTextColor(for: textLabel)
+            
             // add week:
-            labelText.append(", \(AppData.getDayOfWeek(formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * i), since: Date(timeIntervalSince1970: TimeInterval(schedule.startDayTime)) as Date) as Date)))")
+            textLabel.append(", \(AppData.getDayOfWeek(stringifiedDate))")
             // style:
             dateLabel.textAlignment = .center
-            dateLabel.textColor = txtColor
+            dateLabel.textColor = textColor
             dateLabel.font = UIFont.systemFont(ofSize: 17)
             //
-            dateLabel.text = labelText
+            dateLabel.text = textLabel
             self.addSubview(dateLabel)
         }
+    }
+    
+    //MARK: - Helpers:
+    
+    func getTextColor(for date: String) -> UIColor {
+        
+        let todayDate = formatter.string(from: Date())
+        if todayDate == date {
+            return FlatSkyBlue()
+        } else {
+            return FlatGrayDark()
+        }
+    }
+    
+    func getStringifiedDate(for day: Int, since firstDay: Int) -> String {
+        
+        let dayLightSavingGap = 3600
+        
+        return formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * day), since: Date(timeIntervalSince1970: TimeInterval(firstDay + dayLightSavingGap))))
     }
 }
 

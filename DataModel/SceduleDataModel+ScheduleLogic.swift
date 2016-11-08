@@ -14,10 +14,13 @@ public extension Shedule {
         eventsCache.removeAll()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM"
-        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(self.startDayTime))
-        for section in 0 ..< self.numberOfDaysInSemester() {
+        let dayLightSavingGap = 3600
+        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(startDayTime + dayLightSavingGap))
+        
+        for section in 0 ..< numberOfDaysInSemester() {
             
-            for row in 0..<self.numberOfPairsInDay() {
+            for row in 0..<numberOfPairsInDay() {
+                
                 let events = self.eventInDayWithNumberOfPair(Date(timeInterval: TimeInterval(AppData.unixDay * section), since: firstEventDay), numberOFPair: row + 1)
                 self.eventsCache["\(section)\(row)"] = EventCache(events: events)
             }
@@ -25,17 +28,17 @@ public extension Shedule {
     }
     
     func numberOfDaysInSemester() -> Int {
-        if self.shedule_id.isEmpty {
+        if shedule_id.isEmpty {
             return 0
         }
-        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(self.startDayTime))
-        let lastDay = Date(timeIntervalSince1970: TimeInterval(self.endDayTime))
+        let firstEventDay = Date(timeIntervalSince1970: TimeInterval(startDayTime))
+        let lastDay = Date(timeIntervalSince1970: TimeInterval(endDayTime))
         let numberOfdays = firstEventDay.differenceInDaysWithDate(lastDay) + 1
         return numberOfdays == 1 ? 0 : numberOfdays
     }
     
     func numberOfPairsInDay() -> Int {
-        if self.shedule_id.isEmpty {
+        if shedule_id.isEmpty {
             return 0
         }
         return 8
@@ -45,7 +48,7 @@ public extension Shedule {
         
         var numberOfNotes = 0
         
-        for noteGroup in self.notes {
+        for noteGroup in notes {
             numberOfNotes += noteGroup.notes.count
         }
         return numberOfNotes
@@ -80,7 +83,7 @@ public extension Shedule {
     }
     
     func getNoteWithTokenId(_ tokenId: String) -> Note? {
-        for group in self.notes {
+        for group in notes {
             for note in group.notes {
                 if note.idToken == tokenId {
                     return note
@@ -92,12 +95,12 @@ public extension Shedule {
     
     func deleteNoteWithId(_ noteId: String) -> Bool {
         var groupeIndex = 0
-        for groupe in self.notes {
+        for groupe in notes {
             var noteIndex = 0
             for note in groupe.notes {
                 if note.idToken == noteId {
-                    self.notes[groupeIndex].notes.remove(at: noteIndex)
-                    if self.notes[groupeIndex].notes.isEmpty {
+                    notes[groupeIndex].notes.remove(at: noteIndex)
+                    if notes[groupeIndex].notes.isEmpty {
                         notes.remove(at: groupeIndex)
                         return true
                     }
@@ -111,7 +114,7 @@ public extension Shedule {
     }
     
     func addNewNote(_ note: Note) {
-        for groupe in self.notes {
+        for groupe in notes {
             if groupe.groupTitle == note.coupledEventTitle {
                 groupe.notes.append(note)
                 return
@@ -127,7 +130,7 @@ public extension Shedule {
         formatter.dateStyle = .short
         
         // find the corresponding day:
-        let day = self.days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))]
+        let day = days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))]
         // delete event from corresponding day:
         for i in 0..<day!.events.count {
             if day!.events[i].start_time == event.start_time {
@@ -170,11 +173,11 @@ public extension Shedule {
             //add a day to schedule if needed:
             days[formatter.string(from: Date(timeIntervalSince1970: TimeInterval(event.start_time)))] = Day(events: [event])
             // change start time of shcedule if needed:
-            if event.start_time < self.startDayTime {
+            if event.start_time < startDayTime {
                 self.startDayTime = event.start_time
             }
             // change end time of schedule if needed:
-            if event.end_time > self.endDayTime {
+            if event.end_time > endDayTime {
                 self.endDayTime = event.end_time
             }
             return
@@ -203,24 +206,24 @@ public extension Shedule {
         // merge events:
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-        for event in self.customData.events {
-            self.insertEvent(event, in: Date(timeIntervalSince1970: TimeInterval(event.start_time)))
+        for event in customData.events {
+            insertEvent(event, in: Date(timeIntervalSince1970: TimeInterval(event.start_time)))
         }
         // merge groups:
-        for (key, value) in self.customData.groups {
-            self.groups[key] = value
+        for (key, value) in customData.groups {
+            groups[key] = value
         }
         // merge teachers:
-        for (key, value) in self.customData.teachers {
-            self.teachers[key] = value
+        for (key, value) in customData.teachers {
+            teachers[key] = value
         }
         // merge subjects:
-        for (key, value) in self.customData.subjects {
-            self.subjects[key] = value
+        for (key, value) in customData.subjects {
+            subjects[key] = value
         }
         // merge types:
-        for (key, value) in self.customData.types {
-            self.types[key] = value
+        for (key, value) in customData.types {
+            types[key] = value
         }
     }
     
@@ -318,6 +321,19 @@ public extension Shedule {
         
         if !save {
             print("Error when saving to shared container!")
+        }
+    }
+    
+    static func removeScheduleFromSharedContainer() {
+        
+        let path = Shedule.urlForSharedScheduleContainer()
+        let exists = FileManager.default.fileExists(atPath: path)
+        if exists {
+            do {
+                try FileManager.default.removeItem(atPath: path)
+            } catch let error as NSError {
+                print("error: \(error.localizedDescription)")
+            }
         }
     }
 }

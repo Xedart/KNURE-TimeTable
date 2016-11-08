@@ -73,7 +73,7 @@ class SchedulesDownoalTableView: UITableViewController {
         searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(SchedulesDownoalTableView.searchButtonTapped(_:)))
         searchButton.tintColor = AppData.appleButtonDefault
         searchField.delegate = self
-        self.becomeFirstResponder()
+        _ = self.becomeFirstResponder()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -177,7 +177,7 @@ extension SchedulesDownoalTableView {
             // check for success connection:
             if error != nil {
                 self.present(AlertView.getAlert(AppStrings.Error, message: AppStrings.CheckInternet, handler: { action in
-                    self.navigationController?.popViewController(animated: true)
+                    _ = self.navigationController?.popViewController(animated: true)
                 }), animated: true, completion: nil)
                 indicator.stopAnimating()
                 return
@@ -239,7 +239,7 @@ extension SchedulesDownoalTableView {
             } else {
                 type_id = 3
             }
-            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row].row_id)&type_id=\(type_id)"], postBody: nil, callback: { (data, responce, error) in
+            Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(self.dataSource[indexPath.section].rows[indexPath.row].row_id)&type_id=\(type_id)"], postBody: nil, callback: { (data, responce, error) in
             // check for success connection:
             if error != nil {
                 

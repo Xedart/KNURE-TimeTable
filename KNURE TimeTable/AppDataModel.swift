@@ -78,7 +78,7 @@ public struct AppData {
     
     // some global methods:
     
-    public static func getDayOfWeek(_ today:String)-> String {
+    public static func getDayOfWeek(_ today:String) -> String {
         let formatter  = DateFormatter()
         formatter.dateFormat = "dd.MM"
         let todayDate = formatter.date(from: today)!

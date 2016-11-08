@@ -67,6 +67,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         super.viewDidLoad()
         
         navigationController?.navigationBar.barTintColor = FlatWhite()
+        
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self

@@ -240,7 +240,7 @@ extension MainSplitViewController: UIPopoverPresentationControllerDelegate {
     
     //Pop all vieewController to root when dissmissing popover:
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        sheduleNavigationController?.popToRootViewController(animated: false)
+        _ = sheduleNavigationController?.popToRootViewController(animated: false)
     }
 }
 

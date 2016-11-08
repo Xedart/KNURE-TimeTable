@@ -27,6 +27,7 @@ class TitleViewButton: UIButton {
 // 
 
 class TitleViewLabel: UILabel {
+    
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
         font = UIFont.systemFont(ofSize: 20)

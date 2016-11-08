@@ -178,7 +178,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
         
         let root = navigationController?.viewControllers[0] as! CustomEventTableViewController
         root.tableView.reloadData()
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Sub methods:
@@ -248,7 +248,7 @@ class CustomEventConfiguratorTableView: UITableViewController {
         
         let root = navigationController?.viewControllers[0] as! CustomEventTableViewController
         root.tableView.reloadData()
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     func dataSourceContains(_ value: String) -> Bool {
