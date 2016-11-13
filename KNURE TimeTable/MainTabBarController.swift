@@ -94,7 +94,6 @@ extension MainTabBarController: SheduleControllersInitializer {
                 // check for success connection:
                 if error != nil {
                     print("responce")
-                    print(error)
                     self.scheduleTableController?.refreshControl?.endRefreshing()
                     return
                 }

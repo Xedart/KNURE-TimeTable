@@ -46,6 +46,7 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
     var closeButton: UIBarButtonItem!
     var saveButton: UIBarButtonItem!
     var noteTextView: NoteTextView!
+    var noteText = String()
     var alarmTimePreferences = alarmTime.fifteenMinutes
 
     var isTeacherAdded = false
@@ -245,7 +246,11 @@ class CustomEventTableViewController: UITableViewController, CustomEventTableVie
             // Note cell:
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomEventTableViewControllerNoteCell", for: indexPath) as! CusomEventTableVIewControllerNoteCell
-            cell.noteTextView.text = AppStrings.AddNote
+            if !noteText.isEmpty {
+                cell.noteTextView.text = noteText
+            } else {
+                cell.noteTextView.text = AppStrings.AddNote
+            }
             cell.noteTextView.textColor = UIColor.darkGray
             cell.noteTextView.delegate = self
             noteTextView = cell.noteTextView
@@ -320,6 +325,10 @@ extension CustomEventTableViewController: UITextViewDelegate {
             textView.text = AppStrings.AddNote
             textView.textColor = UIColor.lightGray
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        noteText = textView.text
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
