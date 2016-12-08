@@ -16,10 +16,13 @@ private let headerReuseIdentifier = "CollectionCell"
 private let decorationViewReuseIdentifier = "DecorationViewReuseIdentifier"
 
 @objc protocol CollectionScheduleViewControllerDelegate {
+    
     func presentViewController(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func passScheduleToLeftController() -> Void
     var shedule: Shedule! { get }
+    @objc optional var zoomScale: CGFloat {get set}
     @objc optional var collectionView: UICollectionView? { get }
+    
 }
 
 class CollectionScheduleViewController: UICollectionViewController, CollectionScheduleViewControllerDelegate  {
@@ -60,6 +63,7 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
     var doubleTapGesture = UITapGestureRecognizer()
     var scaleTapGestureRecognizer = UITapGestureRecognizer()
     var weekScheduleControllerDelegate: TableSheduleControllerDelegate!
+    var zoomScale: CGFloat = 1.0
     
     //MARK: - Lifecycle:
 
@@ -71,6 +75,12 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         // EmptyDataSource:
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
+        
+        //layoutDelegate:
+        let layout = collectionViewLayout as! ScheduleCollectionLayout
+        //layout.delegate = self
+        headerScale.delegate = self
+        //scale.delegate = self
         
         //navigationController will be nil on iPad and won't be nil on iPhone:
         if navigationController != nil {
@@ -103,14 +113,22 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
         scale.frame = CGRect(x: 0, y: 0, width: 50, height: collectionView!.contentSize.height)
         scale.configure(collectionView!.bounds.height)
         
-        //notification:cl
+        //notification:
         NotificationCenter.default.addObserver(self, selector: #selector(CollectionScheduleViewController.reloadSelf), name: NSNotification.Name(rawValue: AppData.reloadCollectionView), object: nil)
+        
+        
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(CollectionScheduleViewController.sample(sender:)))
+        collectionView?.addGestureRecognizer(pinchGesture)
+        
     }
     
-    func configureDateScale() {
-        //Date scale:
-        headerScale.delegate = self
-        headerScale.configure(shedule)
+    func sample(sender: UIPinchGestureRecognizer) {
+        
+        let layout = collectionView?.collectionViewLayout as! ScheduleCollectionLayout
+        zoomScale = sender.scale
+        print(sender.scale)
+        //layout.invalidateLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,6 +168,11 @@ class CollectionScheduleViewController: UICollectionViewController, CollectionSc
             collectionView?.contentOffset = CGPoint(x: 126 * offset, y: 0)
             initialScrollDone = true
         }
+    }
+    
+    func configureDateScale() {
+        
+        headerScale.configure(shedule)
     }
     
     func showMenu(_ sender: UIButton) {
@@ -269,6 +292,7 @@ extension CollectionScheduleViewController {
     // MARK: - DZNEmptyDataSetSource
 
 extension CollectionScheduleViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         return NSAttributedString(string: "NureTimeTable", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: 1), NSForegroundColorAttributeName: UIColor.lightGray])
     }

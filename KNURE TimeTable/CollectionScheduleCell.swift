@@ -132,6 +132,7 @@ class CollectionScheduleCell: UICollectionViewCell {
     func presentCusomEventMenu() {
         
         guard !displayedEvent.isCustom else {
+            shakeAnimation()
             return
         }
         
@@ -144,6 +145,19 @@ class CollectionScheduleCell: UICollectionViewCell {
         destionationController.delegate = self.delegate
         destionationController.indexPath = self.indexPath
         
+    }
+    
+    //Animation:
+    
+    func shakeAnimation() {
+        
+        let animation = CAKeyframeAnimation(keyPath: "position.x")
+        animation.values = [0, 10, -10, 10, 0]
+        animation.keyTimes = [0, 0.2, 0.5, 0.8, 1]
+        animation.duration = 0.4
+        animation.isAdditive = true
+        
+        layer.add(animation, forKey: "shake")
     }
 }
 

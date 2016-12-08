@@ -61,6 +61,7 @@ public struct AppData {
     public static let shouldSyncEventsKey = "ShouldSyncEventsKey"
     public static let apnEnabledSchedulesKey = "APNEnabledSchedulesKey"
     public static let apnDisabledSchedulesKey = "APNDisabledSchedulesKey"
+    public static let initialLunchKey = "APNDInitialLunchKey"
     
     // MARK: - Notifications' names:
     
@@ -78,31 +79,27 @@ public struct AppData {
     
     // some global methods:
     
-    public static func getDayOfWeek(_ today:String) -> String {
-        let formatter  = DateFormatter()
-        formatter.dateFormat = "dd.MM"
-        let todayDate = formatter.date(from: today)!
+    public static func getDayOfWeek(_ todayDate: Date) -> String {
+        
         let myCalendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let myComponents = myCalendar.dateComponents([.weekday], from: todayDate)
-        
-        
         
         let weekDay = myComponents.weekday
         switch weekDay! {
         case 1:
-            return "Сб"
-        case 2:
             return "Вс"
-        case 3:
+        case 2:
             return "Пн"
-        case 4:
+        case 3:
             return "Вт"
-        case 5:
+        case 4:
             return "Ср"
-        case 6:
+        case 5:
             return "Чт"
-        case 7:
+        case 6:
             return "Пт"
+        case 7:
+            return "Сб"
         default:
             print("Error fetching days")
             return "Day"
@@ -144,7 +141,4 @@ public extension Date {
         let components = calendar.dateComponents([.day], from: date1, to: date2)
         return components.day!
     }
-    
-    
-    
 }

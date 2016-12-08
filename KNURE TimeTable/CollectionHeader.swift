@@ -44,22 +44,22 @@ class CollectionHeaderView: UIView {
             view.removeFromSuperview()
         }
         //iterate over all days in semester and create label for each:
-        for i in 0..<delegate.collectionView!!.numberOfSections {
+        for day in 0..<delegate.collectionView!!.numberOfSections {
             
-            let dateLabel = UILabel(frame: CGRect(x: (cellWidth + offset) * CGFloat(i), y: 0, width: cellWidth, height: cellHeight))
+            let dateLabel = UILabel(frame: CGRect(x: (cellWidth + offset) * CGFloat(day), y: 0, width: cellWidth, height: cellHeight))
             
             // text attributes:
             
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
             //textString:
-            let stringifiedDate = getStringifiedDate(for: i, since: schedule.startDayTime)
+            let stringifiedDate = getStringifiedDate(for: day, since: schedule.startDayTime)
             
             var textLabel = stringifiedDate
             let textColor = getTextColor(for: textLabel)
             
             // add week:
-            textLabel.append(", \(AppData.getDayOfWeek(stringifiedDate))")
+            textLabel.append(", \(AppData.getDayOfWeek(getDate(for: day, since: schedule.startDayTime)))")
             // style:
             dateLabel.textAlignment = .center
             dateLabel.textColor = textColor
@@ -72,7 +72,7 @@ class CollectionHeaderView: UIView {
     
     //MARK: - Helpers:
     
-    func getTextColor(for date: String) -> UIColor {
+    private func getTextColor(for date: String) -> UIColor {
         
         let todayDate = formatter.string(from: Date())
         if todayDate == date {
@@ -82,11 +82,17 @@ class CollectionHeaderView: UIView {
         }
     }
     
-    func getStringifiedDate(for day: Int, since firstDay: Int) -> String {
+    private func getStringifiedDate(for day: Int, since firstDay: Int) -> String {
+        
+        let date = getDate(for: day, since: firstDay)
+        return formatter.string(from: date)
+    }
+    
+    private func getDate(for day: Int, since firstDay: Int) -> Date {
         
         let dayLightSavingGap = 3600
         
-        return formatter.string(from: Date(timeInterval: TimeInterval(AppData.unixDay * day), since: Date(timeIntervalSince1970: TimeInterval(firstDay + dayLightSavingGap))))
+        return Date(timeInterval: TimeInterval(AppData.unixDay * day), since: Date(timeIntervalSince1970: TimeInterval(firstDay + dayLightSavingGap)))
     }
 }
 

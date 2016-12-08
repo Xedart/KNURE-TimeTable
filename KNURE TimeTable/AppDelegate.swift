@@ -19,12 +19,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var eventsManager: CalendarManager!
     var deviceAPNToken: String?
-
-     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    let defaults = UserDefaults.standard
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        window = UIWindow()
+        performCleanUp()
+        registerPushNotifications()
+        presentRootViewController()
+        return true
+    }
+    
+    func presentRootViewController() {
+        //TODO: uncomment after finishing guideviewController:
+        /*
+        if isInitiaLunchDone() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as! SideMenuViewController
+        } else {
+            window?.rootViewController = AppGuideViewController()
+        } */
         
-        // Clean up workflow in order to prevent crash when old app is updated to new version.
-        let defaults = UserDefaults.standard
+        //window?.rootViewController = AppGuideViewController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as! SideMenuViewController
+        window?.makeKeyAndVisible()
+    }
+    
+    //MARK: - Utility methods:
+    
+    func performCleanUp() {
         
         if (defaults.object(forKey: AppData.cleanUpMark) as? Bool) == nil {
             if (defaults.object(forKey: AppData.defaultScheduleKey) as? String) != nil {
@@ -45,37 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //set the clean up mark to indicate that cleaning up was done:
             defaults.set(true, forKey: AppData.cleanUpMark)
         }
-        registerPushNotifications()
-        return true
     }
     
-    func registerPushNotifications() {
-        DispatchQueue.main.async {
-            let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(settings)
-        }
-    }
-    
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        if notificationSettings.types != UIUserNotificationType() {
-            application.registerForRemoteNotifications()
-        }
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Registration failed!")
-    }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func isInitiaLunchDone() -> Bool {
         
-        var token: String = ""
-        for i in 0..<deviceToken.count {
-            token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
-        }
-        
-        deviceAPNToken = token
-        print(token)
-        
+        return defaults.bool(forKey: AppData.initialLunchKey)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84043A0D1DE5C07000673AC1 /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84043A0A1DE5C07000673AC1 /* EAIntroPage.m */; };
+		84043A0E1DE5C07000673AC1 /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84043A0C1DE5C07000673AC1 /* EAIntroView.m */; };
+		84043A111DE5C0B200673AC1 /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84043A101DE5C0B200673AC1 /* EARestrictedScrollView.m */; };
+		84043A131DE5C1C200673AC1 /* AppGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84043A121DE5C1C200673AC1 /* AppGuideViewController.swift */; };
+		84043A151DE5C31700673AC1 /* AppDelegate+PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84043A141DE5C31700673AC1 /* AppDelegate+PushNotifications.swift */; };
+		84043A181DE5D4F800673AC1 /* GuidePageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84043A171DE5D4F800673AC1 /* GuidePageView.xib */; };
+		84043A1C1DE60D6C00673AC1 /* GuidePage2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84043A1B1DE60D6C00673AC1 /* GuidePage2.xib */; };
+		84043A1E1DE62E2800673AC1 /* AppGuidePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84043A1D1DE62E2800673AC1 /* AppGuidePageView.swift */; };
+		84043A201DE9EBC700673AC1 /* FirstPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84043A1F1DE9EBC600673AC1 /* FirstPageView.swift */; };
 		84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84098D471C79092200BF1087 /* CollectionHeader.swift */; };
 		840D44781D3A4373003AD734 /* CustomEventConfiguratorTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D44771D3A4373003AD734 /* CustomEventConfiguratorTableView.swift */; };
 		842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */; };
@@ -31,6 +40,9 @@
 		842F54531D62014A004A6FAB /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765A1C6D2043000776B9 /* AppDataModel.swift */; };
 		842F54541D620151004A6FAB /* InterfaceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247C941CD3F5C3000654F9 /* InterfaceStrings.swift */; };
 		842F54551D620534004A6FAB /* DataModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842F54451D620108004A6FAB /* DataModel.framework */; };
+		842F935A1DEEDE5900796D73 /* SecondPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F93591DEEDE5900796D73 /* SecondPageView.swift */; };
+		842F938D1DF0E61600796D73 /* ThirdPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F938C1DF0E61600796D73 /* ThirdPageView.swift */; };
+		842F938F1DF0F05D00796D73 /* GuidePage3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F938E1DF0F05D00796D73 /* GuidePage3.xib */; };
 		8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */; };
 		847776251C63945C000776B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776241C63945C000776B9 /* AppDelegate.swift */; };
 		8477762A1C63945C000776B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847776281C63945C000776B9 /* Main.storyboard */; };
@@ -137,6 +149,18 @@
 /* Begin PBXFileReference section */
 		1D5FF4B229F1CBCF80672AB4 /* Pods_KNURE_TimeTable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KNURE_TimeTable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE976CFB648CBAA61D0F5A7 /* Pods-KNURE TimeTable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KNURE TimeTable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KNURE TimeTable/Pods-KNURE TimeTable.debug.xcconfig"; sourceTree = "<group>"; };
+		84043A091DE5C07000673AC1 /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
+		84043A0A1DE5C07000673AC1 /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
+		84043A0B1DE5C07000673AC1 /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
+		84043A0C1DE5C07000673AC1 /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
+		84043A0F1DE5C0B200673AC1 /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
+		84043A101DE5C0B200673AC1 /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
+		84043A121DE5C1C200673AC1 /* AppGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGuideViewController.swift; sourceTree = "<group>"; };
+		84043A141DE5C31700673AC1 /* AppDelegate+PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushNotifications.swift"; sourceTree = "<group>"; };
+		84043A171DE5D4F800673AC1 /* GuidePageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuidePageView.xib; sourceTree = "<group>"; };
+		84043A1B1DE60D6C00673AC1 /* GuidePage2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuidePage2.xib; sourceTree = "<group>"; };
+		84043A1D1DE62E2800673AC1 /* AppGuidePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGuidePageView.swift; sourceTree = "<group>"; };
+		84043A1F1DE9EBC600673AC1 /* FirstPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstPageView.swift; sourceTree = "<group>"; };
 		84098D471C79092200BF1087 /* CollectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
 		840D44771D3A4373003AD734 /* CustomEventConfiguratorTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventConfiguratorTableView.swift; sourceTree = "<group>"; };
 		842176151C7F8C1C0006AF79 /* ScheduleCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionView.swift; sourceTree = "<group>"; };
@@ -159,6 +183,9 @@
 		842F54451D620108004A6FAB /* DataModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		842F54471D620108004A6FAB /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		842F54481D620108004A6FAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../DataModel/Info.plist; sourceTree = "<group>"; };
+		842F93591DEEDE5900796D73 /* SecondPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondPageView.swift; sourceTree = "<group>"; };
+		842F938C1DF0E61600796D73 /* ThirdPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPageView.swift; sourceTree = "<group>"; };
+		842F938E1DF0F05D00796D73 /* GuidePage3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuidePage3.xib; sourceTree = "<group>"; };
 		8446C9991D2A77E900E89254 /* CustomEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewController.swift; sourceTree = "<group>"; };
 		844D7ACB1D611855006076C4 /* NureTimeTable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NureTimeTable.entitlements; sourceTree = "<group>"; };
 		844D7ACC1D611927006076C4 /* Today schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today schedule.entitlements"; sourceTree = "<group>"; };
@@ -260,6 +287,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84043A081DE5BF8400673AC1 /* Objective-C libs */ = {
+			isa = PBXGroup;
+			children = (
+				84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */,
+				84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */,
+				84043A091DE5C07000673AC1 /* EAIntroPage.h */,
+				84043A0A1DE5C07000673AC1 /* EAIntroPage.m */,
+				84043A0B1DE5C07000673AC1 /* EAIntroView.h */,
+				84043A0C1DE5C07000673AC1 /* EAIntroView.m */,
+				84043A0F1DE5C0B200673AC1 /* EARestrictedScrollView.h */,
+				84043A101DE5C0B200673AC1 /* EARestrictedScrollView.m */,
+				84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */,
+			);
+			name = "Objective-C libs";
+			sourceTree = "<group>";
+		};
+		84043A161DE5D4DA00673AC1 /* AppGuidePageView */ = {
+			isa = PBXGroup;
+			children = (
+				84043A171DE5D4F800673AC1 /* GuidePageView.xib */,
+				84043A1B1DE60D6C00673AC1 /* GuidePage2.xib */,
+				842F938E1DF0F05D00796D73 /* GuidePage3.xib */,
+				84043A1D1DE62E2800673AC1 /* AppGuidePageView.swift */,
+				84043A1F1DE9EBC600673AC1 /* FirstPageView.swift */,
+				842F93591DEEDE5900796D73 /* SecondPageView.swift */,
+				842F938C1DF0E61600796D73 /* ThirdPageView.swift */,
+			);
+			name = AppGuidePageView;
+			sourceTree = "<group>";
+		};
 		84233F831D9D8E2D00A412D8 /* ScheduleDataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,7 +402,6 @@
 				8477764A1C6A47C7000776B9 /* Resources */,
 				8477764B1C6A4813000776B9 /* Data */,
 				842F54481D620108004A6FAB /* Info.plist */,
-				847776241C63945C000776B9 /* AppDelegate.swift */,
 				847776461C639FDD000776B9 /* View */,
 				847776471C639FF3000776B9 /* Controllers */,
 				847776301C63945C000776B9 /* Info.plist */,
@@ -376,7 +432,7 @@
 		847776471C639FF3000776B9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				847776601C6E5477000776B9 /* Core */,
+				847776601C6E5477000776B9 /* Root */,
 				847776611C6E5496000776B9 /* SheduleControllers */,
 				84F0AAF61C6FD4A3006E2F40 /* ShedulesMenuControllers */,
 			);
@@ -386,10 +442,8 @@
 		8477764A1C6A47C7000776B9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84043A081DE5BF8400673AC1 /* Objective-C libs */,
 				8477762B1C63945C000776B9 /* Assets.xcassets */,
-				84F6F1801CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.h */,
-				84F6F1811CB31A6A00CC8C36 /* UIScrollView+EmptyDataSet.m */,
-				84F6F17F1CB31A6900CC8C36 /* KNURE TimeTable-Bridging-Header.h */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -403,16 +457,19 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		847776601C6E5477000776B9 /* Core */ = {
+		847776601C6E5477000776B9 /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				847776241C63945C000776B9 /* AppDelegate.swift */,
+				84043A141DE5C31700673AC1 /* AppDelegate+PushNotifications.swift */,
+				84043A121DE5C1C200673AC1 /* AppGuideViewController.swift */,
 				84F6F1891CB8435900CC8C36 /* SideMenuRootViewController.swift */,
 				842CB8551CB9186000292170 /* LeftMenuVIewController.swift */,
 				8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */,
 				847776441C639FB5000776B9 /* MainSplitViewController.swift */,
 				848163FF1D8973B0002EA704 /* PreferencesViewControllers */,
 			);
-			name = Core;
+			name = Root;
 			sourceTree = "<group>";
 		};
 		847776611C6E5496000776B9 /* SheduleControllers */ = {
@@ -460,6 +517,7 @@
 		8498326F1C7349B400727E74 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				84043A161DE5D4DA00673AC1 /* AppGuidePageView */,
 				84F0ABCE1C70CFB6006E2F40 /* TitleViewButton.swift */,
 				849832701C7349D600727E74 /* AlertView.swift */,
 				848E90821C78DEC6006D4E9D /* ScheduleCollectionLayout.swift */,
@@ -739,9 +797,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84043A181DE5D4F800673AC1 /* GuidePageView.xib in Resources */,
 				8477762F1C63945C000776B9 /* LaunchScreen.storyboard in Resources */,
 				8477762C1C63945C000776B9 /* Assets.xcassets in Resources */,
 				8477762A1C63945C000776B9 /* Main.storyboard in Resources */,
+				84043A1C1DE60D6C00673AC1 /* GuidePage2.xib in Resources */,
+				842F938F1DF0F05D00796D73 /* GuidePage3.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,14 +910,18 @@
 				848163FC1D857AD5002EA704 /* PreferencesPushCell.swift in Sources */,
 				849832711C7349D600727E74 /* AlertView.swift in Sources */,
 				847776491C63C4C2000776B9 /* TableSheduleController.swift in Sources */,
+				84043A131DE5C1C200673AC1 /* AppGuideViewController.swift in Sources */,
 				8497F6861D69B42D00B04E63 /* PreferenceTableViewController.swift in Sources */,
 				842176161C7F8C1C0006AF79 /* ScheduleCollectionView.swift in Sources */,
 				849832651C72169300727E74 /* DirectiongTableViewController.swift in Sources */,
 				8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */,
 				849832671C72186C00727E74 /* SchedulesTypesCell.swift in Sources */,
+				84043A0D1DE5C07000673AC1 /* EAIntroPage.m in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
 				8498326D1C72862F00727E74 /* Server.swift in Sources */,
 				848164011D8973DD002EA704 /* APNDisabledSchedulesTableViewController.swift in Sources */,
+				842F938D1DF0E61600796D73 /* ThirdPageView.swift in Sources */,
+				842F935A1DEEDE5900796D73 /* SecondPageView.swift in Sources */,
 				84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */,
 				8498326B1C72633700727E74 /* SchedulesDownoalTableView.swift in Sources */,
 				848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */,
@@ -871,11 +936,16 @@
 				84A1F6751C832F1300A7C05C /* CollectionScheduleEmptyCell.swift in Sources */,
 				8446C99A1D2A77E900E89254 /* CustomEventTableViewController.swift in Sources */,
 				849832761C736C9600727E74 /* Parser.swift in Sources */,
+				84043A201DE9EBC700673AC1 /* FirstPageView.swift in Sources */,
+				84043A111DE5C0B200673AC1 /* EARestrictedScrollView.m in Sources */,
 				84A7D7101D6B96A4001923A7 /* NotificationPreferencesTableViewController.swift in Sources */,
 				847776251C63945C000776B9 /* AppDelegate.swift in Sources */,
 				847776501C6A6279000776B9 /* TableSheduleCell.swift in Sources */,
+				84043A151DE5C31700673AC1 /* AppDelegate+PushNotifications.swift in Sources */,
 				847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */,
 				84F0ABD51C70E020006E2F40 /* SheduleLIstCell.swift in Sources */,
+				84043A1E1DE62E2800673AC1 /* AppGuidePageView.swift in Sources */,
+				84043A0E1DE5C07000673AC1 /* EAIntroView.m in Sources */,
 				848E90831C78DEC6006D4E9D /* ScheduleCollectionLayout.swift in Sources */,
 				842CB8561CB9186000292170 /* LeftMenuVIewController.swift in Sources */,
 				8484F3471CC6257200E528A7 /* EventDetailInfoControllerCells.swift in Sources */,
