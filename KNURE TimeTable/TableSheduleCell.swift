@@ -33,13 +33,12 @@ class TableSheduleCell: UITableViewCell {
     
     func configure(_ shedule: Shedule, event: Event) {
         displayedEvent = event
+        backgroundColor = UIColor.clear
             DispatchQueue.global(qos: .default).async(execute: {
-            self.node.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height - 1.5)
+            self.node.frame = CGRect(x: 8, y: 0, width: self.bounds.width - 16, height: self.bounds.height - 1.5)
             self.node.clipsToBounds = true
-            self.node.cornerRadius = 15.0
-            self.node.borderWidth = 0.3
-            self.node.borderColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.8).cgColor
-            self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.13)
+            self.node.cornerRadius = 5.0
+            self.node.backgroundColor =  AppData.colorsForPairOfType(Int(event.type))
             
             // time widget:
             
@@ -49,7 +48,7 @@ class TableSheduleCell: UITableViewCell {
                 if now >= event.start_time && now <= event.end_time {
                     let difference: CGFloat = (((CGFloat(event.end_time) - CGFloat(now)) / 5700) * 100)
                     let yOffset = self.bounds.height - CGFloat(((difference * CGFloat(self.bounds.height)) / 100))
-                    self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width, height: 1.0)
+                    self.timeNode.frame = CGRect(x: 0, y: yOffset, width: self.bounds.width - 16, height: 1.0)
                     self.timeNode.backgroundColor = UIColor.red
                     DispatchQueue.main.async {
                         self.node.view.addSubview(self.timeNode.view)

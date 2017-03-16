@@ -8,6 +8,22 @@
 
 import Foundation
 
+public func NureYellow() -> UIColor {
+    return UIColor(colorLiteralRed: 233/255, green: 186/255, blue: 68/255, alpha: 1)
+}
+
+public func NureGreen() -> UIColor {
+    return UIColor(colorLiteralRed: 80/255, green: 198/255, blue: 86/255, alpha: 1)
+}
+
+public func NurePurple() -> UIColor {
+    return UIColor(colorLiteralRed: 123/255, green: 133/255, blue: 252/255, alpha: 1)
+}
+
+public func NureGrayBackground() -> UIColor {
+    return UIColor(red: 239/255, green: 239/255, blue: 245/255, alpha: 1)
+}
+
 // This file contains the color constant for the app.
 // Colors values are copied from ChameleonFramework library.
 

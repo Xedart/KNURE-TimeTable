@@ -43,7 +43,7 @@ class Server {
         }
         
         let URL = Foundation.URL(string: urlStr)
-        var request = URLRequest(url: URL!)
+        var request = URLRequest(url: URL!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: TimeInterval(10.0))
         
         if postBody != nil {
             let encodedPostbody = postBody?.data(using: String.Encoding.utf8)

@@ -21,7 +21,6 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         tabBar.barTintColor = FlatWhite()
         
-        
         let firsNavigationController = viewControllers![0] as! UINavigationController
         let secondNavigationController = viewControllers![1] as! UINavigationController
         scheduleTableController = firsNavigationController.viewControllers[0] as! TableSheduleController
@@ -102,8 +101,6 @@ extension MainTabBarController: SheduleControllersInitializer {
                 let dataFromString = jsonStr!.data(using: String.Encoding.utf8, allowLossyConversion: false)
                 let json = JSON(data: dataFromString!)
                 
-                
-                
                 // Parse result:
                 Parser.parseSchedule(json, callback: { data in
                     data.shedule_id = timeTableId
@@ -118,8 +115,13 @@ extension MainTabBarController: SheduleControllersInitializer {
                     }
                     // Updating table schedule controller:
                     DispatchQueue.main.async(execute: {
-                        self.scheduleTableController.shedule = data
-                        self.scheduleTableController.tableView.reloadData()
+                        
+                        if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                            if currentTimeTableId == timeTableId {
+                                self.scheduleTableController.shedule = data
+                                self.scheduleTableController.tableView.reloadData()
+                            }
+                        }
                     })
                     
                     //Updating collection schedule controller:
@@ -131,8 +133,13 @@ extension MainTabBarController: SheduleControllersInitializer {
                             
                             if self.scheduleCollectionController.shedule.numberOfDaysInSemester() == data.numberOfDaysInSemester() {
                                 DispatchQueue.main.async(execute: {
-                                    self.scheduleCollectionController.shedule = data
-                                    self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
+                                    
+                                    if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                                        if currentTimeTableId == timeTableId {
+                                            self.scheduleCollectionController.shedule = data
+                                            self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
+                                        }
+                                    }
                                 
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
@@ -141,21 +148,30 @@ extension MainTabBarController: SheduleControllersInitializer {
                                 })
                             } else {
                                 DispatchQueue.main.async(execute: {
-                                    self.scheduleCollectionController.shedule = data
-                                    self.scheduleCollectionController.collectionView?.reloadData()
-                                    self.scheduleCollectionController.configureDateScale()
+                                    
+                                    if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                                        if currentTimeTableId == timeTableId {
+                                            self.scheduleCollectionController.shedule = data
+                                            self.scheduleCollectionController.collectionView?.reloadData()
+                                            self.scheduleCollectionController.configureDateScale()
+                                        }
+                                    }
                                     self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             }
                         })
                     })
                     
-                    //set updated schedule to the file:
-                    if data.shedule_id.isEmpty {
-                        return
+                    if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                        if currentTimeTableId == timeTableId {
+                            //set updated schedule to the file:
+                            if data.shedule_id.isEmpty {
+                                return
+                            }
+                            data.saveShedule()
+                            data.saveScheduleToSharedContainer()
+                        }
                     }
-                    data.saveShedule()
-                    data.saveScheduleToSharedContainer()
                     
                     // pass schedule to sideMenu:
                     let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController

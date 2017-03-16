@@ -33,15 +33,15 @@ public class TodayTbaleViewCell: UITableViewCell {
         
         additionalInfoLabel.clipsToBounds = true
         additionalInfoLabel.layer.cornerRadius = 5.0
-        additionalInfoLabel.layer.borderWidth = 0.4
+        //additionalInfoLabel.layer.borderWidth = 0.4
         if fontColor == UIColor.white {
             additionalInfoLabel.layer.borderColor = UIColor.lightGray.cgColor
             separatorLineView.backgroundColor = UIColor.lightGray
-            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.9)
+            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type))
         } else {
             additionalInfoLabel.layer.borderColor = UIColor.darkGray.cgColor
             separatorLineView.backgroundColor = UIColor.darkGray
-            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type)).withAlphaComponent(0.8)
+            additionalInfoLabel.backgroundColor = AppData.colorsForPairOfType(Int(event.type))
         }
         
         // Set content to labels:

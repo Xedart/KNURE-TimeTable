@@ -55,7 +55,6 @@
 		847776521C6A98D4000776B9 /* TableSheduleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847776511C6A98D4000776B9 /* TableSheduleHeader.swift */; };
 		8477765F1C6D3AEE000776B9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */; };
 		848163FC1D857AD5002EA704 /* PreferencesPushCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848163FB1D857AD5002EA704 /* PreferencesPushCell.swift */; };
-		848164011D8973DD002EA704 /* APNDisabledSchedulesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848164001D8973DD002EA704 /* APNDisabledSchedulesTableViewController.swift */; };
 		8484F3451CC5779D00E528A7 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */; };
 		8484F3471CC6257200E528A7 /* EventDetailInfoControllerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */; };
 		848E907F1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */; };
@@ -206,7 +205,6 @@
 		8477765A1C6D2043000776B9 /* AppDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDataModel.swift; path = "../KNURE TimeTable/AppDataModel.swift"; sourceTree = "<group>"; };
 		8477765E1C6D3AEE000776B9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		848163FB1D857AD5002EA704 /* PreferencesPushCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPushCell.swift; sourceTree = "<group>"; };
-		848164001D8973DD002EA704 /* APNDisabledSchedulesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APNDisabledSchedulesTableViewController.swift; sourceTree = "<group>"; };
 		8484F3441CC5779D00E528A7 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		8484F3461CC6257200E528A7 /* EventDetailInfoControllerCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailInfoControllerCells.swift; sourceTree = "<group>"; };
 		848E907E1C78C236006D4E9D /* CollectionScheduleControllerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionScheduleControllerCollectionViewController.swift; sourceTree = "<group>"; };
@@ -500,7 +498,6 @@
 			isa = PBXGroup;
 			children = (
 				8497F6851D69B42D00B04E63 /* PreferenceTableViewController.swift */,
-				848164001D8973DD002EA704 /* APNDisabledSchedulesTableViewController.swift */,
 			);
 			name = PreferencesViewControllers;
 			sourceTree = "<group>";
@@ -919,7 +916,6 @@
 				84043A0D1DE5C07000673AC1 /* EAIntroPage.m in Sources */,
 				849832781C737B0C00727E74 /* NewScheduleCell.swift in Sources */,
 				8498326D1C72862F00727E74 /* Server.swift in Sources */,
-				848164011D8973DD002EA704 /* APNDisabledSchedulesTableViewController.swift in Sources */,
 				842F938D1DF0E61600796D73 /* ThirdPageView.swift in Sources */,
 				842F935A1DEEDE5900796D73 /* SecondPageView.swift in Sources */,
 				84098D481C79092200BF1087 /* CollectionHeader.swift in Sources */,

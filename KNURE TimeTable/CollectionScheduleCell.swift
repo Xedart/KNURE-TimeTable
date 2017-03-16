@@ -66,9 +66,7 @@ class CollectionScheduleCell: UICollectionViewCell {
         
         DispatchQueue.global(qos: .default).async(execute: {
             self.backgroundNode.frame = self.bounds
-            self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.25)
-            self.backgroundNode.borderWidth = 1.0
-            self.backgroundNode.borderColor =  AppData.colorsForPairOfType(Int(events[0].type)).withAlphaComponent(0.7).cgColor
+            self.backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[0].type))
             self.backgroundNode.clipsToBounds = true
             self.backgroundNode.cornerRadius = 5.0
             
@@ -80,7 +78,7 @@ class CollectionScheduleCell: UICollectionViewCell {
             let subjectTitle = shedule.subjects[events[0].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[0].subject_id]!.briefTitle : shedule.subjects[events[0].subject_id]!.briefTitle.substring(to: shedule.subjects[events[0].subject_id]!.briefTitle.index(shedule.subjects[events[0].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
             
             //set text node content:
-            self.node.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
+            self.node.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[0].type]!.short_name) \(events[0].auditory)", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16), NSForegroundColorAttributeName: FlatWhite(), NSParagraphStyleAttributeName: titleParagraphStyle])
             self.node.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace)
             self.node.backgroundColor = UIColor.clear
         })

@@ -53,18 +53,16 @@ class CollectionScheduleMultiCell: UICollectionViewCell {
                 //truncate subject title if it's too long:
                 let subjectTitle = shedule.subjects[events[i].subject_id]!.briefTitle.characters.count < 10 ? shedule.subjects[events[i].subject_id]!.briefTitle : shedule.subjects[events[i].subject_id]!.briefTitle.substring(to: shedule.subjects[events[i].subject_id]!.briefTitle.index(shedule.subjects[events[i].subject_id]!.briefTitle.startIndex, offsetBy: 10)).appending("...")
             
-                textNode.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName: UIColor.darkGray, NSParagraphStyleAttributeName: titleParagraphStyle])
+                textNode.attributedString = NSAttributedString(string: "\(subjectTitle)\n\(shedule.types[events[i].type]!.short_name) \(events[i].auditory)", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16), NSForegroundColorAttributeName: FlatWhite(), NSParagraphStyleAttributeName: titleParagraphStyle])
                 textNode.frame = CGRect(x: self.bounds.origin.x, y: self.extraTopSpace, width: self.bounds.width, height: self.bounds.height - self.extraTopSpace - 10)
                 textNode.backgroundColor = UIColor.clear
         
                 // BackgroundNode:
                 let backgroundNode = ASDisplayNode()
                 backgroundNode.frame = CGRect(x: (self.bounds.width + 1) * CGFloat(i), y: 0, width: self.bounds.width, height: self.bounds.height)
-                backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.25)
-                backgroundNode.borderColor = AppData.colorsForPairOfType(Int(events[i].type)).withAlphaComponent(0.7).cgColor
+                backgroundNode.backgroundColor = AppData.colorsForPairOfType(Int(events[i].type))
                 backgroundNode.clipsToBounds = true
                 backgroundNode.cornerRadius = 5.0
-                backgroundNode.borderWidth = 1.0
                 backgroundNode.addSubnode(textNode)
             
             

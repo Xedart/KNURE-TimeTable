@@ -32,7 +32,7 @@ class TableSheduleHeader: UILabel {
             text = "\(textDay) \(formatter.string(from: Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * section))))"
             text?.append(", \(AppData.getDayOfWeek(Date(timeIntervalSinceNow: TimeInterval(AppData.unixDay * section))))")
 // style:
-        backgroundColor = UIColor.white
+        backgroundColor = NureGrayBackground()
         textAlignment = .center
         font = UIFont.systemFont(ofSize: 20)
     }

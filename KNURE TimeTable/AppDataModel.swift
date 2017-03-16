@@ -112,11 +112,11 @@ public struct AppData {
         if type == nil {
             return UIColor.lightGray
         } else if type! >= 0 && type! < 10 {
-            return FlatYellowDark()
+            return NureYellow()
         } else if type! >= 10 && type! < 20 {
-            return FlatMint()
+            return NureGreen()
         } else if type! >= 20 && type! < 30 {
-            return FlatPurpleDark()
+            return NurePurple()
         } else if type! >= 30 && type! < 40 {
             return FlatGray()
         } else if type! >= 40 && type! < 50 {

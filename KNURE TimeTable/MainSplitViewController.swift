@@ -154,6 +154,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
     }
     
     func updateCurrentSchedule() {
+        let defaults = UserDefaults.standard
         if let timeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
             let scheduleIdentifier = scheduleTableController.shedule.scheduleIdentifier
             if scheduleIdentifier.isEmpty {
@@ -163,6 +164,7 @@ extension MainSplitViewController: SheduleControllersInitializer {
             Server.makeRequest(.getSchedule, parameters: ["?timetable_id=\(scheduleIdentifier)"], postBody: nil, callback: { (data, responce, error) in
                 // check for success connection:
                 if error != nil {
+                    print("responce")
                     self.scheduleTableController?.refreshControl?.endRefreshing()
                     return
                 }
@@ -183,47 +185,65 @@ extension MainSplitViewController: SheduleControllersInitializer {
                         self.scheduleTableController?.refreshControl?.endRefreshing()
                         return
                     }
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppData.blockNoteTextView), object: nil)
                     // Updating table schedule controller:
                     DispatchQueue.main.async(execute: {
-                        self.scheduleTableController.shedule = data
-                        self.scheduleTableController.tableView.reloadData()
+                        
+                        if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                            if currentTimeTableId == timeTableId {
+                                self.scheduleTableController.shedule = data
+                                self.scheduleTableController.tableView.reloadData()
+                            }
+                        }
                     })
                     
-                    //Update collection schedule controller:
+                    //Updating collection schedule controller:
                     DispatchQueue.main.async(execute: {
+                        
                         DispatchQueue.global(qos: .default).async(execute: {
                             
                             data.performCache()
                             
                             if self.scheduleCollectionController.shedule.numberOfDaysInSemester() == data.numberOfDaysInSemester() {
                                 DispatchQueue.main.async(execute: {
-                                    self.scheduleCollectionController.shedule = data
-                                    self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
-                
-                                    // unlock the keyBoard:
+                                    
+                                    if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                                        if currentTimeTableId == timeTableId {
+                                            self.scheduleCollectionController.shedule = data
+                                            self.scheduleCollectionController.collectionView?.performBatchUpdates({self.scheduleCollectionController.collectionView?.reloadData()}, completion: nil)
+                                        }
+                                    }
+                                    
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppData.openNoteTextView), object: nil)
+                                        NotificationCenter.default.post(name: Notification.Name(rawValue: AppData.openNoteTextView), object: nil)
                                     }
                                     self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             } else {
                                 DispatchQueue.main.async(execute: {
-                                    self.scheduleCollectionController.shedule = data
-                                    self.scheduleCollectionController.collectionView?.reloadData()
-                                    self.scheduleCollectionController.configureDateScale()
+                                    
+                                    if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                                        if currentTimeTableId == timeTableId {
+                                            self.scheduleCollectionController.shedule = data
+                                            self.scheduleCollectionController.collectionView?.reloadData()
+                                            self.scheduleCollectionController.configureDateScale()
+                                        }
+                                    }
                                     self.scheduleTableController?.refreshControl?.endRefreshing()
                                 })
                             }
                         })
                     })
-                    //set updated schedule to the file:
-                    if data.shedule_id.isEmpty {
-                        return
+                    
+                    if let currentTimeTableId = defaults.object(forKey: AppData.defaultScheduleKey) as? String {
+                        if currentTimeTableId == timeTableId {
+                            //set updated schedule to the file:
+                            if data.shedule_id.isEmpty {
+                                return
+                            }
+                            data.saveShedule()
+                            data.saveScheduleToSharedContainer()
+                        }
                     }
-                    data.saveShedule()
-                    data.saveScheduleToSharedContainer()
                     
                     // pass schedule to sideMenu:
                     let leftSideMenu = self.sideMenuViewController.leftMenuViewController as! LeftMenuVIewController

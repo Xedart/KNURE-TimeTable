@@ -15,7 +15,7 @@ class LabelCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        backgroundColor = UIColor.clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,5 +23,4 @@ class LabelCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }
